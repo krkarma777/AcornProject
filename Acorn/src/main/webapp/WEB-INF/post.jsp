@@ -4,7 +4,8 @@
 <head>
     <%
         // 글쓴 유저 id 실제 db에서 뽑아올 예정 
-        Long userid = 1L;
+        String userid = "zz";
+    
     %>
     <meta charset="UTF-8">
     <title>Insert title here</title>

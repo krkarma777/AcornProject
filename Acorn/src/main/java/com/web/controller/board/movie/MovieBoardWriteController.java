@@ -1,6 +1,7 @@
 package com.web.controller.board.movie;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,14 +28,14 @@ public class MovieBoardWriteController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 폼에서 전송된 데이터를 파싱
         request.setCharacterEncoding("utf-8");
-        Long userId = Long.parseLong(request.getParameter("userid"));
+        String userId = request.getParameter("userid");
         String postTitle = request.getParameter("title");
         String postText = request.getParameter("content");
         String postBoard = "movie"; // 게시판 구분
 
         // PostDTO 객체 생성 및 데이터 설정
         PostDTO post = new PostDTO(userId, postTitle, postText, postBoard);
-
+        
         // PostService를 통해 글 작성 요청 처리
         PostService service = new PostService();
         Long postId = service.insertContent(post); // insertContent 메서드에서 자동 생성된 postId를 반환

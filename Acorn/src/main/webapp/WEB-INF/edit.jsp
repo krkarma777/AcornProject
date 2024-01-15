@@ -5,7 +5,7 @@
 <head>
     <%
         // 글쓴 유저 id 실제 db에서 뽑아올 예정 
-        Long userid = 1L;
+        String userid = "zz";
         
         // 수정할 글의 정보를 받아옵니다.
         PostDTO post = (PostDTO) request.getAttribute("post");

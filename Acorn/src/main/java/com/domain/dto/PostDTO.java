@@ -1,51 +1,41 @@
 package com.domain.dto;
+
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class PostDTO {
-
     private Long postId;
     private String postBoard;
-    private Long userId;
-    private Long contId = 4L;
+    private String userId;
+    private Long contId;
     private String postTitle;
-    private Timestamp postDate;
+    private Date postDate;
+    private Date postEditDate;
     private String postText;
-    private Long viewNum;
-    private Long likeNum;
 
-    // 기본 생성자
+    // 생성자
     public PostDTO() {
     }
-
-    // 글 작성용 생성자
-    public PostDTO(Long userId, String postTitle, String postText, String postBoard) {
-        this.userId = userId;
-        this.postTitle = postTitle;
-        this.postText = postText;
-        this.postBoard = postBoard;
-        this.viewNum = 0L;
-        this.likeNum = 0L;
-    }
     
-    // 매개변수를 받는 생성자
-    public PostDTO(Long postId, String postBoard, Long userId, Long contId, String postTitle,
-                   Timestamp postDate, String postText, Long viewNum, Long likeNum) {
-        this.postId = postId;
-        this.postBoard = postBoard;
+    // 사용자 지정 생성자
+    public PostDTO(String userId, String postTitle, String postText, String postBoard) {
         this.userId = userId;
-        this.contId = contId;
         this.postTitle = postTitle;
-        this.postDate = postDate;
         this.postText = postText;
-        this.viewNum = viewNum;
-        this.likeNum = likeNum;
+        this.postBoard = postBoard;
     }
 
-    // Getter 및 Setter 메서드들
+    @Override
+	public String toString() {
+		return "PostDTO [postId=" + postId + ", postBoard=" + postBoard + ", userId=" + userId + ", contId=" + contId
+				+ ", postTitle=" + postTitle + ", postDate=" + postDate + ", postEditDate=" + postEditDate
+				+ ", postText=" + postText + "]";
+	}
+
+	// 게터 및 세터
     public Long getPostId() {
         return postId;
     }
-    
 
     public void setPostId(Long postId) {
         this.postId = postId;
@@ -59,11 +49,11 @@ public class PostDTO {
         this.postBoard = postBoard;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -83,12 +73,20 @@ public class PostDTO {
         this.postTitle = postTitle;
     }
 
-    public Timestamp getPostDate() {
+    public Date getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Timestamp postDate) {
+    public void setPostDate(Date postDate) {
         this.postDate = postDate;
+    }
+
+    public Date getPostEditDate() {
+        return postEditDate;
+    }
+
+    public void setPostEditDate(Date postEditDate) {
+        this.postEditDate = postEditDate;
     }
 
     public String getPostText() {
@@ -98,35 +96,5 @@ public class PostDTO {
     public void setPostText(String postText) {
         this.postText = postText;
     }
-
-    public Long getViewNum() {
-        return viewNum;
-    }
-
-    public void setViewNum(Long viewNum) {
-        this.viewNum = viewNum;
-    }
-
-    public Long getLikeNum() {
-        return likeNum;
-    }
-
-    public void setLikeNum(Long likeNum) {
-        this.likeNum = likeNum;
-    }
-
-    @Override
-    public String toString() {
-        return "PostDTO{" +
-                "postId=" + postId +
-                ", postBoard='" + postBoard + '\'' +
-                ", userId='" + userId + '\'' +
-                ", contId=" + contId +
-                ", postTitle='" + postTitle + '\'' +
-                ", postDate=" + postDate +
-                ", postText='" + postText + '\'' +
-                ", viewNum=" + viewNum +
-                ", likeNum=" + likeNum +
-                '}';
-    }
 }
+
