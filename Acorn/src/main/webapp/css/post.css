@@ -1,0 +1,88 @@
+@charset "UTF-8";
+        /* 제목 입력란에 스타일을 적용하는 CSS 코드 */
+        #title {
+            width: 300px; /* 원하는 너비로 조정 */
+            padding: 5px;
+            font-size: 16px; /* 원하는 글자 크기로 조정 */
+        }
+
+        /* 입력 전에 텍스트를 흐릿하게 표시하는 스타일 */
+        .placeholder {
+            color: #999;
+        }
+        
+        body {
+            font-family: 'ChosunGu';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        /* 수정된 스타일 */
+        .container {
+            margin-top: 50px;
+        }
+
+        .submit-button {
+            margin-top: 10px; /* 버튼과 TinyMCE 에디터 사이 간격 조정 */
+        }
+
+        /* 반응형 그리드 시스템 */
+        @media (min-width: 576px) {
+            .container {
+                max-width: 540px; /* 작은 화면에 대한 최대 너비 조정 */
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 720px; /* 중간 크기 화면에 대한 최대 너비 조정 */
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                max-width: 960px; /* 대형 화면에 대한 최대 너비 조정 */
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1140px; /* 매우 큰 화면에 대한 최대 너비 조정 */
+            }
+        }
+        
+        @font-face {
+            font-family: 'ChosunGu';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 추가된 스타일 */
+        .row {
+            display: flex;
+            justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+        }
+
+        .submit-button {
+            margin-left: 10px; /* 버튼과 에디터 간격 조정 */
+        }
+        
+        /* 에디터를 감싸는 스타일 추가 */
+        .editor-wrapper {
+            border: 1px solid #ddd; /* 네모난 선 스타일 추가 */
+            padding: 20px; /* 내부 여백 추가 */
+            margin-top: 20px; /* 상단 여백 추가 */
+        }
+        
+        .mb-3 {
+            margin-bottom: 20px; /* 제목 입력란과 에디터 간격을 조절하는 부분 */
+        }
+
+        #title {
+            width: 100%; /* 폭을 100%로 설정하여 동일하게 조절 */
+            padding: 5px;
+            font-size: 16px;
+        }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.domain.dto.PostMapper">
+
+    <!-- 삽입 -->
+    <insert id="insertContent" parameterType="PostDTO">
+        <selectKey keyProperty="postId" resultType="long" order="BEFORE">
+            SELECT POST_ID_SEQ.NEXTVAL AS postId FROM DUAL
+        </selectKey>
+        INSERT INTO postDB (postid, postBoard, userid, contid, postTitle, postDate, postText, viewNum, likeNum)
+        VALUES (#{postId}, #{postBoard}, #{userId}, ${contId}, #{postTitle}, SYSTIMESTAMP, #{postText}, #{viewNum}, #{likeNum})
+    </insert>
+
+    <!-- 조회 -->
+    <select id="select" resultType="PostDTO" parameterType="Long">
+        SELECT * FROM postDB WHERE postid = #{postId}
+    </select>
+
+    <!-- 삭제 -->
+    <delete id="deletePost" parameterType="long">
+        DELETE FROM postDB WHERE postid = #{postId}
+    </delete>
+
+    <!-- 전체 조회 -->
+    <select id="selectAll" resultType="PostDTO">
+        SELECT * FROM postDB WHERE postBoard = #{board}
+    </select>
+
+    <!-- 업데이트 -->
+    <update id="updateContent" parameterType="map">
+        UPDATE postDB
+        SET postTitle = #{updatedTitle},
+            postText = #{updatedContent}
+        WHERE postId = #{postId}
+    </update>
+
+</mapper>
