@@ -6,7 +6,7 @@
     <!-- 삽입 -->
 	<insert id="insertContent" parameterType="PostDTO">
 	    <selectKey keyProperty="postId" resultType="long" order="BEFORE">
-	        SELECT POST_ID_SEQ.NEXTVAL AS postId FROM DUAL
+	        SELECT POSTIDSEQ.NEXTVAL AS postId FROM DUAL
 	    </selectKey>
 	    INSERT INTO postDB (postid, postBoard, userid, contid, postTitle, postDate, postEditDate, postText)
 	    VALUES (#{postId}, #{postBoard}, #{userId}, #{contId, jdbcType=NUMERIC}, #{postTitle}, SYSTIMESTAMP, null, #{postText})
