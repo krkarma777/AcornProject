@@ -10,9 +10,8 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     
-    <!-- Bootswatch Sketchy 테마 -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/sketchy/bootstrap.min.css" integrity="sha384-RxqHG2ilm4r6aFRpGmBbGTjsqwfqHOKy1ArsMhHusnRO47jcGqpIQqlQK/kmGy9R" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	<!-- Bootstrap JS (optional) -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -22,17 +21,13 @@
             referrerpolicy="origin"></script>
             
     <style>
-        /* 제목 입력란에 스타일을 적용하는 CSS 코드 */
-        #title {
-            width: 300px; /* 원하는 너비로 조정 */
-            padding: 5px;
-            font-size: 16px; /* 원하는 글자 크기로 조정 */
-        }
-
-        /* 입력 전에 텍스트를 흐릿하게 표시하는 스타일 */
-        .placeholder {
-            color: #999;
-        }
+	    /* 제목 입력란에 스타일을 적용하는 CSS 코드 */
+	    #title {
+	        width: 100%;
+	        padding: 5px;
+	        font-size: 16px;
+	        border: 1px solid #ced4da; /* 제목 입력창의 테두리 스타일 추가 */
+	    }
         
         body {
             font-family: 'ChosunGu';
@@ -49,6 +44,8 @@
 
         .submit-button {
             margin-top: 10px; /* 버튼과 TinyMCE 에디터 사이 간격 조정 */
+            margin-right: 12px; /* 버튼을 왼쪽으로 12px 이동 */
+            width: auto; /* 버튼의 너비를 자동으로 조절하도록 설정 */
         }
 
         /* 반응형 그리드 시스템 */
@@ -120,21 +117,33 @@
 		}
     </style>
     <script>
+
+	    // 파일을 업로드하는 함수
+	    function uploadFile() {
+	        var formData = new FormData($('form')[0]);
+	
+	     $.ajax({
+	         url: '/upload', // 서버 측 엔드포인트: 파일 처리
+	         type: 'POST',
+	         data: formData, // 전송할 데이터 (FormData 객체)
+	         processData: false, // 데이터 처리 방지
+	         contentType: false, // 컨텐츠 타입 지정을 jQuery에게 위임
+	         cache: false, // 캐시 비활성화
+	         timeout: 600000, // 타임아웃 설정 (10분)
+	         enctype: 'multipart/form-data', // 파일 업로드를 위한 인코딩 방식
+	         success: function(response) {
+		        // 파일 업로드 성공 시 동작
+                console.log(response);
+	         },
+	         error: function(error) {
+	            // 파일 업로드 실패 시 동작
+	            console.error(error);
+	            }
+	        });
+	    }
+    
         // jQuery를 사용한 입력란 이벤트 처리
         $(document).ready(function() {
-            $('#title').focus(function() {
-                if ($(this).val() === '제목을 입력해주세요') {
-                    $(this).val('');
-                    $(this).removeClass('placeholder');
-                }
-            });
-
-            $('#title').blur(function() {
-                if ($(this).val() === '') {
-                    $(this).val('제목을 입력해주세요');
-                    $(this).addClass('placeholder');
-                }
-            });
             
             // 폼 제출 시 validateForm 함수 호출
             $('form').submit(function(event) {
@@ -165,12 +174,37 @@
             // 에디터 툴바 설정
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media  mergetags | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | fileupload',
             file_picker_types: 'file image media',
+         	// 이미지, 동영상 업로드를 위한 콜백 설정
             file_picker_callback: function (callback, value, meta) {
-                // 파일 및 이미지를 업로드하는 로직을 추가
-                // 적절한 업로드 대화 상자 또는 서버와의 통신을 구현해야 함
-                // 로드된 파일의 URL을 얻어와서 에디터에 반환해야 함. 
-                // 서버에서 업로드된 파일을 저장하고 해당 파일의 URL을 반환하는 엔드포인트를 구현해야 함      
-            },
+			    var input = document.createElement('input');
+			    input.setAttribute('type', 'file');
+			
+			    if (meta.filetype === 'image') {
+			        input.setAttribute('accept', 'image/*');
+			    } else if (meta.filetype === 'video') {
+			        input.setAttribute('accept', 'video/*');
+			    }
+			
+			    input.onchange = function () {
+			        var file = this.files[0];
+			        var reader = new FileReader();
+			
+			        reader.onload = function () {
+			            var id = 'blobid' + (new Date()).getTime();
+			            var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+			            var base64 = reader.result.split(',')[1];
+			            var blobInfo = blobCache.create(id, file, base64);
+			            blobCache.add(blobInfo);
+			
+			            // 콜백 함수 호출
+			            callback(blobInfo.blobUri(), { title: file.name });
+			        };
+			
+			        reader.readAsDataURL(file);
+			    };
+			
+			    input.click();
+			},
             branding: false
         });
     </script>
@@ -181,8 +215,7 @@
     <form method="post">
 
         <div class="mb-3">
-            <input type="text" name="title" id="title" class="form-control placeholder" value="제목을 입력해주세요"
-            onfocus="hidePlaceholder()" onblur="showPlaceholder()">
+            <input type="text" name="title" id="title" class="form-control" >
         </div>
 
         <input type="hidden" name="userid" id="userid" value="<%= userid %>">
