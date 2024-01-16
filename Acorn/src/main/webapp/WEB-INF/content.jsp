@@ -8,7 +8,7 @@
 </head>
 <body>
 	<%--  글 제목 --%>
-	<c:out value="${title}"/>
+	<c:out value="${postTitle}"/>
     <%--  글 내용 --%>
     <c:out value="${postText}" escapeXml="false" />
 </body>

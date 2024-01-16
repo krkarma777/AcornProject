@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
 import com.domain.dao.PostDAO;
+import com.domain.dto.PageDTO;
 import com.domain.dto.PostDTO;
 
 public class PostService {
@@ -37,6 +38,25 @@ public class PostService {
 		return post.getPostId();
 	}
 	
+	public Long viewPlus(PostDTO post) {
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		try {
+			// 글 추가 메서드 호출
+			dao.insertContent(session, post);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				session.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return post.getPostId();
+	}
+	
+	
     // 글 조회
     public PostDTO select(Long postId) {
         SqlSession session = MySqlSessionFactory.getSqlSession();
@@ -48,6 +68,19 @@ public class PostService {
                 session.close();
             } catch (Exception e2) {
                 e2.printStackTrace();
+            }
+        }
+    }
+
+    
+    public PageDTO<PostDTO> getPostsByPage(String board, int curPage, int perPage) {
+        SqlSession session = null;
+        try {
+            session = MySqlSessionFactory.getSqlSession();
+            return dao.selectByPage(session, board, curPage, perPage);
+        } finally {
+            if (session != null) {
+                session.close();
             }
         }
     }

@@ -35,5 +35,21 @@
             postEditDate = SYSTIMESTAMP
         WHERE postId = #{postId}
     </update>
+    
+        <!-- 페이지네이션을 위한 게시물 조회 -->
+	<select id="selectAllByPage" resultType="PostDTO">
+	    SELECT * FROM (
+	        SELECT postDB.*, ROWNUM rnum FROM postDB 
+	        WHERE postBoard = #{board} 
+	        ORDER BY postId DESC
+	    ) WHERE rnum BETWEEN #{offset} + 1 AND #{offset} + #{perPage}
+	</select>
+
+
+    <!-- 게시물 총 개수 조회 -->
+    <select id="countPosts" resultType="int">
+        SELECT COUNT(*) FROM postDB
+        WHERE postBoard = #{board}
+    </select>
 
 </mapper>

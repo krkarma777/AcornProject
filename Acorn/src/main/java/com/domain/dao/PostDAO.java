@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.domain.dto.PageDTO;
 import com.domain.dto.PostDTO;
 
 public class PostDAO {
@@ -48,6 +49,26 @@ public class PostDAO {
         Map<String, Object> map = new HashMap<>();
         map.put("board", board);
         return session.selectList("selectAll", map);
+    }
+    
+    public PageDTO<PostDTO> selectByPage(SqlSession session, String board, int curPage, int perPage) {
+        int offset = (curPage - 1) * perPage;
+        List<PostDTO> list = session.selectList("com.domain.dto.PostMapper.selectAllByPage", 
+                                                new HashMap<String, Object>() {{
+                                                    put("board", board);
+                                                    put("offset", offset);
+                                                    put("perPage", perPage);
+                                                }});
+
+        int totalCount = session.selectOne("com.domain.dto.PostMapper.countPosts", board);
+
+        PageDTO<PostDTO> pageDTO = new PageDTO<>();
+        pageDTO.setList(list);
+        pageDTO.setCurPage(curPage);
+        pageDTO.setPerPage(perPage);
+        pageDTO.setTotalCount(totalCount);
+
+        return pageDTO;
     }
     
     /**

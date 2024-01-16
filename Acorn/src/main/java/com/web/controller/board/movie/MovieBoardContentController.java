@@ -1,6 +1,7 @@
 package com.web.controller.board.movie;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,11 +30,15 @@ public class MovieBoardContentController extends HttpServlet {
 	    	
 	    	// 제목, 내용(html) getter + 추가 가능
 	    	String postText = post.getPostText();
-	    	String title = post.getPostTitle();
+	    	String postTitle = post.getPostTitle();
+	    	String userId = post.getUserId();
+	    	Date postDate = post.getPostDate();
+	    	
+	    	
 	    	
 	    	// request 객체에 바인딩
 	    	request.setAttribute("postText", postText);
-	    	request.setAttribute("title", title);
+	    	request.setAttribute("postTitle", postTitle);
 	    	
 	    	// jsp에 forward
 	        RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/content.jsp");
