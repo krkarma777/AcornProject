@@ -1,5 +1,5 @@
-<%@page import="com.domain.dto.PostDTO"%>
-<%@page import="com.domain.dto.PageDTO"%>
+<%@page import="com.dto.PostDTO"%>
+<%@page import="com.dto.PageDTO"%>
 <%@ page import="java.sql.*, java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -94,7 +94,7 @@ b{
             <tr>
                 <td><%= post.getPostId() %></td>
                 <td><%= post.getUserId() %></td>
-                <td><a href="/Board/movie/content?postId=<%= post.getPostId() %>"><%= post.getPostTitle() %></a></td>
+                <td><a href="/Acorn/board/movie/content?postId=<%= post.getPostId() %>"><%= post.getPostTitle() %></a></td>
                 <td><%= post.getPostDate() %></td>
             </tr>
         <% } %>

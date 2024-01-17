@@ -1,4 +1,4 @@
-package com.domain.dto;
+package com.dto;
 
 import java.sql.Timestamp;
 import java.util.Date;

@@ -8,7 +8,7 @@
   <properties resource="com/config/jdbc.properties"/>
 
   <typeAliases>
-    <typeAlias type="com.domain.dto.PostDTO" alias="PostDTO"/>
+    <typeAlias type="com.dto.PostDTO" alias="PostDTO"/>
   </typeAliases>
 
   <environments default="development">

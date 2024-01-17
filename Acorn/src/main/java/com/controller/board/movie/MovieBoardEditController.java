@@ -1,4 +1,4 @@
-package com.web.controller.board.movie;
+package com.controller.board.movie;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.domain.dto.PostDTO;
-import com.web.service.PostService;
+import com.dto.PostDTO;
+import com.service.PostService;
 
 @WebServlet("/board/movie/edit")
 public class MovieBoardEditController extends HttpServlet {

@@ -1,4 +1,4 @@
-package com.web.controller.board;
+package com.controller;
 
 import java.io.File;
 import java.io.IOException;

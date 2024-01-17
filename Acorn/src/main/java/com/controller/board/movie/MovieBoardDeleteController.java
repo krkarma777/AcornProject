@@ -1,4 +1,4 @@
-package com.web.controller.board.movie;
+package com.controller.board.movie;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.web.service.PostService;
+import com.service.PostService;
 
 @WebServlet("/board/movie/delete")
 public class MovieBoardDeleteController extends HttpServlet {
