@@ -87,11 +87,12 @@
         <!-- 게시글 목록 -->
         <div class="list-group">
             <% for(PostDTO post : list) { %>
-                <a href="/Board/movie/content?postId=<%= post.getPostId() %>" class="list-group-item list-group-item-action">
+                <a href="/Acorn/board/movie/content?postId=<%= post.getPostId() %>" class="list-group-item list-group-item-action">
                      <div class="row">
                         <div class="col-md-6"><%= post.getPostTitle() %></div>
                         <div class="col-md-3">작성자: <%= post.getUserId() %></div>
-                        <div class="col-md-3">작성일: <fmt:formatDate value="${post.postDate}" pattern="yyyy-MM-dd" /></div>
+                        <fmt:formatDate value="<%= post.getPostDate() %>" pattern="yyyy-MM-dd" var="formattedDate"/>
+                        <div class="col-md-3">작성일: ${formattedDate}</div>
                     </div>
                     
                 </a>

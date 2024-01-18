@@ -39,6 +39,8 @@ public class MovieBoardContentController extends HttpServlet {
 	    	// request 객체에 바인딩
 	    	request.setAttribute("postText", postText);
 	    	request.setAttribute("postTitle", postTitle);
+	    	request.setAttribute("postDate", postDate);
+	    	request.setAttribute("userId", userId);
 	    	
 	    	// jsp에 forward
 	        RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/content.jsp");
