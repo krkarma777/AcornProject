@@ -2,129 +2,139 @@
 <%@page import="com.dto.PageDTO"%>
 <%@ page import="java.sql.*, java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-
-/* 폰트 적용한 부분 */
-@font-face {
-    font-family: 'Pretendard-Regular'; 
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
-body{
-    font-family: 'Pretendard-Regular';
-
-}
-/* 웹 페이지의 전체 body 요소에 대한 스타일 정의 */
-body{
-
- display: flex;
-            align-items: center; /* 수직 축에서 가운데 정렬 */
-            justify-content: center;  /* 수평 축에서 가운데 정렬 */
-            height: 100vh; 
-            margin: 0;
-            flex-direction: column;
-}
-
+    <meta charset="UTF-8">
+    <title>Movie Board</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    
+    /* 검색창 크기 조절 */
+    .searchInput{
+    	width :70vh;
+    	}
+    	
+     /* 게시글 목록 항목 높이 조절 */
+    .list-group-item {
+        padding: 5px; /* 게시글 목록 높이를 조절하기 위한 padding 값 조절. */
+        font-size: 12px; /* 필요에 따라 폰트 크기를 조절할 수도 있습니다. */
+    }	
+    
+    /* 버튼 크기 조절 */
+    .custom-btn {
+        padding: 4px 8px; /* 버튼의 내부 여백 조절 */
+        font-size: 12px; /* 버튼 내 텍스트의 폰트 크기 조절 */
+        /* height: 40px; 추가적으로 높이를 조절하고 싶은 경우 */
+        /* width: 100px; 추가적으로 너비를 조절하고 싶은 경우 */
+    }
+    
+      /* 게시글 목록과 버튼 사이의 간격 조절 */
+    .margin-top {
+        margin-top: 10px; /* 위쪽 여백 20px 추가 */
+    }
         
-.page-numbers {
-    display: flex;  /* 페이지 링크를 수평으로 정렬 */
-}
-
-.page-link {
-    margin-right: 5px;  /* 페이지 링크 숫자 사이의 여백 조절 */
-    text-decoration: none; /* 밑줄 제거 */
-    color: black; /* 글자 색상 검정색으로 지정 */
-}
-
-.current-page {
-    font-weight: bold;  /* 선택된 페이지의 번호 굵게 표시 */
-    color: red; /* 현재 페이지 글자 색상 빨간색으로 지정 */
-}      
- 
- /* 테이블 스타일 조정 */
- table {
-    width: 80%; /* 테이블의 너비를 조절하세요 */
-    margin: 20px auto; /* 가운데 정렬을 위해 auto를 사용 */
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 8px;
-    text-align: left;
-}
-
-b{
- color: red; /* MOVIEBOARD 색 변경 */
- font-size: 30px; /* 글자 크기 키우기 */
-
-}
-
-
-
-</style>
-<title>게시판 목록</title>
+    </style>
 </head>
- 
-
-        
-      
-
 <body>
-    <b>MOVIE BOARD</b>
+    
+    <!-- 네비게이션바 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <!-- 로고 -->
+            <a class="navbar-brand" href="#">로고</a>
 
-    <%
-        PageDTO<PostDTO> pDTO = (PageDTO<PostDTO>) request.getAttribute("pDTO");
-        List<PostDTO> list = pDTO.getList();
-        String searchName = (String) request.getAttribute("searchName");
-        String searchValue = (String) request.getAttribute("searchValue");
-    %>
+            <!-- 토글 버튼 -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <!-- 게시글 목록 표시 -->
-    <table>
-        <tr>
-            <th>글 번호</th>
-            <th>작성자</th>
-            <th>제목</th>
-            <th>작성일</th>
-        </tr>
-        <% for(PostDTO post : list) { %>
-            <tr>
-                <td><%= post.getPostId() %></td>
-                <td><%= post.getUserId() %></td>
-                <td><a href="/Acorn/board/movie/content?postId=<%= post.getPostId() %>"><%= post.getPostTitle() %></a></td>
-                <td><%= post.getPostDate() %></td>
-            </tr>
-        <% } %>
-    </table>
+            <!-- 네비게이션 항목 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <!-- 검색 바 -->
+                    <form class="d-flex w-100" >
+                        <input class="form-control me-2 searchInput" type="search" placeholder="검색" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">검색</button>
+                    </form>
+                </ul>
+                <ul class="navbar-nav">
+                    <!-- 로그인, 마이페이지, 회원가입 버튼 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">마이페이지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">회원가입</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-    <!-- 페이징 처리 -->
-    <div class="page-numbers">
+    <div class="container mt-4">
+        <h2>Movie Board</h2>
+        
         <%
-            int curPage = pDTO.getCurPage();
-            int perPage = pDTO.getPerPage();
-            int totalCount = pDTO.getTotalCount();
-            int totalPage = (int) Math.ceil((double) totalCount / perPage);
-
-            for(int i = 1; i <= totalPage; i++) {
-                if(i == curPage) {
-                    out.print("<span class='current-page'>" + i + "</span>");
-                } else {
-                    out.print("<a href='/Acorn/board/movie?curPage=" + i + "&searchName=" + searchName + "&searchValue=" + searchValue + "' class='page-link'>" + i + "</a>");
-                }
-            }
+            PageDTO<PostDTO> pDTO = (PageDTO<PostDTO>) request.getAttribute("pDTO");
+            List<PostDTO> list = pDTO.getList();
         %>
+
+        <!-- 게시글 목록 -->
+        <div class="list-group">
+            <% for(PostDTO post : list) { %>
+                <a href="/Board/movie/content?postId=<%= post.getPostId() %>" class="list-group-item list-group-item-action">
+                     <div class="row">
+                        <div class="col-md-6"><%= post.getPostTitle() %></div>
+                        <div class="col-md-3">작성자: <%= post.getUserId() %></div>
+                        <div class="col-md-3">작성일: <fmt:formatDate value="${post.postDate}" pattern="yyyy-MM-dd" /></div>
+                    </div>
+                    
+                </a>
+            <% } %>
+        </div>
+        
+       <!-- 버튼 그룹에 간격을 추가하기 위한 클래스 적용 -->
+<div class="mb-3 d-flex justify-content-end margin-top">
+    <!-- Preview and submit button group -->
+    <div>
+        <a href="/Acorn/board/movie/write"><button type="button" class="btn btn-primary custom-btn">글쓰기</button></a>
+    </div>
+</div>
+        <!-- 페이징 로직 -->
+<div class="page-numbers text-center"> <!-- text-center 클래스를 추가하여 가운데 정렬 -->
+    <%
+    int curPage = pDTO.getCurPage();
+    int perPage = pDTO.getPerPage();
+    int totalCount = pDTO.getTotalCount();
+    int totalPage = (int) Math.ceil((double) totalCount / perPage);
+    
+    for (int i = 1; i <= totalPage; i++) {
+        if (i == curPage) {
+            // 현재 페이지는 링크를 걸지 않고 강조 스타일을 적용합니다.
+            out.print("<span class='current-page'>" + i + "</span>");
+        } else {
+            // 다른 페이지는 해당 페이지로 이동할 수 있는 링크를 생성합니다.
+            out.print("<a href='/Acorn/board/movie?curPage=" + i + "'>" + i + "</a>");
+        }
+        if (i < totalPage) {
+            // 페이지 사이에 구분자(예: |)를 넣을 수 있습니다.
+            out.print(" | ");
+        }
+    }
+    %>
+</div>
+           
+           
+           
+        <!-- 기타 추가 내용 -->
     </div>
 
-    <!-- 검색 폼 -->
-    <form action="Board" method="get">
-        <input type="hidden" name="curPage" value="1">
-        <input type="text" name="searchValue" placeholder="검색어를 입력하세요">
-        <button type="submit">검색</button>
-    </form>
-
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
