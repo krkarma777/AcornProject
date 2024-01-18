@@ -18,25 +18,45 @@
     
     <!-- 스타일 태그 시작 -->
     <style>
+   
     	.searchInput{
     	width :70vh;
     	}
     	
      /* 댓글 섹션 위에 마진을 추가하는 새로운 CSS 클래스 */
        .comment-section {
-       margin-top: 30px; 
+       margin-top: 10px; 
         }
         
-    
-    
-    
+       /* 네비게이션바 고정 */
+    .fixed-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030; /* 다른 요소들 위에 표시되도록 z-index 설정 */
+}
         
+      /* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
+    .container {
+        padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
+    }
+    
+    /* 수정/목록 버튼의 간격 조절 */
+    .btn-margin-right {
+        margin-right: 5px; /* 원하는 마진 크기로 조정 */
+    }
+    
+    
+    
+    
+
+  
     </style>
     
 </head>
 <body>
     <!-- 네비게이션바 -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
             <!-- 로고 -->
             <a class="navbar-brand" href="#">로고</a>
@@ -86,9 +106,18 @@
                 <p class="card-text">${postText}</p>
             </div>
         </div>
-
+        
+        <!--  게시글과 수정/목록 버튼의 공간 여백을 위한 새로운 클래스 적용 -->
+        <div id="comment" class="comment-section">
+        
+        <div class="d-flex justify-content-end">
+			<a href="/Acorn/board/movie/edit?postId=<%=request.getParameter("postId")%>"><button type="button" class="btn btn-primary btn-margin-right">수정</button></a>
+			<a href="/Acorn/board/movie"><button type="button" class="btn btn-primary">목록</button></a>
+		</div>	
+			
         <!-- 댓글 섹션 (추가 구현 필요) 게시글과 댓글 공간 여백을 위한 새로운 클래스 적용 -->
         <div id="comment" class="comment-section">
+        
         
          <!-- Text input area -->
             <div class="mb-3">
@@ -101,8 +130,10 @@
                
                 <!-- Preview and submit button group -->
                 <div>
-                    <a href="/Acorn/board/movie"><button type="button" class="btn btn-primary">목록</button></a>
-                    <button type="submit" class="btn btn-primary">등록</button>
+                    
+                    <button type="submit" class="btn btn-primary ">등록</button>
+                    
+                    
                 </div>
             </div>
             <!-- 댓글 내용 -->

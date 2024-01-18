@@ -1,123 +1,151 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <%
+<%
         // 글쓴 유저 id 실제 db에서 뽑아올 예정 
         String userid = "zz";
     
     %>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<!-- Bootstrap JS (optional) -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+	crossorigin="anonymous">
+
+<!-- jQuery -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- TinyMCE script -->
+<script
+	src="https://cdn.tiny.cloud/1/ok3w2lvptkyfth3qjjks4fv0f99459nvfx76ire0ttwxcrij/tinymce/6/tinymce.min.js"
+	referrerpolicy="origin"></script>
+
+<style>
+/* 검색창 너비 조절 */
+.searchInput {
+   width: 70vh; /* 너비를 100%로 설정하여 부모 요소의 전체 폭을 차지하도록 함 */
+}
+
+/* 제목 입력란에 스타일을 적용하는 CSS 코드 */
+#title {
+	width: 100%;
+	padding: 5px;
+	font-size: 16px;
+	border: 1px solid #ced4da; /* 제목 입력창의 테두리 스타일 추가 */
+}
+
+body {
+	font-family: 'ChosunGu';
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	margin: 0;
+}
+/* 수정된 스타일 */
+.container {
+	margin-top: 50px;
+}
+
+.submit-button {
+	margin-top: 10px; /* 버튼과 TinyMCE 에디터 사이 간격 조정 */
+	margin-right: 12px; /* 버튼을 왼쪽으로 12px 이동 */
+	width: auto; /* 버튼의 너비를 자동으로 조절하도록 설정 */
+}
+
+/* 네비게이션바 고정 */
+.fixed-top {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1030; /* 다른 요소들 위에 표시되도록 z-index 설정 */
+}
+
     
-	<!-- Bootstrap JS (optional) -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+ /* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
+.container {
+ padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
+}
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+/* 반응형 그리드 시스템 */
+@media ( min-width : 576px) {
+	.container {
+		max-width: 540px; /* 작은 화면에 대한 최대 너비 조정 */
+	}
+}
 
-    <!-- TinyMCE script -->
-    <script src="https://cdn.tiny.cloud/1/ok3w2lvptkyfth3qjjks4fv0f99459nvfx76ire0ttwxcrij/tinymce/6/tinymce.min.js"
-            referrerpolicy="origin"></script>
-            
-    <style>
-	    /* 제목 입력란에 스타일을 적용하는 CSS 코드 */
-	    #title {
-	        width: 100%;
-	        padding: 5px;
-	        font-size: 16px;
-	        border: 1px solid #ced4da; /* 제목 입력창의 테두리 스타일 추가 */
-	    }
-        
-        body {
-            font-family: 'ChosunGu';
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-        /* 수정된 스타일 */
-        .container {
-            margin-top: 50px;
-        }
+@media ( min-width : 768px) {
+	.container {
+		max-width: 720px; /* 중간 크기 화면에 대한 최대 너비 조정 */
+	}
+}
 
-        .submit-button {
-            margin-top: 10px; /* 버튼과 TinyMCE 에디터 사이 간격 조정 */
-            margin-right: 12px; /* 버튼을 왼쪽으로 12px 이동 */
-            width: auto; /* 버튼의 너비를 자동으로 조절하도록 설정 */
-        }
+@media ( min-width : 992px) {
+	.container {
+		max-width: 960px; /* 대형 화면에 대한 최대 너비 조정 */
+	}
+}
 
-        /* 반응형 그리드 시스템 */
-        @media (min-width: 576px) {
-            .container {
-                max-width: 540px; /* 작은 화면에 대한 최대 너비 조정 */
-            }
-        }
+@media ( min-width : 1200px) {
+	.container {
+		max-width: 1140px; /* 매우 큰 화면에 대한 최대 너비 조정 */
+	}
+}
 
-        @media (min-width: 768px) {
-            .container {
-                max-width: 720px; /* 중간 크기 화면에 대한 최대 너비 조정 */
-            }
-        }
+@font-face {
+	font-family: 'ChosunGu';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 
-        @media (min-width: 992px) {
-            .container {
-                max-width: 960px; /* 대형 화면에 대한 최대 너비 조정 */
-            }
-        }
+/* 추가된 스타일 */
+.row {
+	display: flex;
+	justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+}
 
-        @media (min-width: 1200px) {
-            .container {
-                max-width: 1140px; /* 매우 큰 화면에 대한 최대 너비 조정 */
-            }
-        }
-        
-        @font-face {
-            font-family: 'ChosunGu';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
+.submit-button {
+	margin-left: 10px; /* 버튼과 에디터 간격 조정 */
+}
 
-        /* 추가된 스타일 */
-        .row {
-            display: flex;
-            justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
-        }
+/* 에디터를 감싸는 스타일 추가 */
+.editor-wrapper {
+	border: 1px solid #ddd; /* 네모난 선 스타일 추가 */
+	padding: 20px; /* 내부 여백 추가 */
+	margin-top: 20px; /* 상단 여백 추가 */
+	position: relative; /* 추가: 상대적 위치 설정 */
+	z-index: 1; /* 추가: 네비게이션 바보다 위에 나타나도록 설정 */
+}
 
-        .submit-button {
-            margin-left: 10px; /* 버튼과 에디터 간격 조정 */
-        }
-        
-        /* 에디터를 감싸는 스타일 추가 */
-        .editor-wrapper {
-            border: 1px solid #ddd; /* 네모난 선 스타일 추가 */
-            padding: 20px; /* 내부 여백 추가 */
-            margin-top: 20px; /* 상단 여백 추가 */
-            position: relative; /* 추가: 상대적 위치 설정 */
-    		z-index: 1; /* 추가: 네비게이션 바보다 위에 나타나도록 설정 */
-        }
-        
-        .mb-3 {
-            margin-bottom: 20px; /* 제목 입력란과 에디터 간격을 조절하는 부분 */
-        }
+.mb-3 {
+	margin-bottom: 20px; /* 제목 입력란과 에디터 간격을 조절하는 부분 */
+}
 
-        #title {
-            width: 100%; /* 폭을 100%로 설정하여 동일하게 조절 */
-            padding: 5px;
-            font-size: 16px;
-        }
-        
-        .navbar {
-		    position: fixed; /* 추가: 고정 위치 설정 */
-		    width: 100%; /* 추가: 화면 전체 너비로 설정 */
-		    z-index: 2; /* 추가: 에디터보다 위에 나타나도록 설정 */
-		        top: 0; /* 수정: 브라우저 상단에 고정 */
-		}
-    </style>
-    <script>
+#title {
+	width: 100%; /* 폭을 100%로 설정하여 동일하게 조절 */
+	padding: 5px;
+	font-size: 16px;
+}
 
+.navbar {
+	position: fixed; /* 추가: 고정 위치 설정 */
+	width: 100%; /* 추가: 화면 전체 너비로 설정 */
+	z-index: 2; /* 추가: 에디터보다 위에 나타나도록 설정 */
+	top: 0; /* 수정: 브라우저 상단에 고정 */
+}
+</style>
+<script>
+  
 	    // 파일을 업로드하는 함수
 	    function uploadFile() {
 	        var formData = new FormData($('form')[0]);
@@ -210,25 +238,60 @@
     </script>
 </head>
 <body>
-<%@ include file="/WEB-INF/navBar.jsp"%>
-<div class="container mt-5 editor-wrapper">
-    <form method="post">
+	 <!-- 네비게이션바 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <!-- 로고 -->
+            <a class="navbar-brand" href="#">로고</a>
 
-        <div class="mb-3">
-            <input type="text" name="title" id="title" class="form-control" >
+            <!-- 토글 버튼 -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- 네비게이션 항목 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <!-- 검색 바 -->
+                    <form class="d-flex w-100" >
+                        <input class="form-control me-2 searchInput" type="search" placeholder="검색" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">검색</button>
+                    </form>
+                </ul>
+                <ul class="navbar-nav">
+                    <!-- 로그인, 마이페이지, 회원가입 버튼 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">마이페이지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">회원가입</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <input type="hidden" name="userid" id="userid" value="<%= userid %>">
+	<div class="container mt-5 editor-wrapper">
+		<form method="post">
 
-        <div class="mb-3">
-            <textarea name="content" class="form-control"></textarea>
-        </div>
+			<div class="mb-3">
+				<input type="text" name="title" id="title" class="form-control">
+			</div>
 
-        <div class="row">
-            <button type="submit" class="btn btn-primary submit-button">작성</button>
-        </div>
-    </form>
-</div>
+			<input type="hidden" name="userid" id="userid" value="<%= userid %>">
+
+			<div class="mb-3">
+				<textarea name="content" class="form-control"></textarea>
+			</div>
+
+			<div class="row">
+				<button type="submit" class="btn btn-primary submit-button">작성</button>
+			</div>
+		</form>
+	</div>
 
 </body>
 </html>

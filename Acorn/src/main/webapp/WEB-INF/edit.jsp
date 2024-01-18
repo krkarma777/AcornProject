@@ -108,13 +108,19 @@
             padding: 5px;
             font-size: 16px;
         }
-        
+        /* 네비게이션바 위치 설정 */
         .navbar {
 		    position: fixed; /* 추가: 고정 위치 설정 */
 		    width: 100%; /* 추가: 화면 전체 너비로 설정 */
-		    z-index: 2; /* 추가: 에디터보다 위에 나타나도록 설정 */
+		    z-index: 1030; /* 추가: 에디터보다 위에 나타나도록 설정 */
 		        top: 0; /* 수정: 브라우저 상단에 고정 */
 		}
+		/* 검색창 너비 조절 */
+		.searchInput{
+    	width :70vh;
+    	}
+		
+	
     </style>
     <script>
     
@@ -165,7 +171,7 @@
             // 한국어로 설정, 헤더에서 사용자 국가 받아와서 변경 기능 추가 가능    
             language: 'ko_KR',
             // 사용할 플러그인
-            plugins: 'mentions anchor autolink charmap codesample emoticons image link lists media searchreplace visualblocks checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage mergetags powerpaste autocorrect a11ychecker typography inlinecss',
+            plugins: 'mentions anchor autolink charmap codesample emoticons image link lists media searchreplace visualblocks checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage powerpaste autocorrect a11ychecker typography inlinecss',
             // 에디터 툴바 설정
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media  mergetags | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | fileupload',
             file_picker_types: 'file image media',
@@ -205,7 +211,45 @@
     </script>
 </head>
 <body>
-<%@ include file="/WEB-INF/navBar.jsp"%>
+
+<!-- 네비게이션바 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <!-- 로고 -->
+            <a class="navbar-brand" href="#">로고</a>
+
+            <!-- 토글 버튼 -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- 네비게이션 항목 -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <!-- 검색 바 -->
+                    <form class="d-flex w-100" >
+                        <input class="form-control me-2 searchInput" type="search" placeholder="검색" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">검색</button>
+                    </form>
+                </ul>
+                <ul class="navbar-nav">
+                    <!-- 로그인, 마이페이지, 회원가입 버튼 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">마이페이지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">회원가입</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+ 
+
+
 <div class="container mt-5 editor-wrapper">
     <form method="post" onsubmit="return validateForm();">
         <div class="mb-3">
