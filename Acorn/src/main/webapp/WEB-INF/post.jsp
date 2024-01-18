@@ -170,72 +170,81 @@ body {
 	        });
 	    }
     
-        // jQuery를 사용한 입력란 이벤트 처리
-        $(document).ready(function() {
-            
-            // 폼 제출 시 validateForm 함수 호출
-            $('form').submit(function(event) {
-                validateForm(event);
-            });
-        });
+	 // jQuery를 사용한 입력란 이벤트 처리
+		$(document).ready(function() {
 
-        // form 요소에서 submit 이벤트가 발생할 때 호출되는 함수
-        function validateForm(event) {
-            // 제목과 내용을 가져옴
-            var titleInput = $('#title');
-            var contentInput = $('textarea[name="content"]');
+			// 폼 제출 시 validateForm 함수 호출
+			$('form').submit(function(event) {
+				validateForm(event);
+			});
+		});
 
-            // 제목과 내용이 비어있는지 확인
-            if (titleInput.val().trim() === '제목을 입력해주세요' || contentInput.val().trim() === '') {
-                // 비어있을 경우 경고 메시지를 표시하고 submit을 중지
-                alert('제목과 내용을 모두 입력하세요.');
-                event.preventDefault();
-            }
-        }
+		// form 요소에서 submit 이벤트가 발생할 때 호출되는 함수
+		function validateForm(event) {
+			// 제목과 내용을 가져옴
+			var titleInput = $('#title');
+			var contentInput = $('textarea[name="content"]');
 
-        tinymce.init({
-            selector: 'textarea',
-            // 한국어로 설정, 헤더에서 사용자 국가 받아와서 변경 기능 추가 가능    
-            language: 'ko_KR',
-            // 사용할 플러그인
-            plugins: 'mentions anchor autolink charmap codesample emoticons image link lists media searchreplace visualblocks checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage mergetags powerpaste autocorrect a11ychecker typography inlinecss',
-            // 에디터 툴바 설정
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media  mergetags | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | fileupload',
-            file_picker_types: 'file image media',
-         	// 이미지, 동영상 업로드를 위한 콜백 설정
-            file_picker_callback: function (callback, value, meta) {
-			    var input = document.createElement('input');
-			    input.setAttribute('type', 'file');
-			
-			    if (meta.filetype === 'image') {
-			        input.setAttribute('accept', 'image/*');
-			    } else if (meta.filetype === 'video') {
-			        input.setAttribute('accept', 'video/*');
-			    }
-			
-			    input.onchange = function () {
-			        var file = this.files[0];
-			        var reader = new FileReader();
-			
-			        reader.onload = function () {
-			            var id = 'blobid' + (new Date()).getTime();
-			            var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-			            var base64 = reader.result.split(',')[1];
-			            var blobInfo = blobCache.create(id, file, base64);
-			            blobCache.add(blobInfo);
-			
-			            // 콜백 함수 호출
-			            callback(blobInfo.blobUri(), { title: file.name });
-			        };
-			
-			        reader.readAsDataURL(file);
-			    };
-			
-			    input.click();
-			},
-            branding: false
-        });
-    </script>
+			// 제목과 내용이 비어있는지 확인
+			if (titleInput.val().trim() === '제목을 입력해주세요'
+					|| contentInput.val().trim() === '') {
+				// 비어있을 경우 경고 메시지를 표시하고 submit을 중지
+				alert('제목과 내용을 모두 입력하세요.');
+				event.preventDefault();
+			}
+
+		}
+
+		tinymce
+				.init({
+					selector : 'textarea',
+					// 한국어로 설정, 헤더에서 사용자 국가 받아와서 변경 기능 추가 가능    
+					language : 'ko_KR',
+					// 사용할 플러그인
+					plugins : 'mentions anchor autolink charmap codesample emoticons image link lists media searchreplace visualblocks checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage powerpaste autocorrect a11ychecker typography inlinecss',
+					// 에디터 툴바 설정
+					toolbar : 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media  mergetags | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | fileupload',
+					file_picker_types : 'file image media',
+					// 이미지, 동영상 업로드를 위한 콜백 설정
+					file_picker_callback: function(callback, value, meta) {
+					    var input = document.createElement('input');
+					    input.setAttribute('type', 'file');
+					
+					    if (meta.filetype === 'image') {
+					        input.setAttribute('accept', 'image/*');
+					    } else if (meta.filetype === 'video') {
+					        input.setAttribute('accept', 'video/*');
+					    }
+					
+					    input.onchange = function() {
+					        var file = this.files[0];
+					        var formData = new FormData();
+					        formData.append('fileUpload', file);
+					
+					        $.ajax({
+					            url: '/Acorn/upload', // 서버 측 파일 업로드 핸들러
+								type : 'POST',
+								data : formData,
+								processData : false,
+								contentType : false,
+								success : function(response) {
+								// 서버가 반환하는 파일 URL을 사용하여 에디터에 이미지 삽입
+								callback(response.fileUrl);
+								},
+								error : function() {
+								// 에러 처리
+								alert('파일 업로드에 실패했습니다.');
+								}
+							});
+						};
+
+						input.click();
+					},
+
+					branding : false
+				});
+	</script>
+
 </head>
 <body>
 	 <!-- 네비게이션바 -->
