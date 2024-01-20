@@ -185,12 +185,16 @@ body {
 					file_picker_types : 'file image media',
 					// 이미지, 동영상 업로드를 위한 콜백 설정
 					file_picker_callback: function(callback, value, meta) {
+						// 입력 필드 생성 (파일 타입)
 					    var input = document.createElement('input');
 					    input.setAttribute('type', 'file');
 					
+					    // 파일 타입에 따라 입력 필드의 'accept' 속성 설정
 					    if (meta.filetype === 'image') {
+					        // 이미지 파일만 선택할 수 있도록 설정
 					        input.setAttribute('accept', 'image/*');
 					    } else if (meta.filetype === 'video') {
+					        // 비디오 파일만 선택할 수 있도록 설정
 					        input.setAttribute('accept', 'video/*');
 					    }
 					
@@ -199,28 +203,30 @@ body {
 					        var formData = new FormData();
 					        formData.append('fileUpload', file);
 					
+					        // AJAX 요청으로 서버에 파일 업로드
 					        $.ajax({
-					            url: '/Acorn/upload', // 서버 측 파일 업로드 핸들러
-								type : 'POST',
-								data : formData,
-								processData : false,
-								contentType : false,
-								success : function(response) {
-								// 서버가 반환하는 파일 URL을 사용하여 에디터에 이미지 삽입
-								callback(response.fileUrl);
-								},
-								error : function() {
-								// 에러 처리
-								alert('파일 업로드에 실패했습니다.');
-								}
-							});
-						};
+					            url: '/Acorn/upload', // 서버의 파일 업로드 URL
+					            type : 'POST',
+					            data : formData,
+					            processData : false,
+					            contentType : false,
+					            success : function(response) {
+					                // 서버로부터 반환된 파일 URL을 콜백 함수에 전달하여 에디터에 이미지 삽입
+					                callback(response.fileUrl);
+					            },
+					            error : function() {
+					                // 파일 업로드 실패 시 경고 메시지 표시
+					                alert('파일 업로드에 실패했습니다.');
+					            }
+					        });
+					    };
 
-						input.click();
+					    // 파일 선택기를 사용자에게 표시
+					    input.click();
 					},
 
-					branding : false
-				});
+					branding : false // 에디터의 브랜딩을 비활성화
+			});
 	</script>
 
 </head>
