@@ -134,29 +134,7 @@ body {
 }
 </style>
 <script>
-	// 파일을 업로드하는 함수
-	function uploadFile() {
-		var formData = new FormData($('form')[0]);
 
-		$.ajax({
-			url : '/upload', // 서버 측 엔드포인트: 파일 처리
-			type : 'POST',
-			data : formData, // 전송할 데이터 (FormData 객체)
-			processData : false, // 데이터 처리 방지
-			contentType : false, // 컨텐츠 타입 지정을 jQuery에게 위임
-			cache : false, // 캐시 비활성화
-			timeout : 600000, // 타임아웃 설정 (10분)
-			enctype : 'multipart/form-data', // 파일 업로드를 위한 인코딩 방식
-			success : function(response) {
-				// 파일 업로드 성공 시 동작
-				console.log(response);
-			},
-			error : function(error) {
-				// 파일 업로드 실패 시 동작
-				console.error(error);
-			}
-		});
-	}
 
 	// jQuery를 사용한 입력란 이벤트 처리
 	$(document).ready(function() {
