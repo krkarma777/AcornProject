@@ -150,7 +150,7 @@ body {
 		function validateForm(event) {
 			// 제목과 내용을 가져옴
 			var titleInput = $('#title');
-			var contentInput = $('textarea[name="content"]');
+			var contentInput = $('textarea[name="postText"]');
 
 			// 제목과 내용이 비어있는지 확인
 			if (titleInput.val().trim() === ''
