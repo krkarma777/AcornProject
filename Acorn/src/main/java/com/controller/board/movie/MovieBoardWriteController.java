@@ -19,7 +19,7 @@ public class MovieBoardWriteController extends HttpServlet {
     // 글 작성 페이지로 이동
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 글 작성 페이지(post.jsp)로 포워딩
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/post.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/board/post.jsp");
         dispatcher.forward(request, response);
     }
 

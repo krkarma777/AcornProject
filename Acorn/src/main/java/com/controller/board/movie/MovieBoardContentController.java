@@ -43,7 +43,7 @@ public class MovieBoardContentController extends HttpServlet {
 	    	request.setAttribute("userId", userId);
 	    	
 	    	// jsp에 forward
-	        RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/content.jsp");
+	        RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/board/content.jsp");
 	        dis.forward(request, response);
 	        
 	    }

@@ -43,7 +43,7 @@ public class MovieBoardController extends HttpServlet {
         PageDTO<PostDTO> pageDTO = service.getPostsByPage(contentBoard, curPage, perPage);
         
         request.setAttribute("pDTO", pageDTO);
-        RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/movieBoard.jsp");
+        RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/board/movieBoard.jsp");
         dis.forward(request, response);
     }
 

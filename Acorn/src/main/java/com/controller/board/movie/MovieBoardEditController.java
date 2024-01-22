@@ -32,7 +32,7 @@ public class MovieBoardEditController extends HttpServlet {
 
                 // 수정 페이지로 이동하면서 해당 글의 정보를 전달합니다.
                 request.setAttribute("post", post);
-                request.getRequestDispatcher("/WEB-INF/edit.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/board/edit.jsp").forward(request, response);
             } catch (NumberFormatException e) {
                 // postId가 올바른 형식이 아닌 경우에 대한 처리
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
