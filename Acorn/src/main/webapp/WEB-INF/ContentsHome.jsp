@@ -10,7 +10,7 @@
 </head>
 <body class="bg-dark">
 	<jsp:include page="//common/navbar.jsp"></jsp:include>
-	<jsp:include page="//common/ContentsHome.jsp"></jsp:include>
+	<jsp:include page="//common/ContentsHomeBody.jsp"></jsp:include>
 	
 </body>
 </html>

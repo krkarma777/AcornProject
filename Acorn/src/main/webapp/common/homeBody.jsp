@@ -5,7 +5,7 @@
         <div class="d-flex align-content-center justify-content-center px-5" style="height: 800px;">
             <div class=" mx-1 align-self-center" style="background-color: #000033">
                 <a href="MoveToContentsHomeServlet"><img src="image/movie.jpg" width="270px" height="330px"></a>
-            </div>
+            </div><!-- <a>누르면 MoveToContentsHomeServlet로 이동 -->
             <div class=" mx-1 align-self-center" style="background-color: #000066">
                 <a href="ContentsHome.jsp?content=drama"><img src="image/drama.jpg" width="270px" height="330px"></a>
             </div>

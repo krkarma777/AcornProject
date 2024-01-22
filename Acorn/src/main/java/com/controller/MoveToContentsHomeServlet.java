@@ -28,8 +28,7 @@ public class MoveToContentsHomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("ContentsHome 호출됨");
-		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/ContentsHome.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/ContentsHome.jsp");//ContentsHome.jsp로 이동
 		dis.forward(request, response);
 	}
 
