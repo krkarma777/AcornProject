@@ -27,9 +27,9 @@ public class MovieBoardWriteController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 폼에서 전송된 데이터를 파싱
         request.setCharacterEncoding("utf-8");
-        String userId = request.getParameter("userid");
-        String postTitle = request.getParameter("title");
-        String postText = request.getParameter("content");
+        String userId = request.getParameter("userId");
+        String postTitle = request.getParameter("postTitle");
+        String postText = request.getParameter("postText");
         String postBoard = "movie"; // 게시판 구분
 
         // PostDTO 객체 생성 및 데이터 설정

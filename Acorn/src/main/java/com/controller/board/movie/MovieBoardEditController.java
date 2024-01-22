@@ -49,8 +49,8 @@ public class MovieBoardEditController extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
         // 수정된 글의 내용을 받아옵니다.
         String postIdParam = request.getParameter("postId");
-        String updatedTitle = request.getParameter("title");
-        String updatedContent = request.getParameter("content");
+        String updatedTitle = request.getParameter("postTitle");
+        String updatedContent = request.getParameter("postText");
 
         if (postIdParam != null && !postIdParam.isEmpty() && updatedTitle != null && updatedContent != null) {
             try {

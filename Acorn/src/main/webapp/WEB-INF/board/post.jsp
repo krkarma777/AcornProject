@@ -5,7 +5,7 @@
 <head>
 <%
         // 글쓴 유저 id 실제 db에서 뽑아올 예정 
-        String userid = "zz";
+        String userId = "zz";
     
     %>
 <meta charset="UTF-8">
@@ -160,11 +160,11 @@ body {
 		// form 요소에서 submit 이벤트가 발생할 때 호출되는 함수
 		function validateForm(event) {
 			// 제목과 내용을 가져옴
-			var titleInput = $('#title');
+			var titleInput = $('#postTitle');
 			var contentInput = $('textarea[name="content"]');
 
 			// 제목과 내용이 비어있는지 확인
-			if (titleInput.val().trim() === '제목을 입력해주세요'
+			if (titleInput.val().trim() === ''
 					|| contentInput.val().trim() === '') {
 				// 비어있을 경우 경고 메시지를 표시하고 submit을 중지
 				alert('제목과 내용을 모두 입력하세요.');
@@ -271,13 +271,13 @@ body {
 		<form method="post">
 
 			<div class="mb-3">
-				<input type="text" name="title" id="title" class="form-control">
+				<input type="text" name="postTitle" id="postTitle" class="form-control">
 			</div>
 
-			<input type="hidden" name="userid" id="userid" value="<%= userid %>">
+			<input type="hidden" name="userId" id="userId" value="<%= userId %>">
 
 			<div class="mb-3">
-				<textarea name="content" class="form-control"></textarea>
+				<textarea name="postText" class="form-control"></textarea>
 			</div>
 
 			<div class="row">

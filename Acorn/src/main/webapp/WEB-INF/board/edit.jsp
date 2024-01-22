@@ -6,7 +6,7 @@
 <head>
 <%
 // 글쓴 유저 id 실제 db에서 뽑아올 예정 
-String userid = "zz";
+String userId = "zz";
 
 // 수정할 글의 정보를 받아옵니다.
 PostDTO post = (PostDTO) request.getAttribute("post");
@@ -153,7 +153,7 @@ body {
 			var contentInput = $('textarea[name="content"]');
 
 			// 제목과 내용이 비어있는지 확인
-			if (titleInput.val().trim() === '제목을 입력해주세요'
+			if (titleInput.val().trim() === ''
 					|| contentInput.val().trim() === '') {
 				// 비어있을 경우 경고 메시지를 표시하고 submit을 중지
 				alert('제목과 내용을 모두 입력하세요.');
@@ -259,18 +259,13 @@ body {
 	<div class="container mt-5 editor-wrapper">
 		<form method="post" onsubmit="return validateForm();">
 			<div class="mb-3">
-				<input type="text" name="title" id="title" class="form-control">
+				<input type="text" name="postTitle" id="postTitle" class="form-control" value="<%= post.getPostTitle() %>">
 			</div>
 
-			<script>
-		    // JavaScript로 서버에서 받아온 제목을 설정
-		    document.getElementById('title').value = '<%= post.getPostTitle() %>';
-		</script>
-
-			<input type="hidden" name="userid" id="userid" value="<%= userid %>">
+			<input type="hidden" name="userId" id="userId" value="<%= userId %>">
 
 			<div class="mb-3">
-				<textarea name="content" class="form-control"><%= post.getPostText() %></textarea>
+				<textarea name="postText" class="form-control"><%= post.getPostText() %></textarea>
 			</div>
 
 			<div class="row">
