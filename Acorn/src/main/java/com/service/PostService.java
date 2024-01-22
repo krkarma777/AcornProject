@@ -14,7 +14,6 @@ public class PostService {
 	PostDAO dao;
 	
 	public PostService() {
-		// 스프링 전환시 의존성 주입 예정
 		// PostDAO 객체를 생성하여 사용
 		dao = new PostDAO();
 	}
@@ -127,6 +126,7 @@ public class PostService {
             session.commit();
         } catch (Exception e) {
             e.printStackTrace();
+            session.rollback(); // 오류 발생 시 롤백
         } finally {
             try {
                 session.close();

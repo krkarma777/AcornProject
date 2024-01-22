@@ -17,10 +17,14 @@
         SELECT * FROM postdb WHERE postid = #{postId}
     </select>
 
-    <!-- 삭제 -->
-    <delete id="deletePost" parameterType="long">
-        DELETE FROM postdb WHERE postid = #{postId}
-    </delete>
+	<delete id="deletePostInfo" parameterType="long">
+	    DELETE FROM postinfodb WHERE postid = #{postId}
+	</delete>
+	
+	<delete id="deletePost" parameterType="long">
+	    DELETE FROM postdb WHERE postid = #{postId}
+	</delete>
+
 
     <!-- 전체 조회 -->
     <select id="selectAll" resultType="PostDTO">

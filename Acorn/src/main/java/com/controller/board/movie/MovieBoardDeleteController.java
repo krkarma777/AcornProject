@@ -16,14 +16,10 @@ public class MovieBoardDeleteController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
+    	// 유저 로그인 세션 검증 로직 필요
+    	
     	// postId 파라미터 파싱
-        String postIdParam = request.getParameter("postid");
+        String postIdParam = request.getParameter("postId");
 
         if (postIdParam != null && !postIdParam.isEmpty()) {
             try {
@@ -33,8 +29,7 @@ public class MovieBoardDeleteController extends HttpServlet {
                 PostService service = new PostService();
                 service.delete(postId);
 
-                // 성공적인 응답을 클라이언트에게 전송
-                response.setStatus(HttpServletResponse.SC_OK);
+                response.sendRedirect("/Acorn/board/movie");
 
             } catch (NumberFormatException e) {
                 // postId가 올바른 형식이 아닌 경우에 대한 처리
@@ -44,5 +39,11 @@ public class MovieBoardDeleteController extends HttpServlet {
             // postId가 제공되지 않은 경우에 대한 처리
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+       
+
     }
 }

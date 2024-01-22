@@ -36,6 +36,7 @@ public class PostDAO {
      * @param postId  삭제할 게시물의 ID
      */
     public void delete(SqlSession session, Long postId) {
+        session.delete("deletePostInfo", postId);
         session.delete("deletePost", postId);
     }
     

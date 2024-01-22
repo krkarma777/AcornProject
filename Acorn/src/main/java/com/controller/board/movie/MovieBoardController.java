@@ -34,11 +34,7 @@ public class MovieBoardController extends HttpServlet {
         }
 
         // 페이지당 게시글 수 설정
-        String perPageStr = request.getParameter("perPage");
-        int perPage = 20; // 기본값
-        if(perPageStr != null && !perPageStr.isEmpty()) {
-            perPage = Integer.parseInt(perPageStr);
-        }
+        int perPage = 20;
 
         PageDTO<PostDTO> pageDTO = service.getPostsByPage(contentBoard, curPage, perPage);
         
