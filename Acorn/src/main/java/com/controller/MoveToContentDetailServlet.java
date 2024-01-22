@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Content
  */
-@WebServlet("/ContentServlet")
-public class ContentServlet extends HttpServlet {
+@WebServlet("/MoveToContentDetailServlet")
+public class MoveToContentDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ContentServlet() {
+    public MoveToContentDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,7 +29,7 @@ public class ContentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Content 호출됨");
-		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/content.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/ContentDetail.jsp");
 		dis.forward(request, response);
 	}
 

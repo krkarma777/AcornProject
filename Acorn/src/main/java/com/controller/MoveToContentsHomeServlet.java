@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ContentsHome
  */
-@WebServlet("/SubHomeServlet")
-public class SubHomeServlet extends HttpServlet {
+@WebServlet("/MoveToContentsHomeServlet")
+public class MoveToContentsHomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SubHomeServlet() {
+    public MoveToContentsHomeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,7 +29,7 @@ public class SubHomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("ContentsHome 호출됨");
-		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/subHome.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/ContentsHome.jsp");
 		dis.forward(request, response);
 	}
 
