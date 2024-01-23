@@ -7,7 +7,7 @@
   </welcome-file-list>
   <filter>
   <filter-name>MyEncodingFilter</filter-name>
-  <filter-class>com.filter.MyEncodingFilter</filter-class>
+  <filter-class>com.config.filter.MyEncodingFilter</filter-class>
   </filter>
   <filter-mapping>
   <filter-name>MyEncodingFilter</filter-name>
