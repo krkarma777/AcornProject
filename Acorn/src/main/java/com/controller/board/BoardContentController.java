@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.controller.board.util.BoardController;
 import com.dto.PostDTO;
+import com.dto.PostInfoDTO;
 import com.service.PostService;
 
 public class BoardContentController implements BoardController {
@@ -23,7 +24,10 @@ public class BoardContentController implements BoardController {
 		model.put("postTitle", post.getPostTitle()); // 게시글 제목
 		model.put("postDate", post.getPostDate()); // 게시글 작성일
 		model.put("userId", post.getUserId()); // 게시글 작성자의 사용자 ID
-
+		
+		//게시물 조회수 업데이트
+		service.updateViewNum(postId);
+		
 		// "content" 라는 뷰 페이지의 이름을 반환하여 해당 뷰 페이지를 표시합니다.
 		return "board/content";
 	}

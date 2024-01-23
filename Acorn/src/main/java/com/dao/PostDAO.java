@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.dto.PageDTO;
 import com.dto.PostDTO;
+import com.dto.PostInfoDTO;
 
 public class PostDAO {
     
@@ -87,4 +88,18 @@ public class PostDAO {
 
         session.update("updateContent", paramMap);
     }
-}
+
+    
+    /**
+     * 주어진 게시물 ID에 해당하는 게시물의 조회수를 업데이트합니다.
+     * 
+     * @param postId         업데이트할 게시물 정보
+     */
+	public int updateViewNum(SqlSession session, Long postId) {
+		
+		int n = session.update("updateViewNum", postId);
+		
+		return n;
+
+	}
+}//end class

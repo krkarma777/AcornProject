@@ -10,6 +10,7 @@
   <typeAliases>
     <typeAlias type="com.dto.PostDTO" alias="PostDTO"/>
     <typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
+    <typeAlias type="com.dto.PostInfoDTO" alias="PostInfoDTO"/>
     <typeAlias type="com.dto.CommentDTO" alias="CommentDTO"/>
   </typeAliases>
 
