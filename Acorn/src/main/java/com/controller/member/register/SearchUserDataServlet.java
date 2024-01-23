@@ -31,7 +31,7 @@ public class SearchUserDataServlet extends HttpServlet {
 		//이름과 SSN이 모두 일치하는 DB정보가 있을 경우, 기존 유저 있음 jsp로 이동
 		if (dto != null) {
 			request.setAttribute("foundUser", dto);
-			RequestDispatcher dis = request.getRequestDispatcher("Register/viewExistUserdata.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/viewExistUserdata.jsp");
 			dis.forward(request, response);
 			
 		//이름과 SSN이 모두 일치하는 DB정보가 없을 경우, 회원가입 3단계로 이동
@@ -39,7 +39,7 @@ public class SearchUserDataServlet extends HttpServlet {
 			request.setAttribute("userName", userName);
 			request.setAttribute("ssn1", ssn1);
 			request.setAttribute("ssn2", ssn2);
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerMember.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerMember.jsp");
 			dis.forward(request, response);
 		}
 	}

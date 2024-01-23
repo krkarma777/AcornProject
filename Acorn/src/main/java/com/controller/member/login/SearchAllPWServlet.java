@@ -27,7 +27,7 @@ public class SearchAllPWServlet extends HttpServlet {
 		
 		request.setAttribute("foundUserInfo", dto);
 																								//디버그 코드************************************************************************
-																								RequestDispatcher dis = request.getRequestDispatcher("Find_Info/viewAllPW.jsp");
+																								RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/viewAllPW.jsp");
 																								//디버그 코드************************************************************************
 //		RequestDispatcher dis = request.getRequestDispatcher("SendEmailServlet");
 		dis.forward(request, response);

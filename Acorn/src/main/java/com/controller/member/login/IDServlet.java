@@ -1,6 +1,8 @@
-package com.controller.member.connect;
+package com.controller.member.login;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 public class IDServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("Find_Info/searchID.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/searchID.jsp");
+		dis.forward(request, response);
 		
 	}
 }

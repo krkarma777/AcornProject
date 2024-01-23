@@ -33,12 +33,13 @@ public class SearchPartPWServlet extends HttpServlet {
 		//입력한 아이디 / 이름 / SSN이 일치하면 비밀번호(일부) 출력
 		if (dto != null) {
 			request.setAttribute("foundUserPW", dto);
-	    	RequestDispatcher dis = request.getRequestDispatcher("Find_Info/viewPartPW.jsp");
+	    	RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/viewPartPW.jsp");
 	    	dis.forward(request, response);
 
 		//불일치하면 유저 미확인 창으로 연경
 		} else {
-	        response.sendRedirect("Find_Info/cantFindUserdata.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/cantFindUserdata.jsp");
+	    	dis.forward(request, response);
 	    }
 	}
 }

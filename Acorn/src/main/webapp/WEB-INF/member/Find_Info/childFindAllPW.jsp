@@ -63,19 +63,15 @@ button:hover {
 }
 </style>
 
+
 <script type="text/javascript">
 
-	//userId를 받아 처리하는 함수
-	 var userId = opener.$("#userId").val();
-																		//디버그 코드**********
-																		console.log(userId);
-																		//디버그 코드**********	
+	var userId;
+	
 	$(function () {
-		
 		//진행 중인 Ajax 요청을 저장할 변수
 		var currentAjaxRequest = null;
 		
-		//////////////////////////////////////////////////////////////////
 		// 사용자 답변 확인 함수
 		function checkUserAnswer(event) {
 		    // 이전 Ajax 요청이 진행 중이라면 취소(4면 요청이 완료되었음을 의미)
@@ -84,7 +80,6 @@ button:hover {
 		    	currentAjaxRequest.abort();
 		    }
 		}
-		//////////////////////////////////////////////////////////////////
 		
 		$("#confirmUserInfo").change(function () {
 			var userInfo = $(this).val();
@@ -122,6 +117,10 @@ button:hover {
 	//질문에 따른 대답과 관련된 ajax와 method
 	function checkUserAnswer(event) {
 		
+		userId = $("#userId").val()
+																		//디버그 코드**********
+																		console.log(userId);
+																		//디버그 코드**********			
 		 var userInfo = $("#confirmUserInfo").val();
          var answer = $("#userAnswer").val();
          var errorSpan = $("#confirmAnswerError");
@@ -185,12 +184,16 @@ button:hover {
     }
 	
 	
-	
 </script>
 
 </head>
 
 <body>
+<% 
+	String userIdFromPartPW = (String)request.getAttribute("userId"); 
+	System.out.println(userIdFromPartPW);
+%>
+	<input type="hidden" id="userId" name="userId" value="<%=userIdFromPartPW%>">
 
 	<form id="confirmForm">
         <label for="confirmUserId">전체 비밀번호 확인을 위한 질문</label>

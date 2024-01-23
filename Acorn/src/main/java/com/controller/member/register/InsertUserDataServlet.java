@@ -1,14 +1,8 @@
 package com.controller.member.register;
 
-import java.awt.Window.Type;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,7 +40,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "아이디 길이가 규정에 맞지 않습니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else if (isDuplicateID) { // 아이디 중복여부 재확인
@@ -54,7 +48,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "이미 가입된 아이디입니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 		} else { // 아이디 규격 통과
 			System.out.println("아이디 확인");
@@ -69,14 +63,14 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "비밀번호가 일치하지 않습니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else if (userPw.length() < 6) { // 비밀번호 길이 규격확인
 			System.out.println("비밀번호 길이 오류 " + userPw + " " + userPw.length());
 			System.out.println("회원 가입 실패");
 			request.setAttribute("mesg", "비밀번호 길이가 규정에 맞지 않습니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else { // 비밀번호 규격 통과
@@ -95,7 +89,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "불가능한 주민등록번호입니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else if (foundUser != null) { // 이름 + SSN이 모두 일치하는 유저가 있는지 확인
@@ -103,7 +97,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "이미 가입된 이름과 주민등록번호입니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else { // 이름 + SSN 규격 통과
@@ -119,7 +113,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "닉네임 길이가 규정에 맞지 않습니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else if (isDuplicateNickname) { // 닉네임 중복 여부 확인
@@ -127,7 +121,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "이미 가입된 닉네임입니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else { // 닉네임 규격 통과
@@ -141,7 +135,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "있을 수 없는 성별입니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else { // 성별 규격 통과
@@ -159,7 +153,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "이미 가입된 핸드폰 번호입니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else if (userPhoneNum1.length() != 3 || userPhoneNum2.length() != 4 || userPhoneNum3.length() != 4) { // 핸드폰
@@ -169,7 +163,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "있을 수 없는 핸드폰 번호입니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else { // 핸드폰 번호 규격 통과
@@ -186,7 +180,7 @@ public class InsertUserDataServlet extends HttpServlet {
 			System.out.println("회원 가입 실패");
 			failMesg = false;
 			request.setAttribute("mesg", "이미 가입된 이메일입니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 			dis.forward(request, response);
 
 		} else { // 이메일 규격 통과
@@ -209,14 +203,14 @@ public class InsertUserDataServlet extends HttpServlet {
 			// 성공적으로 insert된 경우, 회원가입 성공 페이지로 이동
 			if (num == 1 && failMesg == true) {
 				System.out.println("회원가입 성공");
-				RequestDispatcher dis = request.getRequestDispatcher("Register/registerSuccess.jsp");
+				RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerSuccess.jsp");
 				dis.forward(request, response);
 
 				// 모든 데이터가 규격을 통과했음에도 insert되지 않았을 경우, 회원가입 실패 페이지로 이동
 			} else {
 				System.out.println("회원가입 실패");
 				request.setAttribute("mesg", "모종에 이유로 가입에 실패했습니다. 다시 한번 해주세요");
-				RequestDispatcher dis = request.getRequestDispatcher("Register/registerFailure.jsp");
+				RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
 				dis.forward(request, response);
 			}
 		}

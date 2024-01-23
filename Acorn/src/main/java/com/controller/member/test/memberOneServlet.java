@@ -27,7 +27,7 @@ public class memberOneServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("memberData", dto);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("Test/test_view_one.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Test/test_view_one.jsp");
 		dis.forward(request, response);
 		
 		
