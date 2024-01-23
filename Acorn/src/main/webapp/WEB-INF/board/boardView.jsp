@@ -76,6 +76,21 @@ color:red;
 	width: 100%;
 	z-index: 1030; /* 다른 요소들 위에 표시되도록 z-index 설정 */
 }
+
+/* 테이블 둥근 모서리  */
+.list-group-item {
+    /* 기존 스타일 유지, 모서리 둥글게 설정 추가 */
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 10px; /* 둥근 모서리 반경 조절 */
+}
+
+/* 테이블 헤더 스타일 */
+    .table-header {
+        background-color: #f8f9fa; /* 배경색 */
+        font-weight: bold; /* 글씨 굵게 */
+    }
+
 </style>
 </head>
 <body>
@@ -123,17 +138,28 @@ color:red;
 		<div class="list-group">
 		<h2><%= postBoard %> Board</h2>
 		
-			<% for(PostDTO post : list) {%>
-			<a href="/Acorn/board/content?postId=<%= post.getPostId() %>&bn=<%= postBoard %>"
-				class="list-group-item list-group-item-action">
+		 <!-- 테이블 헤더 -->
+    <div class="list-group-item table-header">
+        <div class="row">
+            <div class="col-md-6">제목</div>
+            <div class="col-md-3">작성자</div>
+            <div class="col-md-3">작성일</div>
+        </div>
+    </div>
+
+			<%
+			for (PostDTO post : list) {
+			%>
+			<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%= postBoard %>"
+				class="list-group-item list-group-item-action rounded">
 				<div class="row">
 					<div class="col-md-6"><%= post.getPostTitle() %></div>
 					<div class="col-md-3">
-						작성자:
+					
 						<%= post.getUserId() %></div>
 					<fmt:formatDate value="<%= post.getPostDate() %>"
 						pattern="yyyy-MM-dd" var="formattedDate" />
-					<div class="col-md-3">작성일: ${formattedDate}</div>
+					<div class="col-md-3">${formattedDate}</div>
 				</div>
 
 			</a>

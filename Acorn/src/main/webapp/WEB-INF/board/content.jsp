@@ -49,9 +49,10 @@
 	padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
 }
 
-/* 수정/목록 버튼의 간격 조절 */
-.btn-margin-right {
-	margin-right: 5px; /* 원하는 마진 크기로 조정 */
+/* 수정/삭제/목록 버튼의 간격 조절 */
+.btn-spacing {
+    margin-right: 2px;
+    margin-left: 2px;
 }
 
 /* 긴 이미지 게시글 범위 조정 */
@@ -117,14 +118,20 @@
 		<!--  게시글과 수정/목록 버튼의 공간 여백을 위한 새로운 클래스 적용 -->
 		<div id="comment" class="comment-section">
 
-			<div class="d-flex justify-content-end">
-				<a href="/Acorn/board/edit?postId=<%=request.getParameter("postId")%>
-					&bn=<%=request.getParameter("bn")%>">
-					
-					<button type="button" class="btn btn-primary btn-margin-right">수정</button></a>
-				<a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button"
-						class="btn btn-primary">목록</button></a>
-			</div>
+			<div class="d-flex justify-content-between">
+    <!-- 왼쪽에 위치할 목록 버튼 -->
+    <div>
+        <a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button" class="btn btn-primary btn-spacing">목록</button></a>
+    </div>
+
+    <!-- 오른쪽에 위치할 기타 버튼들 -->
+    <div>
+        <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>" class="btn btn-primary btn-spacing">글쓰기</button></a>
+        <a href="/Acorn/board/edit?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-primary btn-spacing">수정</button></a>
+        <a href="/Acorn/board/delete?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-primary btn-spacing">삭제</button></a>
+    </div>
+</div>
+
 
 			<!-- 댓글 섹션 (추가 구현 필요) 게시글과 댓글 공간 여백을 위한 새로운 클래스 적용 -->
 			<div id="comment" class="comment-section">
