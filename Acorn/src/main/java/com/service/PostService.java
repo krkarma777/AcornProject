@@ -8,6 +8,7 @@ import com.config.MySqlSessionFactory;
 import com.dao.PostDAO;
 import com.dto.PageDTO;
 import com.dto.PostDTO;
+import com.dto.PostInfoDTO;
 
 public class PostService {
 	
@@ -135,4 +136,25 @@ public class PostService {
             }
         }
     }
+
+    
+    //게시물 조회수 업데이트
+	public int updateViewNum(Long postId) {
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		
+		int n = 0;
+		
+		try {
+			n = dao.updateViewNum(session, postId);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return n;
+		
+	}//end updateVieNum
+    
 }
