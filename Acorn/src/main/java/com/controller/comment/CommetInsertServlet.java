@@ -19,29 +19,17 @@ import javax.servlet.http.HttpSession;
 import com.dto.CommentDTO;
 import com.service.CommentService;
 
-/**
- * Servlet implementation class AADCommetServlet
- */
+
 @WebServlet("/CommetInsertServlet")
 public class CommetInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CommetInsertServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
 		
-		int postid = Integer.parseInt(request.getParameter("postid"));
+		Long postid = Long.parseLong(request.getParameter("postid"));
 		String userid = request.getParameter("userid").trim();
 		String comdate = request.getParameter("comdate");
 		String comtext = request.getParameter("comtext").trim();

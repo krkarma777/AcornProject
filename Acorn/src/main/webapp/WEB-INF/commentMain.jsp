@@ -8,9 +8,10 @@
 <%@page import="java.util.HashMap" %>    
 <%
 //session scoep에 저장된 userid
-String userid =  (String) session.getAttribute("userid");
+String userid =  "zz";
 //sesstion scope에 저장된 바로 지금 post id
-int postid = (int)session.getAttribute("postid");
+Long postid = 1L;
+
 %>
 <!DOCTYPE html>
 <html>

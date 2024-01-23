@@ -3,7 +3,7 @@ package com.dto;
 public class CommentDTO {
 	
 	private int comid;
-	private int postid;
+	private Long postid;
 	private String userid;
 	private String comdate;
 	private String comtext;
@@ -18,7 +18,7 @@ public class CommentDTO {
 
 
 
-	public CommentDTO(int comid, int postid, String userid, String comdate, String comtext, int abovecom
+	public CommentDTO(int comid, Long postid, String userid, String comdate, String comtext, int abovecom
 			/*int countnumber*/) {
 		super();
 		this.comid = comid;
@@ -44,13 +44,13 @@ public class CommentDTO {
 
 
 
-	public int getPostid() {
+	public Long getPostid() {
 		return postid;
 	}
 
 
 
-	public void setPostid(int postid) {
+	public void setPostid(Long postid) {
 		this.postid = postid;
 	}
 

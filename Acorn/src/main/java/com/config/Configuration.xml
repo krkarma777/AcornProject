@@ -10,6 +10,7 @@
   <typeAliases>
     <typeAlias type="com.dto.PostDTO" alias="PostDTO"/>
     <typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
+    <typeAlias type="com.dto.CommentDTO" alias="CommentDTO"/>
   </typeAliases>
 
   <environments default="development">
@@ -28,5 +29,6 @@
   <mappers>
     <mapper resource="com/config/PostMapper.xml"/>  
     <mapper resource="com/config/MemberMapper.xml"/>    
+    <mapper resource="com/config/CommentMapper.xml"/>    
   </mappers>
 </configuration>
