@@ -57,5 +57,13 @@
         SELECT COUNT(*) FROM postDB
         WHERE postBoard = #{board}
     </select>
+    
+        <!-- 게시물 조회수 업데이트 -->
+	<update id="updateViewNum" parameterType="long">
+		UPDATE postInfoDB 
+		SET viewNum =
+			((SELECT viewNum FROM postInfoDB WHERE postId = #{postId} )+1) 
+		WHERE postId = #{postId}
+	</update>
 
 </mapper>
