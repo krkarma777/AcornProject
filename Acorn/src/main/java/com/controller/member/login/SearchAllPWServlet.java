@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.memberDTO;
-import com.service.memberService;
+import com.dto.MemberDTO;
+import com.service.MemberService;
 
 //전체 비밀번호 찾기 자식창 --> 전체 비밀번호 출력창
 @WebServlet("/SearchAllPWServlet")
@@ -22,8 +22,8 @@ public class SearchAllPWServlet extends HttpServlet {
 		
 		String userId = request.getParameter("userId");
 
-		memberService serv = new memberService();
-		memberDTO dto = serv.selectMemberData(userId);
+		MemberService serv = new MemberService();
+		MemberDTO dto = serv.selectMemberData(userId);
 		
 		request.setAttribute("foundUserInfo", dto);
 																								//디버그 코드************************************************************************

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.config.MemberMapper">
+
+	<select id="selectAll" resultType="MemberDTO">
+		SELECT
+			*
+		FROM
+			memberDB
+	</select>
+	
+	<select id="findUserId" resultType="MemberDTO" parameterType="hashmap">
+		SELECT
+			*
+		FROM 
+			memberDB
+		WHERE 
+			userName = #{userName}
+			AND userSSN1 = #{ssn1}
+			AND userSSN2 = #{ssn2}
+	</select>
+
+	<select id="findUserPW" resultType="MemberDTO" parameterType="hashmap">
+		SELECT
+			*
+		FROM 
+			memberDB
+		WHERE 
+			userName = #{userName}
+			AND userId = #{userId}
+			AND userSSN1 = #{ssn1}
+			AND userSSN2 = #{ssn2}
+	</select>
+
+	<select id="isUserIdDuplicate" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		FROM memberDB
+		WHERE userId = #{userId}
+	</select>
+
+	<select id="isUserNicknameDuplicate" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		FROM memberDB
+		WHERE nickname = #{nickname}
+	</select>
+
+	<insert id="insertNewMember" parameterType="MemberDTO">
+		INSERT INTO memberDB (
+		userId, userPw, userName, userSSN1, userSSN2, nickname,
+		userGender, userPhoneNum1, userPhoneNum2, userPhoneNum3,
+		userEmailId, userEmailDomain, userSignDate
+		)
+		VALUES (
+		#{userId}, #{userPw}, #{userName}, #{userSSN1}, #{userSSN2},
+		#{nickname}, #{userGender}, #{userPhoneNum1}, #{userPhoneNum2},
+		#{userPhoneNum3}, #{userEmailId}, #{userEmailDomain}, #{userSignDate}
+		)
+	</insert>
+
+	<select id="isUserPNDuplicate" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*)
+		FROM memberDB
+		WHERE 
+			userPhoneNum1 = #{userPhoneNum1}
+			AND userPhoneNum2 = #{userPhoneNum2}
+			AND userPhoneNum3 = #{userPhoneNum3}
+	</select>
+	
+	<select id="isUserEmailDuplicate" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*)
+		FROM memberDB
+		WHERE 
+			userEmailId = #{userEmailId}
+			AND userEmailDomain = #{userEmailDomain}
+	</select>
+	
+	<select id="loginPossible" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*)
+		FROM memberDB
+		WHERE 
+			userId = #{userId}
+			AND userPw = #{userPw}
+	</select>
+	
+	<select id="findMemberInfo" resultType="MemberDTO" parameterType="hashmap">
+		SELECT
+			*
+		FROM
+			memberDB
+		WHERE 
+			userId = #{userId}
+			AND userPw = #{userPw}
+	</select>
+	
+	<select id="findPWbyNickname" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*)
+		FROM memberDB
+		WHERE 
+			userid = #{userid}
+			AND nickname = #{nickname}
+	</select>
+	
+	<select id="findPWbyEmail" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*)
+		FROM memberDB
+		WHERE 
+			userid = #{userid}
+			AND userEmailId = #{userEmailId}
+			AND userEmailDomain = #{userEmailDomain}
+	</select>
+	
+	<select id="findPWbyPhoneNum" resultType="int" parameterType="hashmap">
+		SELECT COUNT(*)
+		FROM memberDB
+		WHERE 
+			userid = #{userid}
+			AND userPhoneNum1 = #{userPhoneNum1}
+			AND userPhoneNum2 = #{userPhoneNum2}
+			AND userPhoneNum3 = #{userPhoneNum3}
+	</select>
+	
+	<select id="selectMemberData" resultType="MemberDTO" parameterType="String">
+		SELECT
+			*
+		FROM 
+			memberDB
+		WHERE 
+			userId = #{userId}
+	</select>
+	
+	<select id="selectOne" resultType="MemberDTO" parameterType="MemberDTO">
+		SELECT
+			*
+		FROM
+			memberDB
+		WHERE 
+			userId = #{userId}
+	</select>
+	
+</mapper>

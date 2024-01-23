@@ -6,23 +6,23 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.dto.memberDTO;
+import com.dto.MemberDTO;
 
-public class memberDAO {
+public class MemberDAO {
 
-	public List<memberDTO> selectAll(SqlSession session) {
-		List<memberDTO> list = session.selectList("selectAll");
+	public List<MemberDTO> selectAll(SqlSession session) {
+		List<MemberDTO> list = session.selectList("selectAll");
 		System.out.println("dao "+ list);
 		return list;
 	}
 	
-	public memberDTO findUserId(SqlSession session, Map<String, Object> dateForFindUserId) {
-		memberDTO dto = session.selectOne("findUserId", dateForFindUserId);
+	public MemberDTO findUserId(SqlSession session, Map<String, Object> dateForFindUserId) {
+		MemberDTO dto = session.selectOne("findUserId", dateForFindUserId);
 		return dto;
 	}
 
-	public memberDTO findUserPW(SqlSession session, Map<String, Object> dataForFindUserPW) {
-		memberDTO dto = session.selectOne("findUserPW", dataForFindUserPW);
+	public MemberDTO findUserPW(SqlSession session, Map<String, Object> dataForFindUserPW) {
+		MemberDTO dto = session.selectOne("findUserPW", dataForFindUserPW);
 		return dto;
 	}
 
@@ -46,7 +46,7 @@ public class memberDAO {
 		}
 	}
 
-	public int insertNewMember(SqlSession session, memberDTO dto) {
+	public int insertNewMember(SqlSession session, MemberDTO dto) {
 		int num = session.insert("insertNewMember", dto);
 		return num;
 	}
@@ -81,8 +81,8 @@ public class memberDAO {
 		}
 	}
 
-	public memberDTO findMemberInfo(SqlSession session, Map<String, String> idPW) {
-		memberDTO dto = session.selectOne("findMemberInfo", idPW);
+	public MemberDTO findMemberInfo(SqlSession session, Map<String, String> idPW) {
+		MemberDTO dto = session.selectOne("findMemberInfo", idPW);
 		return dto;
 	}
 
@@ -116,13 +116,13 @@ public class memberDAO {
 		}
 	}
 
-	public memberDTO selectMemberData(SqlSession session, String userId) {
-		memberDTO dto = session.selectOne("selectMemberData", userId);
+	public MemberDTO selectMemberData(SqlSession session, String userId) {
+		MemberDTO dto = session.selectOne("selectMemberData", userId);
 		return dto;
 	}
 
-	public memberDTO selectOne(SqlSession session, String userId) {
-		memberDTO dto = session.selectOne("selectOne", userId);
+	public MemberDTO selectOne(SqlSession session, String userId) {
+		MemberDTO dto = session.selectOne("selectOne", userId);
 		return dto;
 	}
 	

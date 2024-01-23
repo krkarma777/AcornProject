@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.memberDTO;
-import com.service.memberService;
+import com.dto.MemberDTO;
+import com.service.MemberService;
 
 //회원가입 3단계 페이지에서 사용
 @WebServlet("/InsertUserDataServlet")
@@ -28,7 +28,7 @@ public class InsertUserDataServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		memberService serv = new memberService();
+		MemberService serv = new MemberService();
 
 		HttpSession session = request.getSession();
 		//term 관련 request.getParameter가 올 수 있음(미정)
@@ -87,7 +87,7 @@ public class InsertUserDataServlet extends HttpServlet {
 		String userName = request.getParameter("userName");
 		int ssn1 = Integer.parseInt(request.getParameter("userSSN1"));
 		int ssn2 = Integer.parseInt(request.getParameter("userSSN2"));
-		memberDTO foundUser = serv.findUserId(userName, ssn1, ssn2);
+		MemberDTO foundUser = serv.findUserId(userName, ssn1, ssn2);
 		int ssn2FirstNum = Integer.parseInt(String.valueOf(ssn2).substring(0, 1));
 
 		if (ssn2FirstNum < 1 || ssn2FirstNum > 4) { // SSN2 첫 숫자(1~4) 확인
@@ -202,7 +202,7 @@ public class InsertUserDataServlet extends HttpServlet {
 		// userType(회원 등급)은 1(일반 멤버)로 고정
 		if (failMesg) {
 
-			memberDTO dto = new memberDTO(userId, userPwConfirm, userName, ssn1, ssn2, nickname, userGender,
+			MemberDTO dto = new MemberDTO(userId, userPwConfirm, userName, ssn1, ssn2, nickname, userGender,
 					userPhoneNum1, userPhoneNum2, userPhoneNum3, userEmailId, userEmailDomain, userSignDate, "1");
 			int num = serv.insertNewMember(dto);
 

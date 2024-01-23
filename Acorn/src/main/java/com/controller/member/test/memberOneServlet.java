@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.memberDTO;
-import com.service.memberService;
+import com.dto.MemberDTO;
+import com.service.MemberService;
 
 @WebServlet("/memberOneServlet")
 public class memberOneServlet extends HttpServlet {
@@ -21,8 +21,8 @@ public class memberOneServlet extends HttpServlet {
 
 		String userId = request.getParameter("userId");
 		
-		memberService serv = new memberService(); 
-		memberDTO dto = serv.selectOne(userId);
+		MemberService serv = new MemberService(); 
+		MemberDTO dto = serv.selectOne(userId);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("memberData", dto);

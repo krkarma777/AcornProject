@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dto.memberDTO;
-import com.service.memberService;
+import com.dto.MemberDTO;
+import com.service.MemberService;
 
 //회원가입 3단계에서 이메일 중복 여부를 확인하는 비동기 처리
 @WebServlet("/AjaxEmailDuplicateServlet")
@@ -18,7 +18,7 @@ public class AjaxEmailDuplicateServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		memberService serv = new memberService();
+		MemberService serv = new MemberService();
         PrintWriter out = response.getWriter();
 
         try {

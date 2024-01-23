@@ -27,7 +27,7 @@ public class PostDAO {
      * @return        조회된 게시물 정보를 담은 PostDTO 객체
      */
     public PostDTO select(SqlSession session, Long postId) {
-        return session.selectOne("select", postId);
+        return session.selectOne("selectPost", postId);
     }
     
     /**
@@ -49,19 +49,19 @@ public class PostDAO {
     public List<PostDTO> selectAll(SqlSession session, String board) {
         Map<String, Object> map = new HashMap<>();
         map.put("board", board);
-        return session.selectList("selectAll", map);
+        return session.selectList("selectAllPosts", map);
     }
     
     public PageDTO<PostDTO> selectByPage(SqlSession session, String board, int curPage, int perPage) {
         int offset = (curPage - 1) * perPage;
-        List<PostDTO> list = session.selectList("com.domain.dto.PostMapper.selectAllByPage", 
+        List<PostDTO> list = session.selectList("selectAllByPage", 
                                                 new HashMap<String, Object>() {{
                                                     put("board", board);
                                                     put("offset", offset);
                                                     put("perPage", perPage);
                                                 }});
 
-        int totalCount = session.selectOne("com.domain.dto.PostMapper.countPosts", board);
+        int totalCount = session.selectOne("countPosts", board);
 
         PageDTO<PostDTO> pageDTO = new PageDTO<>();
         pageDTO.setList(list);

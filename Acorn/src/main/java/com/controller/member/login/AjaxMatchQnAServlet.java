@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.memberDTO;
-import com.service.memberService;
+import com.dto.MemberDTO;
+import com.service.MemberService;
 
 @WebServlet("/AjaxMatchQnAServlet")
 public class AjaxMatchQnAServlet extends HttpServlet {
@@ -20,7 +20,7 @@ public class AjaxMatchQnAServlet extends HttpServlet {
 	//전체 비밀번호 출력을 하는 자식창에서 사용하는 비동기처리
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		memberService serv = new memberService();
+		MemberService serv = new MemberService();
 		
         PrintWriter out = response.getWriter();
 

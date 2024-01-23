@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.memberDTO;
-import com.service.memberService;
+import com.dto.MemberDTO;
+import com.service.MemberService;
 
 //비밀번호 찾기(일부) 페이지 --> 출력
 @WebServlet("/SearchPartPWServlet")
@@ -25,8 +25,8 @@ public class SearchPartPWServlet extends HttpServlet {
 		int ssn1 = Integer.parseInt(request.getParameter("ssn1"));
 		int ssn2 = Integer.parseInt(request.getParameter("ssn2"));
 		
-		memberService serv = new memberService();
-		memberDTO dto = serv.findUserPW(userId, userName, ssn1, ssn2);
+		MemberService serv = new MemberService();
+		MemberDTO dto = serv.findUserPW(userId, userName, ssn1, ssn2);
 
 		HttpSession session = request.getSession();
 

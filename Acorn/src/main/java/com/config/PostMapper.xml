@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.domain.dto.PostMapper">
+<mapper namespace="com.dto.PostMapper">
 
 
     <!-- 삽입 -->
@@ -13,7 +13,7 @@
 	</insert>
 	
     <!-- 조회 -->
-    <select id="select" resultType="PostDTO" parameterType="Long">
+    <select id="selectPost" resultType="PostDTO" parameterType="Long">
         SELECT * FROM postdb WHERE postid = #{postId}
     </select>
 
@@ -27,7 +27,7 @@
 
 
     <!-- 전체 조회 -->
-    <select id="selectAll" resultType="PostDTO">
+    <select id="selectAllPosts" resultType="PostDTO">
         SELECT * FROM postdb WHERE postBoard = #{board}
     </select>
 

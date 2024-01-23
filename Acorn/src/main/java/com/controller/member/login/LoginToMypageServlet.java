@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.memberDTO;
-import com.service.memberService;
+import com.dto.MemberDTO;
+import com.service.MemberService;
 
 //로그인 메인에서 사용하는 로그인 기능(임시 코드)
 @WebServlet("/LoginToMypageServlet")
@@ -23,8 +23,8 @@ public class LoginToMypageServlet extends HttpServlet {
         String userId = request.getParameter("userId");
         String userPw = request.getParameter("userPw");
 
-        memberService serv = new memberService();
-		memberDTO dto = serv.findMemberInfo(userId, userPw);
+        MemberService serv = new MemberService();
+		MemberDTO dto = serv.findMemberInfo(userId, userPw);
 
 		HttpSession session = request.getSession();
 

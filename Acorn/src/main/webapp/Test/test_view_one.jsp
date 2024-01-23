@@ -1,5 +1,5 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.dto.memberDTO"%>
+<%@page import="com.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -69,8 +69,7 @@
 	<hr>
 
 	<%
-
-		memberDTO dto = (memberDTO) session.getAttribute("memberData");
+	MemberDTO dto = (MemberDTO) session.getAttribute("memberData");
 	%>
 
 	<table border=1>

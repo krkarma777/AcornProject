@@ -1,5 +1,5 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.dto.memberDTO"%>
+<%@page import="com.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -57,7 +57,7 @@
 <body>
 
 	<%
-	memberDTO dto = (memberDTO) request.getAttribute("foundUser");
+	MemberDTO dto = (MemberDTO) request.getAttribute("foundUser");
 	%>
 
 	<h2>찾은 유저 정보</h2>

@@ -1,5 +1,5 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.dto.memberDTO"%>
+<%@page import="com.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -83,7 +83,7 @@
 	<hr>
 
 	<%
-	List<memberDTO> list = (List<memberDTO>) session.getAttribute("memberList");
+	List<MemberDTO> list = (List<MemberDTO>) session.getAttribute("memberList");
 	%>
 
 	<table border=1>
@@ -104,7 +104,7 @@
 				<th>유형</th>
 			</tr>
 			<%
-			for (memberDTO dto : list) {
+			for (MemberDTO dto : list) {
 			%>
 			<tr>
 				<td><%=dto.getUserId()%></td>

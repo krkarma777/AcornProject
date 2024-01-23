@@ -1,4 +1,4 @@
-<%@page import="com.dto.memberDTO"%>
+<%@page import="com.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -76,7 +76,7 @@
 
 <body>
     <%
-    memberDTO dto = (memberDTO) request.getAttribute("foundUserPW");
+    MemberDTO dto = (MemberDTO) request.getAttribute("foundUserPW");
     %>
 
     <h2>찾은 비밀번호 정보</h2>

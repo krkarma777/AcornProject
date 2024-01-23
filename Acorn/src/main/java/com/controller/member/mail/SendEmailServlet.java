@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.memberDTO;
+import com.dto.MemberDTO;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -27,7 +27,7 @@ public class SendEmailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		memberDTO dto = (memberDTO)request.getAttribute("foundUserInfo") ;
+		MemberDTO dto = (MemberDTO)request.getAttribute("foundUserInfo") ;
 		
 		String userEmail = dto.getUserEmailId()+"@"+dto.getUserEmailDomain();
 		String userName = dto.getUserName();
