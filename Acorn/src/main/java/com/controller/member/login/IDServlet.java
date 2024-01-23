@@ -1,4 +1,4 @@
-package com.controller.connect;
+package com.controller.member.login;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//회원가입 1단계 약관 동의 단계 연결
-@WebServlet("/RegisterServlet")
-public class RegisterServlet extends HttpServlet {
-	
+//아이디 찾기 기능 연결
+@WebServlet("/IDServlet")
+public class IDServlet extends HttpServlet {
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("Register/registerAgreeTerms.jsp");
+		response.sendRedirect("Find_Info/searchID.jsp");
 		
 	}
 }

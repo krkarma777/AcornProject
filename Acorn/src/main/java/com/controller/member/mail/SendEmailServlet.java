@@ -1,4 +1,4 @@
-package com.mail;
+package com.controller.member.mail;
 
 import java.io.IOException;
 import java.util.Properties;

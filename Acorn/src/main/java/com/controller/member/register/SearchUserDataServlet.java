@@ -1,4 +1,4 @@
-package com.controller.register;
+package com.controller.member.register;
 
 import java.io.IOException;
 import java.util.List;

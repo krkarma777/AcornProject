@@ -1,4 +1,4 @@
-package com.active;
+package com.controller.member.active;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

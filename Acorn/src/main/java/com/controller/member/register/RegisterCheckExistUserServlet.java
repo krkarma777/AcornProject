@@ -1,4 +1,4 @@
-package com.controller.connect;
+package com.controller.member.register;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

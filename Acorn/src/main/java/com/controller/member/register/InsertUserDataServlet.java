@@ -1,4 +1,4 @@
-package com.controller.register;
+package com.controller.member.register;
 
 import java.awt.Window.Type;
 import java.io.IOException;

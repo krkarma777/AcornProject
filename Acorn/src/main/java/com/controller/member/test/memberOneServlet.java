@@ -1,4 +1,4 @@
-package com.controller.test;
+package com.controller.member.test;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mail;
+package com.controller.member.mail;
 
 import javax.mail.PasswordAuthentication;
 

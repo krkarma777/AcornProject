@@ -1,4 +1,4 @@
-package com.controller.login;
+package com.controller.member.register;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,26 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.service.memberService;
 
-//로그인 메인창에서 사용하는 로그인 가능 여부룰 판단하는 비동기 처리
-@WebServlet("/AjaxCheckIDPWServlet")
-public class AjaxCheckIDPWServlet extends HttpServlet {
-       
+//회원가입 3단계의 자식창에서 아이디 중복 여부를 확인하는 비동기 처리
+@WebServlet("/AjaxIDDuplicateServlet")
+public class AjaxIDDuplicateServlet extends HttpServlet {
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		memberService serv = new memberService();
         PrintWriter out = response.getWriter();
 
-        //유저 아이디와 패스워드가 DB정보와 일치하는지 검증
         try {
-        	String userId = request.getParameter("userId");
-        	String userPw = request.getParameter("userPw");
+            String userId = request.getParameter("userId");
+            boolean isDuplicate = serv.isUserIdDuplicate(userId);
 
-            boolean canLogin = serv.loginPossible(userId, userPw);
-
-            //일치할 경우
-            if (!canLogin) {
-            	out.print("loginFail");                
-            }
+            //아이디와 일치하는 DB 정보가 있는 경우, 중복 출력
+            if (isDuplicate) {
+                out.print("duplicate");
+            } 
         } catch (Exception e) {
             out.print("error");
             e.printStackTrace();
