@@ -118,10 +118,11 @@
 		<div id="comment" class="comment-section">
 
 			<div class="d-flex justify-content-end">
-				<a
-					href="/Acorn/board/movie/edit?postId=<%=request.getParameter("postId")%>"><button
-						type="button" class="btn btn-primary btn-margin-right">수정</button></a>
-				<a href="/Acorn/board/movie"><button type="button"
+				<a href="/Acorn/board/edit?postId=<%=request.getParameter("postId")%>
+					&bn=<%=request.getParameter("bn")%>">
+					
+					<button type="button" class="btn btn-primary btn-margin-right">수정</button></a>
+				<a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button"
 						class="btn btn-primary">목록</button></a>
 			</div>
 

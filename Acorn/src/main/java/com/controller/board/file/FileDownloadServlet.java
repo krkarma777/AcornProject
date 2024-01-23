@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.config.ConfigurationLoader;
 
 @WebServlet("/uploads/*")
-public class FileServlet extends HttpServlet {
+public class FileDownloadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

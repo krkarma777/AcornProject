@@ -257,12 +257,14 @@ body {
 
 
 	<div class="container mt-5 editor-wrapper">
-		<form method="post" onsubmit="return validateForm();">
+		<form method="post" action="/Acorn/board/edit" onsubmit="return validateForm();">
 			<div class="mb-3">
 				<input type="text" name="postTitle" id="postTitle" class="form-control" value="<%= post.getPostTitle() %>">
 			</div>
 
 			<input type="hidden" name="userId" id="userId" value="<%= userId %>">
+			<input type="hidden" name="bn" id="bn" value="<%=request.getParameter("bn")%>">
+			<input type="hidden" name="postId" id="postId" value="<%=request.getParameter("postId")%>">
 
 			<div class="mb-3">
 				<textarea name="postText" class="form-control"><%= post.getPostText() %></textarea>

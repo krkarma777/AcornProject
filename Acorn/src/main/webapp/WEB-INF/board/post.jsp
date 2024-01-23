@@ -268,13 +268,14 @@ body {
     </nav>
 
 	<div class="container mt-5 editor-wrapper">
-		<form method="post">
+		<form method="post" action="/Acorn/board/write">
 
 			<div class="mb-3">
 				<input type="text" name="postTitle" id="postTitle" class="form-control">
 			</div>
 
 			<input type="hidden" name="userId" id="userId" value="<%= userId %>">
+			<input type="hidden" name="bn" id="bn" value="<%= request.getParameter("bn") %>">
 
 			<div class="mb-3">
 				<textarea name="postText" class="form-control"></textarea>

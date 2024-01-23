@@ -2,7 +2,6 @@ package com.controller.board.file;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +21,7 @@ import com.config.ConfigurationLoader;
 
 @WebServlet("/upload")
 @MultipartConfig // 이 어노테이션은 서블릿이 멀티파트(파일 업로드) 요청을 처리한다는 것을 나타냅니다.
-public class FileUploadController extends HttpServlet {
+public class FileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
@@ -94,7 +93,7 @@ public class FileUploadController extends HttpServlet {
             out.print("{\"fileUrl\":\"" + uploadedFileUrl + "\"}");
             out.flush();
         } catch (Exception ex) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred: " + ex.getMessage());
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "오류 발생: " + ex.getMessage());
         }
     }
 }
