@@ -91,7 +91,7 @@ public class SendEmailServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher dis = request.getRequestDispatcher("Find_Info/viewAllPW.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/viewAllPW.jsp");
 		dis.forward(request, response);
 
 	}

@@ -28,7 +28,7 @@ public class memberListServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("memberList", list);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("Test/test_view_list.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Test/test_view_list.jsp");
 		dis.forward(request, response);
 	}
 

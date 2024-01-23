@@ -1,6 +1,8 @@
-package com.controller.member.connect;
+package com.controller.member.register;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +35,8 @@ public class RegisterCheckExistUserServlet extends HttpServlet {
 		//session.setAttribute("checked_Info", checked_Info);
 		//session.setAttribute("checked_Withdraw", checked_Withdraw);
 		
-		response.sendRedirect("Register/registerCheckExistUserdata.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerCheckExistUserdata.jsp");
+		dis.forward(request, response);
 		
 	}
 

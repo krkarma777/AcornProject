@@ -31,12 +31,13 @@ public class SearchIDServlet extends HttpServlet {
 		//입력한 이름과 주민번호가 일치하면 찾은 아이디 정보 출력
 	    if (dto != null) {
 	    	request.setAttribute("found_userId", dto);
-	    	RequestDispatcher dis = request.getRequestDispatcher("Find_Info/viewID.jsp");
+	    	RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/viewID.jsp");
 	    	dis.forward(request, response);
 
 	    //입력한 이름과 주민번호가 불일치하면 찾은 아이디 정보 출력
 	    } else {
-	        response.sendRedirect("Find_Info/cantFindUserdata.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/cantFindUserdata.jsp");
+			dis.forward(request, response);
 	    }
 	}
 }
