@@ -54,7 +54,7 @@ public class ShowContentServlet extends HttpServlet {
 		request.setAttribute("reviewList", reviewList);
 		
 		// forward
-		RequestDispatcher dis = request.getRequestDispatcher("contentViewer.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("Review/contentViewer.jsp");
 		dis.forward(request, response);
 	}
 

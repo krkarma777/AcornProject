@@ -31,9 +31,9 @@
   </environments>
 
   <mappers>
-    <mapper resource="com/config/PostMapper.xml"/>  
-    <mapper resource="com/config/MemberMapper.xml"/>    
-    <mapper resource="com/config/CommentMapper.xml"/>    
+    <mapper resource="com/config/PostMapper.xml"/>
+    <mapper resource="com/config/MemberMapper.xml"/>
+    <mapper resource="com/config/CommentMapper.xml"/>
     <mapper resource="com/config/ReviewMapper.xml"/>
   </mappers>
 </configuration>
