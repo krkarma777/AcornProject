@@ -4,10 +4,10 @@ public class MemberDTO {
 	private String userId;
 	private String userPw;
 	private String userName;
-	private int userSSN1;
-	private int userSSN2;
-	private String nickname;
+	private Integer userSSN1;
+	private Integer userSSN2;
 	private String userGender;
+	private String nickName;
 	private String userPhoneNum1;
 	private String userPhoneNum2;
 	private String userPhoneNum3;
@@ -15,29 +15,21 @@ public class MemberDTO {
 	private String userEmailDomain;
 	private String userSignDate;
 	private String userType;
-	@Override
-	public String toString() {
-		return "memberDTO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userSSN1="
-				+ userSSN1 + ", userSSN2=" + userSSN2 + ", nickname=" + nickname + ", userGender=" + userGender
-				+ ", userPhoneNum1=" + userPhoneNum1 + ", userPhoneNum2=" + userPhoneNum2 + ", userPhoneNum3="
-				+ userPhoneNum3 + ", userEmailId=" + userEmailId + ", userEmailDomain=" + userEmailDomain
-				+ ", userSignDate=" + userSignDate + ", userType=" + userType + "]";
-	}
 	public MemberDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MemberDTO(String userId, String userPw, String userName, int userSSN1, int userSSN2, String nickname,
-			String userGender, String userPhoneNum1, String userPhoneNum2, String userPhoneNum3, String userEmailId,
-			String userEmailDomain, String userSignDate, String userType) {
+	public MemberDTO(String userId, String userPw, String userName, Integer userSSN1, Integer userSSN2,
+			String userGender, String nickName, String userPhoneNum1, String userPhoneNum2, String userPhoneNum3,
+			String userEmailId, String userEmailDomain, String userSignDate, String userType) {
 		super();
 		this.userId = userId;
 		this.userPw = userPw;
 		this.userName = userName;
 		this.userSSN1 = userSSN1;
 		this.userSSN2 = userSSN2;
-		this.nickname = nickname;
 		this.userGender = userGender;
+		this.nickName = nickName;
 		this.userPhoneNum1 = userPhoneNum1;
 		this.userPhoneNum2 = userPhoneNum2;
 		this.userPhoneNum3 = userPhoneNum3;
@@ -64,29 +56,29 @@ public class MemberDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public int getUserSSN1() {
+	public Integer getUserSSN1() {
 		return userSSN1;
 	}
-	public void setUserSSN1(int userSSN1) {
+	public void setUserSSN1(Integer userSSN1) {
 		this.userSSN1 = userSSN1;
 	}
-	public int getUserSSN2() {
+	public Integer getUserSSN2() {
 		return userSSN2;
 	}
-	public void setUserSSN2(int userSSN2) {
+	public void setUserSSN2(Integer userSSN2) {
 		this.userSSN2 = userSSN2;
-	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
 	}
 	public String getUserGender() {
 		return userGender;
 	}
 	public void setUserGender(String userGender) {
 		this.userGender = userGender;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	public String getUserPhoneNum1() {
 		return userPhoneNum1;
@@ -125,18 +117,18 @@ public class MemberDTO {
 		this.userSignDate = userSignDate;
 	}
 	public String getUserType() {
-		String resultUserType = "";
-		if(userType.equals("0")) {
-			resultUserType = "admin";
-		} else if(userType.equals("1")) {
-			resultUserType = "member";
-		} 
-		return resultUserType;
+		return userType;
 	}
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "MemberDTO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userSSN1="
+				+ userSSN1 + ", userSSN2=" + userSSN2 + ", userGender=" + userGender + ", nickName=" + nickName
+				+ ", userPhoneNum1=" + userPhoneNum1 + ", userPhoneNum2=" + userPhoneNum2 + ", userPhoneNum3="
+				+ userPhoneNum3 + ", userEmailId=" + userEmailId + ", userEmailDomain=" + userEmailDomain
+				+ ", userSignDate=" + userSignDate + ", userType=" + userType + "]";
+	}
 	
 }

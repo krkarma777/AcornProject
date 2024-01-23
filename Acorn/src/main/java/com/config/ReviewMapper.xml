@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReviewMapper">
+
+	<select id="check" parameterType="ReviewDTO" resultType="int">
+		select count(*) from postdb where postBoard='review' and userId=#{userId}
+	</select>
+
+	<insert id="writeReview" parameterType="ReviewDTO">
+		INSERT INTO postdb VALUES 
+		(POSTIDSEQ.NEXTVAL, 'review', #{userId}, #{contId}, 'r~!@#', sysdate, null, #{postText})
+		
+		<selectKey keyProperty="postId" resultType="Long" order="AFTER"> 
+			select POSTIDSEQ.CURRVAL from dual 
+		</selectKey>
+	</insert>
+	
+	<update id="updateReview" parameterType="ReviewDTO">
+		<selectKey keyProperty="postId" resultType="Long" order="BEFORE"> 
+			select postId from postdb where (postBoard,userId) in (('review', #{userId}))
+		</selectKey>
+		update postdb set postText=#{postText} where postid=#{postId}
+		
+	</update>
+	
+	<insert id="createRateData" parameterType="ReviewDTO">
+		insert into ratedb values (#{userId}, #{contId}, 0)
+	</insert>
+	
+	<select id="selectReview" parameterType="long" resultType="ReviewDTO">
+		select * from postdb where postid=#{postId}
+	</select>	
+	
+	<select id="selectReviewByUser" parameterType="map" resultType="ReviewDTO">
+		select * 
+		 from postdb join ratedb using(userId, contId)
+		 where (postBoard,userId) in (('review', #{userId}))
+	</select>	
+	<select id="selectScore" parameterType="map" resultType="int">
+		select score from ratedb where (userId, contId) in ((#{userId}, #{contId}))
+	</select>
+	
+	 <!-- 별점 등록 또는 업데이트 -->
+    <update id="insertOrUpdateRating" parameterType="RateDTO">
+        MERGE INTO ratedb r
+        
+        USING (SELECT #{userId} AS user_id, #{contId} AS cont_id FROM dual)
+        ON (r.userid = user_id AND r.contid = cont_id)
+        
+        WHEN MATCHED THEN
+            UPDATE SET r.score = #{score}
+            
+        WHEN NOT MATCHED THEN
+            INSERT (userid, contid, score)
+            VALUES (#{userId}, #{contId}, #{score})
+    </update>
+    
+    <select id="selectReviews" parameterType="string" resultType="ReviewDTO">
+    	SELECT *
+		FROM (
+			select * 
+			from postdb join ratedb using(userId, contId) 
+			join memberdb using (userId) 
+			where (postBoard, contId) in (('review', #{contId}))
+	    	ORDER BY postDate desc
+		)
+		WHERE ROWNUM &lt; 9
+    </select>
+    
+    <select id="selectContent" parameterType="string" resultType="ContentDTO">
+    	select * from contentDB where contId = #{contId}
+    </select>
+</mapper>
