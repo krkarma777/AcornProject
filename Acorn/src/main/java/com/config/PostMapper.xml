@@ -8,8 +8,8 @@
 	    <selectKey keyProperty="postId" resultType="long" order="BEFORE">
 	        SELECT POSTIDSEQ.NEXTVAL AS postId FROM DUAL
 	    </selectKey>
-	    INSERT INTO postDB (postid, postBoard, userid, contid, postTitle, postDate, postEditDate, postText)
-	    VALUES (#{postId}, #{postBoard}, #{userId}, #{contId, jdbcType=NUMERIC}, #{postTitle}, SYSTIMESTAMP, null, #{postText})
+	    INSERT INTO postDB (postid, postBoard, userid, contid, postTitle, postDate, postEditDate, postText, nickName)
+	    VALUES (#{postId}, #{postBoard}, #{userId}, #{contId, jdbcType=NUMERIC}, #{postTitle}, SYSTIMESTAMP, null, #{postText}, #{nickname})
 	</insert>
 	
     <!-- 조회 -->
