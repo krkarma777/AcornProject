@@ -271,8 +271,7 @@ body {
 			</div>
 
 			<div class="row">
-				<button type="submit" class="btn btn-primary submit-button">수정
-					완료</button>
+				<button type="submit" class="btn btn-primary submit-button">수정 완료</button>
 			</div>
 		</form>
 	</div>

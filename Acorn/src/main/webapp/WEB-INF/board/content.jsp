@@ -132,30 +132,11 @@
     </div>
 </div>
 
+<jsp:include page="commentMain.jsp"></jsp:include>
 
-			<!-- 댓글 섹션 (추가 구현 필요) 게시글과 댓글 공간 여백을 위한 새로운 클래스 적용 -->
-			<div id="comment" class="comment-section">
-
-
-				<!-- Text input area -->
-				<div class="mb-3">
-					<textarea class="form-control" rows="4" placeholder="내용을 입력해주세요."></textarea>
-				</div>
-
-				<!-- preview button group -->
-				<!-- 버튼을 오른쪽 끝으로 정렬하기 위한 'justify-content-end' 클래스 적용 -->
-				<div class="mb-3 d-flex justify-content-end">
-
-					<!-- Preview and submit button group -->
-					<div>
-
-						<button type="submit" class="btn btn-primary ">등록</button>
-
-
-					</div>
-				</div>
 				<!-- 댓글 내용 -->
 			</div>
 		</div>
+		
 </body>
 </html>
