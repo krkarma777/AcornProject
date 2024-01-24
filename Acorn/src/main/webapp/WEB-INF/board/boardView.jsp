@@ -1,3 +1,4 @@
+<%@page import="com.dto.MemberDTO"%>
 <%@page import="com.dto.PostDTO"%>
 <%@page import="com.dto.PageDTO"%>
 <%@ page import="java.sql.*, java.util.*"%>
@@ -7,12 +8,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-		<%
-            PageDTO<PostDTO> pDTO = (PageDTO<PostDTO>) request.getAttribute("pDTO");
-            List<PostDTO> list = pDTO.getList();
-            
-         	String postBoard = (String) request.getAttribute("postBoard");
-        %>
+<%
+    PageDTO<PostDTO> pDTO = (PageDTO<PostDTO>) request.getAttribute("pDTO");
+    List<PostDTO> list = null;
+    if (pDTO != null) {
+        list = pDTO.getList();
+    }
+    String postBoard = (String) request.getAttribute("postBoard");
+    MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+%>
+
 
 <title><%= postBoard %> Board</title>
 <!-- Bootstrap CSS -->

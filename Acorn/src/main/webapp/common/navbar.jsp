@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<nav class="navbar navbar-expand bg-dark navbar-dark">
+
+<nav class="navbar navbar-expand navbar-dark" style="background-color:transparent;">
         <div class="container-fluid">
             <a class="navbar-brand" href="main">문밤</a>
             <form class="d-flex" role="search">
