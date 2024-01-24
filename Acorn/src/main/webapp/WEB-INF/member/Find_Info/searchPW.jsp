@@ -110,7 +110,7 @@
 
 <body>
     <h2>비밀번호 찾기</h2>
-    <form id="findPWForm" action="<%=request.getContextPath()%>/SearchPartPWServlet" method="post">
+    <form id="findPWForm" action="<%=request.getContextPath()%>/SearchPartPW" method="post">
         아이디: <input type="text" class="must" id="userId" name="userId"><br>
         이름: <input type="text" class="must" id="userName" name="userName"><br>
         SSN: <input type="number" class="must" id="ssn1" name="ssn1" maxlength="6">
@@ -119,9 +119,9 @@
         <input type="submit" value="확인">
     </form>
     <div id="sitesShortCut">
-            <a href="<%=request.getContextPath()%>/LoginServlet">로그인</a> |
-            <a href="<%=request.getContextPath()%>/IDServlet">아이디 찾기</a> |
-            <a href="<%=request.getContextPath()%>/RegisterServlet">회원가입</a>
+            <a href="<%=request.getContextPath()%>/Login">로그인</a> |
+            <a href="<%=request.getContextPath()%>/FindID">아이디 찾기</a> |
+            <a href="<%=request.getContextPath()%>/RegisterTerms">회원가입</a>
     </div>
     
 </body>

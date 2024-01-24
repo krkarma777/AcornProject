@@ -15,7 +15,7 @@ import com.dto.MemberDTO;
 import com.service.MemberService;
 
 //회원가입 2단계 기존 유저인지 확인하는 서블릿
-@WebServlet("/SearchUserDataServlet")
+@WebServlet("/SearchUser")
 public class SearchUserDataServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

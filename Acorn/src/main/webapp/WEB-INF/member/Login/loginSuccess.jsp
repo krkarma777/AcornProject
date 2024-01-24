@@ -106,7 +106,8 @@
 				 <td><%=dto.getUserType()%></td>
 			</tr>
 	</table>
-	<button onclick="location.href='<%=request.getContextPath()%>/LoginServlet'">로그인폼</button>
+	<button onclick="location.href='<%=request.getContextPath()%>/Login'">로그인폼</button>
+	<button onclick="location.href='<%=request.getContextPath()%>/Logout'">로그아웃</button>
 	<br>
 
 </body>

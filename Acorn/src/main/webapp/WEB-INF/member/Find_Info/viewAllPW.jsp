@@ -50,7 +50,7 @@ MemberDTO dto = (MemberDTO) request.getAttribute("foundUserInfo");
     <p>확인 후 로그인 부탁드립니다.</p>
 
 <div id="sitesShortCut">
-    <a href="<%=request.getContextPath()%>/LoginServlet">로그인</a> 
+    <a href="<%=request.getContextPath()%>/Login">로그인</a> 
 </div>
 
 </body>

@@ -140,7 +140,7 @@
             </table>
         </form>
         <div id="sitesShortCut">
-            <a href="<%=request.getContextPath()%>/LoginServlet">로그인 폼</a>
+            <a href="<%=request.getContextPath()%>/Login">로그인 폼</a>
         </div>
     </div>
 </body>

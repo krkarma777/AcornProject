@@ -62,7 +62,7 @@
         
      	// 전체 비밀번호 찾기 새 창 열기
          function openAllPWWindow(userId) {
-            window.open("<%=request.getContextPath()%>/ChildAllPWServlet?userId="+userId, "전체 비밀번호 확인", "width=600,height=300");
+            window.open("<%=request.getContextPath()%>/FindAllPW?userId="+userId, "전체 비밀번호 확인", "width=600,height=300");
 
         }
         
@@ -90,7 +90,7 @@
                 <%=dto.getUserName()%>님의 비밀번호 확인
             </button>
     <div id="sitesShortCut">
-        <a href="<%=request.getContextPath()%>/LoginServlet">로그인</a> 
+        <a href="<%=request.getContextPath()%>/Login">로그인</a> 
     </div>
 
 </body>

@@ -15,7 +15,7 @@ import com.dto.MemberDTO;
 import com.service.MemberService;
 
 //아이디 찾기 창에서 정보 출력을 위한 서블릿
-@WebServlet("/SearchIDServlet")
+@WebServlet("/SearchID")
 public class SearchIDServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

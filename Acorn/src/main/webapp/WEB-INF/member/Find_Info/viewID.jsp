@@ -64,7 +64,7 @@
 		<%=dto.getUserId()%>입니다.
 	</p>
 	<div id="sitesShortCut">
-		<a href="<%=request.getContextPath()%>/LoginServlet">로그인</a> | <a href="<%=request.getContextPath()%>/PWServlet">비밀번호 찾기</a>
+		<a href="<%=request.getContextPath()%>/Login">로그인</a> | <a href="<%=request.getContextPath()%>/FindPW">비밀번호 찾기</a>
 	</div>
 </body>
 

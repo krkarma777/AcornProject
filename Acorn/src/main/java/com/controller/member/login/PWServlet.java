@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 //비밀번호 찾기 기능 연결
-@WebServlet("/PWServlet")
+@WebServlet("/FindPW")
 public class PWServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

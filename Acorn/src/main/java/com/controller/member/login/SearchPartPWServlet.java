@@ -15,7 +15,7 @@ import com.dto.MemberDTO;
 import com.service.MemberService;
 
 //비밀번호 찾기(일부) 페이지 --> 출력
-@WebServlet("/SearchPartPWServlet")
+@WebServlet("/SearchPartPW")
 public class SearchPartPWServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

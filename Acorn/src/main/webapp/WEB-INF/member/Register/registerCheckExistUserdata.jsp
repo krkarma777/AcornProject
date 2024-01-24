@@ -62,7 +62,7 @@ button:hover {
 <body>
 	<div class="container">
 		<h1>회원 확인 페이지</h1>
-		<form id="confirmForm" action="<%=request.getContextPath()%>/SearchUserDataServlet" method="post">
+		<form id="confirmForm" action="<%=request.getContextPath()%>/SearchUser" method="post">
 			<label for="name">성명</label> 
 			<input type="text" id="userName" name="userName" required> 
 			<label for="ssn1">주민등록번호</label>

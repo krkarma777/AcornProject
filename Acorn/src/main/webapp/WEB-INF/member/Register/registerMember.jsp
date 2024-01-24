@@ -92,7 +92,7 @@ button {
 
 	<div class="container">
 		<h1>회원가입</h1>
-		<form id="registerForm" action="<%=request.getContextPath()%>/InsertUserDataServlet" method="post">
+		<form id="registerForm" action="<%=request.getContextPath()%>/InsertData" method="post">
 			
 			<!-- 아이디 입력칸(영어+숫자로 4글자 이상)(반드시 입력되어야 함)(직접 입력은 불가하며, 자식창을 통해서만 입력 가능) -->
 			<label for="userId">아이디 (영어 + 숫자, 최소 4글자)</label> 
@@ -179,8 +179,7 @@ button {
 	<script type="text/javascript">
 		//ID 새창 열기
 		function openIdWindow() {
-			var popup = window.open("<%=request.getContextPath()%>/ChildIdDupilicateServlet", "아이디 확인", "width=400,height=200");
-			
+			var popup = window.open("<%=request.getContextPath()%>/IdDupilicate", "아이디 확인", "width=400,height=200");
 			
 			popup.onbeforeunload = function() {
 				var confirmedUserId = popup.$("#confirmUserId").val();

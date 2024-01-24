@@ -179,7 +179,7 @@ button:hover {
 	
 	//질문에 따른 해당 유저의 답변이 올바를 경우, 자식창을 닫고, 부모창을 전체 비밀번호를 보여주는 페이지로 이동
 	function moveToParentPage() {
-		window.opener.location.href = "<%=request.getContextPath()%>/SearchAllPWServlet?userId=" + userId;
+		window.opener.location.href = "<%=request.getContextPath()%>/SearchAllPW?userId=" + userId;
         window.close(); 
     }
 	

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 //회원가입 2단계 기존 유저 검증 단계 연결
-@WebServlet("/RegisterCheckExistUserServlet")
+@WebServlet("/CheckExistUser")
 public class RegisterCheckExistUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
