@@ -106,6 +106,30 @@
 	height: auto;
 }
 
+ /* 게시글 스타일 변경 */
+        .post-section {
+            padding: 20px 0; /* 상하 패딩 추가 */
+            border-bottom: 1px solid #e9ecef; /* 하단 경계선 추가 */
+            margin-bottom: 20px; /* 하단 여백 추가 */
+        }
+
+        .post-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px; /* 제목 아래 여백 추가 */
+        }
+
+        .post-meta {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 15px; /* 메타 정보 아래 여백 추가 */
+        }
+
+        .post-content {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
 /* 댓글 리스트 스타일 */
 .comment-list {
     list-style: none;
@@ -138,6 +162,7 @@
 .comment-actions button {
     font-size: 0.8em;
 }
+
 </style>
 
 </head>
@@ -178,19 +203,25 @@
 
 	<div class="container mt-4">
 		<!-- 게시글 출력부분 -->
-		<div class="card">
+		<div class="post-section">
 			<!-- 글 제목 -->
-			<div class="card-header">
+			<div class="post-title">
 				<h3>${postTitle}</h3>
-				<fmt:formatDate value="${postDate}" pattern="yyyy-MM-dd"
+			</div>
+			<div class="post-meta">
+				<fmt:formatDate value="${postDate}" pattern="yyyy.MM.dd hh:dd:ss"
 					var="formattedDate" />
-				<small>작성자: ${userId} | 작성일: ${formattedDate}</small>
+				<small>작성자: ${userId}  |  작성일: ${formattedDate}</small>
 			</div>
-
+			<hr>
 			<!-- 글 내용 -->
-			<div class="card-body">
-				<p class="card-text">${postText}</p>
+			<div class="cpost-content">
+				${postText}
 			</div>
+			            <!-- 좋아요 버튼 -->
+            <div class="like-button text-center">
+                <button type="button" class="btn btn-outline-primary btn-sm">좋아요</button>
+            </div>
 		</div>
 
 		<!--  게시글과 수정/목록 버튼의 공간 여백을 위한 새로운 클래스 적용 -->
@@ -210,9 +241,9 @@
 </div>
 
 </div>
-<div style="margin-top: 10px;">
-<jsp:include page="commentMain.jsp"></jsp:include>
-</div>
+		<div style="margin-top: 10px;">
+		<jsp:include page="commentMain.jsp"></jsp:include>
+		</div>
 				<!-- 댓글 내용 -->
 			</div>
 		</div>

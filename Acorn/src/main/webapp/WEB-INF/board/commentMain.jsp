@@ -72,7 +72,7 @@ String userid =  "zz";
 }); //doc end1
 
 
-	$(document).on("click","button",function(){
+$(document).on("click",".deleteCommentBtn",function(){
 		
 	 var comid = $(this).attr("id");
  		console.log("버튼클릭이벤트의",comid);
@@ -156,30 +156,32 @@ String userid =  "zz";
 				dataType: "json",
 				success :  function(data, status, xhr){
 					var mesg ="";
-					var mesg = "<ul class='comment-list'>"; // 댓글 리스트 시작
-
-					for(var i = 0; i<data.commentDBList.length; i++){
-						
-						
-						var comid = data.commentDBList[i].comid;
-						var userid =  data.commentDBList[i].userid;
-						var comdate = data.commentDBList[i].comdate;
-						var comtext = data.commentDBList[i].comtext;
-						console.log(comid,"      ",userid,"      ",comdate)
-				
-						// 각 댓글 항목
-		                mesg += "<li class='comment-item'>";
-		                mesg += "<div class='comment-meta'>";
-		                mesg += "<strong>" + userid + "</strong> | <span>" + comdate + "</span>";
-		                mesg += "</div>";
-		                mesg += "<p class='comment-content'>" + comtext + "</p>";
-		                mesg += "<div class='comment-actions'>";
-		                mesg += "<button id='" + comid + "' class='btn btn-danger btn-sm btn-spacing' data-xxx='" + i + "'>삭제</button>";
-		                mesg += "</div>";
-		                mesg += "</li>";
-						
-					}//for문종료
-		            mesg += "</ul>"; // 댓글 리스트 종료
+					var length = data.commentDBList.length;
+					// 댓글이 없는 경우
+				    if(length == 0) {
+				        mesg = "<div class='text-center'>댓글이 없습니다.</div>";
+				    } else {
+				        mesg = "<ul class='comment-list'>"; // 댓글 리스트 시작
+				        for(var i = 0; i < length; i++){
+				            var comid = data.commentDBList[i].comid;
+				            var userid = data.commentDBList[i].userid;
+				            var comdate = data.commentDBList[i].comdate;
+				            var comtext = data.commentDBList[i].comtext;
+				            console.log(comid, " ", userid, " ", comdate);
+				            
+				            // 각 댓글 항목
+				            mesg += "<li class='comment-item'>";
+				            mesg += "<div class='comment-meta'>";
+				            mesg += "<strong>" + userid + "</strong> | <span>" + comdate + "</span>";
+				            mesg += "</div>";
+				            mesg += "<p class='comment-content'>" + comtext + "</p>";
+				            mesg += "<div class='comment-actions'>";
+				            mesg += "<button id='" + comid + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + i + "'>삭제</button>";
+				            mesg += "</div>";
+				            mesg += "</li>";
+				        }
+				        mesg += "</ul>"; // 댓글 리스트 종료
+				    }
 					$("#CommetList").html(mesg); //아래 출력하기
 					
 				},
@@ -197,31 +199,26 @@ String userid =  "zz";
 </script>	
 
 	 <input type="hidden" id="postidComment" name="postid" value=<%=request.getParameter("postId")%> > <!-- 굳이 고객한테 보일 필요가 없으니 hidden 태그 -->
-	<span id="userid" name="userid" >
-   	 <% /* 로그인 정보가 없으면 "로그인을 해주세요" 가 뜨고, 정보가 있으면 id가 출력 됨 */
-   	 
-   	 if( userid == null){%>
-   	  
-   	  로그인을 해주세요.
-   	  
-   	  <%}else{ %>
-   	  
-   	  <%= userid %>
-   	 
-   	 <%} %>
-	  	 </span> 
-     <br>
-     <hr>
-      <!--처음 댓글 입력하는 창-->
-<textarea id="comtext" class="form-control" name="comtext"  style="height: 100px;" placeholder="댓글을 입력하세요. 지나친 욕설/비방 작성 시 사이트 이용에 제재를 받을 수 있습니다." <%if( userid == null){%>disabled<%} %> ></textarea>
 
-<div style="text-align: right">
-    <input type="button" id="sendButton" value="등록" class="btn btn-action btn-spacing" style="margin-top: 10px;">
-</div>
-
-
-  	<div id="CommetList" style="margin-top: 20px;">
+<div id="CommetList" style="margin-top: 20px;">
   	
   	<!--작성된 댓글 목록 보기-->
   	
-  	</div> 
+</div> 
+<div class="card mt-4" >
+            <div class="card-header">댓글 작성</div>
+            <div class="card-body">
+                <span id="userid" name="userid">
+                    <% if (userid == null) { %>
+                        로그인을 해주세요.
+                    <% } else { %>
+                        <%= userid %>
+                    <% } %>
+                </span>
+                <br>
+                <textarea id="comtext" class="form-control" name="comtext" style="height: 100px;" placeholder="댓글을 입력하세요. 지나친 욕설/비방 작성 시 사이트 이용에 제재를 받을 수 있습니다." <% if(userid == null) { %>disabled<% } %> ></textarea>
+                <div style="text-align: right">
+                    <input type="button" id="sendButton" value="등록" class="btn btn-action btn-spacing" style="margin-top: 10px;">
+                </div>
+            </div>
+</div>
