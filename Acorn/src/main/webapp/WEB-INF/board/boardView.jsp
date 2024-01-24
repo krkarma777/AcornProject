@@ -18,14 +18,6 @@
     MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
 %>
 
-<% if (loginUser == null) { %>
-    <script type="text/javascript">
-        alert("로그인이 필요한 작업입니다.");
-        location.href = "/Acorn/LoginServlet"; // 로그인 페이지로 이동하는 서블릿 또는 JSP의 URL
-    </script>
-<% } %>
-
-
 
 <title><%= postBoard %> Board</title>
 <!-- Bootstrap CSS -->
