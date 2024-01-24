@@ -4,10 +4,10 @@ public class MemberDTO {
 	private String userId;
 	private String userPw;
 	private String userName;
-	private Integer userSSN1;
-	private Integer userSSN2;
+	private int userSSN1;
+	private int userSSN2;
 	private String userGender;
-	private String nickName;
+	private String nickname;
 	private String userPhoneNum1;
 	private String userPhoneNum2;
 	private String userPhoneNum3;
@@ -19,9 +19,9 @@ public class MemberDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MemberDTO(String userId, String userPw, String userName, Integer userSSN1, Integer userSSN2,
-			String userGender, String nickName, String userPhoneNum1, String userPhoneNum2, String userPhoneNum3,
-			String userEmailId, String userEmailDomain, String userSignDate, String userType) {
+	public MemberDTO(String userId, String userPw, String userName, int userSSN1, int userSSN2, String userGender,
+			String nickname, String userPhoneNum1, String userPhoneNum2, String userPhoneNum3, String userEmailId,
+			String userEmailDomain, String userSignDate, String userType) {
 		super();
 		this.userId = userId;
 		this.userPw = userPw;
@@ -29,7 +29,7 @@ public class MemberDTO {
 		this.userSSN1 = userSSN1;
 		this.userSSN2 = userSSN2;
 		this.userGender = userGender;
-		this.nickName = nickName;
+		this.nickname = nickname;
 		this.userPhoneNum1 = userPhoneNum1;
 		this.userPhoneNum2 = userPhoneNum2;
 		this.userPhoneNum3 = userPhoneNum3;
@@ -56,16 +56,16 @@ public class MemberDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public Integer getUserSSN1() {
+	public int getUserSSN1() {
 		return userSSN1;
 	}
-	public void setUserSSN1(Integer userSSN1) {
+	public void setUserSSN1(int userSSN1) {
 		this.userSSN1 = userSSN1;
 	}
-	public Integer getUserSSN2() {
+	public int getUserSSN2() {
 		return userSSN2;
 	}
-	public void setUserSSN2(Integer userSSN2) {
+	public void setUserSSN2(int userSSN2) {
 		this.userSSN2 = userSSN2;
 	}
 	public String getUserGender() {
@@ -74,11 +74,11 @@ public class MemberDTO {
 	public void setUserGender(String userGender) {
 		this.userGender = userGender;
 	}
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getUserPhoneNum1() {
 		return userPhoneNum1;
@@ -125,10 +125,12 @@ public class MemberDTO {
 	@Override
 	public String toString() {
 		return "MemberDTO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userSSN1="
-				+ userSSN1 + ", userSSN2=" + userSSN2 + ", userGender=" + userGender + ", nickName=" + nickName
+				+ userSSN1 + ", userSSN2=" + userSSN2 + ", userGender=" + userGender + ", nickname=" + nickname
 				+ ", userPhoneNum1=" + userPhoneNum1 + ", userPhoneNum2=" + userPhoneNum2 + ", userPhoneNum3="
 				+ userPhoneNum3 + ", userEmailId=" + userEmailId + ", userEmailDomain=" + userEmailDomain
 				+ ", userSignDate=" + userSignDate + ", userType=" + userType + "]";
 	}
+
+	
 	
 }
