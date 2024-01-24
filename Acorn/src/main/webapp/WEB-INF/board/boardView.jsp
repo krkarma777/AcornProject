@@ -1,3 +1,4 @@
+<%@page import="com.dto.MemberDTO"%>
 <%@page import="com.dto.PostDTO"%>
 <%@page import="com.dto.PageDTO"%>
 <%@ page import="java.sql.*, java.util.*"%>
@@ -7,12 +8,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-		<%
-            PageDTO<PostDTO> pDTO = (PageDTO<PostDTO>) request.getAttribute("pDTO");
-            List<PostDTO> list = pDTO.getList();
-            
-         	String postBoard = (String) request.getAttribute("postBoard");
-        %>
+<%
+    PageDTO<PostDTO> pDTO = (PageDTO<PostDTO>) request.getAttribute("pDTO");
+    List<PostDTO> list = null;
+    if (pDTO != null) {
+        list = pDTO.getList();
+    }
+    String postBoard = (String) request.getAttribute("postBoard");
+    MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+%>
+
+<% if (loginUser == null) { %>
+    <script type="text/javascript">
+        alert("로그인이 필요한 작업입니다.");
+        location.href = "/Acorn/LoginServlet"; // 로그인 페이지로 이동하는 서블릿 또는 JSP의 URL
+    </script>
+<% } %>
+
+
 
 <title><%= postBoard %> Board</title>
 <!-- Bootstrap CSS -->

@@ -236,8 +236,15 @@
     <!-- 오른쪽에 위치할 기타 버튼들 -->
 <div>
     <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">글쓰기</button></a>
+    
+    <%
+    String mismatchError = (String)request.getAttribute("mismatchError");
+    System.out.println(mismatchError);
+    if(mismatchError==null){
+    %>
     <a href="/Acorn/board/edit?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">수정</button></a>
     <a href="/Acorn/board/delete?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">삭제</button></a>
+	<%}%>
 </div>
 
 </div>
