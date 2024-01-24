@@ -105,6 +105,39 @@
 	max-width: 100%;
 	height: auto;
 }
+
+/* 댓글 리스트 스타일 */
+.comment-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.comment-list .comment-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef; /* 구분선 */
+}
+
+.comment-item:last-child {
+    border-bottom: none; /* 마지막 아이템의 하단 경계선 제거 */
+}
+
+.comment-content {
+    margin-bottom: 0; /* 댓글 내용의 하단 여백 제거 */
+}
+
+.comment-meta {
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.comment-actions {
+    text-align: right;
+}
+
+.comment-actions button {
+    font-size: 0.8em;
+}
 </style>
 
 </head>

@@ -156,7 +156,8 @@ String userid =  "zz";
 				dataType: "json",
 				success :  function(data, status, xhr){
 					var mesg ="";
-					
+					var mesg = "<ul class='comment-list'>"; // 댓글 리스트 시작
+
 					for(var i = 0; i<data.commentDBList.length; i++){
 						
 						
@@ -166,20 +167,19 @@ String userid =  "zz";
 						var comtext = data.commentDBList[i].comtext;
 						console.log(comid,"      ",userid,"      ",comdate)
 				
-				        // 카드 스타일의 댓글 목록 디자인
-				        mesg += "<div class='card mb-2'>";
-				        mesg += "<div class='card-header'>";
-				        mesg += "<strong>" + userid + "</strong>";
-				        mesg += "<small class='text-muted' style='float:right;'>" + comdate + "</small>";
-				        mesg += "</div>";
-				        mesg += "<div class='card-body d-flex justify-content-between'>";
-				        mesg += "<p class='card-text'>" + comtext + "</p>";
-				        mesg += "<button id='" + comid + "' class='btn btn-danger btn-sm btn-spacing' data-xxx='" + i + "'>삭제</button>";
-				        mesg += "</div>";
-				        mesg += "</div>";
+						// 각 댓글 항목
+		                mesg += "<li class='comment-item'>";
+		                mesg += "<div class='comment-meta'>";
+		                mesg += "<strong>" + userid + "</strong> | <span>" + comdate + "</span>";
+		                mesg += "</div>";
+		                mesg += "<p class='comment-content'>" + comtext + "</p>";
+		                mesg += "<div class='comment-actions'>";
+		                mesg += "<button id='" + comid + "' class='btn btn-danger btn-sm btn-spacing' data-xxx='" + i + "'>삭제</button>";
+		                mesg += "</div>";
+		                mesg += "</li>";
 						
 					}//for문종료
-					
+		            mesg += "</ul>"; // 댓글 리스트 종료
 					$("#CommetList").html(mesg); //아래 출력하기
 					
 				},
