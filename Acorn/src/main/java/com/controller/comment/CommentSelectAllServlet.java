@@ -29,7 +29,6 @@ public class CommentSelectAllServlet extends HttpServlet {
 		Long postId = Long.parseLong(request.getParameter("postId"));
 		CommentService service = new CommentService();
 		list = service.selectAllByPostId(postId);
-		System.out.println(list);
 		
 		HashMap<String,List<CommentDTO>> map = new HashMap<>();
 		map.put("commentDBList", list);
