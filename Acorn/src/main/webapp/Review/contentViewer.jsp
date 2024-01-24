@@ -132,7 +132,7 @@
 	String nickName = null;
 	if(login!=null){
 		userId = login.getUserId();
-		nickName = login.getNickName();
+		nickName = login.getNickname();
 	}
 	
 	List<ReviewDTO> reviewList = (List<ReviewDTO>)request.getAttribute("reviewList");
@@ -388,7 +388,7 @@
 		<!--감상평들 표시  -->
 		<!--감상평 리스트 데이터 전달받아야함 (reviewList) -->
 		<div class="row pad_side" id="review_title">
-			<h2>Reviews ></h2>
+			<h2><a href="MoveToAllReview">Reviews ></a></h2>
 		</div>
 		<div class="row pad_side" id="review_row">
 			<%for(int i=1; i<=2;i++){%>
