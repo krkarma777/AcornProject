@@ -43,6 +43,9 @@ where comid = #{comid}
 
 </update>
 
+<select id="selectAllByPostId" resultType="commentDTO" parameterType="long">
+select comid,postid,userid,comdate,comtext,abovecom from commentDB where postid=#{postId} order by comid asc
+</select>
 
 
 

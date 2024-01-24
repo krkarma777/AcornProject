@@ -44,6 +44,27 @@
 	z-index: 1030; /* 다른 요소들 위에 표시되도록 z-index 설정 */
 }
 
+.btn-custom {
+    border: 1px solid #6c757d; /* 테두리 색상과 두께 조정 */
+    background-color: white; /* 배경색 지정 */
+    color: #6c757d; /* 텍스트 색상 지정 */
+}
+
+.btn-custom:hover {
+    background-color: #6c757d; /* 마우스 오버 시 배경색 변경 */
+    color: white; /* 마우스 오버 시 텍스트 색상 변경 */
+}
+.btn-del {
+    color: #red; /* 텍스트 색상 지정 */
+    border: 1px solid #6c757d; /* 테두리 색상과 두께 조정 */
+    background-color: white; /* 배경색 지정 */
+}
+
+.btn-del:hover {
+    background-color: #6c757d; /* 마우스 오버 시 배경색 변경 */
+    color: red; /* 마우스 오버 시 텍스트 색상 변경 */
+}
+
 /* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
 .container {
 	padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
@@ -121,19 +142,19 @@
 			<div class="d-flex justify-content-between">
     <!-- 왼쪽에 위치할 목록 버튼 -->
     <div>
-        <a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button" class="btn btn-primary btn-spacing">목록</button></a>
+        <a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button" class="btn btn-custom btn-spacing">목록</button></a>
     </div>
 
     <!-- 오른쪽에 위치할 기타 버튼들 -->
     <div>
-        <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>" class="btn btn-primary btn-spacing">글쓰기</button></a>
-        <a href="/Acorn/board/edit?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-primary btn-spacing">수정</button></a>
-        <a href="/Acorn/board/delete?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-primary btn-spacing">삭제</button></a>
+        <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>" class="btn btn-custom btn-spacing">글쓰기</button></a>
+        <a href="/Acorn/board/edit?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-custom btn-spacing">수정</button></a>
+        <a href="/Acorn/board/delete?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-del btn-spacing">삭제</button></a>
     </div>
 </div>
-
+<div style="margin-top: 10px;">
 <jsp:include page="commentMain.jsp"></jsp:include>
-
+</div>
 				<!-- 댓글 내용 -->
 			</div>
 		</div>

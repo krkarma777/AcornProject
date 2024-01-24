@@ -22,23 +22,13 @@ import com.service.CommentService;
 public class CommentSelectAllServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CommentSelectAllServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		List<CommentDTO> list = new ArrayList();
-		CommentDTO comment = new CommentDTO();
+		List<CommentDTO> list = new ArrayList<>();
+		Long postId = Long.parseLong(request.getParameter("postId"));
 		CommentService service = new CommentService();
-		list = service.selectAll();
+		list = service.selectAllByPostId(postId);
 		System.out.println(list);
 		
 		HashMap<String,List<CommentDTO>> map = new HashMap<>();
@@ -58,9 +48,7 @@ public class CommentSelectAllServlet extends HttpServlet {
 	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

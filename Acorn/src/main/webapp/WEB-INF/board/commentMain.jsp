@@ -144,15 +144,17 @@ String userid =  "zz";
 	function CommentSelectAllServlet() {
 		//console.log("CommentSelectAllServlet");
 		
-		
+		 var postId = <%= request.getParameter("postId")%>
+		 
 		 $.ajax({
 				
 				type: "post",
 				url: "/Acorn/CommentSelectAllServlet",
-				data:{ },
+		        data: {
+		            postId: postId // postid 값을 요청에 포함시킴
+		        },
 				dataType: "json",
 				success :  function(data, status, xhr){
-					
 					var mesg ="";
 					
 					for(var i = 0; i<data.commentDBList.length; i++){
@@ -164,12 +166,17 @@ String userid =  "zz";
 						var comtext = data.commentDBList[i].comtext;
 						console.log(comid,"      ",userid,"      ",comdate)
 				
-						mesg += "<b>작성자 </b>"+userid+"<br>"
-						mesg += "<b>작성시간 </b>"+comdate+"<br>"
-						mesg += "<span id="+comid+">"+comtext+"</span><br>"
-						mesg += "<button id="+comid+" data-xxx="+i+">삭제</button>"
-						//data-xxx=comid_json.comid로 이 태그를 특정하고 있음. comid_json.comid는 DB 뒤져서 순차적으로 가져온거라 생기는 댓글마다 다 다름
-						mesg += "<hr>"
+				        // 카드 스타일의 댓글 목록 디자인
+				        mesg += "<div class='card mb-2'>";
+				        mesg += "<div class='card-header'>";
+				        mesg += "<strong>" + userid + "</strong>";
+				        mesg += "<small class='text-muted' style='float:right;'>" + comdate + "</small>";
+				        mesg += "</div>";
+				        mesg += "<div class='card-body d-flex justify-content-between'>";
+				        mesg += "<p class='card-text'>" + comtext + "</p>";
+				        mesg += "<button id='" + comid + "' class='btn btn-danger btn-sm btn-spacing' data-xxx='" + i + "'>삭제</button>";
+				        mesg += "</div>";
+				        mesg += "</div>";
 						
 					}//for문종료
 					
@@ -208,12 +215,12 @@ String userid =  "zz";
       <!--처음 댓글 입력하는 창-->
 <textarea id="comtext" class="form-control" name="comtext"  style="height: 100px;" placeholder="댓글을 입력하세요. 지나친 욕설/비방 작성 시 사이트 이용에 제재를 받을 수 있습니다." <%if( userid == null){%>disabled<%} %> ></textarea>
 
-<div style="text-align: right;">
-    <input type="button" id="sendButton" value="등록" class="btn btn-primary btn-spacing" style="margin-top: 10px;">
+<div style="text-align: right">
+    <input type="button" id="sendButton" value="등록" class="btn btn-custom btn-spacing" style="margin-top: 10px;">
 </div>
 
 
-  	<div id="CommetList">
+  	<div id="CommetList" style="margin-top: 20px;">
   	
   	<!--작성된 댓글 목록 보기-->
   	

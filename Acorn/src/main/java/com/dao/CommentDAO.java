@@ -48,4 +48,10 @@ public class CommentDAO {
 		int num = s.update("updateComment", comid);
 		return num;
 	}
+
+
+
+	public List<CommentDTO> selectAllByPostId(SqlSession session, Long postId) {
+		return session.selectList("CommentMapper.selectAllByPostId", postId);
+	}
 }
