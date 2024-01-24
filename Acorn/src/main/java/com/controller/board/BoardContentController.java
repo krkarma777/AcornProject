@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.controller.board.util.BoardController;
 import com.dto.PostDTO;
-import com.dto.PostInfoDTO;
 import com.service.PostService;
 
 public class BoardContentController implements BoardController {
