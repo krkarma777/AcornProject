@@ -47,7 +47,7 @@
 	<!-- 5초 뒤, 로그인 메인화면으로 이동 -->
     <script type="text/javascript">
         setTimeout(function () {
-            window.location.href = "<%=request.getContextPath()%>/LoginForm_Active";
+            window.location.href = "<%=request.getContextPath()%>/Login";
         }, 5000);
     </script>
     
@@ -59,7 +59,7 @@
     </div>
 
     <div id="sitesShortCut">
-        <a href="<%=request.getContextPath()%>/LoginServlet">로그인</a>
+        <a href="<%=request.getContextPath()%>/Login">로그인</a>
     </div>
 </body>
 </html>

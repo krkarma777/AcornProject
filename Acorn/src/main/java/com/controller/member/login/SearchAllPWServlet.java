@@ -14,7 +14,7 @@ import com.dto.MemberDTO;
 import com.service.MemberService;
 
 //전체 비밀번호 찾기 자식창 --> 전체 비밀번호 출력창
-@WebServlet("/SearchAllPWServlet")
+@WebServlet("/SearchAllPW")
 public class SearchAllPWServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

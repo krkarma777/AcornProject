@@ -108,7 +108,7 @@
 				 <td><%=dto.getUserType()%></td>
 			</tr>
 	</table>
-	<button onclick="location.href='<%=request.getContextPath()%>/LoginServlet'">로그인폼</button>
+	<button onclick="location.href='<%=request.getContextPath()%>/Login'">로그인폼</button>
 	<div id="sitesShortCut">
 		<a href="<%=request.getContextPath()%>/memberListServlet">디버그용 - 회원리스트</a>
 	</div>

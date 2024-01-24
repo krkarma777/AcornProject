@@ -15,7 +15,7 @@ import com.dto.MemberDTO;
 import com.service.MemberService;
 
 //로그인 메인에서 사용하는 로그인 기능(임시 코드)
-@WebServlet("/LoginToMypageServlet")
+@WebServlet("/Mypage")
 public class LoginToMypageServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class LoginToMypageServlet extends HttpServlet {
 		if (dto != null) {
 			session.setAttribute("loginUser", dto);
 			response.sendRedirect("main");
-		//아이디와 비밀번호가 DB에 일치하는 유저가 없을 경우, 유저 확인 불가로 연결**********************************
+		//아이디와 비밀번호가 DB에 일치하는 유저가 없을 경우, 유저 확인 불가로 연결
 		} else {
 			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/cantFindUserdata.jsp");
 			dis.forward(request, response);

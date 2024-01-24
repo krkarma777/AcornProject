@@ -210,7 +210,7 @@
 
 <body>
     <div id="for_Login">
-        <form id="loginForm" action="<%=request.getContextPath()%>/LoginToMypageServlet" method="post">
+        <form id="loginForm" action="<%=request.getContextPath()%>/Mypage" method="post">
             <table>
                 <tr>
                     <td>아이디:</td>
@@ -230,9 +230,9 @@
             </table>
         </form>
         <div id="sitesShortCut">
-            <a href="<%=request.getContextPath()%>/IDServlet">아이디 찾기</a> |
-            <a href="<%=request.getContextPath()%>/PWServlet">비밀번호 찾기</a> |
-            <a href="<%=request.getContextPath()%>/RegisterServlet">회원가입</a>
+            <a href="<%=request.getContextPath()%>/FindID">아이디 찾기</a> |
+            <a href="<%=request.getContextPath()%>/FindPW">비밀번호 찾기</a> |
+            <a href="<%=request.getContextPath()%>/RegisterTerms">회원가입</a>
         </div>
         <div id="debugLink">
             <a href="<%=request.getContextPath()%>/memberListServlet">디버그용 - 회원리스트</a>

@@ -49,7 +49,7 @@
     <div class="container">
         <h1>약관 동의 페이지</h1>
 
-        <form id="agreementForm" action="<%=request.getContextPath()%>/RegisterCheckExistUserServlet" method="post">
+        <form id="agreementForm" action="<%=request.getContextPath()%>/CheckExistUser" method="post">
 
             <div>
                 <textarea readonly="readonly">

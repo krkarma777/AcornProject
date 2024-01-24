@@ -104,7 +104,7 @@
 
 <body>
 	<h2>아이디 찾기</h2>
-	<form id="findIdForm" action="<%=request.getContextPath()%>/SearchIDServlet" method="post">
+	<form id="findIdForm" action="<%=request.getContextPath()%>/SearchID" method="post">
 		이름: 	<input type="text" class="must" id="userName" name="userName"><br>
 		SSN: 	<input type="number" class="must" id="ssn1" name="ssn1" maxlength="6"> 
 		- 		<input type="password" class="must"
@@ -112,9 +112,9 @@
 		<br> 	<input type="submit" value="확인">
 	</form>
 	<div id="sitesShortCut">
-		<a href="<%=request.getContextPath()%>/LoginServlet">로그인</a> | 
-		<a href="<%=request.getContextPath()%>/PWServlet">비밀번호 찾기</a> | 
-		<a href="<%=request.getContextPath()%>/RegisterServlet">회원가입</a>
+		<a href="<%=request.getContextPath()%>/Login">로그인</a> | 
+		<a href="<%=request.getContextPath()%>/FindPW">비밀번호 찾기</a> | 
+		<a href="<%=request.getContextPath()%>/RegisterTerms">회원가입</a>
 	</div>
 
 

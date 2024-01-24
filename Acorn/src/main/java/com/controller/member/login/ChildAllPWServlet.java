@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 //비밀번호 전체 출력 자식창 MVC용(미구현)
-@WebServlet("/ChildAllPWServlet")
+@WebServlet("/FindAllPW")
 public class ChildAllPWServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

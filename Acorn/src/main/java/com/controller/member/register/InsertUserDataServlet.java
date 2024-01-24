@@ -16,7 +16,7 @@ import com.dto.MemberDTO;
 import com.service.MemberService;
 
 //회원가입 3단계 페이지에서 사용
-@WebServlet("/InsertUserDataServlet")
+@WebServlet("/InsertData")
 public class InsertUserDataServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -198,6 +198,7 @@ public class InsertUserDataServlet extends HttpServlet {
 
 			MemberDTO dto = new MemberDTO(userId, userPwConfirm, userName, ssn1, ssn2, nickname, userGender,
 					userPhoneNum1, userPhoneNum2, userPhoneNum3, userEmailId, userEmailDomain, userSignDate, "1");
+			System.out.println(dto);
 			int num = serv.insertNewMember(dto);
 
 			// 성공적으로 insert된 경우, 회원가입 성공 페이지로 이동
