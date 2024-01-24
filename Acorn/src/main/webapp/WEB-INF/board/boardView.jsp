@@ -161,7 +161,7 @@ color:red;
 					<div class="col-md-6"><%= post.getPostTitle() %></div>
 					<div class="col-md-3">
 					
-						<%= post.getUserId() %></div>
+						<%= post.getNickname() %></div>
 					<fmt:formatDate value="<%= post.getPostDate() %>"
 						pattern="yyyy-MM-dd" var="formattedDate" />
 					<div class="col-md-3">${formattedDate}</div>
