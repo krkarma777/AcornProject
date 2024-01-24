@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<nav class="navbar navbar-expand bg-dark navbar-dark">
+
+<nav class="navbar navbar-expand navbar-dark" style="background-color:transparent;">
         <div class="container-fluid">
             <a class="navbar-brand" href="main">문밤</a>
             <form class="d-flex" role="search">
@@ -9,7 +9,7 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="#" class="nav-link">로그인</a></li>
+                <li class="nav-item"><a href="LoginServlet" class="nav-link">로그인</a></li>
                 <!-- <li class="nav-item"><a href="#" class="nav-link">회원가입</a></li> -->
                 <!-- <li class="nav-item"><a href="#" class="nav-link">Link3</a></li> -->
             </ul>

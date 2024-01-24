@@ -35,7 +35,7 @@ public class CommentMainServlet extends HttpServlet {
 		//게시글 번호를 가져와야 하는데, session이나 다른 곳에 저장된 "현재 접속된 게시글의 번호"를 가져와야함. 일단 임시로 게시글번호 지정하겠음
 		session.setAttribute("postid", 1);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/commentMain.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/board/commentMain.jsp");
 		dis.forward(request, response);
 
 	}
