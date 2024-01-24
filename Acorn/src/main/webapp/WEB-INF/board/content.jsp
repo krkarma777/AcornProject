@@ -44,25 +44,49 @@
 	z-index: 1030; /* 다른 요소들 위에 표시되도록 z-index 설정 */
 }
 
-.btn-custom {
-    border: 1px solid #6c757d; /* 테두리 색상과 두께 조정 */
-    background-color: white; /* 배경색 지정 */
-    color: #6c757d; /* 텍스트 색상 지정 */
+.navbar-light {
+    background-color: #f8f9fa; /* 네비게이션바의 배경색 */
 }
 
-.btn-custom:hover {
-    background-color: #6c757d; /* 마우스 오버 시 배경색 변경 */
-    color: white; /* 마우스 오버 시 텍스트 색상 변경 */
-}
-.btn-del {
-    color: #red; /* 텍스트 색상 지정 */
-    border: 1px solid #6c757d; /* 테두리 색상과 두께 조정 */
-    background-color: white; /* 배경색 지정 */
+/* 검색 버튼 색상 */
+.btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
 }
 
-.btn-del:hover {
-    background-color: #6c757d; /* 마우스 오버 시 배경색 변경 */
-    color: red; /* 마우스 오버 시 텍스트 색상 변경 */
+.btn-outline-success:hover {
+    color: white;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+/* 글쓰기, 수정, 삭제 버튼 색상 추가 */
+.btn-action {
+    color: #495057; /* 버튼 텍스트 색상 */
+    border-color: #ced4da; /* 버튼 테두리 색상 */
+    background-color: #e9ecef; /* 버튼 배경색 */
+}
+
+.btn-action:hover {
+    color: white;
+    background-color: #adb5bd; /* 마우스 오버 시 배경색 */
+    border-color: #adb5bd; /* 마우스 오버 시 테두리 색상 */
+}
+
+/* 카드 헤더 색상 변경 */
+.card-header {
+    background-color: #e9ecef; /* 카드 헤더 배경색 */
+    color: #495057; /* 카드 헤더 텍스트 색상 */
+}
+
+/* 댓글 섹션 스타일 조정 */
+.comment-section .card {
+    border: 1px solid #ced4da; /* 카드 테두리 */
+}
+
+.comment-section .card-header {
+    background-color: #f8f9fa; /* 댓글 카드 헤더 배경색 */
+    color: #495057; /* 댓글 카드 헤더 텍스트 색상 */
 }
 
 /* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
@@ -142,15 +166,16 @@
 			<div class="d-flex justify-content-between">
     <!-- 왼쪽에 위치할 목록 버튼 -->
     <div>
-        <a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button" class="btn btn-custom btn-spacing">목록</button></a>
+        <a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">목록</button></a>
     </div>
 
     <!-- 오른쪽에 위치할 기타 버튼들 -->
-    <div>
-        <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>" class="btn btn-custom btn-spacing">글쓰기</button></a>
-        <a href="/Acorn/board/edit?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-custom btn-spacing">수정</button></a>
-        <a href="/Acorn/board/delete?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-del btn-spacing">삭제</button></a>
-    </div>
+<div>
+    <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">글쓰기</button></a>
+    <a href="/Acorn/board/edit?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">수정</button></a>
+    <a href="/Acorn/board/delete?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">삭제</button></a>
+</div>
+
 </div>
 <div style="margin-top: 10px;">
 <jsp:include page="commentMain.jsp"></jsp:include>

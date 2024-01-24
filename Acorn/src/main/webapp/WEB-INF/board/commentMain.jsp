@@ -216,7 +216,7 @@ String userid =  "zz";
 <textarea id="comtext" class="form-control" name="comtext"  style="height: 100px;" placeholder="댓글을 입력하세요. 지나친 욕설/비방 작성 시 사이트 이용에 제재를 받을 수 있습니다." <%if( userid == null){%>disabled<%} %> ></textarea>
 
 <div style="text-align: right">
-    <input type="button" id="sendButton" value="등록" class="btn btn-custom btn-spacing" style="margin-top: 10px;">
+    <input type="button" id="sendButton" value="등록" class="btn btn-action btn-spacing" style="margin-top: 10px;">
 </div>
 
 
