@@ -9,7 +9,7 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <ul class="navbar-nav">
-                <li class="nav-item"><a href="#" class="nav-link">로그인</a></li>
+                <li class="nav-item"><a href="LoginServlet" class="nav-link">로그인</a></li>
                 <!-- <li class="nav-item"><a href="#" class="nav-link">회원가입</a></li> -->
                 <!-- <li class="nav-item"><a href="#" class="nav-link">Link3</a></li> -->
             </ul>

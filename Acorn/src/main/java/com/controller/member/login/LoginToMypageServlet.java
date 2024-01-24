@@ -31,9 +31,7 @@ public class LoginToMypageServlet extends HttpServlet {
 		//아이디와 비밀번호가 DB에 일치하는 유저가 있을 경우, 유저 전체 정보 출력
 		if (dto != null) {
 			session.setAttribute("loginUser", dto);
-			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Login/loginSuccess.jsp");
-			dis.forward(request, response);
-		
+			response.sendRedirect("main");
 		//아이디와 비밀번호가 DB에 일치하는 유저가 없을 경우, 유저 확인 불가로 연결**********************************
 		} else {
 			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/cantFindUserdata.jsp");
