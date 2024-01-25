@@ -13,7 +13,7 @@ public class BoardWriteController implements BoardController {
     public String process(Map<String, String> paramMap, Map<String, Object> model) {
         // 로그인 유저만 접속
         if (!AuthUtils.isUserLoggedIn(paramMap)) {
-            return "redirect:/Acorn/LoginServlet";
+            return "redirect:/Acorn/Login";
         }
 
         // 폼에서 전송된 데이터를 파싱

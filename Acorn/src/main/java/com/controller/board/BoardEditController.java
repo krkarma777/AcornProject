@@ -20,7 +20,7 @@ public class BoardEditController implements BoardController {
 
 		// 로그인 여부 확인
 		if (!AuthUtils.isUserLoggedIn(paramMap)) {
-			return "redirect:/Acorn/LoginServlet";
+			return "redirect:/Acorn/Login";
 		}
 		// 사용자가 로그인했는지 확인하고, 로그인하지 않았으면 로그인 페이지로 리다이렉트합니다.
 
