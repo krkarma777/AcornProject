@@ -30,8 +30,6 @@ public class CommentMainServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		
-		//userid 로그인 시 저장 된 session정보 받아오기. 현재는 임시로 지정했음
-		session.setAttribute("userid", "kmj3718");
 		//게시글 번호를 가져와야 하는데, session이나 다른 곳에 저장된 "현재 접속된 게시글의 번호"를 가져와야함. 일단 임시로 게시글번호 지정하겠음
 		session.setAttribute("postid", 1);
 		

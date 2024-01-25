@@ -4,10 +4,12 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List" %>    
 <%@page import="java.util.Map" %>    
-<%@page import="java.util.HashMap" %>    
+<%@page import="java.util.HashMap" %>  
+<%@page import="com.dto.MemberDTO" %>  
 <%
 //session scoep에 저장된 userid
-String userid =  "zz";
+MemberDTO dto =  (MemberDTO)session.getAttribute("loginUser");
+String userid = dto.getUserId();
 %>
 <script type="text/javascript">
 
@@ -175,9 +177,12 @@ $(document).on("click",".deleteCommentBtn",function(){
 				            mesg += "<strong>" + userid + "</strong> | <span>" + comdate + "</span>";
 				            mesg += "</div>";
 				            mesg += "<p class='comment-content'>" + comtext + "</p>";
-				            mesg += "<div class='comment-actions'>";
-				            mesg += "<button id='" + comid + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + i + "'>삭제</button>";
-				            mesg += "</div>";
+				            if(userid=="<%=userid%>"){
+				            	mesg += "<div class='comment-actions'>";
+					        	mesg += "<button id='" + comid + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + i + "'>삭제</button>";
+					        	mesg += "</div>";
+				            }
+
 				            mesg += "</li>";
 				        }
 				        mesg += "</ul>"; // 댓글 리스트 종료
