@@ -18,7 +18,7 @@ public class BoardContentController implements BoardController {
 		PostService service = new PostService();
 		PostDTO post = service.select(postId);
 		
-		if(post.getUserId().equals(paramMap.get("userId")) ) {
+		if(!post.getUserId().equals(paramMap.get("userId")) ) {
 			model.put("mismatchError", "사용자가 일치하지 않습니다. 권한이 없습니다.");
 		}
 

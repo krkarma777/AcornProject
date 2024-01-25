@@ -240,7 +240,7 @@
     <%
     String mismatchError = (String)request.getAttribute("mismatchError");
     System.out.println(mismatchError);
-    if(mismatchError==null && session.getAttribute("login")!=null){
+    if(mismatchError==null && session.getAttribute("loginUser")!=null){
     %>
     <a href="/Acorn/board/edit?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">수정</button></a>
     <a href="/Acorn/board/delete?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">삭제</button></a>
