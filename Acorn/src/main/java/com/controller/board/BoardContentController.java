@@ -26,7 +26,8 @@ public class BoardContentController implements BoardController {
 		model.put("postText", post.getPostText()); // 게시글 내용
 		model.put("postTitle", post.getPostTitle()); // 게시글 제목
 		model.put("postDate", post.getPostDate()); // 게시글 작성일
-		model.put("userId", post.getUserId()); // 게시글 작성자의 사용자 ID
+		model.put("nickname", post.getNickname()); // 게시글 작성자의 사용자 닉네임
+		
 		
 		//게시물 조회수 업데이트
 		service.updateViewNum(postId);

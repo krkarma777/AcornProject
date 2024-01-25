@@ -211,7 +211,7 @@
 			<div class="post-meta">
 				<fmt:formatDate value="${postDate}" pattern="yyyy.MM.dd hh:dd:ss"
 					var="formattedDate" />
-				<small>작성자: ${userId}  |  작성일: ${formattedDate}</small>
+				<small>작성자: ${nickname}  |  작성일: ${formattedDate}</small>
 			</div>
 			<hr>
 			<!-- 글 내용 -->
