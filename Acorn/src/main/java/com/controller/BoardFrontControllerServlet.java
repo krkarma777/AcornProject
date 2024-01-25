@@ -10,16 +10,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.controller.board.BoardContentController;
 import com.controller.board.BoardDeleteController;
 import com.controller.board.BoardEditController;
 import com.controller.board.BoardViewController;
 import com.controller.board.BoardWriteController;
+import com.controller.board.util.AuthUtils;
 import com.controller.board.util.BoardController;
 import com.controller.board.util.BoardView;
-import com.dto.MemberDTO;
 
 @WebServlet("/board/*")
 public class BoardFrontControllerServlet extends HttpServlet {
@@ -29,6 +28,7 @@ public class BoardFrontControllerServlet extends HttpServlet {
 	private Map<String, BoardController> controllerMap = new HashMap<>();
 
 	public BoardFrontControllerServlet() {
+		
 		// 다양한 URI에 대해 컨트롤러를 매핑
 		controllerMap.put("/Acorn/board/content", new BoardContentController());
 		controllerMap.put("/Acorn/board/write", new BoardWriteController());
@@ -39,8 +39,9 @@ public class BoardFrontControllerServlet extends HttpServlet {
 		controllerMap.put("/Acorn/board/movie", new BoardViewController("movie"));
 		controllerMap.put("/Acorn/board/music", new BoardViewController("music"));
 		controllerMap.put("/Acorn/board/book", new BoardViewController("book"));
+		
 	}
-
+	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -59,7 +60,7 @@ public class BoardFrontControllerServlet extends HttpServlet {
 		Map<String, String> paramMap = createParamMap(request);
 		
 		// 유저 로그인 검증
-		validationUser(paramMap, request);
+		AuthUtils.addUserLoginInfo(paramMap, request);
 
 		// 뷰에서 사용할 모델 객체 생성
 		Map<String, Object> model = new HashMap<>(); // 추가
@@ -86,19 +87,6 @@ public class BoardFrontControllerServlet extends HttpServlet {
 				.forEachRemaining(paramName -> paramMap.put(paramName, request.getParameter(paramName)));
 		
 		return paramMap;
-	}
-	
-	//로그인 유저 검증
-	private void validationUser(Map<String, String> paramMap , HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		MemberDTO dto = (MemberDTO)session.getAttribute("loginUser");
-		if (dto == null) {
-			paramMap.put("isLogin", "no");
-		} else {
-			paramMap.put("isLogin", "yes");
-			paramMap.put("nickname", dto.getNickname());
-			paramMap.put("userId", dto.getUserId());
-		}
 	}
 
 	// 뷰 이름을 해석해서 View 객체로 변환하는 메서드
