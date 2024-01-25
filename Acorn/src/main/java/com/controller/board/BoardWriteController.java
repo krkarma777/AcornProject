@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.controller.board.util.AuthUtils;
 import com.controller.board.util.BoardController;
-import com.dto.PostDTO;
+import com.dto.board.PostDTO;
 import com.service.PostService;
 
 public class BoardWriteController implements BoardController {

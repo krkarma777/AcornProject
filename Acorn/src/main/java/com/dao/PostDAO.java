@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.dto.PageDTO;
-import com.dto.PostDTO;
-import com.dto.PostInfoDTO;
+import com.dto.board.PageDTO;
+import com.dto.board.PostDTO;
+import com.dto.board.PostPageDTO;
 
 public class PostDAO {
     
@@ -53,9 +53,9 @@ public class PostDAO {
         return session.selectList("selectAllPosts", map);
     }
     
-    public PageDTO<PostDTO> selectByPage(SqlSession session, String board, int curPage, int perPage) {
+    public PageDTO<PostPageDTO> selectByPage(SqlSession session, String board, int curPage, int perPage) {
         int offset = (curPage - 1) * perPage;
-        List<PostDTO> list = session.selectList("selectAllByPage", 
+        List<PostPageDTO> list = session.selectList("selectAllByPage", 
                                                 new HashMap<String, Object>() {{
                                                     put("board", board);
                                                     put("offset", offset);
@@ -64,7 +64,7 @@ public class PostDAO {
 
         int totalCount = session.selectOne("countPosts", board);
 
-        PageDTO<PostDTO> pageDTO = new PageDTO<>();
+        PageDTO<PostPageDTO> pageDTO = new PageDTO<>();
         pageDTO.setList(list);
         pageDTO.setCurPage(curPage);
         pageDTO.setPerPage(perPage);
@@ -101,5 +101,17 @@ public class PostDAO {
 		
 		return n;
 
+	}
+
+	public Long likeNum(SqlSession session, Long postId) {
+		return session.selectOne("likeNum",postId);
+	}
+
+	public Long viewNum(SqlSession session, Long postId) {
+		return session.selectOne("viewNum",postId);
+	}
+
+	public PostPageDTO selectPagePost(SqlSession session, Long postId) {
+		return session.selectOne("selectPagePost",postId);
 	}
 }//end class

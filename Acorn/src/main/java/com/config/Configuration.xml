@@ -8,12 +8,16 @@
   <properties resource="com/config/jdbc.properties"/>
 
   <typeAliases>
-    <typeAlias type="com.dto.PostDTO" alias="PostDTO"/>
-    <typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
-    <typeAlias type="com.dto.PostInfoDTO" alias="PostInfoDTO"/>
+  	<!-- 게시판 관련 DTO -->
+    <typeAlias type="com.dto.board.PostDTO" alias="PostDTO"/>
+    <typeAlias type="com.dto.board.PageDTO" alias="PageDTO"/>
+    <typeAlias type="com.dto.board.PostPageDTO" alias="PostPageDTO"/>
+    <typeAlias type="com.dto.board.PostInfoDTO" alias="PostInfoDTO"/>
+    <typeAlias type="com.dto.board.LikeDTO" alias="LikeDTO"/>
     <typeAlias type="com.dto.CommentDTO" alias="CommentDTO"/>
+	<!--  -->
+   	<typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
    	<typeAlias type="com.dto.ReviewDTO" alias="ReviewDTO"/>
-	<typeAlias type="com.dto.PostInfoDTO" alias="PostInfoDTO"/>
 	<typeAlias type="com.dto.RateDTO" alias="RateDTO"/>
 	<typeAlias type="com.dto.ContentDTO" alias="ContentDTO"/>
   </typeAliases>

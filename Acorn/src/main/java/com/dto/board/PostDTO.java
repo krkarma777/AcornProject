@@ -1,8 +1,8 @@
-package com.dto;
+package com.dto.board;
 
 import java.util.Date;
 
-public class PostDTO {
+public class PostDTO implements IPost {
     private Long postId;
     private String postBoard;
     private String userId;

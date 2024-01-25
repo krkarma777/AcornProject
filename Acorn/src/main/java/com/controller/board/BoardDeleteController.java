@@ -5,7 +5,7 @@ import java.util.Map;
 import com.controller.board.util.AuthUtils;
 import com.controller.board.util.BoardController;
 import com.controller.board.util.ErrorMessage;
-import com.dto.PostDTO;
+import com.dto.board.PostDTO;
 import com.service.PostService;
 
 // 게시글 삭제를 담당하는 컨트롤러

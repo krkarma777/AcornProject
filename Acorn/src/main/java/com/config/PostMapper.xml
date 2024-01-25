@@ -17,6 +17,16 @@
         SELECT * FROM postdb WHERE postid = #{postId}
     </select>
 
+    <!-- 개별 게시물 조회 (좋아요 수, 조회수, 댓글 수 포함) -->
+    <select id="selectPagePost" resultType="PostPageDTO" parameterType="Long">
+        SELECT p.*,
+               (SELECT COUNT(*) FROM likeDB WHERE postId = p.postId AND isLike = '1') AS likeNum,
+               (SELECT viewNum FROM postInfoDB WHERE postId = p.postId) AS viewNum,
+               (SELECT COUNT(*) FROM commentDB WHERE postId = p.postId) AS commentCount
+        FROM postDB p
+        WHERE p.postId = #{postId}
+    </select>
+
 	<delete id="deletePostInfo" parameterType="long">
 	    DELETE FROM postinfodb WHERE postid = #{postId}
 	</delete>
@@ -40,16 +50,22 @@
         WHERE postId = #{postId}
     </update>
     
-    <!-- 페이지네이션을 위한 게시물 조회 -->
-	<select id="selectAllByPage" resultType="PostDTO">
-    SELECT * FROM (
-        SELECT a.*, ROWNUM rnum FROM (
-            SELECT * FROM postDB 
-            WHERE postBoard = #{board} 
-            ORDER BY postId DESC
-        ) a
-    ) WHERE rnum BETWEEN #{offset} + 1 AND #{offset} + #{perPage}
-	</select>
+
+    <!-- 페이지네이션을 위한 게시물 조회 (좋아요 수, 조회수, 댓글 수 포함) -->
+    <select id="selectAllByPage" resultType="PostPageDTO">
+        SELECT * FROM (
+            SELECT a.*, ROWNUM rnum,
+                   (SELECT COUNT(*) FROM likeDB WHERE postId = a.postId AND isLike = '1') AS likeNum,
+                   (SELECT viewNum FROM postInfoDB WHERE postId = a.postId) AS viewNum,
+                   (SELECT COUNT(*) FROM commentDB WHERE postId = a.postId) AS commentCount
+            FROM (
+                SELECT * FROM postDB 
+                WHERE postBoard = #{board} 
+                ORDER BY postId DESC
+            ) a
+        ) WHERE rnum BETWEEN #{offset} + 1 AND #{offset} + #{perPage}
+    </select>
+
 
 
     <!-- 게시물 총 개수 조회 -->
@@ -65,5 +81,21 @@
 			((SELECT viewNum FROM postInfoDB WHERE postId = #{postId} )+1) 
 		WHERE postId = #{postId}
 	</update>
+	
+	    <!-- 조회수를 가져오는 쿼리 -->
+    <select id="viewNum" resultType="long">
+        SELECT viewNum
+        FROM postInfoDB
+        WHERE postId = #{postId}
+    </select>
+    
+		<!-- 좋아요 수 조회 -->
+	<select id="likeNum" parameterType="Long" resultType="Long">
+		SELECT COUNT(*) AS likeCount
+		FROM likeDB
+		WHERE postId = #{postId} AND isLike = '1'
+	</select>
+	
+
 
 </mapper>

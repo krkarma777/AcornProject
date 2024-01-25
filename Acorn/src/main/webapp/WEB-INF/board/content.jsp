@@ -208,10 +208,24 @@
 			<div class="post-title">
 				<h3>${postTitle}</h3>
 			</div>
-			<div class="post-meta">
-				<fmt:formatDate value="${postDate}" pattern="yyyy.MM.dd hh:dd:ss"
-					var="formattedDate" />
-				<small>작성자: ${nickname}  |  작성일: ${formattedDate}</small>
+			<div class="post-meta d-flex justify-content-between">
+			<fmt:formatDate value="${postDate}" pattern="yyyy.MM.dd hh:dd:ss" var="formattedDate" />
+		    <!-- 왼쪽 부분: 작성자, 작성일 -->
+			    <div>
+			        <small>
+			            작성자: ${nickname} | 
+			            작성일: ${formattedDate}
+			        </small>
+			    </div>
+			    
+			    <!-- 오른쪽 부분: 조회수, 추천, 댓글 -->
+			    <div>
+			        <small>
+			            조회수: ${viewNum} | 
+			            추천: ${likeNum} | 
+			            댓글: ${commentCount}
+			        </small>
+			    </div>
 			</div>
 			<hr>
 			<!-- 글 내용 -->
@@ -220,7 +234,7 @@
 			</div>
 			            <!-- 좋아요 버튼 -->
             <div class="like-button text-center">
-                <button type="button" class="btn btn-outline-primary btn-sm">좋아요</button>
+                <button type="button" class="btn btn-outline-primary btn-sm">좋아요 <%= request.getAttribute("likeNum") %></button>
             </div>
 		</div>
 

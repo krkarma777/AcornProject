@@ -1,25 +1,17 @@
-package com.dto;
+package com.dto.board;
 
 public class PostInfoDTO {
 	private long postId;
 	private long viewNum;
-	private long likeNum;
-	
-	//기본생성자
 	public PostInfoDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	// 사용자 지정 생성자
-	public PostInfoDTO(long postId, long viewNum, long likeNum) {
+	public PostInfoDTO(long postId, long viewNum) {
 		super();
 		this.postId = postId;
 		this.viewNum = viewNum;
-		this.likeNum = likeNum;
 	}
-	
-	//get, set
 	public long getPostId() {
 		return postId;
 	}
@@ -32,16 +24,11 @@ public class PostInfoDTO {
 	public void setViewNum(long viewNum) {
 		this.viewNum = viewNum;
 	}
-	public long getLikeNum() {
-		return likeNum;
-	}
-	public void setLikeNum(long likeNum) {
-		this.likeNum = likeNum;
-	}
-	
 	@Override
 	public String toString() {
-		return "PostInfoDTO [postId=" + postId + ", viewNum=" + viewNum + ", likeNum=" + likeNum + "]";
+		return "PostInfoDTO [postId=" + postId + ", viewNum=" + viewNum + "]";
 	}
+
+	
 	
 }//end class

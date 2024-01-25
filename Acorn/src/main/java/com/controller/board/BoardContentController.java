@@ -5,7 +5,7 @@ import java.util.Map;
 import com.controller.board.util.AuthUtils;
 import com.controller.board.util.BoardController;
 import com.controller.board.util.ErrorMessage;
-import com.dto.PostDTO;
+import com.dto.board.PostPageDTO;
 import com.service.PostService;
 
 public class BoardContentController implements BoardController {
@@ -18,7 +18,7 @@ public class BoardContentController implements BoardController {
 
 		// PostService를 이용하여 postId에 해당하는 게시글을 검색합니다.
 		PostService service = new PostService();
-		PostDTO post = service.select(postId);
+		PostPageDTO post = service.selectPagePost(postId);
 		
 		if(!AuthUtils.isUserAuthorized(post, paramMap) ) {
 			model.put("mismatchError", ErrorMessage.MISMATCH_ERROR.getMessage());
@@ -29,6 +29,9 @@ public class BoardContentController implements BoardController {
 		model.put("postTitle", post.getPostTitle()); // 게시글 제목
 		model.put("postDate", post.getPostDate()); // 게시글 작성일
 		model.put("nickname", post.getNickname()); // 게시글 작성자의 사용자 닉네임
+		model.put("viewNum", post.getViewNum()); // 조회수
+		model.put("likeNum", post.getLikeNum()); // 좋아요 갯수
+		model.put("commentCount", post.getCommentCount()); // 댓글 갯수
 		
 		
 		//게시물 조회수 업데이트

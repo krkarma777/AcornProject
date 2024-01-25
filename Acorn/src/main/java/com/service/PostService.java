@@ -6,9 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
 import com.dao.PostDAO;
-import com.dto.PageDTO;
-import com.dto.PostDTO;
-import com.dto.PostInfoDTO;
+import com.dto.board.PageDTO;
+import com.dto.board.PostDTO;
+import com.dto.board.PostPageDTO;
 
 public class PostService {
 	
@@ -73,7 +73,7 @@ public class PostService {
     }
 
     
-    public PageDTO<PostDTO> getPostsByPage(String board, int curPage, int perPage) {
+    public PageDTO<PostPageDTO> getPostsByPage(String board, int curPage, int perPage) {
         SqlSession session = null;
         try {
             session = MySqlSessionFactory.getSqlSession();
@@ -156,5 +156,51 @@ public class PostService {
 		return n;
 		
 	}//end updateVieNum
+
+	public Long likeNum(Long postId) {
+		Long like = 0L;
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		try {
+			like = dao.likeNum(session, postId);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return like;
+	}
+
+	public Long viewNum(Long postId) {
+		Long view = 0L;
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		try {
+			view = dao.viewNum(session, postId);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return view;
+	}
+
+	public PostPageDTO selectPagePost(Long postId) {
+        SqlSession session = MySqlSessionFactory.getSqlSession();
+        PostPageDTO dto = null;
+        try {
+            // 글 조회 메서드 호출
+        	dto = dao.selectPagePost(session, postId);
+        } finally {
+            try {
+                session.close();
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+		return dto;
+	}
     
 }

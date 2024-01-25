@@ -1,6 +1,8 @@
 <%@page import="com.dto.MemberDTO"%>
-<%@page import="com.dto.PostDTO"%>
-<%@page import="com.dto.PageDTO"%>
+<%@page import="com.dto.board.PostPageDTO"%>
+<%@page import="com.dto.board.PageDTO"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
 <%@ page import="java.sql.*, java.util.*"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -9,8 +11,14 @@
 <head>
 <meta charset="UTF-8">
 <%
-    PageDTO<PostDTO> pDTO = (PageDTO<PostDTO>) request.getAttribute("pDTO");
-    List<PostDTO> list = null;
+
+	SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	Date now = new Date();
+	String strToday = sdfDate.format(now);
+	
+    PageDTO<PostPageDTO> pDTO = (PageDTO<PostPageDTO>) request.getAttribute("pDTO");
+    List<PostPageDTO> list = null;
     if (pDTO != null) {
         list = pDTO.getList();
     }
@@ -96,6 +104,11 @@ color:red;
         font-weight: bold; /* 글씨 굵게 */
     }
 
+    /* 중앙 정렬을 위한 새로운 클래스 정의 */
+    .text-center-align {
+        text-align: center;
+    }
+
 </style>
 </head>
 <body>
@@ -144,31 +157,44 @@ color:red;
 		<h2><%= postBoard %> Board</h2>
 		
 		 <!-- 테이블 헤더 -->
-    <div class="list-group-item table-header">
-        <div class="row">
-            <div class="col-md-6">제목</div>
-            <div class="col-md-3">작성자</div>
-            <div class="col-md-3">작성일</div>
-        </div>
-    </div>
-
-			<%
-			for (PostDTO post : list) {
-			%>
-			<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%= postBoard %>"
-				class="list-group-item list-group-item-action rounded">
+			<div class="list-group-item table-header">
 				<div class="row">
-					<div class="col-md-6"><%= post.getPostTitle() %></div>
-					<div class="col-md-3">
-					
-						<%= post.getNickname() %></div>
-					<fmt:formatDate value="<%= post.getPostDate() %>"
-						pattern="yyyy-MM-dd" var="formattedDate" />
-					<div class="col-md-3">${formattedDate}</div>
+					<div class="col-md-1 text-center-align">탭</div>
+					<div class="col-md-7 text-center-align">제목</div>
+					<div class="col-md-4 row">
+						<div class="col-md-4 text-center-align">글쓴이</div>
+						<div class="col-md-4 text-center-align">날짜</div>
+						
+						<div class="col-md-2 text-center-align">조회</div>
+						<div class="col-md-2 text-center-align">추천</div>
+					</div>
 				</div>
+			</div>
 
-			</a>
-			<% } %>
+		<% for (PostPageDTO post : list) { %>
+		    <a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%= postBoard %>" class="list-group-item list-group-item-action">
+		        <div class="row">
+		        	<div class="col-md-1 text-center-align">일반</div>
+		            <div class="col-md-7"><%= post.getPostTitle() %> [<%= post.getCommentCount() %>]</div>
+		            <div class="col-md-4 row">
+			            <div class="col-md-4 text-center-align"><%= post.getNickname() %></div>
+			            <%
+			            String strPostDate = sdfDate.format(post.getPostDate());
+			            String formattedDate;
+			            if (strToday.equals(strPostDate)) {
+			                formattedDate = new SimpleDateFormat("HH:mm").format(post.getPostDate());
+			            } else {
+			                formattedDate = sdfDateTime.format(post.getPostDate());
+			            }
+			            %>
+	
+			            <div class="col-md-4 text-center-align"><%= formattedDate %></div>
+			            <div class="col-md-2 text-center-align"><%= post.getViewNum() %></div>
+			            <div class="col-md-2 text-center-align"><%= post.getLikeNum() %></div>
+		            </div>
+		        </div>
+		    </a>
+		<% } %>
 			
 					<!-- 버튼 그룹에 간격을 추가하기 위한 클래스 적용 -->
 		<div class="mb-3 d-flex justify-content-end margin-top">
@@ -185,25 +211,24 @@ color:red;
 		<div class="page-numbers text-center ">
 			<!-- text-center 클래스를 추가하여 가운데 정렬 -->
 			<%
-    int curPage = pDTO.getCurPage();
-    int perPage = pDTO.getPerPage();
-    int totalCount = pDTO.getTotalCount();
-    int totalPage = (int) Math.ceil((double) totalCount / perPage);
+		    int curPage = pDTO.getCurPage();
+		    int perPage = pDTO.getPerPage();
+		    int totalCount = pDTO.getTotalCount();
+		    int totalPage = (int) Math.ceil((double) totalCount / perPage);
+		    
+		    %>
     
-    for (int i = 1; i <= totalPage; i++) {
-        if (i == curPage) {
-            // 현재 페이지는 링크를 걸지 않고 강조 스타일을 적용합니다.
-            out.print("<span class='current-page font-red'>" + i + "</span>");
-        } else {
-            // 다른 페이지는 해당 페이지로 이동할 수 있는 링크를 생성합니다.
-            out.print("<a class='no-underline font-black' href='/Acorn/board/movie?curPage=" + i + "'>" + i + "</a>");
-        }
-        if (i < totalPage) {
-            // 페이지 사이에 구분자(예: |)를 넣을 수 있습니다.
-            out.print(" | ");
-        }
-    }
-    %>
+    
+			<% for (int i = 1; i <= totalPage; i++) { %>
+			    <% if (i == curPage) { %>
+			        <span class='current-page font-red'><%= i %></span>
+			    <% } else { %>
+			        <a class='no-underline font-black' href='/Acorn/board/<%= postBoard %>?curPage=<%= i %>'><%= i %></a>
+			    <% } %>
+			    <% if (i < totalPage) { %>
+			        out.print(" | ");
+			    <% } %>
+			<% } %>
 		</div>
 
 

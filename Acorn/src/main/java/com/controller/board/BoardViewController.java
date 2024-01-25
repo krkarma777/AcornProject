@@ -1,10 +1,11 @@
 package com.controller.board;
 
+import java.util.List;
 import java.util.Map;
 
 import com.controller.board.util.BoardController;
-import com.dto.PageDTO;
-import com.dto.PostDTO;
+import com.dto.board.PageDTO;
+import com.dto.board.PostPageDTO;
 import com.service.PostService;
 
 public class BoardViewController implements BoardController {
@@ -28,8 +29,11 @@ public class BoardViewController implements BoardController {
         int perPage = 20;
 
         PostService service = new PostService();
-        PageDTO<PostDTO> pageDTO = service.getPostsByPage(postBoard, curPage, perPage);
+        PageDTO<PostPageDTO> pageDTO = service.getPostsByPage(postBoard, curPage, perPage);
 
+        List<PostPageDTO> list = pageDTO.getList();
+        System.out.println(list);
+        
         model.put("pDTO", pageDTO); // 페이지 정보를 모델에 추가
         model.put("postBoard", postBoard); // 게시판 이름을 모델에 추가
 
