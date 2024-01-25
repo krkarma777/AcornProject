@@ -13,7 +13,6 @@ public class AuthUtils {
     
     public static boolean isUserAuthorized(PostDTO post, Map<String, String> paramMap) {
         String userId = paramMap.get("userId");
-        String nickname = paramMap.get("nickname");
-        return post.getUserId().equals(userId) && post.getNickname().equals(nickname);
+        return post.getUserId().equals(userId);
     }
 }

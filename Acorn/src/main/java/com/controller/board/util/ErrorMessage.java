@@ -5,7 +5,8 @@ public enum ErrorMessage {
     INVALID_REQUEST("잘못된 요청입니다."),
     POST_NOT_FOUND("글이 존재하지 않습니다."),
     DELETED("삭제 완료"),
-	ERROR_PAGE("error");
+	ERROR_PAGE("error"),
+    MISMATCH_ERROR("사용자가 일치하지 않습니다. 권한이 없습니다.");
 	
     private final String message;
 

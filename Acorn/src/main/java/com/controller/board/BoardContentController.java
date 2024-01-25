@@ -2,7 +2,9 @@ package com.controller.board;
 
 import java.util.Map;
 
+import com.controller.board.util.AuthUtils;
 import com.controller.board.util.BoardController;
+import com.controller.board.util.ErrorMessage;
 import com.dto.PostDTO;
 import com.service.PostService;
 
@@ -18,8 +20,8 @@ public class BoardContentController implements BoardController {
 		PostService service = new PostService();
 		PostDTO post = service.select(postId);
 		
-		if(!post.getUserId().equals(paramMap.get("userId")) ) {
-			model.put("mismatchError", "사용자가 일치하지 않습니다. 권한이 없습니다.");
+		if(!AuthUtils.isUserAuthorized(post, paramMap) ) {
+			model.put("mismatchError", ErrorMessage.MISMATCH_ERROR.getMessage());
 		}
 
 		// 검색된 게시글 정보를 모델에 추가합니다. 이후 뷰 페이지에서 이 정보를 사용할 수 있습니다.
