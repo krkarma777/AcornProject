@@ -10,6 +10,7 @@
 
 
 
+
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -20,7 +21,27 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 	crossorigin="anonymous"></script>
+	
+	
+<!--  -->	
+<script>
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
 
+function scrollToBottom() {
+    window.scrollTo(0, document.body.scrollHeight);
+}
+
+function scrollToComments() {
+    var comments = document.getElementById("commentHead"); // 댓글창의 ID를 가정
+    comments.scrollIntoView();
+}
+</script>
+
+	
+	
+	
 <!-- jQuery -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -163,10 +184,40 @@
     font-size: 0.8em;
 }
 
+/* 사이드바 위치 조절*/
+.sidebar {
+    position: fixed; /* 고정된 위치에 표시 */
+    right: 200px; /* 오른쪽 여백 */
+    top: 85%; /* 화면의 중간 높이 */
+    transform: translateY(-80%); /* 세로 중앙 정렬 */
+}
+
+.sidebar button {
+    display: block; /* 블록 레벨 요소로 표시 */
+    margin-bottom: 10px; /* 버튼 간의 여백 */
+}
+
+/* 사이드바 스타일 변경 */
+.my-button {
+    background-color: #f5f5f5; /* 배경색 */
+    color: black; /* 글자색 */
+    padding: 10px 15px; /* 상하, 좌우 패딩 */
+    border: none; /* 테두리 제거 */
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer; /* 마우스 오버시 커서 변경 */
+    font-size: 15px; /* 글자 크기 */
+}
+
+
+
 </style>
 
 </head>
 <body>
+
+
+
+
 	<!-- 네비게이션바 -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 		<div class="container-fluid">
@@ -233,8 +284,9 @@
 				${postText}
 			</div>
 			            <!-- 좋아요 버튼 -->
+			            <!-- id="commentHead"를 부여해서   -->
             <div class="like-button text-center">
-                <button type="button" class="btn btn-outline-primary btn-sm">좋아요 <%= request.getAttribute("likeNum") %></button>
+                <button type="button" class="btn btn-outline-primary btn-sm" id="commentHead">좋아요 <%= request.getAttribute("likeNum") %></button>
             </div>
 		</div>
 
@@ -244,7 +296,7 @@
 			<div class="d-flex justify-content-between">
     <!-- 왼쪽에 위치할 목록 버튼 -->
     <div>
-        <a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">목록</button></a>
+        <a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing" >목록</button></a>
     </div>
 
     <!-- 오른쪽에 위치할 기타 버튼들 -->
@@ -268,6 +320,16 @@
 				<!-- 댓글 내용 -->
 			</div>
 		</div>
-		
+
+
+	<!-- 사이드바 버튼 생성 -->
+	<div class="sidebar">
+		<button class="my-button" onclick="scrollToTop()">▲</button>
+		<button class="my-button" onclick="scrollToBottom()">▼</button>
+		<button class="my-button" onclick="scrollToComments()">&#x1F4AC;</button>
+	</div>
+
+
+
 </body>
 </html>
