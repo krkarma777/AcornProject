@@ -108,6 +108,11 @@ color:red;
     .text-center-align {
         text-align: center;
     }
+    
+    /* 글 제목과 댓글수 사이의 간격 조절 클래스 정의 */
+    .post-title {
+    margin-right: 2px; /* 오른쪽 여백 추가 */
+}
 
 </style>
 </head>
@@ -160,8 +165,8 @@ color:red;
 			<div class="list-group-item table-header">
 				<div class="row">
 					<div class="col-md-1 text-center-align">탭</div>
-					<div class="col-md-7 text-center-align">제목</div>
-					<div class="col-md-4 row">
+					<div class="col-md-6 text-center-align">제목</div>
+					<div class="col-md-5 row">
 						<div class="col-md-4 text-center-align">글쓴이</div>
 						<div class="col-md-4 text-center-align">날짜</div>
 						
@@ -175,8 +180,9 @@ color:red;
 		    <a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%= postBoard %>" class="list-group-item list-group-item-action">
 		        <div class="row">
 		        	<div class="col-md-1 text-center-align">일반</div>
-		            <div class="col-md-7"><%= post.getPostTitle() %> [<%= post.getCommentCount() %>]</div>
-		            <div class="col-md-4 row">
+		            <div class="col-md-6"><span class="post-title"><%= post.getPostTitle() %></span>
+		             <span class="comment-count">[<%= post.getCommentCount() %>]</span></div>
+		            <div class="col-md-5 row">
 			            <div class="col-md-4 text-center-align"><%= post.getNickname() %></div>
 			            <%
 			            String strPostDate = sdfDate.format(post.getPostDate());
