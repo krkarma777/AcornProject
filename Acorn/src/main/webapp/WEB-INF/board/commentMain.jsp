@@ -9,7 +9,10 @@
 <%
 //session scoep에 저장된 userid
 MemberDTO dto =  (MemberDTO)session.getAttribute("loginUser");
-String userid = dto.getUserId();
+String userid = null;
+if(dto != null){
+	userid = dto.getUserId();
+}
 %>
 <script type="text/javascript">
 
