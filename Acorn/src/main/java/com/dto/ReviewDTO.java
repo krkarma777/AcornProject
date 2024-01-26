@@ -10,15 +10,16 @@ public class ReviewDTO {
 	private String postDate;
 	private String editDate;
 	private String postText;
+	private String nickname;  //닉네임
 	private String score;  //별점
-	private String nickName;  //닉네임
-	
+	private String likeUserId; //리뷰리스트 불러올 때 해당 사용자가 해당 리뷰에 공감 눌렀는지 저장할 변수
+	private String isLike; // 공감 조회시 인자로 사용할 사용자 변수
 	public ReviewDTO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	
 	public ReviewDTO(Long postId, String postBoard, String userId, Long contId, String postTitle, String postDate,
-			String editDate, String postText, String score, String nickName) {
+			String editDate, String postText, String nickname, String score, String likeUserId, String isLike) {
 		super();
 		this.postId = postId;
 		this.postBoard = postBoard;
@@ -28,8 +29,10 @@ public class ReviewDTO {
 		this.postDate = postDate;
 		this.editDate = editDate;
 		this.postText = postText;
+		this.nickname = nickname;
 		this.score = score;
-		this.nickName = nickName;
+		this.likeUserId = likeUserId;
+		this.isLike = isLike;
 	}
 	public Long getPostId() {
 		return postId;
@@ -79,23 +82,36 @@ public class ReviewDTO {
 	public void setPostText(String postText) {
 		this.postText = postText;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public String getScore() {
 		return score;
 	}
 	public void setScore(String score) {
 		this.score = score;
 	}
-	public String getNickName() {
-		return nickName;
+	public String getLikeUserId() {
+		return likeUserId;
 	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setLikeUserId(String likeUserId) {
+		this.likeUserId = likeUserId;
+	}
+	public String getIsLike() {
+		return isLike;
+	}
+	public void setIsLike(String isLike) {
+		this.isLike = isLike;
 	}
 	@Override
 	public String toString() {
-		return "PostDTO [postId=" + postId + ", postBoard=" + postBoard + ", userId=" + userId + ", contId=" + contId
+		return "ReviewDTO [postId=" + postId + ", postBoard=" + postBoard + ", userId=" + userId + ", contId=" + contId
 				+ ", postTitle=" + postTitle + ", postDate=" + postDate + ", editDate=" + editDate + ", postText="
-				+ postText + ", score=" + score + ", nickName=" + nickName + "]";
+				+ postText + ", nickname=" + nickname + ", score=" + score + ", likeUserId=" + likeUserId + ", isLike="
+				+ isLike + "]";
 	}
 	
 }

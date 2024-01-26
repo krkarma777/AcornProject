@@ -45,7 +45,8 @@ public class WriteReviewServlet extends HttpServlet {
 			Long contId = Long.parseLong(request.getParameter("contId"));
 			String userId = request.getParameter("userId");
 			String postText = request.getParameter("postText");
-			ReviewDTO review = new ReviewDTO(null, "review", userId, contId, null, null, null, postText, null, null);
+			String nickname = request.getParameter("nickname");
+			ReviewDTO review = new ReviewDTO(null, "review", userId, contId, null, null, null, postText, nickname, null, null, null);
 			
 			// DB에 등록, 등록된 review객체 받아옴
 			ReviewService service = new ReviewService();
@@ -60,7 +61,8 @@ public class WriteReviewServlet extends HttpServlet {
 					+ "\"postTitle\": \""+review.getPostTitle()+"\","
 					+ "\"postDate\": \""+review.getPostDate()+"\","
 					+ "\"editDate\": \""+review.getEditDate()+"\","
-					+ "\"postText\": \""+review.getPostText()+"\""
+					+ "\"postText\": \""+review.getPostText()+"\","
+					+ "\"nickname\": \""+review.getNickname()+"\""
 					+ "}";
 			//응답
 			out.print(jsonText);
