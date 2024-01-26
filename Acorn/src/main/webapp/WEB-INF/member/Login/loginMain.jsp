@@ -142,7 +142,7 @@
 			            },
 			            
 			            beforeSend: function() {
-                            // AJAX 요청 전에 수행할 작업 (로딩 표시 등)
+                            // AJAX 요청 전에 수행할 작업
                             $("#loginButton").prop("disabled", true); // 버튼 비활성화
                         },
 			           
@@ -163,7 +163,7 @@
 			            },
 			          
 			            complete: function() {
-                            // AJAX 요청 완료 후 수행할 작업 (로딩 표시 해제 등)
+                            // AJAX 요청 완료 후 수행할 작업
                             $("#loginButton").prop("disabled", false); // 버튼 활성화
                         }
 			        });
@@ -177,20 +177,17 @@
                 // ID 공백 여부 확인
                 if (userId.trim() === "") {
                     alert("아이디를 입력하세요");
-                    event.preventDefault();
                     return false;
                 }
 
                 // PW 공백 여부 확인
                 if (userPw.trim() === "") {
                     alert("비밀번호를 입력하세요");
-                    event.preventDefault();
                     return false;
                 }
                 
                 //에러 메세지가 있는지 확인
 				if($("#confirmUserIdPwError").text() != ""){
-					event.preventDefault();
 					$("#userId").focus();
 					return false;
 				}
