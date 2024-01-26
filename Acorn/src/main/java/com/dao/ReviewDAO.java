@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.catalina.mapper.Mapper;
 import org.apache.ibatis.session.SqlSession;
 
+import com.dto.CommentDTO;
 import com.dto.ContentDTO;
 import com.dto.ReviewDTO;
 import com.dto.RateDTO;
@@ -14,8 +15,9 @@ public class ReviewDAO {
 
 	public ReviewDTO writeReview(SqlSession session, ReviewDTO review) {
 		
-		// 이미 작성한 리뷰가 있는지 검사
+		// 이미 작성한 리뷰가 있는지 검사 (있으면 1 반환)
 		int count = session.selectOne("check", review);
+		//System.out.println(count);
 		int num = 0;
 		if(count>0) {
 			//update 갱신
@@ -39,6 +41,8 @@ public class ReviewDAO {
 		//HashMap<String, Object> result = new HashMap<String, Object>();
 		//result.put("review", review);
 		//result.put("score", score);
+		
+		//ystem.out.println(review);
 		return review;
 	}
 
@@ -47,9 +51,10 @@ public class ReviewDAO {
 		session.update("insertOrUpdateRating", dto);
 	}
 
-	public List<ReviewDTO> selectReviews(SqlSession session, String contId) {
-		List<ReviewDTO> reviewList = session.selectList("selectReviews", contId);
+	public List<ReviewDTO> selectReviews(SqlSession session, HashMap<String, String> map) {
+		List<ReviewDTO> reviewList = session.selectList("selectReviews", map);
 		//System.out.println("dao " + reviewList + contId);
+		//System.out.println("dao, selectReviews: " + reviewList);
 		return reviewList;
 	}
 
@@ -58,4 +63,25 @@ public class ReviewDAO {
 		return content;
 	}
 
+	public void UpdateLike(SqlSession session, HashMap<String, String> map) {
+		//System.out.println("dao: "+map);
+		int num = session.update("UpdateLike", map);
+		//System.out.println("dao: "+num);
+		
+	}
+
+	public ReviewDTO selectReviewByPostId(SqlSession session, String postId) {
+		ReviewDTO review = session.selectOne("selectReviewByPostId", postId);
+		return review;
+	}
+
+	public List<CommentDTO> selectComments(SqlSession session, String postId) {
+		List<CommentDTO> comments = session.selectList("selectComments", Integer.parseInt(postId));
+		return comments;
+	}
+
+	public List<RateDTO> selectRates(SqlSession session, String contId) {
+		List<RateDTO> rateList = session.selectList("selectRates", contId);
+		return rateList;
+	}
 }

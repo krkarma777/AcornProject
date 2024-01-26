@@ -37,8 +37,14 @@ public class BoardFrontControllerServlet extends HttpServlet {
 
 		// 게시판 추가 가능
 		controllerMap.put("/Acorn/board/movie", new BoardViewController("movie"));
+		controllerMap.put("/Acorn/board/movieMeet", new BoardViewController("movieMeet"));
+		controllerMap.put("/Acorn/board/movieInfo", new BoardViewController("movieInfo"));
 		controllerMap.put("/Acorn/board/music", new BoardViewController("music"));
+		controllerMap.put("/Acorn/board/musicMeet", new BoardViewController("musicMeet"));
+		controllerMap.put("/Acorn/board/musicInfo", new BoardViewController("musicInfo"));
 		controllerMap.put("/Acorn/board/book", new BoardViewController("book"));
+		controllerMap.put("/Acorn/board/bookMeet", new BoardViewController("bookMeet"));
+		controllerMap.put("/Acorn/board/bookInfo", new BoardViewController("bookInfo"));
 		
 	}
 	
