@@ -6,15 +6,15 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
 import com.dao.AdminMemberDAO;
-import com.dto.MemberAdminDTO;
+import com.dto.AdminMemberDTO;
 
 public class AdminMemberService {
 	
 	AdminMemberDAO dao = new AdminMemberDAO();
 
-	public List<MemberAdminDTO> SearchMember(String SearchValue) {
+	public List<AdminMemberDTO> SearchMember(String SearchValue) {
 		SqlSession session = MySqlSessionFactory.getSqlSession();
-		List<MemberAdminDTO> list = null;
+		List<AdminMemberDTO> list = null;
 		try {
 			list = dao.SearchMember(session, SearchValue);
 		}finally {

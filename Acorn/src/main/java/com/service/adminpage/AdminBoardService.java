@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
 import com.dao.AdminBoardDAO;
-import com.dto.BoardAdminDTO;
+import com.dto.AdminBoardDTO;
 
 public class AdminBoardService {
 	
@@ -15,9 +15,9 @@ public class AdminBoardService {
 
 	
 
-	public List<BoardAdminDTO> SearchPost(HashMap<String, String> map) {
+	public List<AdminBoardDTO> SearchPost(HashMap<String, String> map) {
 		SqlSession session = MySqlSessionFactory.getSqlSession();
-		List<BoardAdminDTO> list = null;
+		List<AdminBoardDTO> list = null;
 		
 		try {
 			list = dao.SearchPost(session, map);

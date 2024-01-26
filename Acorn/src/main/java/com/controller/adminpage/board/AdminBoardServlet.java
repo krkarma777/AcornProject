@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.BoardAdminDTO;
+import com.dto.AdminBoardDTO;
 import com.service.adminpage.AdminBoardService;
 
 /**
@@ -50,7 +50,7 @@ public class AdminBoardServlet extends HttpServlet {
 		
 		System.out.println(map);
 		
-		List<BoardAdminDTO> list = null;
+		List<AdminBoardDTO> list = null;
 		list = service.SearchPost(map);
 		System.out.println(list);
 	

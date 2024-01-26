@@ -1,5 +1,5 @@
 <%@ page import = "java.util.*" %>
-<%@ page import = "com.dto.BoardAdminDTO" %>
+<%@ page import = "com.dto.AdminBoardDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,8 +10,10 @@
 <script type = text/javascript>
 	
 </script>
-<%List<BoardAdminDTO> list = (List<BoardAdminDTO>)session.getAttribute("list");
-//System.out.println("in AdminBoard.jsp:" + list);%>
+<%
+List<AdminBoardDTO> list = (List<AdminBoardDTO>)session.getAttribute("list");
+//System.out.println("in AdminBoard.jsp:" + list);
+%>
 </head>
 <body>
 관리자페이지 게시판관리Content
@@ -42,7 +44,7 @@
 			</tr>
 		<%
 		}else{
-				for(BoardAdminDTO dto : list){
+				for(AdminBoardDTO dto : list){
 		%>
 					<tr>
 						<td><%=dto.getPostboard() %></td>

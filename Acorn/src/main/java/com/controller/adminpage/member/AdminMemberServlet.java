@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dto.MemberAdminDTO;
+import com.dto.AdminMemberDTO;
 import com.service.adminpage.AdminMemberService;
 
 /**
@@ -39,7 +39,7 @@ public class AdminMemberServlet extends HttpServlet {
 		if(SearchValue!=null) {
 			AdminMemberService service = new AdminMemberService();
 			
-			List<MemberAdminDTO> list = service.SearchMember(SearchValue);
+			List<AdminMemberDTO> list = service.SearchMember(SearchValue);
 			session.setAttribute("list", list);
 
 			}

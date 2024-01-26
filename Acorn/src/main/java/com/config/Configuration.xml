@@ -18,6 +18,9 @@
 	<!--  -->
    	<typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
    	<typeAlias type="com.dto.ReviewDTO" alias="ReviewDTO"/>
+   	<typeAlias type="com.dto.ReviewDTO" alias="ReviewDTO"/>
+   	<typeAlias type="com.dto.AdminBoardDTO" alias="AdminBoardDTO"/>
+   	<typeAlias type="com.dto.AdminMemberDTO" alias="AdminMemberDTO"/>
 	<typeAlias type="com.dto.RateDTO" alias="RateDTO"/>
 	<typeAlias type="com.dto.ContentDTO" alias="ContentDTO"/>
   </typeAliases>

@@ -1,5 +1,5 @@
 <%@ page import = "java.util.*" %>
-<%@ page import = "com.dto.MemberAdminDTO" %>
+<%@ page import = "com.dto.AdminMemberDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type = "text/javascript">
-	<%List<MemberAdminDTO> list = (List<MemberAdminDTO>)session.getAttribute("list");
+	<%List<AdminMemberDTO> list = (List<AdminMemberDTO>)session.getAttribute("list");
 	System.out.println("in member" + list);%>
 </script>
 </head>
@@ -41,7 +41,7 @@
 		</tr>
 		<%
 		}else{
-			for(MemberAdminDTO dto : list){
+			for(AdminMemberDTO dto : list){
 		%>
 				<tr>
 					<td><a href = "#"><%=dto.getUserid() %></a></td>
