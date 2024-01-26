@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dto.BoardAdminDTO;
-import com.service.adminpage.BoardService;
+import com.service.adminpage.AdminBoardService;
 
 /**
  * Servlet implementation class AdminBoardServlet
@@ -42,7 +42,7 @@ public class AdminBoardServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if(SearchValue!=null) {
-		BoardService service = new BoardService();
+		AdminBoardService service = new AdminBoardService();
 		HashMap<String, String> map = new HashMap<>();
 		
 		map.put("SearchCondition", SearchCondition);

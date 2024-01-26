@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dto.MemberAdminDTO;
-import com.service.adminpage.MemberService;
+import com.service.adminpage.AdminMemberService;
 
 /**
  * Servlet implementation class AdminMemberServlet
@@ -37,7 +37,7 @@ public class AdminMemberServlet extends HttpServlet {
 		String SearchValue = request.getParameter("SearchValue");
 		
 		if(SearchValue!=null) {
-			MemberService service = new MemberService();
+			AdminMemberService service = new AdminMemberService();
 			
 			List<MemberAdminDTO> list = service.SearchMember(SearchValue);
 			session.setAttribute("list", list);

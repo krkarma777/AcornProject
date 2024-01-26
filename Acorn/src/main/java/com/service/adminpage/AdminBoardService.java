@@ -1,4 +1,4 @@
-package com.service;
+package com.service.adminpage;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +16,7 @@ public class AdminBoardService {
 	
 
 	public List<BoardAdminDTO> SearchPost(HashMap<String, String> map) {
-		SqlSession session = MySqlSessionFactory.getSession();
+		SqlSession session = MySqlSessionFactory.getSqlSession();
 		List<BoardAdminDTO> list = null;
 		
 		try {

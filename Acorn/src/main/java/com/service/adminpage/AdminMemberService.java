@@ -1,4 +1,4 @@
-package com.service;
+package com.service.adminpage;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class AdminMemberService {
 	AdminMemberDAO dao = new AdminMemberDAO();
 
 	public List<MemberAdminDTO> SearchMember(String SearchValue) {
-		SqlSession session = MySqlSessionFactory.getSession();
+		SqlSession session = MySqlSessionFactory.getSqlSession();
 		List<MemberAdminDTO> list = null;
 		try {
 			list = dao.SearchMember(session, SearchValue);
