@@ -113,7 +113,21 @@ color:red;
     .post-title {
     margin-right: 2px; /* 오른쪽 여백 추가 */
 }
+/* 검색창과 페이지네이션 간 간격 조절 */
+    .search-bar {
+        margin-top: 20px; /* 검색창 상단 여백 */
+        margin-bottom: 20px; /* 검색창 하단 여백 */
+    }
 
+    /* 검색창 내부의 높이 조절 */
+    .form-select, .form-control {
+        height: 38px; /* 검색창과 셀렉트 박스의 높이 조절 */
+    }
+
+    /* 페이지네이션과 게시글 목록 간 간격 조절 */
+    .page-numbers {
+        margin-top: 20px; /* 페이지네이션 상단 여백 */
+    }
 </style>
 </head>
 <body>
@@ -214,7 +228,7 @@ color:red;
 
 
 		<!-- 페이징 로직 -->
-		<div class="page-numbers text-center ">
+		<div class="page-numbers text-center">
 			<!-- text-center 클래스를 추가하여 가운데 정렬 -->
 			<%
 		    int curPage = pDTO.getCurPage();
@@ -237,7 +251,28 @@ color:red;
 			<% } %>
 		</div>
 
-
+		<div class="row justify-content-center search-bar">
+			<div class="col-lg-4 col-md-5 col-sm-6">
+				<form id="formSearchFree" action="/Acorn/board/<%=postBoard%>"
+					class="d-flex">
+					<div class="col-md-4 pe-1">
+						<select class="form-select" name="selectSearchPositionText">
+							<option value="titleText">제목 + 내용</option>
+							<option value="postTitle">제목</option>
+							<option value="postText">내용</option>
+							<option value="userId">작성자</option>
+						</select>
+					</div>
+					<div class="col-md-6 pe-1">
+						<input type="text" class="form-control" id="inputSearchFreeText"
+							name="inputSearchFreeText">
+					</div>
+					<div class="col-md-2">
+						<button class="btn btn-outline-success" type="submit">검색</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
 		<!-- 기타 추가 내용 -->
 	</div>
