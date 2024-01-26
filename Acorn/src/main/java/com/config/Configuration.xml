@@ -40,5 +40,7 @@
     <mapper resource="com/config/MemberMapper.xml"/>
     <mapper resource="com/config/CommentMapper.xml"/>
     <mapper resource="com/config/ReviewMapper.xml"/>
+    <mapper resource="com/config/AdminBoardMapper.xml"/>
+    <mapper resource="com/config/AdminMemberMapper.xml"/>
   </mappers>
 </configuration>

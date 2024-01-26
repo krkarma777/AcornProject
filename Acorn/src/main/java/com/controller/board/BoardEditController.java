@@ -36,7 +36,7 @@ public class BoardEditController implements BoardController {
 			// 해당 ID의 게시글을 데이터베이스에서 조회합니다. 게시글이 없으면 에러 페이지로 이동합니다.
 
 			// 사용자 권한 검증
-			if (!isUserAuthorized(post, paramMap))
+			if (!AuthUtils.isUserAuthorized(post, paramMap))
 				return ERROR_PAGE;
 			// 게시글을 수정할 수 있는 사용자인지 확인합니다. 권한이 없으면 에러 페이지로 이동합니다.
 
@@ -63,12 +63,6 @@ public class BoardEditController implements BoardController {
 			model.put(ERROR, INVALID_REQUEST);
 		}
 		return post;
-	}
-
-	private boolean isUserAuthorized(PostDTO post, Map<String, String> paramMap) {
-		String userId = paramMap.get("userId");
-		String nickname = paramMap.get("nickname");
-		return post.getUserId().equals(userId) && post.getNickname().equals(nickname);
 	}
 
 	private String processEditOrRedirect(Long postId, Map<String, String> paramMap, Map<String, Object> model,
