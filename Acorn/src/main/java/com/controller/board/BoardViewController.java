@@ -1,5 +1,6 @@
 package com.controller.board;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class BoardViewController implements BoardController {
         this.postBoard = postBoard;
     }
 
-    @Override
+	@Override
     public String process(Map<String, String> paramMap, Map<String, Object> model) {
 
         // 현재 페이지 번호 설정
@@ -27,9 +28,20 @@ public class BoardViewController implements BoardController {
         }
         // 페이지당 게시글 수 설정
         int perPage = 20;
-
+        int offset = (curPage - 1) * perPage;
         PostService service = new PostService();
-        PageDTO<PostPageDTO> pageDTO = service.getPostsByPage(postBoard, curPage, perPage);
+        
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("postBoard", postBoard);
+        map.put("offset", offset);
+        map.put("perPage", perPage);
+        map.put("curPage", curPage);
+        
+        searchBoard(paramMap, map);
+        
+        System.out.println(map);
+        
+        PageDTO<PostPageDTO> pageDTO = service.getPostsByPage(map);
 
         List<PostPageDTO> list = pageDTO.getList();
         System.out.println(list);
@@ -39,4 +51,33 @@ public class BoardViewController implements BoardController {
 
         return "board/boardView"; // 게시판 뷰 페이지의 이름을 반환
     }
+
+	private void searchBoard(Map<String, String> paramMap, HashMap<String, Object> map) {
+		String searchPosition = paramMap.get("selectSearchPositionText");
+		String searchText = paramMap.get("inputSearchFreeText");
+		if (searchPosition !=null && searchText != null) {
+			switch (searchPosition) {
+				case "titleText": {
+					map.put("postTitle", searchText.trim());
+					map.put("postText", searchText.trim());
+					break;
+				}
+				case "postTitle": {
+					map.put("postTitle", searchText.trim());
+					break;
+				}
+				case "postText": {
+					map.put("postText", searchText.trim());
+					break;
+				}
+				case "userId": {
+					map.put("userId", searchText.trim());
+					break;
+				}
+			}
+		}
+
+	}
 }
+
+	
