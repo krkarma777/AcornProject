@@ -193,28 +193,28 @@ color:red;
 		<% for (PostPageDTO post : list) { %>
 		    <a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%= postBoard %>" class="list-group-item list-group-item-action">
 		        <div class="row">
-		        	<div class="col-md-1 text-center-align">일반</div>
+		            <div class="col-md-1 text-center-align">일반</div>
 		            <div class="col-md-6"><span class="post-title"><%= post.getPostTitle() %></span>
-		             <span class="comment-count">[<%= post.getCommentCount() %>]</span></div>
+		                <span class="comment-count">[<%= post.getCommentCount() %>]</span></div>
 		            <div class="col-md-5 row">
-			            <div class="col-md-4 text-center-align"><%= post.getNickname() %></div>
-			            <%
-			            String strPostDate = sdfDate.format(post.getPostDate());
-			            String formattedDate;
-			            if (strToday.equals(strPostDate)) {
+		                <div class="col-md-4 text-center-align"><%= post.getNickname() %></div>
+		                <%
+		                String strPostDate = sdfDate.format(post.getPostDate());
+		                String formattedDate;
+		                if (strToday.equals(strPostDate)) {
 			                formattedDate = new SimpleDateFormat("HH:mm").format(post.getPostDate());
 			            } else {
-			                formattedDate = sdfDateTime.format(post.getPostDate());
-			            }
-			            %>
-	
-			            <div class="col-md-4 text-center-align"><%= formattedDate %></div>
-			            <div class="col-md-2 text-center-align"><%= post.getViewNum() %></div>
-			            <div class="col-md-2 text-center-align"><%= post.getLikeNum() %></div>
+		                    formattedDate = sdfDate.format(post.getPostDate());
+		                }
+		                %>
+		                <div class="col-md-4 text-center-align"><%= formattedDate %></div>
+		                <div class="col-md-2 text-center-align"><%= post.getViewNum() %></div>
+		                <div class="col-md-2 text-center-align"><%= post.getLikeNum() %></div>
 		            </div>
 		        </div>
 		    </a>
 		<% } %>
+
 			
 					<!-- 버튼 그룹에 간격을 추가하기 위한 클래스 적용 -->
 		<div class="mb-3 d-flex justify-content-end margin-top">
