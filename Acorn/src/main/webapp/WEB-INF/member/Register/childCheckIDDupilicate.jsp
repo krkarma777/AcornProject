@@ -82,7 +82,7 @@
             var regex = /^[a-zA-Z0-9]{4,}$/;
             if (!regex.test(userId)) {
                 errorSpan.text("아이디는 영어와 숫자로 4글자 이상이어야 합니다.");
-                return;
+                return false;
             }
             errorSpan.text("");
 

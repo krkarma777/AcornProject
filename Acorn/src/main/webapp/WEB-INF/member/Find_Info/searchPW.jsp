@@ -15,7 +15,6 @@
         		//아이디 공백 여부 확인
         		if ($("#userId").val().trim() === "") {
     				alert("아이디를 확인해주세요");
-    				event.preventDefault();
     				$("#userId").focus();
     				return false;
     			}
@@ -23,7 +22,6 @@
         		//이름 공백 여부 확인
         		if ($("#userName").val().trim() === "") {
     				alert("이름를 확인해주세요");
-    				event.preventDefault();
     				$("#userName").focus();
     				return false;
     			}
@@ -31,7 +29,6 @@
         		//SSN 길이 여부 확인
     			if ($("#ssn1").val().length != 6 || $("#ssn2").val().length != 7) {
     				alert("주민등록번호를 확인해주세요");
-    				event.preventDefault();
     				$("#ssn1").focus();
     				return false;
     			}
