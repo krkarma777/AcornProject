@@ -245,9 +245,9 @@ color:red;
 			    <% } else { %>
 			        <a class='no-underline font-black' href='/Acorn/board/<%= postBoard %>?curPage=<%= i %>'><%= i %></a>
 			    <% } %>
-			    <% if (i < totalPage) { %>
-			        out.print(" | ");
-			    <% } %>
+			    <% if (i < totalPage) {
+			    	out.print(" | ");
+			     } %>
 			<% } %>
 		</div>
 
