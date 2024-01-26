@@ -460,7 +460,7 @@
 		<!--감상평들 표시  -->
 		<!--감상평 리스트 데이터 전달받아야함 (reviewList) -->
 		<div class="row pad_side" id="review_title">
-			<a href=""><h4>Reviews ></h4></a>
+			<a href="MoveToAllReview"><h4>Reviews ></h4></a>
 		</div>
 		<div class="row pad_side" id="review_row">
 			<%for(int i=1; i<=2;i++){%>
