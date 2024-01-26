@@ -204,7 +204,7 @@ color:red;
 		                if (strToday.equals(strPostDate)) {
 			                formattedDate = new SimpleDateFormat("HH:mm").format(post.getPostDate());
 			            } else {
-		                    formattedDate = sdfDate.format(post.getPostDate());
+		                    formattedDate = new SimpleDateFormat("yyyy.MM.dd").format(post.getPostDate());
 		                }
 		                %>
 		                <div class="col-md-4 text-center-align"><%= formattedDate %></div>
