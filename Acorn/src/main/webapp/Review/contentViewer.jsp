@@ -130,6 +130,22 @@
 		color: gray;
 		text-align: right;
 	}
+	#graph{
+		height: 70px;
+		padding-left: 5px;
+		padding-right: 5px;
+		margin-bottom: 20px
+		
+	}
+	.graph_bar{
+		/* background-color: #0d6efd; */
+		background-color: #0982e6;
+		margin-left: 1px;
+		margin-right: 1px;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+	}
+	
 	
 </style>
 <%
@@ -151,23 +167,27 @@
 	List<ReviewDTO> reviewList = (List<ReviewDTO>)request.getAttribute("reviewList");
 	//System.out.print(reviewList);
 	
-	//avgRate
+	//avgRate 구하기, 별점범위당 갯수 구하기
 	List<RateDTO> rateList = (List<RateDTO>)request.getAttribute("rateList");
 	int rateAmount = rateList.size();
-	int sum = 0;
+	double sum = 0;
+	double[] rateDistribution = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};	
 	for(int i=0;i<rateAmount;i++){
 		RateDTO rate = rateList.get(i);
-		sum += rate.getScore();
+		double score = rate.getScore();
+		sum += score;
+		//배열 0~4까지 분포갯수 계산구문
+		//System.out.println((int)Math.ceil(score/2)-1);
+		rateDistribution[(int)score-1]++;
+		
 	}
-	double avgRate = sum/rateAmount/2;
-	
-	
+	double avgRate = sum/rateAmount/2;	
 %>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-	//글자수
+	//최대글자수
 	var max_length = 200;
-	// 화면 최초 생성시 로그인상태+작성했던 리뷰가 있다면 불러와서 표시
 	
 	$(document).ready(function(){
 		$("#writeReview").on("click", writeReview);  //리뷰작성
@@ -176,10 +196,34 @@
 		$(".rate input").on("change", rating)  // 별점 선택
 		$("#like_btn").on("click", likeToggle) // 공감버튼
 		
+		// 별점 막대그래프 높이 설정 구문 
+		<%
+		for(int i=0;i<rateDistribution.length;i++){
+			// 버전1
+			//전체높이 * 해당별점갯수/전체별점갯수
+			//double height = 70*rateDistribution[i]/rateAmount;
+			
+			// 버전2
+			//y축 수치값을 가장 높은 갯수 + 10%로 설정
+			//전체높이 * 해당별점갯수/(가장 높은 갯수 + 10%)
+			double max = rateDistribution[0];
+			for(double num: rateDistribution){
+				if(num>max){
+					max = num;
+				}
+			}
+			double height = 70*rateDistribution[i]/(max*1.1);
+			if (height == 0)
+				height = 2;
+			%>
+			$("#score<%=i+1%>").css("height", "<%=height%>px");
+		<%}%>
+		
 		<%
 		//로그인 정보 확인
 		if(login!=null){
 		%>
+		// 화면 최초 생성시 로그인상태+작성했던 리뷰가 있다면 불러와서 표시
 		//내 리뷰 불러오기
 		$.ajax(
 			{
@@ -299,6 +343,8 @@
 			$("#myreview_text").text(review.postText);
 		}
 		var length = $("#postText").val().length;
+		
+		// 모달창 글자수 처음 세팅
 		$("#show_length").text(length+"/"+max_length);
 	}
 	
@@ -399,8 +445,22 @@
 				<div class="card" style="width: 18rem;">
 				  <img src="https://an2-img.amz.wtchn.net/image/v2/T7qP_idp-A7AdHCV6-wZBA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk56VTJOVE16TlRNNE9EVTVNVEEyTURVaWZRLmZxSThtNU1jQl9HSDFxQ0plZGlUYUxPa1R4WTVwSC1kZGhNWVhISy16anM" class="card-img-top" alt="...">
 				  <div class="card-body">
-				    <h5 class="card-title">평균 별점</h5>
-				    <p class="card-text" id="avgRate"><%=avgRate %><br>그래프 미완</p>
+				    <h5 class="card-title">대중의 평가</h5>
+				    <h5 class="card-text" id="avgRate">☆<%=avgRate %> (<%=rateAmount %>)</h5><br>
+				    별점 분포
+				    <div class="row align-items-end" id="graph">
+				    	<div class="col graph_bar graph-bar" id="score1"></div>
+				    	<div class="col graph_bar graph-bar" id="score2"></div>
+				    	<div class="col graph_bar graph-bar" id="score3"></div>
+				    	<div class="col graph_bar graph-bar" id="score4"></div>
+				    	<div class="col graph_bar graph-bar" id="score5"></div>
+				    	<div class="col graph_bar graph-bar" id="score6"></div>
+				    	<div class="col graph_bar graph-bar" id="score7"></div>
+				    	<div class="col graph_bar graph-bar" id="score8"></div>
+				    	<div class="col graph_bar graph-bar" id="score9"></div>
+				    	<div class="col graph_bar graph-bar" id="score10"></div>
+				    </div>
+				    
 				    <!-- Button trigger modal -->
 				    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Write Your Feeling !</button>
 				  </div>
@@ -460,7 +520,7 @@
 		<!--감상평들 표시  -->
 		<!--감상평 리스트 데이터 전달받아야함 (reviewList) -->
 		<div class="row pad_side" id="review_title">
-			<a href="MoveToAllReview"><h4>Reviews ></h4></a>
+			<a href=""><h4>Reviews ></h4></a>
 		</div>
 		<div class="row pad_side" id="review_row">
 			<%for(int i=1; i<=2;i++){%>
