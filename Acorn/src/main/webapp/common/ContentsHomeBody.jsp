@@ -16,7 +16,7 @@
 							<a href="MoveToContentDetailServlet?movie=1"><img src="image/웡카.jpg" width="270px" height="382px"></a>
 						</div><!-- <a>누르면 MoveToContentDetailServlet으로 이동 -->
 						<div class="mx-1 bg-light align-self-center">
-							<a href="#"><img src="image/시민덕희.jpg" width="270px" height="382px"></a>
+							<a href="ShowContentServlet"><img src="image/스즈메의문단속.jpg" width="270px" height="382px"></a>
         				</div>
         				<div class="mx-1 bg-primary align-self-center">
         					<a href="#"><img src="image/도그맨.jpg" width="270px" height="382px"></a>
@@ -43,7 +43,7 @@
 							<a href="#"><img src="image/웡카.jpg" width="270px" height="382px"></a>
         				</div>
         				<div class="mx-1 bg-primary align-self-center">
-        					<a href="#"><img src="image/시민덕희.jpg" width="270px" height="382px"></a>
+        					<a href="ShowContentServlet"><img src="image/스즈메의문단속.jpg" width="270px" height="382px"></a>
 						</div>
         				<div class="mx-1 bg-dark align-self-center">
         					<a href="#"><img src="image/도그맨.jpg" width="270px" height="382px"></a>
@@ -69,14 +69,35 @@
 	
 
 	<div class="d-flex justify-content-center px-5" style="height: 300px">
-		<div class="mx-1 bg-secondary align-self-center">
-			<a href="#">정보게시판</a>
+		<div class="mx-1">
+			<table border="1" style="width:450px">
+				<tr><th style="height:30px"><a href="/Acorn/board/movieInfo">정보게시판</a></th></tr>
+				<%for(int i=1; i<=5; i++){ %>
+					<tr><td class="" style="height:54px">
+					글 <%=i %>
+					</td></tr>
+				<%} %>
+			</table>
 		</div>
-        <div class="mx-1 bg-light align-self-center">
-        	<a href="#">자유게시판</a>
+		<div class="mx-1">
+			<table border="1" style="width:450px">
+				<tr><th style="height:30px"><a href="/Acorn/board/movie">자유게시판</a></th></tr>
+				<%for(int i=1; i<=5; i++){ %>
+					<tr><td class="" style="height:54px">
+					글 <%=i %>
+					</td></tr>
+				<%} %>
+			</table>
 		</div>
-        <div class="mx-1 bg-primary align-self-center">
-        	모임게시판
+		<div class="mx-1">
+			<table border="1" style="width:450px">
+				<tr><th style="height:30px"><a href="/Acorn/board/movieMeet">모임게시판</a></th></tr>
+				<%for(int i=1; i<=5; i++){ %>
+					<tr><td class="" style="height:54px">
+					글 <%=i %>
+					</td></tr>
+				<%} %>
+			</table>
 		</div>
 	</div>
 	

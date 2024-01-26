@@ -133,12 +133,13 @@ color:red;
 <body>
 
 	<!-- 네비게이션바 -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+	<jsp:include page="//common/navbar.jsp"></jsp:include>
+	<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 		<div class="container-fluid">
-			<!-- 로고 -->
+			로고
 			<a class="navbar-brand" href="#">로고</a>
 
-			<!-- 토글 버튼 -->
+			토글 버튼
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -146,10 +147,10 @@ color:red;
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<!-- 네비게이션 항목 -->
+			네비게이션 항목
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav mx-auto">
-					<!-- 검색 바 -->
+					검색 바
 					<form class="d-flex w-100">
 						<input class="form-control me-2 searchInput" type="search"
 							placeholder="검색" aria-label="Search">
@@ -157,16 +158,16 @@ color:red;
 					</form>
 				</ul>
 				<ul class="navbar-nav">
-					<!-- 로그인, 마이페이지, 회원가입 버튼 -->
+					로그인, 마이페이지, 회원가입 버튼
 					<li class="nav-item"><a class="nav-link" href="#">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">마이페이지</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">회원가입</a></li>
 				</ul>
 			</div>
 		</div>
-	</nav>
+	</nav>-->
 
-	<div class="container mt-4">
+	<div class="container mt-4"> 
 		
 
 
