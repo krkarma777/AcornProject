@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -73,11 +74,11 @@ public class PostService {
     }
 
     
-    public PageDTO<PostPageDTO> getPostsByPage(String board, int curPage, int perPage) {
+    public PageDTO<PostPageDTO> getPostsByPage(HashMap<String,Object> map) {
         SqlSession session = null;
         try {
             session = MySqlSessionFactory.getSqlSession();
-            return dao.selectByPage(session, board, curPage, perPage);
+            return dao.selectByPage(session, map);
         } finally {
             if (session != null) {
                 session.close();

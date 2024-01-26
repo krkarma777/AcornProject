@@ -53,18 +53,17 @@ public class PostDAO {
         return session.selectList("selectAllPosts", map);
     }
     
-    public PageDTO<PostPageDTO> selectByPage(SqlSession session, String board, int curPage, int perPage) {
-        int offset = (curPage - 1) * perPage;
-        List<PostPageDTO> list = session.selectList("selectAllByPage", 
-                                                new HashMap<String, Object>() {{
-                                                    put("board", board);
-                                                    put("offset", offset);
-                                                    put("perPage", perPage);
-                                                }});
-
-        int totalCount = session.selectOne("countPosts", board);
+    public PageDTO<PostPageDTO> selectByPage(SqlSession session, HashMap<String, Object> map) {
+        List<PostPageDTO> list = session.selectList("selectAllByPage", map);
+        
+        int curPage = (int)map.get("curPage");
+        int perPage = (int)map.get("perPage");
+        String postBoard = (String)map.get("postBoard");
+        
+        int totalCount = session.selectOne("countPosts", postBoard);
 
         PageDTO<PostPageDTO> pageDTO = new PageDTO<>();
+        
         pageDTO.setList(list);
         pageDTO.setCurPage(curPage);
         pageDTO.setPerPage(perPage);
