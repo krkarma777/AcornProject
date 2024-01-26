@@ -128,13 +128,11 @@ button:hover {
          //핸드폰 번호를 찾는 질문일 때, 숫자 11자리가 아닌 경우, 경초창 + 이벤트 중지
          if (userInfo === "userPhoneNum" && !/^\d{11}$/.test(answer)) {
              alert("핸드폰 번호는 숫자 11자리여야 합니다.");
-             event.preventDefault();
              return false;
              
          //이메일 주소를 찾는 질문일 때, @가 포함되어 있지 않은 경우, 경초창 + 이벤트 중지
          } else if (userInfo === "userEmail" && !/@/.test(answer)) {
              alert("이메일 주소는 @를 포함해야 합니다.");
-             event.preventDefault();
              return false;
          } else {
              
@@ -149,7 +147,7 @@ button:hover {
 				},
 				
 				beforeSend: function() {
-                    // AJAX 요청 전에 수행할 작업 (로딩 표시 등)
+                    // AJAX 요청 전에 수행할 작업
                     $("#check_answer").prop("disabled", true); // 버튼 비활성화
                 },
                 
@@ -169,7 +167,7 @@ button:hover {
 				}, 
 				
 				complete: function() {
-                    // AJAX 요청 완료 후 수행할 작업 (로딩 표시 해제 등)
+                    // AJAX 요청 완료 후 수행할 작업
                     $("#check_answer").prop("disabled", false); // 버튼 활성화
                 }
 				

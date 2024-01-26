@@ -28,7 +28,7 @@ public class AyatoTest extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/AllReview.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/ContentSearch.jsp");
 		dis.forward(request, response);
 	}
 

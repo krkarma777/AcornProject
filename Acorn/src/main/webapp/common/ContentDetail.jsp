@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="container-fluid justify-content-center" style="padding: 50px;">
-        <div class="d-flex px-5 justify-content-center" style="height: 400px;">
+<div class="container-fluid pt-5" align="center">
+        <div class="d-flex justify-content-center" style="height: 400px;">
             <div class=" bg-danger text-bg-danger align-self-center" style="">
-                <div class="bg-black h-50"><img src="image/movie1.jpg" width="270px" height="330px"></div>
+                <div class="bg-black h-50"><img src="image/웡카.jpg" width="270px" height="330px"></div>
                 <div class="bg-dark h-50">영화 정보</div>
             </div>
             <div class=" bg-light align-self-center">

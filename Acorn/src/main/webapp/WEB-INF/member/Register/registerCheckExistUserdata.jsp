@@ -79,10 +79,9 @@ button:hover {
 		$(function(){
 			
 			$("#confirmForm").submit(function(event) {
-    			//이름 공백 확인
-        		if ($("#userName").val().trim() === "") {
+    			//이름 공백 확인 및 2글자
+        		if ($("#userName").val().trim() === "" || $("#userName").val().length < 2) {
     				alert("이름를 확인해주세요");
-    				event.preventDefault();
     				$("#userName").focus();
     				return false;
     			}
@@ -90,7 +89,6 @@ button:hover {
         		//SSN1 길이 확인
     			if ($("#ssn1").val().length != 6) {
     				alert("주민등록번호를 확인해주세요");
-    				event.preventDefault();
     				$("#ssn1").val('').focus();
     				return false;
     			}
@@ -99,7 +97,6 @@ button:hover {
         		var ssn2FirstNum = parseInt($("#ssn2").val().charAt(0));
         		if (ssn2FirstNum < 1 || ssn2FirstNum > 4 || $("#ssn2").val().length != 7) {
         			alert("주민등록번호를 확인해주세요");
-    				event.preventDefault();
     				$("#ssn2").val('').focus();
     				return false;
         		}
