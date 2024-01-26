@@ -7,12 +7,12 @@
 <mapper namespace="ReviewMapper">
 
 	<select id="check" parameterType="ReviewDTO" resultType="int">
-		select count(*) from postdb where postBoard='review' and userId=#{userId}
+		select count(*) from postdb where postBoard='review' and userId=#{userId} and contId=#{contId}
 	</select>
 
 	<insert id="writeReview" parameterType="ReviewDTO">
 		INSERT INTO postdb VALUES 
-		(POSTIDSEQ.NEXTVAL, 'review', #{userId}, #{contId}, 'r~!@#', sysdate, null, #{postText})
+		(POSTIDSEQ.NEXTVAL, 'review', #{userId}, #{contId}, 'r~!@#', sysdate, null, #{postText}, #{nickname})
 		
 		<selectKey keyProperty="postId" resultType="Long" order="AFTER"> 
 			select POSTIDSEQ.CURRVAL from dual 
@@ -37,7 +37,7 @@
 	
 	<select id="selectReviewByUser" parameterType="map" resultType="ReviewDTO">
 		select * 
-		 from postdb join ratedb using(userId, contId)
+		 from postdb left join ratedb using(userId, contId)
 		 where (postBoard,userId) in (('review', #{userId}))
 	</select>	
 	<select id="selectScore" parameterType="map" resultType="int">
@@ -59,19 +59,52 @@
             VALUES (#{userId}, #{contId}, #{score})
     </update>
     
-    <select id="selectReviews" parameterType="string" resultType="ReviewDTO">
+    <select id="selectReviews" parameterType="hashmap" resultType="ReviewDTO">
     	SELECT *
 		FROM (
-			select * 
-			from postdb join ratedb using(userId, contId) 
-			join memberdb using (userId) 
-			where (postBoard, contId) in (('review', #{contId}))
-	    	ORDER BY postDate desc
+		    select *
+		    from 
+		    (
+		        select * from postdb join ratedb using(userId, contId)
+		    )
+		    left join 
+		    (
+		        select postId, isLike from likedb where userId = 1
+		    ) using (postId)
+		
+		    where (postBoard, contId) in (('review', 1))
+		    ORDER BY postDate desc
 		)
 		WHERE ROWNUM &lt; 9
     </select>
     
     <select id="selectContent" parameterType="string" resultType="ContentDTO">
     	select * from contentDB where contId = #{contId}
+    </select>
+    
+    <update id="UpdateLike" parameterType="hashmap">
+    	<!-- update likedb set isLike = #{isLike} where postId = #{postId} and userId = #{userId} -->
+    	MERGE INTO likedb l
+
+		USING (SELECT #{userId} AS user_id, #{postId} AS post_id FROM dual)
+		ON (l.userid = user_id AND l.postid = post_id )
+		
+		WHEN MATCHED THEN
+		    UPDATE SET l.isLike = #{isLike}
+		    
+		WHEN NOT MATCHED THEN
+		    INSERT (userid, postId, isLike)
+		    VALUES (#{userId}, #{postId}, #{isLike})
+    </update>
+    
+    <select id="selectReviewByPostId" parameterType="String" resultType="ReviewDTO">
+    	select * from postdb where postId = #{postId}
+    </select>
+    <select id="selectComments" parameterType="String" resultType="CommentDTO">
+    	select * from commentdb where postId = #{postId}
+    </select>
+    
+    <select id="selectRates" parameterType="String" resultType="RateDTO">
+    	select * from ratedb where contId = #{contId}
     </select>
 </mapper>

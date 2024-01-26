@@ -58,6 +58,7 @@ public class SelectReviewByUserServlet extends HttpServlet {
 					+ "\"postDate\": \""+review.getPostDate()+"\","
 					+ "\"editDate\": \""+review.getEditDate()+"\","
 					+ "\"postText\": \""+review.getPostText()+"\","
+					+ "\"nickname\": \""+review.getNickname()+"\","
 					+ "\"score\": \""+score+"\""
 					+ "}";
 			out.print(jsonText);

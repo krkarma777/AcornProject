@@ -1,3 +1,4 @@
+<%@page import="com.dto.RateDTO"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.dto.MemberDTO"%>
 <%@page import="java.util.List"%>
@@ -27,8 +28,8 @@
 	.rate label:hover ~ input:checked ~ label { color: #f73c32 !important;  } 
 	
 	.pad_side{
-		padding-left: 3%;
-		padding-right: 3%;
+		padding-left: 10%;
+		padding-right: 10%;
 	}
 	#cont_view{
 		padding-top: 30px;
@@ -93,6 +94,8 @@
 	#review_title{
 		margin-top: 50px;
 		margin-bottom: 25px;
+		text-decoration-line: none;
+		color = black;
 	}
 	#review_nick{
 		font_size: 18px;
@@ -117,6 +120,16 @@
 		font-size: 17px;
 	}
 	
+	#like_btn{
+		-webkit-user-select:none;
+		-moz-user-select:none;
+		-ms-user-select:none;
+		user-select:none
+	}
+	#show_length{
+		color: gray;
+		text-align: right;
+	}
 	
 </style>
 <%
@@ -129,14 +142,26 @@
 	
 	MemberDTO login = (MemberDTO)session.getAttribute("login");
 	String userId = null;
-	String nickName = null;
+	String nickname = null;
 	if(login!=null){
 		userId = login.getUserId();
-		nickName = login.getNickname();
+		nickname = login.getNickname();
 	}
 	
 	List<ReviewDTO> reviewList = (List<ReviewDTO>)request.getAttribute("reviewList");
 	//System.out.print(reviewList);
+	
+	//avgRate
+	List<RateDTO> rateList = (List<RateDTO>)request.getAttribute("rateList");
+	int rateAmount = rateList.size();
+	int sum = 0;
+	for(int i=0;i<rateAmount;i++){
+		RateDTO rate = rateList.get(i);
+		sum += rate.getScore();
+	}
+	double avgRate = sum/rateAmount/2;
+	
+	
 %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
@@ -149,10 +174,13 @@
 		$("#postText").on("keyup", check_length);  // 글자수 제한
 		$("#postText").on("keypress", check_enter);  // 엔터키 제한
 		$(".rate input").on("change", rating)  // 별점 선택
+		$("#like_btn").on("click", likeToggle) // 공감버튼
+		
 		<%
 		//로그인 정보 확인
 		if(login!=null){
 		%>
+		//내 리뷰 불러오기
 		$.ajax(
 			{
 				type: "post",
@@ -184,10 +212,48 @@
 		<%}%>//if 종료
 	});//ready
 	
+	// 공감버튼 토글
+	function likeToggle(){
+		
+		// 버튼 누른 리뷰의 postId 가져오기
+		var postId = $(this).attr("data-postId");
+		
+		//버튼에 적혀있는 하트 공백제거해서 가져오기
+		var statement = $(this).text().trim();
+		var isLike = 0;
+		//console.log(statement)
+		// 공백하트인지 꽉찬 하트인지 검사해서 반대로 바꾸기
+		if(statement == "♥"){
+			$(this).text("♡");
+			isLike = 0;
+		} else if(statement == "♡"){
+			$(this).text("♥");
+			isLike = 1;
+		}
+		
+		//DB에 비동기 반영
+		$.ajax(
+			{
+				type: "post",
+				url:"UpdateLikeServlet",
+				data: {
+					"userId": "<%=userId%>",
+					"postId": postId,
+					"isLike": isLike
+				},
+				dataType: "text",
+				success: function(data, status, xhr){
+					//console.log("성공: " + data);
+				},
+				error: function(xhr, status, e){
+					//console.log("실패: " + xhr.status);
+				}
+			}//json	
+		);//ajax
+	}
 	
-	
+	// 별점 선택
 	function rating(){
-		//console.log(this, this.value)
 		$.ajax(
 			{
 				type: "post",
@@ -202,11 +268,12 @@
 					//console.log("성공: " + data);
 				},
 				error: function(xhr, status, e){
-					console.log("실패: " + xhr.status);
+					//console.log("실패: " + xhr.status);
 				}
 			}		
 		);
 	}
+	// 글자수 제한
 	function check_length(){
 		//console.log(this.value.length);
 		var length = this.value.length;
@@ -214,7 +281,9 @@
 			this.value = this.value.substr(0, max_length);
 			this.focus();
 		}
+		$("#show_length").text(length+"/"+max_length);
 	}
+	// 엔터키 제한
 	function check_enter(){
 		if(event.keyCode==13){
 			event.returnValue=false;
@@ -223,12 +292,14 @@
 	
 	// 내 리뷰란 업데이트 함수
 	function updateMyReview(review){
-		$("#myreview_user").text("<%=nickName %>");
+		$("#myreview_user").text("<%=nickname %>");
 		if(review.postText.length>150){
 			$("#myreview_text").text(review.postText.substr(0, 145)+" ...");
 		}else{
 			$("#myreview_text").text(review.postText);
 		}
+		var length = $("#postText").val().length;
+		$("#show_length").text(length+"/"+max_length);
 	}
 	
 	// 리뷰 작성 완료
@@ -255,6 +326,7 @@
 					data: {
 						"contId": contId,
 						"userId": "<%=userId%>",
+						"nickname": "<%=nickname%>",
 						"postText": postText
 					},
 					dataType: "text",
@@ -267,7 +339,7 @@
 						
 					},
 					error: function(xhr, status, e){
-						console.log("실패: " + xhr.status);
+						//console.log("실패: " + xhr.status);
 					}
 				}//json
 			);//ajax
@@ -328,7 +400,7 @@
 				  <img src="https://an2-img.amz.wtchn.net/image/v2/T7qP_idp-A7AdHCV6-wZBA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk56VTJOVE16TlRNNE9EVTVNVEEyTURVaWZRLmZxSThtNU1jQl9HSDFxQ0plZGlUYUxPa1R4WTVwSC1kZGhNWVhISy16anM" class="card-img-top" alt="...">
 				  <div class="card-body">
 				    <h5 class="card-title">평균 별점</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				    <p class="card-text" id="avgRate"><%=avgRate %><br>그래프 미완</p>
 				    <!-- Button trigger modal -->
 				    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Write Your Feeling !</button>
 				  </div>
@@ -388,7 +460,7 @@
 		<!--감상평들 표시  -->
 		<!--감상평 리스트 데이터 전달받아야함 (reviewList) -->
 		<div class="row pad_side" id="review_title">
-			<h2><a href="MoveToAllReview">Reviews ></a></h2>
+			<a href=""><h4>Reviews ></h4></a>
 		</div>
 		<div class="row pad_side" id="review_row">
 			<%for(int i=1; i<=2;i++){%>
@@ -398,16 +470,27 @@
 					<%
 					int index = (i*j)-1;
 					if(reviewList.size()-1>=index){%>
+
 						<div id="review_nick">
-							<%=reviewList.get(index).getNickName() %>
+							<%=reviewList.get(index).getNickname() %>
 						</div>
 						<hr>
-						<%-- <a id="remove_deco" href="주소?postId='<%=reviewList.get(index).getPostId()%>'"> --%>
-						<div id="review_body">
-							<%=reviewList.get(index).getPostText() %>
-						</div>
+						<%-- <a id="remove_deco" href="ShowReviewServlet?postId='<%=reviewList.get(index).getPostId()%>'"> --%>
+							<div id="review_body">
+								<%=reviewList.get(index).getPostText() %>
+							</div>
+						<!-- </a> -->
 						<div id="review_score">
-							☆ <%=Double.parseDouble(reviewList.get(index).getScore())/2 %>
+							<span>☆ <%=Double.parseDouble(reviewList.get(index).getScore())/2 %></span>
+							<span id="like_btn" style="color:red" data-postId="<%=reviewList.get(index).getPostId() %>">
+							<%if("1".equals(reviewList.get(index).getIsLike())){
+								//System.out.println("♥"+reviewList.get(index).getIsLike());
+							%>♥
+							<%}else{ 
+								//System.out.println("♡"+reviewList.get(index).getIsLike());
+							%>♡
+							<%} %>
+							</span>
 						</div>
 					<%}else{%>
 						<div id="review_nick"></div>
@@ -457,6 +540,7 @@
 	      <div class="modal-body">
 	      	<input type="hidden" value="<%=contId %>" id="contId">
 	        <textarea cols="50" rows="12" id="postText"></textarea>
+	        <p id="show_length">length</p>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
