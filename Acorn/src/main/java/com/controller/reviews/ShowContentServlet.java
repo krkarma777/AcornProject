@@ -32,12 +32,19 @@ public class ShowContentServlet extends HttpServlet {
 			
 		ReviewService service = new ReviewService();
 		
-		//임시 userId 세션에 저장 (나중에 삭제)
+		
 		HttpSession session = request.getSession();
-		MemberDTO login2 = new MemberDTO("1", "1234", "배성준", 111111, 2222222,
-				"male", "bsj", "010", "2469", "6235",
-				"bsj4387", "naver.com", null, "1");
-		session.setAttribute("login", login2);
+		MemberDTO login = (MemberDTO)session.getAttribute("loginUser");
+		session.setAttribute("login", login);
+		//임시 로그인 정보 세션에 저장 (나중에 삭제)
+		MemberDTO login2 = null;
+		if(login==null) {
+			login2 = new MemberDTO("1", "1234", "배성준", 111111, 2222222,
+					"bsj", "male", "010", "2469", "6235",
+					"bsj4387", "naver.com", null, "1");
+			session.setAttribute("login", login2);
+		}
+		
 		
 		// request에서 contId 파싱
 		String contId = request.getParameter("contId"); 
@@ -52,8 +59,14 @@ public class ShowContentServlet extends HttpServlet {
 		
 		// DB에서 컨텐츠에 해당하는 리뷰리스트 가져오기
 		// 최신순으로 8개 select
-		MemberDTO login = (MemberDTO) session.getAttribute("login");
-		String likeUserId = login.getUserId();
+		String likeUserId = null;
+		if(login!=null) {
+			likeUserId = login.getUserId();
+			
+		} else if(login2!=null){ //임시데이터 나중에 삭제
+			likeUserId = login2.getUserId();
+		}
+		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("contId", contId);
 		map.put("likeUserId", likeUserId);
