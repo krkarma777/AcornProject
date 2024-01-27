@@ -36,10 +36,20 @@
 	</delete>
 
 
-    <!-- 전체 조회 -->
-    <select id="selectAllPosts" resultType="PostDTO">
-        SELECT * FROM postdb WHERE postBoard = #{board}
-    </select>
+	<!-- 전체 조회 (좋아요 수, 조회수, 댓글 수 포함, 조회수 높은 순으로 정렬, 상위 5개만 선택) -->
+	<select id="selectAllPosts" resultType="PostPageDTO">
+		SELECT * FROM (
+		    SELECT p.*,
+		           (SELECT COUNT(*) FROM likeDB WHERE postId = p.postId AND isLike = '1') AS likeNum,
+		           (SELECT viewNum FROM postInfoDB WHERE postId = p.postId) AS viewNum,
+		           (SELECT COUNT(*) FROM commentDB WHERE postId = p.postId) AS commentCount
+		    FROM postDB p
+        	WHERE postBoard = #{board} AND postDate >= SYSDATE - 2
+		    ORDER BY viewNum DESC
+		)
+		WHERE ROWNUM &lt;= 5
+	</select>
+
 
     <!-- 업데이트 -->
     <update id="updateContent" parameterType="map">
