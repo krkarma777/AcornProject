@@ -47,10 +47,8 @@ public class PostDAO {
      * @param board   조회할 게시물 목록이 속하는 게시판
      * @return        조회된 게시물 목록을 담은 List<PostDTO> 객체
      */
-    public List<PostDTO> selectAll(SqlSession session, String board) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("board", board);
-        return session.selectList("selectAllPosts", map);
+    public List<PostPageDTO> selectAll(SqlSession session, String board) {
+        return session.selectList("selectAllPosts", board);
     }
     
     public PageDTO<PostPageDTO> selectByPage(SqlSession session, HashMap<String, Object> map) {

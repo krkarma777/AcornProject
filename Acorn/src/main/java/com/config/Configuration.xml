@@ -45,5 +45,6 @@
     <mapper resource="com/config/ReviewMapper.xml"/>
     <mapper resource="com/config/AdminBoardMapper.xml"/>
     <mapper resource="com/config/AdminMemberMapper.xml"/>
+    <mapper resource="com/config/MyPageMapper.xml"/>
   </mappers>
 </configuration>

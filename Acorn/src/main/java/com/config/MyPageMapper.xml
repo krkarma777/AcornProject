@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyPageMapper">
+<!-- updateMember -->
+ <!--<update id="updateMember" parameterType="MemberDTO">
+     update member
+     set userId = #{userId},
+     userPw = #{userPw},
+     addr2 = #{addr2},
+     userName = #{userSSN1},
+    userSSN2 = #{userSSN2},
+     nickname = #{nickname},
+     userGender = #{userGender},
+     userPhoneNum1 = #{userPhoneNum1}
+     userPhoneNum2 = #{userPhoneNum2}
+     userPhoneNum3 = #{userPhoneNum3}
+     userEmailId = #{EmailId}
+     userEmailDomain = #{userEmailDomain}
+     userSignDate = #{userSignDate}
+     userType = #{userType}
+    where userId = #{userId}
+   </update>
+
+	 updatePwdMember -->
+
+	<!-- <delete id="deleteMember" parameterType="string">
+	 delete  userId, userPw, userName, userSSN1, userSSN2,  nickname,
+    			userGender,  userPhoneNum1,  userPhoneNum2,  userPhoneNum3, userEmailId,
+    			 userEmailDomain,  userSignDate,  userType
+	 from memberDB
+	 where userid = #{userid}
+	</delete>-->
+	
+	<select id="selectMyReview" parameterType="string" resultType="PostDTO">
+       select POSTID,POSTBOARD,USERID,POSTTITLE,POSTDATE,POSTEDITDATE,POSTTEXT
+       from POSTDB
+       where userid = #{userid}
+	</select>
+	
+	<select id="selectMyComment" parameterType="string" resultType="CommentDTO">
+       select comId,POSTBOARD,USERID,comText, comDate, aboveCom
+       from commentDB
+       where userid = #{userid}
+	</select>
+	
+	 <select id="idCheck" parameterType="string"
+	            resultType="int">
+     select count(*)
+     from memberDB
+     where userId = #{userId}
+	</select>
+	
+	<select id="mypage" parameterType="string" resultType="MemberDTO">
+	  select userId, userPw, userName, userSSN1, userSSN2,  nickname,
+    			userGender,  userPhoneNum1,  userPhoneNum2,  userPhoneNum3, userEmailId,
+    			 userEmailDomain,  userSignDate,  userType
+      from memberDB
+      where userId = #{userId}
+	</select>
+</mapper>

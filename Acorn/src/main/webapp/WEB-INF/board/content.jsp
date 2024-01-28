@@ -122,7 +122,7 @@ function scrollToComments() {
 }
 
 /* 긴 이미지 게시글 범위 조정 */
-.card-body img {
+.cpost-content img {
 	max-width: 100%;
 	height: auto;
 }

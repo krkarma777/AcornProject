@@ -5,7 +5,7 @@ import java.util.List;
 public class PageDTO<T> {
     private List<T> list; // 현재 페이지에 해당하는 데이터 목록
     private int curPage; // 현재 페이지 번호
-    private int perPage = 2; // 페이지당 표시할 데이터 수
+    private int perPage; // 페이지당 표시할 데이터 수
     private int totalCount; // 전체 데이터 수
 
     public List<T> getList() {

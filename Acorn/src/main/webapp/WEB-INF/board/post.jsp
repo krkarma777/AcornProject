@@ -179,7 +179,7 @@ body {
 					// 한국어로 설정, 헤더에서 사용자 국가 받아와서 변경 기능 추가 가능    
 					language : 'ko_KR',
 					// 사용할 플러그인
-					plugins : 'mentions anchor autolink charmap codesample emoticons image link lists media searchreplace visualblocks checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage powerpaste autocorrect a11ychecker typography inlinecss',
+					plugins : 'anchor autolink charmap codesample emoticons image link lists media searchreplace visualblocks',
 					// 에디터 툴바 설정
 					toolbar : 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media  mergetags | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | fileupload',
 					file_picker_types : 'file image media',
