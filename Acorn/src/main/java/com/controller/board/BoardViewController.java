@@ -46,6 +46,9 @@ public class BoardViewController implements BoardController {
         // 검색 조건 추가
         searchBoard(paramMap, map);
         
+        // 정렬 추가
+        sortIndex(paramMap, map);
+        
         // 페이지 정보 가져오기
         PageDTO<PostPageDTO> pageDTO = service.getPostsByPage(map);
 
@@ -85,5 +88,21 @@ public class BoardViewController implements BoardController {
                 }
             }
         }
+    }
+    private void sortIndex(Map<String, String> paramMap, HashMap<String, Object> map) {
+    	String orderType = paramMap.get("sortIndex");
+    	System.out.println(orderType);
+    	if (orderType != null) {
+    		switch (orderType) {
+    		case "likeNum": {
+    			map.put("sortIndex", "likeNum");
+    			break;
+    		}
+    		case "viewNum": {
+    			map.put("sortIndex", "viewNum");
+    			break;
+    		}
+    		}
+    	}
     }
 }

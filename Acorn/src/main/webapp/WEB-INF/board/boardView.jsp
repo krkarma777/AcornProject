@@ -24,6 +24,9 @@
     }
     String postBoard = (String) request.getAttribute("postBoard");
     MemberDTO loginUser = (MemberDTO) session.getAttribute("loginUser");
+    String sortIndex = request.getParameter("sortIndex");
+    String selectSearchPositionText = request.getParameter("selectSearchPositionText");
+    String inputSearchFreeText = request.getParameter("inputSearchFreeText");
 %>
 
 
@@ -185,8 +188,8 @@ color:red;
 						<div class="col-md-4 text-center-align">글쓴이</div>
 						<div class="col-md-4 text-center-align">날짜</div>
 						
-						<div class="col-md-2 text-center-align">조회</div>
-						<div class="col-md-2 text-center-align">추천</div>
+						<div class="col-md-2 text-center-align"><a href="/Acorn/board/<%= postBoard %>?sortIndex=viewNum">조회</a></div>
+						<div class="col-md-2 text-center-align"><a href="/Acorn/board/<%= postBoard %>?sortIndex=likeNum">추천</a></div>
 					</div>
 				</div>
 			</div>
@@ -244,7 +247,12 @@ color:red;
 			    <% if (i == curPage) { %>
 			        <span class='current-page font-red'><%= i %></span>
 			    <% } else { %>
-			        <a class='no-underline font-black' href='/Acorn/board/<%= postBoard %>?curPage=<%= i %>'><%= i %></a>
+			        <a class='no-underline font-black' 
+			        href='/Acorn/board/<%= postBoard %>?curPage=<%= i %><% if(sortIndex!=null){%>&sortIndex=<%= sortIndex %>
+			        <%}%><% if(inputSearchFreeText!=null && selectSearchPositionText!=null){
+			        	%>=&selectSearchPositionText=<%= selectSearchPositionText %>&inputSearchFreeText=<%= inputSearchFreeText %>
+			        <%}%>'>
+			        <%= i %></a>
 			    <% } %>
 			    <% if (i < totalPage) {
 			    	out.print(" | ");
