@@ -91,7 +91,6 @@ public class BoardViewController implements BoardController {
     }
     private void sortIndex(Map<String, String> paramMap, HashMap<String, Object> map) {
     	String orderType = paramMap.get("sortIndex");
-    	System.out.println(orderType);
     	if (orderType != null) {
     		switch (orderType) {
     		case "likeNum": {
