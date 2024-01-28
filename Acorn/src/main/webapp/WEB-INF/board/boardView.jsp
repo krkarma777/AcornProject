@@ -188,9 +188,9 @@ color:red;
 						<div class="col-md-4 text-center-align">글쓴이</div>
 						<div class="col-md-4 text-center-align">날짜</div>
 						
-						<div class="col-md-2 text-center-align"><a href="/Acorn/board/<%= postBoard %>?sortIndex=viewNum">조회</a></div>
-						<div class="col-md-2 text-center-align"><a href="/Acorn/board/<%= postBoard %>?sortIndex=likeNum">추천</a></div>
-					</div>
+						<div class="col-md-2 text-center-align"><a href="javascript:void(0)" onclick="toggleSort('viewNum')">조회</a></div>
+						<div class="col-md-2 text-center-align"><a href="javascript:void(0)" onclick="toggleSort('likeNum')">추천</a></div>
+					</div><%-- <a href="/Acorn/board/<%= postBoard %>?sortIndex=likeNum"> --%>
 				</div>
 			</div>
 
@@ -288,6 +288,33 @@ color:red;
 
 	<!-- Bootstrap Bundle with Popper -->
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+	
+	</script>
+	<script>
+	    // 현재 페이지 URL에서 sortIndex 파라미터 값을 가져오는 함수
+	    function getCurrentSortIndex() {
+	        var params = new URLSearchParams(window.location.search);
+	        return params.get("sortIndex");
+	    }
+	
+	    // 정렬 링크를 클릭했을 때의 동작을 정의하는 함수
+	    function toggleSort(sortType) {
+	        var currentSortIndex = getCurrentSortIndex();
+	
+	        // URL 생성
+	        var url = "/Acorn/board/<%= postBoard %>?curPage=<%= curPage %>";
+	
+	        // 첫 번째 클릭시 sortIndex 추가, 두 번째 클릭시 sortIndex 제거
+	        if (currentSortIndex !== sortType) {
+	            url += "&sortIndex=" + sortType;
+	        }
+	
+	        // 페이지 로드
+	        window.location.href = url;
+	    }
+	</script>
+
+	
 </body>
 </html>
