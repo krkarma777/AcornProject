@@ -46,7 +46,7 @@ public class WriteReviewServlet extends HttpServlet {
 			String userId = request.getParameter("userId");
 			String postText = request.getParameter("postText");
 			String nickname = request.getParameter("nickname");
-			ReviewDTO review = new ReviewDTO(null, "review", userId, contId, null, null, null, postText, nickname, null, null, null);
+			ReviewDTO review = new ReviewDTO(null, "review", userId, contId, null, null, null, postText, nickname, null, null, null, null);
 			
 			// DB에 등록, 등록된 review객체 받아옴
 			ReviewService service = new ReviewService();
