@@ -26,10 +26,11 @@ public class ReviewDelServlet extends HttpServlet {
 		 String nextPage = null;
 	      if(dto!=null) {
 	       String postId = request.getParameter("postId");
-	       System.out.println(postId);
+	       System.out.println("ReviewDell+ postId>>>"+ postId);
 	       MyPageService service = new MyPageService();
 	       int n = service.reviewDel(Long.parseLong(postId));
-	       System.out.println(n);
+	       System.out.println("ReviewDell+ n>>>"+ n);
+
 			nextPage = "MyArticleServlet";
 
 	      }else {
