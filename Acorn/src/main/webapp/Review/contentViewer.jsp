@@ -61,6 +61,7 @@
 	
 	#con_desc{
 		padding-bottom: 20px;
+		white-space: pre-wrap;
 	}
 	
 	#cont_myreview_container{
@@ -507,12 +508,9 @@
 			
 			<div class="col-lg-9" id="cont_info">
 				<div class="row" id="cont_title">
-					<h2>
-					<%=contTitle %>
-					</h2>
+					<h2><%=contTitle %></h2>
 				</div>
-				<div class="row" id="con_desc">
-					<%=description %>
+				<div class="row" id="con_desc"><%=description %>
 				</div>
 				<hr>
 				<div class="row">
