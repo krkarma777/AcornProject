@@ -9,9 +9,9 @@
 <%
 //session scoep에 저장된 userid
 MemberDTO dto =  (MemberDTO)session.getAttribute("loginUser");
-String userid = null;
+String userId = null;
 if(dto != null){
-	userid = dto.getUserId();
+	userId = dto.getUserId();
 }
 %>
 <script type="text/javascript">
@@ -53,10 +53,10 @@ if(dto != null){
 			type: "post",
 			url: "/Acorn/CommetInsertServlet",
 			data:{
-				postid : $("#postidComment").val(),
-				userid : $.trim($("#userid").text()),
-				comdate : $("#comdate").text(),
-				comtext : $("#comtext").val()
+				postId : $("#postidComment").val(),
+				userId : $.trim($("#userid").text()),
+				comDate : $("#comdate").text(),
+				comText : $("#comtext").val()
 			},
 			success :  function (data, status, xhr){
 				
@@ -79,8 +79,8 @@ if(dto != null){
 
 $(document).on("click",".deleteCommentBtn",function(){
 		
-	 var comid = $(this).attr("id");
- 		console.log("버튼클릭이벤트의",comid);
+	 var comId = $(this).attr("id");
+ 		console.log("버튼클릭이벤트의",comId);
  	 
  	 
  	/*  만약 DB에서도 삭제할 거라면 이거 활성화
@@ -120,7 +120,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 			url: "/Acorn/CommentUpdateServlet",
 			data:{
 				//댓글 수정(삭제)를 위해서 서버로 comid를 넘겨주고 있음
-				comid : $(this).attr("id")
+				comId : $(this).attr("id")
 			},
 			dataType: "text",
 			success :  function(data, status, xhr){
@@ -168,21 +168,21 @@ $(document).on("click",".deleteCommentBtn",function(){
 				    } else {
 				        mesg = "<ul class='comment-list'>"; // 댓글 리스트 시작
 				        for(var i = 0; i < length; i++){
-				            var comid = data.commentDBList[i].comid;
-				            var userid = data.commentDBList[i].userid;
-				            var comdate = data.commentDBList[i].comdate;
-				            var comtext = data.commentDBList[i].comtext;
-				            console.log(comid, " ", userid, " ", comdate);
+				            var comId = data.commentDBList[i].comId;
+				            var userId = data.commentDBList[i].userId;
+				            var comDate = data.commentDBList[i].comDate;
+				            var comText = data.commentDBList[i].comText;
+				            console.log(comId, " ", userId, " ", comDate);
 				            
 				            // 각 댓글 항목
 				            mesg += "<li class='comment-item'>";
 				            mesg += "<div class='comment-meta'>";
-				            mesg += "<strong>" + userid + "</strong> | <span>" + comdate + "</span>";
+				            mesg += "<strong>" + userId + "</strong> | <span>" + comDate + "</span>";
 				            mesg += "</div>";
-				            mesg += "<p class='comment-content'>" + comtext + "</p>";
-				            if(userid=="<%=userid%>"){
+				            mesg += "<p class='comment-content'>" + comText + "</p>";
+				            if(userId=="<%=userId%>"){
 				            	mesg += "<div class='comment-actions'>";
-					        	mesg += "<button id='" + comid + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + i + "'>삭제</button>";
+					        	mesg += "<button id='" + comId + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + i + "'>삭제</button>";
 					        	mesg += "</div>";
 				            }
 
@@ -217,14 +217,14 @@ $(document).on("click",".deleteCommentBtn",function(){
             <div class="card-header">댓글 작성</div>
             <div class="card-body">
                 <span id="userid" name="userid">
-                    <% if (userid == null) { %>
+                    <% if (userId == null) { %>
                         로그인을 해주세요.
                     <% } else { %>
-                        <%= userid %>
+                        <%= userId %>
                     <% } %>
                 </span>
                 <br>
-                <textarea id="comtext" class="form-control" name="comtext" style="height: 100px;" placeholder="댓글을 입력하세요. 지나친 욕설/비방 작성 시 사이트 이용에 제재를 받을 수 있습니다." <% if(userid == null) { %>disabled<% } %> ></textarea>
+                <textarea id="comtext" class="form-control" name="comtext" style="height: 100px;" placeholder="댓글을 입력하세요. 지나친 욕설/비방 작성 시 사이트 이용에 제재를 받을 수 있습니다." <% if(userId == null) { %>disabled<% } %> ></textarea>
                 <div style="text-align: right">
                     <input type="button" id="sendButton" value="등록" class="btn btn-action btn-spacing" style="margin-top: 10px;">
                 </div>

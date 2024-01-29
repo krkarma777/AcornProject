@@ -37,15 +37,15 @@ public class CommentDAO {
 	}
 	
 	
-	public int deleteComment(SqlSession s, int comid){ 
+	public int deleteComment(SqlSession s, int comId){ 
 		
-		int num = s.delete("deleteComment", comid);
+		int num = s.delete("deleteComment", comId);
 		return num;
 	}
 	
-	public int updateComment(SqlSession s, int comid){ 
+	public int updateComment(SqlSession s, int comId){ 
 		
-		int num = s.update("updateComment", comid);
+		int num = s.update("updateComment", comId);
 		return num;
 	}
 
