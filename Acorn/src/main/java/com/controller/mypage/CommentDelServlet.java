@@ -26,10 +26,10 @@ public class CommentDelServlet extends HttpServlet {
 		 String nextPage = null;
 	      if(dto!=null) {
 	       String comId = request.getParameter("comId");
-	       System.out.println(comId);
+	       System.out.println("commdell>> comId + "+ comId);
 	       MyPageService service = new MyPageService();
 	       int n = service.commDel(Integer.parseInt(comId));
-	       System.out.println(n);
+	       System.out.println("commdel>>>>> n+ "+ n);
 			nextPage = "MyCommServlet";
 
 	      }else {

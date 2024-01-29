@@ -73,8 +73,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".delBtn").on("click", function() {
-            var comid = $(this).attr("data-xxx");
-            location.href = "CommentDelServlet?comid=" + comid;
+            var comId = $(this).attr("data-xxx");
+            location.href = "CommentDelServlet?comId=" + comId;
         });
     });
 </script>
