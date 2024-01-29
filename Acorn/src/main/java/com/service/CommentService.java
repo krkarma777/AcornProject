@@ -64,12 +64,12 @@ public class CommentService {
 		return commid;
 	}
 
-	public int deleteComment(int comid) {
+	public int deleteComment(int comId) {
 		int num = 0;
 		SqlSession s = MySqlSessionFactory.getSqlSession();
 
 		try {
-			num = dao.deleteComment(s, comid);
+			num = dao.deleteComment(s, comId);
 			s.commit();
 		} finally {
 			if (s != null)
@@ -79,12 +79,12 @@ public class CommentService {
 
 	}
 
-	public int updateComment(int comid) {
+	public int updateComment(int comId) {
 		int num = 0;
 		SqlSession s = MySqlSessionFactory.getSqlSession();
 
 		try {
-			num = dao.updateComment(s, comid);
+			num = dao.updateComment(s, comId);
 			s.commit();
 		} finally {
 			if (s != null)

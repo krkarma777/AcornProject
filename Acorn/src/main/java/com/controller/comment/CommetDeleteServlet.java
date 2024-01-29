@@ -37,10 +37,10 @@ public class CommetDeleteServlet extends HttpServlet {
 		CommentService service = new CommentService();
 		
 		//ajax로 넘어온 data 가져왔음
-		int comid = Integer.parseInt(request.getParameter("comid"));
-		System.out.println("딜리트서블릿에서의 comid"+comid);
+		int comId = Integer.parseInt(request.getParameter("comId"));
+		System.out.println("딜리트서블릿에서의 comId"+comId);
 		
-		int num =service.deleteComment(comid);
+		int num =service.deleteComment(comId);
 		//삭제 기능
 		if(num==0) {
 		

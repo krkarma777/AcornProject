@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <insert id="CommentMapper" parameterType="commentDTO">
 
 insert into commentDB (comid,postid,userid,comdate,comtext,abovecom)
-values (comIdSeq.nextval, #{postid}, #{userid}, SYSTIMESTAMP, #{comtext}, #{abovecom})
+values (comIdSeq.nextval, #{postId}, #{userId}, SYSTIMESTAMP, #{comText}, #{aboveCom})
 
 </insert>
 
@@ -21,7 +21,7 @@ select comid,postid,userid,comdate,comtext,abovecom from commentDB order by comi
 
 <delete id="deleteComment" parameterType="int">
 
-delete from commentDB where comid = #{comid}
+delete from commentDB where comid = #{comId}
 
 </delete>
 
@@ -29,8 +29,8 @@ delete from commentDB where comid = #{comid}
 <select id="selectOne" parameterType="commentDTO" resultType="int">
 
 select comid from commentDB 
-where postid = #{postid} and 
-userid = #{userid} and 
+where postid = #{postId} and 
+userid = #{userId} and 
 comdate = SYSTIMESTAMP
 
 </select>
@@ -39,7 +39,7 @@ comdate = SYSTIMESTAMP
 
 update commentDB 
 set comtext = '삭제된 댓글입니다.'
-where comid = #{comid}
+where comid = #{comId}
 
 </update>
 
