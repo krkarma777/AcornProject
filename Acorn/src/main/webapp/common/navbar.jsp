@@ -16,7 +16,7 @@
 				if(dto != null){	//로그인 상태
 			%>
                 <li class="nav-item"><a href="<%= request.getContextPath()%>/Logout" class="nav-link">로그아웃</a></li>
-				<li class="nav-item"><a href="<%= request.getContextPath()%>/AdminMainServlet" class="nav-link">마이페이지</a></li>		
+				<li class="nav-item"><a href="<%= request.getContextPath()%>/MyPageServlet" class="nav-link">마이페이지</a></li>		
 			<%
 				} else {			//로그인 아닌 상태
 			%>

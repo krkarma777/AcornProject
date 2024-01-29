@@ -28,7 +28,7 @@ public class MemberUpdateServlet extends HttpServlet {
     	HttpSession session = request.getSession();
         MemberDTO dto = (MemberDTO)session.getAttribute("loginUser");
 		String nextPage=null;
-		
+		System.out.println(dto);
     	if(dto!=null) {
     	request.setCharacterEncoding("utf-8");//한글처리 
     	String userId = request.getParameter("userId");
@@ -53,12 +53,18 @@ public class MemberUpdateServlet extends HttpServlet {
         		new MemberDTO(userId, userPw, userName, userSSN1, userSSN2,  nickname,
     			userGender,  userPhoneNum1,  userPhoneNum2,  userPhoneNum3, userEmailId,
     			 userEmailDomain,  userSignDate,  userType);
-
+System.out.println(dto2);
         MyPageService service = new MyPageService();
-        int n = service.updateMember(dto2);
+        int num = service.updateMember(dto2);
+        System.out.println(num);
+        if(num==1) {
+			dto2= service.mypage(userId);
+			session.setAttribute("loginUser", dto2);// 세션에 최신정보 저장 
+			session.setAttribute("mesg", "회원정보가 수정되었습니다.");// 세션에 최신정보 저장 
+		}	
         nextPage = "main";
     	}else {
-			nextPage = "LoginServlet";
+			nextPage = "Login";
 			request.setAttribute("mesg", "로그인이 필요한 작업입니다.");
 		}
 		  RequestDispatcher dis =

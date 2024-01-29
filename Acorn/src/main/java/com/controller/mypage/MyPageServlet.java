@@ -23,11 +23,13 @@ public class MyPageServlet extends HttpServlet {
 	
 	      HttpSession session = request.getSession();
 	      MemberDTO dto = (MemberDTO)session.getAttribute("loginUser");
-		 String nextPage = null;
+		 System.out.println(dto);
+		 System.out.println("쌰갈");
+	      String nextPage = null;
 	      if(dto!=null) {
 			  nextPage = "MypageLayout.jsp";
               String userid = dto.getUserId();
-              
+              System.out.println(userid);
               MyPageService service = new MyPageService();
               MemberDTO x = service.mypage(userid);
               session.setAttribute("loginUser", x);

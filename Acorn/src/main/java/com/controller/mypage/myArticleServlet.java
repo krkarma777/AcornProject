@@ -36,27 +36,29 @@ public class myArticleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		String userid = request.getParameter("userid");
+
 		MemberDTO dto = (MemberDTO)session.getAttribute("loginUser");
 		 String nextPage = null;
 	      if(dto!=null) {
 
-	       
+	    	  String userId =dto.getUserId();
 	       MyPageService service = new MyPageService();
-	       List<ReviewDTO> list = service.selectMyReview(userid);
+	       List<ReviewDTO> list = service.selectMyReview(userId);
 	       // 단일 사용자의 CommentDTO List를 JSP 페이지로 전달
            request.setAttribute("reviewList", list);
-
+           System.out.println("list>>>>>"+list);
            // 사용자의 userid를 JSP 페이지로 전달
-           request.setAttribute("userid", userid);
-
+           request.setAttribute("userId", userId);
+           System.out.println("userId>>>>>"+userId);
            // JSP 페이지로 이동
-           nextPage = "MyPageArticle.jsp";
+           nextPage = "mypage/MypageArticle.jsp";
 			
 	      }else {
-			  nextPage = "LoginServlet";
+			  nextPage = "Login";
 			  session.setAttribute("mesg", "로그인이 필요한 작업입니다.");
 		  }
+	      RequestDispatcher dis = request.getRequestDispatcher(nextPage);
+			dis.forward(request, response);
 	}
 
 	/**
