@@ -87,9 +87,9 @@ public class PostService {
     }
     
     // 모든 글 조회
-    public List<PostDTO> selectAll(String board) {
+    public List<PostPageDTO> selectAll(String board) {
         SqlSession session = MySqlSessionFactory.getSqlSession();
-        List<PostDTO> list = null;
+        List<PostPageDTO> list = null;
         try {
             // 모든 글 조회 메서드 호출
             list = dao.selectAll(session, board);

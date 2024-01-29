@@ -2,13 +2,12 @@ package com.dto;
 
 public class CommentDTO {
 	
-	private int comid;
-	private Long postid;
-	private String userid;
-	private String comdate;
-	private String comtext;
-	private int abovecom;
-	//private int countnumber;
+	private int comId;
+	private Long postId;
+	private String userId;
+	private String comDate;
+	private String comText;
+	private int aboveCom;
 	
 	
 
@@ -18,109 +17,95 @@ public class CommentDTO {
 
 
 
-	public CommentDTO(int comid, Long postid, String userid, String comdate, String comtext, int abovecom
-			/*int countnumber*/) {
-		super();
-		this.comid = comid;
-		this.postid = postid;
-		this.userid = userid;
-		this.comdate = comdate;
-		this.comtext = comtext;
-		this.abovecom = abovecom;
-		//this.countnumber = countnumber;
-	}
-
-
-
-	public int getComid() {
-		return comid;
-	}
-
-
-
-	public void setComid(int comid) {
-		this.comid = comid;
-	}
-
-
-
-	public Long getPostid() {
-		return postid;
-	}
-
-
-
-	public void setPostid(Long postid) {
-		this.postid = postid;
-	}
-
-
-
-	public String getUserid() {
-		return userid;
-	}
-
-
-
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-
-
-
-	public String getComdate() {
-		return comdate;
-	}
-
-
-
-	public void setComdate(String comdate) {
-		this.comdate = comdate;
-	}
-
-
-
-	public String getComtext() {
-		return comtext;
-	}
-
-
-
-	public void setComtext(String comtext) {
-		this.comtext = comtext;
-	}
-
-
-
-	public int getAbovecom() {
-		return abovecom;
-	}
-
-
-
-	public void setAbovecom(int abovecom) {
-		this.abovecom = abovecom;
-	}
-
-
-
-	/*
-	 * public int getCountnumber() { return countnumber; }
-	 * 
-	 * 
-	 * 
-	 * public void setCountnumber(int countnumber) { this.countnumber = countnumber;
-	 * }
-	 */
-
-
-
 	@Override
 	public String toString() {
-		return "CommentDB [comid=" + comid + ", postid=" + postid + ", userid=" + userid + ", comdate=" + comdate
-				+ ", comtext=" + comtext + ", abovecom=" + abovecom + ", countnumber=" + /* countnumber */ "]";
+		return "CommentDTO [comId=" + comId + ", postId=" + postId + ", userId=" + userId + ", comDate=" + comDate
+				+ ", comText=" + comText + ", aboveCom=" + aboveCom + "]";
 	}
 
+
+
+	public CommentDTO(int comId, Long postId, String userId, String comDate, String comText, int aboveCom) {
+		super();
+		this.comId = comId;
+		this.postId = postId;
+		this.userId = userId;
+		this.comDate = comDate;
+		this.comText = comText;
+		this.aboveCom = aboveCom;
+	}
+
+
+
+	public int getComId() {
+		return comId;
+	}
+
+
+
+	public void setComId(int comId) {
+		this.comId = comId;
+	}
+
+
+
+	public Long getPostId() {
+		return postId;
+	}
+
+
+
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
+	public String getComDate() {
+		return comDate;
+	}
+
+
+
+	public void setComDate(String comDate) {
+		this.comDate = comDate;
+	}
+
+
+
+	public String getComText() {
+		return comText;
+	}
+
+
+
+	public void setComText(String comText) {
+		this.comText = comText;
+	}
+
+
+
+	public int getAboveCom() {
+		return aboveCom;
+	}
+
+
+
+	public void setAboveCom(int aboveCom) {
+		this.aboveCom = aboveCom;
+	}
 
 
 

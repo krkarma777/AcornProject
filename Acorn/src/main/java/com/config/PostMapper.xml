@@ -36,10 +36,20 @@
 	</delete>
 
 
-    <!-- 전체 조회 -->
-    <select id="selectAllPosts" resultType="PostDTO">
-        SELECT * FROM postdb WHERE postBoard = #{board}
-    </select>
+	<!-- 전체 조회 (좋아요 수, 조회수, 댓글 수 포함, 조회수 높은 순으로 정렬, 상위 5개만 선택) -->
+	<select id="selectAllPosts" resultType="PostPageDTO">
+		SELECT * FROM (
+		    SELECT p.*,
+		           (SELECT COUNT(*) FROM likeDB WHERE postId = p.postId AND isLike = '1') AS likeNum,
+		           (SELECT viewNum FROM postInfoDB WHERE postId = p.postId) AS viewNum,
+		           (SELECT COUNT(*) FROM commentDB WHERE postId = p.postId) AS commentCount
+		    FROM postDB p
+        	WHERE postBoard = #{board} AND postDate >= SYSDATE - 2
+		    ORDER BY viewNum DESC
+		)
+		WHERE ROWNUM &lt;= 5
+	</select>
+
 
     <!-- 업데이트 -->
     <update id="updateContent" parameterType="map">
@@ -54,12 +64,12 @@
     <!-- 페이지네이션을 위한 게시물 조회 (좋아요 수, 조회수, 댓글 수 포함) -->
 	<select id="selectAllByPage" resultType="PostPageDTO">
 	    SELECT * FROM (
-	        SELECT a.*, ROWNUM rnum,
-	               (SELECT COUNT(*) FROM likeDB WHERE postId = a.postId AND isLike = '1') AS likeNum,
-	               (SELECT viewNum FROM postInfoDB WHERE postId = a.postId) AS viewNum,
-	               (SELECT COUNT(*) FROM commentDB WHERE postId = a.postId) AS commentCount
-	        FROM (
-	            SELECT * FROM postDB
+	        SELECT inner_query.*, ROWNUM rnum FROM (
+	            SELECT postDB.*, 
+	                   (SELECT COUNT(*) FROM likeDB WHERE postId = postDB.postId AND isLike = '1') AS likeNum,
+	                   (SELECT viewNum FROM postInfoDB WHERE postId = postDB.postId) AS viewNum,
+	                   (SELECT COUNT(*) FROM commentDB WHERE postId = postDB.postId) AS commentCount
+	            FROM postDB
 	            <where>
 	                postBoard = #{postBoard}
 	                <if test="postTitle != null">
@@ -72,14 +82,14 @@
 	                    AND userId LIKE '%' || #{userId} || '%'
 	                </if>
 	            </where>
-	            ORDER BY postId DESC
-	        ) a
+	            <choose>
+	                <when test="sortIndex == 'likeNum'"> ORDER BY likeNum DESC, postDate DESC</when>
+	                <when test="sortIndex == 'viewNum'"> ORDER BY viewNum DESC, postDate DESC</when>
+	                <otherwise>ORDER BY postDate DESC, postId DESC</otherwise>
+	            </choose>
+	        ) inner_query
 	    ) WHERE rnum BETWEEN #{offset} + 1 AND #{offset} + #{perPage}
 	</select>
-
-
-
-
 
     <!-- 게시물 총 개수 조회 -->
     <select id="countPosts" resultType="int">
@@ -109,6 +119,15 @@
 		WHERE postId = #{postId} AND isLike = '1'
 	</select>
 	
-
+	<!-- 게시글 좋아요수 insert -->
+	<insert id="postLike" parameterType="hashmap">
+		INSERT INTO likeDB (postId, userId, isLike)
+		SELECT #{postId}, #{userId}, 1
+		FROM dual
+		WHERE NOT EXISTS (
+    	SELECT 1
+    	FROM likeDB
+    	WHERE postId = #{postId} AND userId = #{userId} )
+	</insert>
 
 </mapper>

@@ -1,8 +1,17 @@
+<%@page import="com.controller.board.util.ContentDataFormating"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.dto.board.PostPageDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	//데이터 뽑아 오는 곳: 기준은 아직이지만 최근 상영 중에 인기순이 가장 좋지 않을까?
 	// 상위 10개 정도를 뽑아서 아래 for문 부분에 돌리기.
+		List<PostPageDTO> movieList = (List<PostPageDTO>)request.getAttribute("movieList");
+		List<PostPageDTO> movieMeetList = (List<PostPageDTO>)request.getAttribute("movieMeetList");
+		List<PostPageDTO> movieInfoList = (List<PostPageDTO>)request.getAttribute("movieInfoList");
+    	ContentDataFormating cdf = new ContentDataFormating();
 %>    
 
 <div class="  " style="" align="center">
@@ -12,19 +21,19 @@
     		<div class="carousel-item active">
            		<div class="d-block" align="center">
  					<div class="d-flex">
-						<div class="me-1 bg-danger align-self-center">
+						<div class="me-1 align-self-center">
 							<a href="MoveToContentDetailServlet?movie=1"><img src="image/웡카.jpg" width="270px" height="382px"></a>
 						</div><!-- <a>누르면 MoveToContentDetailServlet으로 이동 -->
-						<div class="mx-1 bg-light align-self-center">
+						<div class="mx-1 align-self-center">
 							<a href="ShowContentServlet"><img src="image/스즈메의문단속.jpg" width="270px" height="382px"></a>
         				</div>
-        				<div class="mx-1 bg-primary align-self-center">
+        				<div class="mx-1 align-self-center">
         					<a href="#"><img src="image/도그맨.jpg" width="270px" height="382px"></a>
 						</div>
-        				<div class="mx-1 bg-dark align-self-center">
+        				<div class="mx-1 align-self-center">
         					<a href="#"><img src="image/너의이름은.jpg" width="270px" height="382px"></a>
         				</div>
-        				<div class="ms-1 bg-info align-self-center">
+        				<div class="ms-1 align-self-center">
         					<a href="#"><img src="image/라라랜드.jpg" width="270px" height="382px"></a>
 						</div>
 						<!-- if문 5개 되면 새로운 carousel-item을 만들기 -->
@@ -43,7 +52,7 @@
 							<a href="#"><img src="image/웡카.jpg" width="270px" height="382px"></a>
         				</div>
         				<div class="mx-1 bg-primary align-self-center">
-        					<a href="ShowContentServlet"><img src="image/스즈메의문단속.jpg" width="270px" height="382px"></a>
+        					<a href="ShowContentServlet?contId=1"><img src="image/스즈메의문단속.jpg" width="270px" height="382px"></a>
 						</div>
         				<div class="mx-1 bg-dark align-self-center">
         					<a href="#"><img src="image/도그맨.jpg" width="270px" height="382px"></a>
@@ -72,31 +81,65 @@
 		<div class="mx-1">
 			<table border="1" style="width:450px">
 				<tr><th style="height:30px"><a href="/Acorn/board/movieInfo">정보게시판</a></th></tr>
-				<%for(int i=1; i<=5; i++){ %>
-					<tr><td class="" style="height:54px">
-					글 <%=i %>
-					</td></tr>
-				<%} %>
+		        <% 
+		            for(PostPageDTO post : movieInfoList) {
+		            	String displayDate = cdf.minuteHourDay(post);
+		        %>
+		                <tr>
+		                    <td style="height:54px">
+		                    <a href="/Acorn/board/content?postId=<%= post.getPostId() %>&bn=<%= post.getPostBoard()%>">
+		                        <%= post.getPostTitle() %></a> [<%= post.getCommentCount() %>]<br>
+		                        
+		                     <%= displayDate %> |<%= post.getViewNum() %> | <%= post.getLikeNum() %>
+		                    
+		                    </td>
+		                </tr>
+		        <% 
+		            }
+		        %>
 			</table>
 		</div>
 		<div class="mx-1">
-			<table border="1" style="width:450px">
-				<tr><th style="height:30px"><a href="/Acorn/board/movie">자유게시판</a></th></tr>
-				<%for(int i=1; i<=5; i++){ %>
-					<tr><td class="" style="height:54px">
-					글 <%=i %>
-					</td></tr>
-				<%} %>
-			</table>
+		    <table border="1" style="width:450px">
+		        <tr><th style="height:30px"><a href="/Acorn/board/movie">자유게시판</a></th></tr>
+		        <% 
+		            for(PostPageDTO post : movieList) {
+		            	String displayDate = cdf.minuteHourDay(post);
+		        %>
+		                <tr>
+		                    <td style="height:54px">
+		                    <a href="/Acorn/board/content?postId=<%= post.getPostId() %>&bn=<%= post.getPostBoard()%>">
+		                        <%= post.getPostTitle() %></a> [<%= post.getCommentCount() %>]<br>
+		                        
+		                     <%= displayDate %> |<%= post.getViewNum() %> | <%= post.getLikeNum() %>
+		                    
+		                    </td>
+		                </tr>
+		        <% 
+		            }
+		        %>
+		    </table>
 		</div>
+
 		<div class="mx-1">
 			<table border="1" style="width:450px">
 				<tr><th style="height:30px"><a href="/Acorn/board/movieMeet">모임게시판</a></th></tr>
-				<%for(int i=1; i<=5; i++){ %>
-					<tr><td class="" style="height:54px">
-					글 <%=i %>
-					</td></tr>
-				<%} %>
+		        <% 
+		            for(PostPageDTO post : movieMeetList) {
+		            	String displayDate = cdf.minuteHourDay(post);
+		        %>
+		                <tr>
+		                    <td style="height:54px">
+		                    <a href="/Acorn/board/content?postId=<%= post.getPostId() %>&bn=<%= post.getPostBoard()%>">
+		                        <%= post.getPostTitle() %></a> [<%= post.getCommentCount() %>]<br>
+		                        
+		                     <%= displayDate %> |<%= post.getViewNum() %> | <%= post.getLikeNum() %>
+		                    
+		                    </td>
+		                </tr>
+		        <% 
+		            }
+		        %>
 			</table>
 		</div>
 	</div>

@@ -14,12 +14,14 @@ public class ReviewDTO {
 	private String score;  //별점
 	private String likeUserId; //리뷰리스트 불러올 때 해당 사용자가 해당 리뷰에 공감 눌렀는지 저장할 변수
 	private String isLike; // 공감 조회시 인자로 사용할 사용자 변수
+	private String likeNum; //공감수
 	public ReviewDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public ReviewDTO(Long postId, String postBoard, String userId, Long contId, String postTitle, String postDate,
-			String editDate, String postText, String nickname, String score, String likeUserId, String isLike) {
+			String editDate, String postText, String nickname, String score, String likeUserId, String isLike,
+			String likeNum) {
 		super();
 		this.postId = postId;
 		this.postBoard = postBoard;
@@ -33,6 +35,7 @@ public class ReviewDTO {
 		this.score = score;
 		this.likeUserId = likeUserId;
 		this.isLike = isLike;
+		this.likeNum = likeNum;
 	}
 	public Long getPostId() {
 		return postId;
@@ -106,12 +109,18 @@ public class ReviewDTO {
 	public void setIsLike(String isLike) {
 		this.isLike = isLike;
 	}
+	public String getLikeNum() {
+		return likeNum;
+	}
+	public void setLikeNum(String likeNum) {
+		this.likeNum = likeNum;
+	}
 	@Override
 	public String toString() {
 		return "ReviewDTO [postId=" + postId + ", postBoard=" + postBoard + ", userId=" + userId + ", contId=" + contId
 				+ ", postTitle=" + postTitle + ", postDate=" + postDate + ", editDate=" + editDate + ", postText="
 				+ postText + ", nickname=" + nickname + ", score=" + score + ", likeUserId=" + likeUserId + ", isLike="
-				+ isLike + "]";
+				+ isLike + ", likeNum=" + likeNum + "]";
 	}
 	
 }

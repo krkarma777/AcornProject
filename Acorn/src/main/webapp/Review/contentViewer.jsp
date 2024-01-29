@@ -120,7 +120,7 @@
 		font-size: 17px;
 	}
 	
-	#like_btn{
+	.like_btn{
 		-webkit-user-select:none;
 		-moz-user-select:none;
 		-ms-user-select:none;
@@ -146,6 +146,11 @@
 		border-top-right-radius: 8px;
 	}
 	
+	#reviews_title{
+		text-decoration-line: none;
+		color: black;
+	}
+	
 	
 </style>
 <%
@@ -165,60 +170,83 @@
 	}
 	
 	List<ReviewDTO> reviewList = (List<ReviewDTO>)request.getAttribute("reviewList");
-	//System.out.print(reviewList);
 	
 	//avgRate 구하기, 별점범위당 갯수 구하기
 	List<RateDTO> rateList = (List<RateDTO>)request.getAttribute("rateList");
 	int rateAmount = rateList.size();
+	//모든 별점 순회
 	double sum = 0;
 	double[] rateDistribution = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};	
 	for(int i=0;i<rateAmount;i++){
 		RateDTO rate = rateList.get(i);
 		double score = rate.getScore();
 		sum += score;
-		//배열 0~4까지 분포갯수 계산구문
-		//System.out.println((int)Math.ceil(score/2)-1);
+		//별점(score)가 10이면 [9]에 +1증가
 		rateDistribution[(int)score-1]++;
-		
 	}
-	double avgRate = sum/rateAmount/2;	
+	
+	String avgRate = "리뷰가 존재하지 않습니다.";
+	// 별점이 1개 이상일 때
+	if(rateAmount>0){
+		avgRate = String.format("%.1f", sum/rateAmount/2);
+	}	
 %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 	//최대글자수
 	var max_length = 200;
-	
+
+	//ready
 	$(document).ready(function(){
+		$("#show_length").text($("#postText").val().length+"/"+max_length); //글자수 표시
 		$("#writeReview").on("click", writeReview);  //리뷰작성
-		$("#postText").on("keyup", check_length);  // 글자수 제한
-		$("#postText").on("keypress", check_enter);  // 엔터키 제한
-		$(".rate input").on("change", rating)  // 별점 선택
-		$("#like_btn").on("click", likeToggle) // 공감버튼
+		$("#postText").on("keyup", check_length); 	 //글자수 제한
+		$("#postText").on("keypress", check_enter);  //엔터키 제한
+		$(".rate input").on("change", rating)  		//별점 선택
+		$(".like_btn").on("click", likeToggle) 		// 공감버튼 클릭
 		
-		// 별점 막대그래프 높이 설정 구문 
+		//화면 로딩시 내 리뷰 표시 함수 
+		setMyReview();
+		
+		// 별점 막대그래프 높이 설정 함수
+		setAvgGraph();
+		
+	});//ready
+	
+	
+	// 별점 막대그래프 높이 설정 함수
+	function setAvgGraph(){
 		<%
 		for(int i=0;i<rateDistribution.length;i++){
 			// 버전1
 			//전체높이 * 해당별점갯수/전체별점갯수
+			//문제: y축이 너무 높아짐
 			//double height = 70*rateDistribution[i]/rateAmount;
 			
 			// 버전2
-			//y축 수치값을 가장 높은 갯수 + 10%로 설정
+			//y축 수치값을 (가장 많은 갯수 + 10%)로 설정
 			//전체높이 * 해당별점갯수/(가장 높은 갯수 + 10%)
 			double max = rateDistribution[0];
-			for(double num: rateDistribution){
-				if(num>max){
+			for(double num: rateDistribution){ 
+				if(num>max){ //최대값 비교해서 구하기
 					max = num;
 				}
 			}
+			// 70px * (최대값+10%)
 			double height = 70*rateDistribution[i]/(max*1.1);
+			
+			if (height> 70)
+				height = 70;
 			if (height == 0)
 				height = 2;
 			%>
 			$("#score<%=i+1%>").css("height", "<%=height%>px");
 		<%}%>
-		
+	}
+	
+	//화면 로딩시 내 리뷰 표시 함수 
+	function setMyReview(){
 		<%
 		//로그인 정보 확인
 		if(login!=null){
@@ -254,11 +282,11 @@
 			}//ajax	
 		);//ajax
 		<%}%>//if 종료
-	});//ready
+	}
 	
 	// 공감버튼 토글
 	function likeToggle(){
-		
+
 		// 버튼 누른 리뷰의 postId 가져오기
 		var postId = $(this).attr("data-postId");
 		
@@ -266,6 +294,7 @@
 		var statement = $(this).text().trim();
 		var isLike = 0;
 		//console.log(statement)
+		
 		// 공백하트인지 꽉찬 하트인지 검사해서 반대로 바꾸기
 		if(statement == "♥"){
 			$(this).text("♡");
@@ -275,25 +304,32 @@
 			isLike = 1;
 		}
 		
+		//로그인정보가 있을 때
 		//DB에 비동기 반영
-		$.ajax(
-			{
-				type: "post",
-				url:"UpdateLikeServlet",
-				data: {
-					"userId": "<%=userId%>",
-					"postId": postId,
-					"isLike": isLike
-				},
-				dataType: "text",
-				success: function(data, status, xhr){
-					//console.log("성공: " + data);
-				},
-				error: function(xhr, status, e){
-					//console.log("실패: " + xhr.status);
-				}
-			}//json	
-		);//ajax
+		<%if(userId!=null){%>
+		
+			$.ajax(
+				{
+					type: "post",
+					url:"UpdateLikeServlet",
+					data: {
+						"userId": "<%=userId%>",
+						"postId": postId,
+						"isLike": isLike
+					},
+					dataType: "text",
+					success: function(data, status, xhr){
+						if(isLike==0)
+							$("#likeNum"+postId).text($("#likeNum"+postId).text()-1);
+						else{
+							$("#likeNum"+postId).text($("#likeNum"+postId).text()-1+2);
+						}
+					},
+					error: function(xhr, status, e){
+					}
+				}//json	
+			);//ajax
+		<%}%>//if
 	}
 	
 	// 별점 선택
@@ -351,16 +387,17 @@
 	// 리뷰 작성 완료
 	function writeReview(){
 		// 인증 추가 필요
-		
 		<%
 		//로그인 정보 확인
 		if(login==null){
 		%>
+		
 		alert("로그인이 필요한 작업입니다.");
+		
 		<%
-		}
-		else{
+		} else{
 		%>
+		
 		var contId = $("#contId").val();
 		var postText = $("#postText").val().substr(0, max_length);
 		//내용이 있을 시만 저장작업 진행
@@ -378,8 +415,8 @@
 					dataType: "text",
 					success: function(data, status, xhr){
 						//console.log("성공: " + data);
-						var jsonData = JSON.parse(data);
-						updateMyReview(jsonData);
+						var jsonData = JSON.parse(data);  //text->json
+						updateMyReview(jsonData);         //리뷰 표시 업데이트 함수
 						$('#exampleModal').modal('hide');
 						$("#cont_myreview_container").show();
 						
@@ -396,6 +433,7 @@
 </head>
 <body>
 	<!--네비게이션바  -->
+	<%-- <jsp:include page="//common/navbar.jsp"></jsp:include> --%>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" href="#">Navbar</a>
@@ -520,7 +558,7 @@
 		<!--감상평들 표시  -->
 		<!--감상평 리스트 데이터 전달받아야함 (reviewList) -->
 		<div class="row pad_side" id="review_title">
-			<a href=""><h4>Reviews ></h4></a>
+			<a href="" id="reviews_title"><h2>Reviews ></h2></a>
 		</div>
 		<div class="row pad_side" id="review_row">
 			<%for(int i=1; i<=2;i++){%>
@@ -528,7 +566,8 @@
 				<%for(int j=1; j<=4;j++){%>
 				<div class="col" id="review_col">
 					<%
-					int index = (i*j)-1;
+					//System.out.println(reviewList.size());
+					int index = (i-1)*4+(j-1);
 					if(reviewList.size()-1>=index){%>
 
 						<div id="review_nick">
@@ -542,15 +581,17 @@
 						<!-- </a> -->
 						<div id="review_score">
 							<span>☆ <%=Double.parseDouble(reviewList.get(index).getScore())/2 %></span>
-							<span id="like_btn" style="color:red" data-postId="<%=reviewList.get(index).getPostId() %>">
+							<span class="like_btn" style="color:red" data-postId="<%=reviewList.get(index).getPostId() %>">
 							<%if("1".equals(reviewList.get(index).getIsLike())){
 								//System.out.println("♥"+reviewList.get(index).getIsLike());
-							%>♥
+							%>♥ 
 							<%}else{ 
 								//System.out.println("♡"+reviewList.get(index).getIsLike());
 							%>♡
 							<%} %>
+							
 							</span>
+							<span id="likeNum<%=reviewList.get(index).getPostId() %>"><%=(reviewList.get(index).getLikeNum()!=null)?(reviewList.get(index).getLikeNum()):("") %></span>
 						</div>
 					<%}else{%>
 						<div id="review_nick"></div>
