@@ -51,8 +51,8 @@ public class MyPageDAO {
 			return count;
 		}
 
-	public int commDel(SqlSession session, int comid) {
-		int n = session.delete("MyPageMapper.commDel", comid);
+	public int commDel(SqlSession session, int comId) {
+		int n = session.delete("MyPageMapper.commDel", comId);
 		return n;
 	}
 

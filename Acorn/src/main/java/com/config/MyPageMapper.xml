@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="commDel" parameterType="int">
     delete
     from commentDB
-    where comid = #{comid}
+    where comId = #{comId}
    </delete>
    <!-- 내리뷰 삭제 -->
    <delete id="reviewDel" parameterType="Long">

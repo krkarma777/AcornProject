@@ -25,10 +25,10 @@ public class CommentDelServlet extends HttpServlet {
 	      MemberDTO dto = (MemberDTO)session.getAttribute("loginUser");
 		 String nextPage = null;
 	      if(dto!=null) {
-	       String comid = request.getParameter("comid");
-	       System.out.println(comid);
+	       String comId = request.getParameter("comId");
+	       System.out.println(comId);
 	       MyPageService service = new MyPageService();
-	       int n = service.commDel(Integer.parseInt(comid));
+	       int n = service.commDel(Integer.parseInt(comId));
 	       System.out.println(n);
 			nextPage = "MyCommServlet";
 

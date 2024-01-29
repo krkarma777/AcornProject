@@ -125,12 +125,12 @@ public class MyPageService {
 			}
 			return count;
 		}//end idCheck
-	public int commDel(int comid) {
+	public int commDel(int comId) {
 		SqlSession session = MySqlSessionFactory.getSqlSession();
 		int n = 0;
 		try {
 			MyPageDAO dao = new MyPageDAO();
-			n = dao.commDel(session, comid);
+			n = dao.commDel(session, comId);
 			session.commit();
 		} finally {
 			session.close();
