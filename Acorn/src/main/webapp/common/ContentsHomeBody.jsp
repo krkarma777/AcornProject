@@ -21,19 +21,19 @@
     		<div class="carousel-item active">
            		<div class="d-block" align="center">
  					<div class="d-flex">
-						<div class="me-1 bg-danger align-self-center">
+						<div class="me-1 align-self-center">
 							<a href="MoveToContentDetailServlet?movie=1"><img src="image/웡카.jpg" width="270px" height="382px"></a>
 						</div><!-- <a>누르면 MoveToContentDetailServlet으로 이동 -->
-						<div class="mx-1 bg-light align-self-center">
+						<div class="mx-1 align-self-center">
 							<a href="ShowContentServlet"><img src="image/스즈메의문단속.jpg" width="270px" height="382px"></a>
         				</div>
-        				<div class="mx-1 bg-primary align-self-center">
+        				<div class="mx-1 align-self-center">
         					<a href="#"><img src="image/도그맨.jpg" width="270px" height="382px"></a>
 						</div>
-        				<div class="mx-1 bg-dark align-self-center">
+        				<div class="mx-1 align-self-center">
         					<a href="#"><img src="image/너의이름은.jpg" width="270px" height="382px"></a>
         				</div>
-        				<div class="ms-1 bg-info align-self-center">
+        				<div class="ms-1 align-self-center">
         					<a href="#"><img src="image/라라랜드.jpg" width="270px" height="382px"></a>
 						</div>
 						<!-- if문 5개 되면 새로운 carousel-item을 만들기 -->
@@ -52,7 +52,7 @@
 							<a href="#"><img src="image/웡카.jpg" width="270px" height="382px"></a>
         				</div>
         				<div class="mx-1 bg-primary align-self-center">
-        					<a href="ShowContentServlet"><img src="image/스즈메의문단속.jpg" width="270px" height="382px"></a>
+        					<a href="ShowContentServlet?contId=1"><img src="image/스즈메의문단속.jpg" width="270px" height="382px"></a>
 						</div>
         				<div class="mx-1 bg-dark align-self-center">
         					<a href="#"><img src="image/도그맨.jpg" width="270px" height="382px"></a>
