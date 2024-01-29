@@ -14,12 +14,32 @@ public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/main.jsp");//main.jsp로 이동
+		String category = request.getParameter("category");
+		String nextPage = "WEB-INF/main.jsp";
+		
+		if(category != null) {
+		    nextPage = categoryDispatcher(category);
+		}
+		
+		RequestDispatcher dis = request.getRequestDispatcher(nextPage);//main.jsp로 이동
 		dis.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 
+	private String categoryDispatcher(String category) {
+	    switch(category) {
+	        case "movie":
+	            return "WEB-INF/MovieDetail.jsp";
+	        case "book":
+	            return "WEB-INF/BookDetail.jsp";
+	        case "tv":
+	            return "WEB-INF/TvDetail.jsp";
+	        default:
+	            return "WEB-INF/main.jsp"; 
+	    }
 	}
 
 

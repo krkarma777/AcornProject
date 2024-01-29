@@ -47,16 +47,30 @@ function scrollToComments() {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <script type="text/javascript">
+$("document").ready(function() {
+    $("#commentHead").click(function() {
+        var url = "/Acorn/board/postLike?postId=" + $(this).data("postid");
 
-$("document").ready(function(){
-	
-	//좋아요 버튼
-	$("#commentHead").click(function(){
-		alert("좋아요 버튼");
-		System.out.println("좋아요 버튼");
-	
-	
-	});//end doc
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            success: function(response) {
+                if (!response.success) {
+                    alert(response.message);
+                } else {
+                    $("#commentHead").text("좋아요 " + response.likeCount);
+                }
+            },
+            error: function(error) {
+                console.error("에러:", error);
+                alert("에러 발생");
+            }
+        });
+    });
+});
+
+
 
 </script>
 
@@ -302,7 +316,7 @@ $("document").ready(function(){
 			            <!-- 좋아요 버튼 -->
 			            <!-- id="commentHead"를 부여해서   -->
             <div class="like-button text-center">
-                <button type="button" class="btn btn-outline-primary btn-sm" id="commentHead">좋아요 <%= request.getAttribute("likeNum") %></button>
+                <button type="button" class="btn btn-outline-primary btn-sm" id="commentHead" data-postid="<%=request.getParameter("postId")%>">좋아요 <%= request.getAttribute("likeNum") %></button>
             </div>
 		</div>
 

@@ -111,4 +111,8 @@ public class PostDAO {
 	public PostPageDTO selectPagePost(SqlSession session, Long postId) {
 		return session.selectOne("selectPagePost",postId);
 	}
+
+	public int postLike(SqlSession session, HashMap<String, String> map) {
+		return session.insert("postLike",map);
+	}
 }//end class

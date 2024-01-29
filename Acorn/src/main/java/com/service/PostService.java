@@ -203,5 +203,24 @@ public class PostService {
         }
 		return dto;
 	}
+
+	public int postLike(HashMap<String, String> map) {
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		int n = 0;
+		try {
+			// 글 추가 메서드 호출
+			n = dao.postLike(session, map);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				session.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return n;
+	}
     
 }
