@@ -30,23 +30,23 @@
         <%
             for (int i = 0; i < list.size(); i++) {
                 CommentDTO dto = list.get(i);
-                int comid = dto.getComid();
-                Long postid = dto.getPostid();
-                String comdate = dto.getComdate();
+                int comId = dto.getComId();
+                Long postId = dto.getPostId();
+                String comDate = dto.getComDate();
                 String userId = dto.getUserId();
-                String comtext = dto.getComtext();
-                int abovecom = dto.getAbovecom();
+                String comText = dto.getComText();
+                int aboveCom = dto.getAboveCom();
         %>
 
         <tr>
-            <td><%= comid %></td>
-            <td><%= postid %></td>
+            <td><%= comId %></td>
+            <td><%= postId %></td>
             <td><%= userId %></td>
-            <td><%= comdate %></td>
-            <td><%= comtext %></td>
-            <td><%= abovecom %></td>
+            <td><%= comDate %></td>
+            <td><%= comText %></td>
+            <td><%= aboveCom %></td>
             <td>
-                <input type="button" value="삭제" class="delBtn" data-xxx="<%=comid%>">
+                <input type="button" value="삭제" class="delBtn" data-xxx="<%=comId%>">
             </td>
         </tr>
 
