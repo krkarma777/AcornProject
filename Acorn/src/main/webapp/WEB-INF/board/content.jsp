@@ -1,3 +1,4 @@
+<%@page import="com.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -37,14 +38,28 @@ function scrollToComments() {
     var comments = document.getElementById("commentHead"); // 댓글창의 ID를 가정
     comments.scrollIntoView();
 }
+
 </script>
 
-	
-	
 	
 <!-- jQuery -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$("document").ready(function(){
+	
+	//좋아요 버튼
+	$("#commentHead").click(function(){
+		alert("좋아요 버튼");
+		System.out.println("좋아요 버튼");
+	
+	
+	});//end doc
+
+</script>
+
 
 <!-- 스타일 태그 시작 -->
 <style>

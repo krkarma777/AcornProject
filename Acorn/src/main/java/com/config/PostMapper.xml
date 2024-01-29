@@ -109,6 +109,15 @@
 		WHERE postId = #{postId} AND isLike = '1'
 	</select>
 	
-
+	<!-- 게시글 좋아요수 insert -->
+	<insert id="postLike" parameterType="hashmap">
+		INSERT INTO likeDB (postId, userId, isLike)
+		SELECT #{postId}, #{userId}, 1
+		FROM dual
+		WHERE NOT EXISTS (
+    	SELECT 1
+    	FROM likeDB
+    	WHERE postId = #{postId} AND userId = #{userId} )
+	</insert>
 
 </mapper>
