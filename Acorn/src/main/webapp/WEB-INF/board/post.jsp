@@ -143,6 +143,17 @@ body {
 	z-index: 2; /* 추가: 에디터보다 위에 나타나도록 설정 */
 	top: 0; /* 수정: 브라우저 상단에 고정 */
 }
+
+/* 글씨체 적용 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+body{
+	font-family: 'Pretendard-Regular';
+}
 </style>
 <script>
   
