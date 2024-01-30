@@ -36,24 +36,13 @@ public class ShowContentServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO login = (MemberDTO)session.getAttribute("loginUser");
 		session.setAttribute("login", login);
-		//임시 로그인 정보 세션에 저장 (나중에 삭제)
-//		MemberDTO login2 = null;
-//		if(login==null) {
-//			login2 = new MemberDTO("1", "1234", "배성준", 111111, 2222222,
-//					"bsj", "male", "010", "2469", "6235",
-//					"bsj4387", "naver.com", null, "1");
-//			session.setAttribute("login", login2);
-//		}
 		
 		// 자신이 누른좋아요 정보 가져오기 위해 본인의 유저아이디 저장
 		String likeUserId = null;
 		if(login!=null) {
 			likeUserId = login.getUserId();
 			
-		} 
-//		else if(login2!=null){ //임시데이터 나중에 삭제
-//			likeUserId = login2.getUserId();
-//		}
+		}
 		
 		// request에서 contId 파싱
 		String contId = request.getParameter("contId"); 
