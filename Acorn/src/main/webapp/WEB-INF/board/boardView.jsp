@@ -131,6 +131,19 @@ color:red;
     .page-numbers {
         margin-top: 20px; /* 페이지네이션 상단 여백 */
     }
+    
+    /* 글씨체 적용 */
+    @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	body{
+	font-family: 'Pretendard-Regular';
+	}
+	
+	
 </style>
 </head>
 <body>
@@ -188,8 +201,8 @@ color:red;
 						<div class="col-md-4 text-center-align">글쓴이</div>
 						<div class="col-md-4 text-center-align">날짜</div>
 						
-						<div class="col-md-2 text-center-align"><a href="javascript:void(0)" onclick="toggleSort('viewNum')">조회</a></div>
-						<div class="col-md-2 text-center-align"><a href="javascript:void(0)" onclick="toggleSort('likeNum')">추천</a></div>
+						<div class="col-md-2 text-center-align"><a href="javascript:void(0)" onclick="toggleSort('viewNum')" class="font-black no-underline">조회</a></div>
+						<div class="col-md-2 text-center-align"><a href="javascript:void(0)" onclick="toggleSort('likeNum')" class="font-black no-underline">추천</a></div>
 					</div><%-- <a href="/Acorn/board/<%= postBoard %>?sortIndex=likeNum"> --%>
 				</div>
 			</div>
