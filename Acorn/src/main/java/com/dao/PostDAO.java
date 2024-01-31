@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.dto.board.LikeDTO;
 import com.dto.board.PageDTO;
 import com.dto.board.PostDTO;
 import com.dto.board.PostPageDTO;
@@ -114,5 +115,16 @@ public class PostDAO {
 
 	public int postLike(SqlSession session, HashMap<String, String> map) {
 		return session.insert("postLike",map);
+	}
+
+	public LikeDTO selectPostLike(SqlSession session, HashMap<String, String> map) {
+		LikeDTO lDto = session.selectOne("selectPostLike",map);
+		return lDto;
+	}
+
+	public int updatePostLike(SqlSession session, HashMap<String, String> map) {
+		 int num = session.update("updatePostLike",map);
+		 return num;
+		
 	}
 }//end class
