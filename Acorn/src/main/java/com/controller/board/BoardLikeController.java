@@ -31,11 +31,11 @@ public class BoardLikeController implements BoardController {
         map.put("userId", userId);
         map.put("postId", postId);
 
-        PostService service = new PostService();
-        int n = service.postLike(map);
-
-        Long likeCount = service.selectPagePost(postIdLong).getLikeNum();;
         
+        
+        PostService service = new PostService();
+        int n = service.updatePostLike(map);
+        Long likeCount = service.selectPagePost(postIdLong).getLikeNum();;
         if (n == 1) {
             model.put("success", true);
             model.put("message", "좋아요 처리 성공");

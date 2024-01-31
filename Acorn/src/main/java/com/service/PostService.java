@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
 import com.dao.PostDAO;
+import com.dto.board.LikeDTO;
 import com.dto.board.PageDTO;
 import com.dto.board.PostDTO;
 import com.dto.board.PostPageDTO;
@@ -222,5 +223,27 @@ public class PostService {
 		}
 		return n;
 	}
+
+	public int updatePostLike(HashMap<String, String> map) {
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		try {
+			LikeDTO lDto = dao.selectPostLike(session,map);
+			if(lDto!=null) {
+				dao.updatePostLike(session,map);
+			} else {
+				dao.postLike(session, map);
+			}
+			session.commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			session.close();
+		}
+	}
+	
+	
+	
     
 }

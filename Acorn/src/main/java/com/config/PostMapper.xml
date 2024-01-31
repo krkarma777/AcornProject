@@ -120,14 +120,24 @@
 	</select>
 	
 	<!-- 게시글 좋아요수 insert -->
-	<insert id="postLike" parameterType="hashmap">
-		INSERT INTO likeDB (postId, userId, isLike)
-		SELECT #{postId}, #{userId}, 1
-		FROM dual
-		WHERE NOT EXISTS (
-    	SELECT 1
-    	FROM likeDB
-    	WHERE postId = #{postId} AND userId = #{userId} )
-	</insert>
+<update id="postLike" parameterType="hashmap">
+    MERGE INTO likeDB
+    USING (SELECT 1 FROM dual) ON (postId = #{postId} AND userId = #{userId})
+    WHEN MATCHED THEN
+        UPDATE SET isLike = 1
+    WHEN NOT MATCHED THEN
+        INSERT (postId, userId, isLike) VALUES (#{postId}, #{userId}, 1)
+</update>
+
+
+	
+	<select id="selectPostLike" parameterType="hashmap" resultType="likeDTO">
+	select * from likeDB where isLike = 1 and postId=#{postId} and userId=#{userId}
+	</select>
+	
+	<update id="updatePostLike" parameterType="hashmap">
+	update likeDB set isLike=0 
+	where postId = #{postId} and userId=#{userId}
+	</update>
 
 </mapper>
