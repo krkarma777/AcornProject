@@ -6,20 +6,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- updateMember -->
 <update id="updateMember" parameterType="MemberDTO">
      update member
-     set userId = #{userId},
-     userPw = #{userPw},
-     userName = #{userName},    
-    userSSN1 = #{userSSN1},
-    userSSN2 = #{userSSN2},
+     set 
      nickname = #{nickname},
-     userGender = #{userGender},
-     userPhoneNum1 = #{userPhoneNum1}
-     userPhoneNum2 = #{userPhoneNum2}
-     userPhoneNum3 = #{userPhoneNum3}
-     userEmailId = #{userEmailId }
+     userPhoneNum1 = #{userPhoneNum1},
+     userPhoneNum2 = #{userPhoneNum2},
+     userPhoneNum3 = #{userPhoneNum3},
+     userEmailId = #{userEmailId },
      userEmailDomain = #{userEmailDomain}
-     userSignDate = #{userSignDate}
-     userType = #{userType}
+     
     where userId = #{userId}
    </update>
 
