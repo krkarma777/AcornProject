@@ -1,3 +1,4 @@
+<%@page import="com.controller.board.util.ViewService"%>
 <%@page import="com.dto.MemberDTO"%>
 <%@page import="com.dto.board.PostPageDTO"%>
 <%@page import="com.dto.board.PageDTO"%>
@@ -184,15 +185,42 @@ color:red;
 	</nav>-->
 
 	<div class="container mt-4"> 
-		
-
-
+	
 
 		<!-- 게시글 목록 -->
 		<div class="list-group">
-		<h2><%= postBoard %> Board</h2>
-		
-		 <!-- 테이블 헤더 -->
+			<div
+				class="list-group-header d-flex justify-content-between align-items-center">
+				<h2>
+					<%
+					ViewService service = new ViewService();
+					%>
+					<%
+					String boardName = service.BoardName(postBoard);
+					%>
+					<%
+					String category = service.BoardNameCategory(postBoard);
+					%>
+					<a class="font-black no-underline" href=""><%=category%> </a> > <a
+						class="font-black no-underline" href=""><%=boardName%></a>
+				</h2>
+
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button"
+						id="dropdownMenuButton1" data-bs-toggle="dropdown"
+						aria-expanded="false">정렬 옵션</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+						<li><a class="dropdown-item" href="javascript:void(0)"
+							onclick="changeSort('likeNum')">추천순</a></li>
+						<li><a class="dropdown-item" href="javascript:void(0)"
+							onclick="changeSort('viewNum')">조회순</a></li>
+						<li><a class="dropdown-item" href="javascript:void(0)"
+							onclick="changeSort('regDate')">등록일순</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- 테이블 헤더 -->
 			<div class="list-group-item table-header">
 				<div class="row">
 					<div class="col-md-1 text-center-align">탭</div>
@@ -200,22 +228,34 @@ color:red;
 					<div class="col-md-5 row">
 						<div class="col-md-4 text-center-align">글쓴이</div>
 						<div class="col-md-4 text-center-align">날짜</div>
-						
-						<div class="col-md-2 text-center-align"><a href="javascript:void(0)" onclick="toggleSort('viewNum')" class="font-black no-underline">조회</a></div>
-						<div class="col-md-2 text-center-align"><a href="javascript:void(0)" onclick="toggleSort('likeNum')" class="font-black no-underline">추천</a></div>
-					</div><%-- <a href="/Acorn/board/<%= postBoard %>?sortIndex=likeNum"> --%>
+
+						<div class="col-md-2 text-center-align">
+							<a href="javascript:void(0)" onclick="toggleSort('viewNum')"
+								class="font-black no-underline">조회</a>
+						</div>
+						<div class="col-md-2 text-center-align">
+							<a href="javascript:void(0)" onclick="toggleSort('likeNum')"
+								class="font-black no-underline">추천</a>
+						</div>
+					</div>
+					<%-- <a href="/Acorn/board/<%= postBoard %>?sortIndex=likeNum"> --%>
 				</div>
 			</div>
 
-		<% for (PostPageDTO post : list) { %>
-		    <a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%= postBoard %>" class="list-group-item list-group-item-action">
-		        <div class="row">
-		            <div class="col-md-1 text-center-align">일반</div>
-		            <div class="col-md-6"><span class="post-title"><%= post.getPostTitle() %></span>
-		                <span class="comment-count">[<%= post.getCommentCount() %>]</span></div>
-		            <div class="col-md-5 row">
-		                <div class="col-md-4 text-center-align"><%= post.getNickname() %></div>
-		                <%
+			<% for (PostPageDTO post : list) { %>
+			<a
+				href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%= postBoard %>"
+				class="list-group-item list-group-item-action">
+				<div class="row">
+					<div class="col-md-1 text-center-align">일반</div>
+					<div class="col-md-6">
+						<span class="post-title"><%= post.getPostTitle() %></span> <span
+							class="comment-count">[<%= post.getCommentCount() %>]
+						</span>
+					</div>
+					<div class="col-md-5 row">
+						<div class="col-md-4 text-center-align"><%= post.getNickname() %></div>
+						<%
 		                String strPostDate = sdfDate.format(post.getPostDate());
 		                String formattedDate;
 		                if (strToday.equals(strPostDate)) {
@@ -224,23 +264,23 @@ color:red;
 		                    formattedDate = new SimpleDateFormat("yyyy.MM.dd").format(post.getPostDate());
 		                }
 		                %>
-		                <div class="col-md-4 text-center-align"><%= formattedDate %></div>
-		                <div class="col-md-2 text-center-align"><%= post.getViewNum() %></div>
-		                <div class="col-md-2 text-center-align"><%= post.getLikeNum() %></div>
-		            </div>
-		        </div>
-		    </a>
-		<% } %>
+						<div class="col-md-4 text-center-align"><%= formattedDate %></div>
+						<div class="col-md-2 text-center-align"><%= post.getViewNum() %></div>
+						<div class="col-md-2 text-center-align"><%= post.getLikeNum() %></div>
+					</div>
+				</div>
+			</a>
+			<% } %>
 
-			
-					<!-- 버튼 그룹에 간격을 추가하기 위한 클래스 적용 -->
-		<div class="mb-3 d-flex justify-content-end margin-top">
-			<!-- Preview and submit button group -->
-			<div>
-				<a href="/Acorn/board/write?bn=<%= postBoard %>"><button type="button"
-						class="btn btn-primary custom-btn">글쓰기</button></a>
+
+			<!-- 버튼 그룹에 간격을 추가하기 위한 클래스 적용 -->
+			<div class="mb-3 d-flex justify-content-end margin-top">
+				<!-- Preview and submit button group -->
+				<div>
+					<a href="/Acorn/board/write?bn=<%= postBoard %>"><button
+							type="button" class="btn btn-primary custom-btn">글쓰기</button></a>
+				</div>
 			</div>
-		</div>
 		</div>
 
 
@@ -325,6 +365,14 @@ color:red;
 	
 	        // 페이지 로드
 	        window.location.href = url;
+	    }
+	    // 정렬 옵션 변경 함수
+	    function changeSort(sortType) {
+	        var currentUrl = window.location.href;
+	        var newUrl = new URL(currentUrl);
+	        newUrl.searchParams.set('sortIndex', sortType);
+	        newUrl.searchParams.set('curPage', 1); // 정렬 기준 변경 시 첫 페이지로 리셋
+	        window.location.href = newUrl.toString();
 	    }
 	</script>
 
