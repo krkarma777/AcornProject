@@ -97,13 +97,13 @@
         <where>
             postBoard = #{postBoard}
             <if test="postTitle != null">
-                AND postTitle LIKE '%'  #{postTitle}  '%'
+                AND postTitle LIKE '%'|| #{postTitle}||'%'
             </if>
             <if test="postText != null">
-                AND postText LIKE '%'  #{postText}  '%'
+                AND postText LIKE '%'||#{postText}||'%'
             </if>
             <if test="userId != null">
-                AND userId LIKE '%'  #{userId}  '%'
+                AND userId LIKE '%'||#{userId}||'%'
             </if>
         </where>
     </select>
