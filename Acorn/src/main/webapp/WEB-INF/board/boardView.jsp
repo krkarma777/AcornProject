@@ -263,7 +263,7 @@ color:red;
 			        <a class='no-underline font-black' 
 			        href='/Acorn/board/<%= postBoard %>?curPage=<%= i %><% if(sortIndex!=null){%>&sortIndex=<%= sortIndex %>
 			        <%}%><% if(inputSearchFreeText!=null && selectSearchPositionText!=null){
-			        	%>=&selectSearchPositionText=<%= selectSearchPositionText %>&inputSearchFreeText=<%= inputSearchFreeText %>
+			        	%>&selectSearchPositionText=<%= selectSearchPositionText %>&inputSearchFreeText=<%= inputSearchFreeText %>
 			        <%}%>'>
 			        <%= i %></a>
 			    <% } %>
