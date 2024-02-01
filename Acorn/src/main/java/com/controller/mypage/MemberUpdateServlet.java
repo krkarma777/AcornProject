@@ -41,8 +41,8 @@ public class MemberUpdateServlet extends HttpServlet {
         String userPhoneNum1 =request.getParameter("userPhoneNum1");
         String userPhoneNum2 = request.getParameter("userPhoneNum2");
         String userPhoneNum3 = request.getParameter("userPhoneNum3");
-        int userSSN1 = Integer.parseInt(request.getParameter("userSSN1"));
-        int userSSN2 = Integer.parseInt(request.getParameter("userSSN2"));
+        String userSSN1 = request.getParameter("userSSN1");
+        String userSSN2 = request.getParameter("userSSN2");
 
         String userEmailId = request.getParameter("userEmailId");
         String userEmailDomain = request.getParameter("userEmailDomain");
@@ -50,13 +50,17 @@ public class MemberUpdateServlet extends HttpServlet {
         String userType = request.getParameter("userType");
 
         MemberDTO dto2 = 
-        		new MemberDTO(userId, userPw, userName, userSSN1, userSSN2,  nickname,
-    			userGender,  userPhoneNum1,  userPhoneNum2,  userPhoneNum3, userEmailId,
-    			 userEmailDomain,  userSignDate,  userType);
-System.out.println(dto2);
+        		new MemberDTO();
+        dto2.setNickname(nickname);
+        dto2.setUserPhoneNum1(userPhoneNum1);
+        dto2.setUserPhoneNum2(userPhoneNum2);
+        dto2.setUserPhoneNum3(userPhoneNum3);
+        dto2.setUserEmailId(userEmailId);
+        dto2.setUserEmailDomain(userEmailDomain);
+System.out.println("update dto2>>>"+ dto2);
         MyPageService service = new MyPageService();
         int num = service.updateMember(dto2);
-        System.out.println(num);
+        System.out.println("update member>>>"+ num);
         if(num==1) {
 			dto2= service.mypage(userId);
 			session.setAttribute("loginUser", dto2);// 세션에 최신정보 저장 

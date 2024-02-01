@@ -31,7 +31,7 @@ public class ReviewDelServlet extends HttpServlet {
 	       int n = service.reviewDel(Long.parseLong(postId));
 	       System.out.println("ReviewDell+ n>>>"+ n);
 
-			nextPage = "MyArticleServlet";
+			nextPage = "myArticleServlet";
 
 	      }else {
 			  nextPage = "Login";

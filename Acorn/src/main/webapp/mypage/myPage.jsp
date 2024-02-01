@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="com.dto.MemberDTO"%>
 <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<!-- cdn -->
 	<script type="text/javascript">
 	function fnSubmit() {
 		if(confirm("정말 수정하시겠습니까?")) {
@@ -18,10 +19,6 @@
 	}
 
 	
-	
-	
-
-	//ID 새창 열기
 	function openIdWindow() {
 		var popup = window.open("<%=request.getContextPath()%>/IdDupilicate", "아이디 확인", "width=400,height=200");
 		
@@ -30,6 +27,8 @@
 			$("#userId").val(confirmedUserId);
 		};
 	}
+	
+
 
 	
 	//닉네임 중복 확인
@@ -331,64 +330,57 @@
 <%
 MemberDTO dto = (MemberDTO)session.getAttribute("loginUser");
 String userId=dto.getUserId();
-String userPw =  dto.getUserPw();
-String userName =  dto.getUserName();
-int userssn1= dto.getUserSSN1();
-int userssn2 = dto.getUserSSN2();
-String usergender = dto.getUserGender();
-String NICKNAME = dto.getNickname();
+String nickname = dto.getNickname();
 String userPhoneNum1 = dto.getUserPhoneNum1();
 String userPhoneNum2 = dto.getUserPhoneNum2();
 String userPhoneNum3 = dto.getUserPhoneNum3();
 String userEmailId = dto.getUserEmailId();
 String userEmailDomain =dto.getUserEmailDomain();
-String USERSIGNDATE = dto.getUserSignDate();
-String USERTYPE = dto.getUserType();
 %>
 개인정보
 <hr>
 <form id="registerForm" action="MemberUpdateServlet" onsubmit="return fnSubmit()" onreset="return fnReset()" method="post">
     <input type="hidden" value="<%= userId %>" name="userId">
     <div>
-        아이디 : <input type="text" value="<%= userId %>" name="userId" id="userId">
-        <br>
-        <br>
-        이름: <input type="text" value="<%= userName %>" name="useName" id="userName">
-        <br>
-        <br>
-        userssn1 :<input type="text" value="<%= userssn1 %>" name="userssn1" id="userssn1">
-        <br>
-        <br>
-        userssn2 : <input type="text" value="<%= userssn2 %>" name="userssn2" id="userssn2">
-        <br>
-        <br>
-        usergender: <input type="text" value="<%= usergender %>" name="usergender" id="usergender">
-        <br>
-        <br>
+      아이디:  <input type="text" value="<%=userId %>" id="userId" name="userId" pattern="[a-zA-Z0-9]{4,}" required readonly>
+				<button id = "userIdButton" type="button" onclick="openIdWindow()">아이디 확인</button>
         
-        닉네임 : <input type="text" value="<%= NICKNAME %>" name="NICKNAME" id="NICKNAME">
+        닉네임 : <input type="text" id="nickname" name="nickname" value="<%=nickname %>" minlength="2" required>
+				<!-- DB에 저장된 닉네임이 있을 경우, 문구 출력 --> 
+				<span id="confirmNicknameError" style="color: red;"></span>
+				<span id="loadingSpinner_for_nickname" class="loadingSpinner"></span>
         <br>
         <br>
-        이메일 : <input type="text" value="<%= userEmailId %>" name="userEmailId" id="userEmailId">@
-        <input type="text" value="<%= userEmailDomain %>" name="userEmailDomain" id="userEmailDomain" placeholder="직접입력">
-         <select  id="emailSelect">
-        <option value="daum.net">daum.net</option>
-        <option value="naver.com">naver.com</option>
-       </select>
+        이메일 : <input type="text" value="<%=userEmailId %>" id="userEmailId" name="userEmailId" class ="userEmail" required>
+						@ 
+					<input type="text" value="<%=userEmailDomain %>" id="userEmailDomain" name="userEmailDomain" class ="userEmail" required> 
+					<select id="domainSelect" name="domainSelect" class ="userEmail" onchange="domainSelectMethod(this.value)">
+						<option value="" selected>기존 도메인</option>
+						<option value="naver.com">naver.com</option>
+						<option value="gmail.com">gmail.com</option>
+						<option value="hanmail.net">hanmail.net</option>
+					</select>
+					<!-- 이메일 아이디에 영어나 숫자 외 다른 것이 입력될 경우, 문구 출력 -->
+				<span id="confirmUserEmailIdError" style="color: red;"></span>
+				<!-- DB에 저장된 이메인 아이디 + 이메일 도메인이 있을 경우, 문구 출력 -->
+				<span id="confirmUserEmailError" style="color: red;"></span>
+				<span id="loadingSpinner_for_Email" class="loadingSpinner"></span>
         <br> 
         <br>
-        전화번호 : <input type="text" value="<%= userPhoneNum1 %>" name="userPhoneNum1" class="phoneNum" >
--<input type="text" value="<%= userPhoneNum2 %>" name="userPhoneNum2" class="phoneNum" required maxlength="4">
--<input type="text" value="<%= userPhoneNum3 %>" name="userPhoneNum3" class="phoneNum" required maxlength="4">
-        <!-- 전화번호 인증 API확인 -->
-        <br> 
-        <br>
-        USERSIGNDATE : <input type="text" value="<%=  USERSIGNDATE %>" name="USERSIGNDATE" id="USERSIGNDATE">
-        <br>
-        <br>
-        USERTYPE : <input type="text" value="<%=  USERTYPE %>" name="USERTYPE" id="USERTYPE">
+        전화번호 : <select id="userPhoneNum1" value="<%=userPhoneNum1 %>" name="userPhoneNum1" class="phoneNum" required>
+				        <option value="010" selected>010</option>
+				        <option value="011">011</option>
+   					 </select> 
+					<input type="text" value="<%=userPhoneNum2 %>" id="userPhoneNum2" name="userPhoneNum2" class="phoneNum" required maxlength="4"> 
+					<input type="text" value="<%=userPhoneNum3 %>" id="userPhoneNum3" name="userPhoneNum3" class="phoneNum" required maxlength="4">
+<!-- 핸드폰 번호란에 숫자만 입력되어 있지 않은 경우, 문구 출력 -->
+				<span id="confirmPhoneNumError_notNumber" style="color: red;"></span>
+				<!-- DB에 저장된 전체 핸드폰 번호가 일치하는 데이터가 있을 경우, 문구 출력 -->
+				<span id="confirmPhoneNumError" style="color: red;"></span>
+				<span id="loadingSpinner_for_PhoneNum" class="loadingSpinner"></span>
+		
     </div>
-    <input type="submit" value="수정"><input type="reset" value="취소">
+    <button id="register_button" type="submit">수정</button> <input type="reset" value="취소">
 </form>
     <br>
     <br>
