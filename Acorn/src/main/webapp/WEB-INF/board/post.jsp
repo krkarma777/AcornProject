@@ -174,6 +174,27 @@ body{
 			var titleInput = $('#postTitle');
 			var contentInput = $('textarea[name="postText"]');
 
+			 // 바이트 길이 계산 함수
+		    function getByteLength(str) {
+		        var byteLength = 0;
+		        for (var i = 0; i < str.length; i++) {
+		            var charCode = str.charCodeAt(i);
+		            if (charCode <= 0x7f) {
+		                byteLength += 1;
+		            } else {
+		                byteLength += 2; // 한글이나 다른 멀티바이트 문자
+		            }
+		        }
+		        return byteLength;
+		    }
+
+		    // 제목의 바이트 길이를 확인
+		    if (getByteLength(titleInput.val()) > 50) {
+		        alert('제목은 50바이트를 초과할 수 없습니다.');
+		        event.preventDefault(); // 폼 제출 중지
+		        return;
+		    }
+			
 			// 제목과 내용이 비어있는지 확인
 			if (titleInput.val().trim() === ''
 					|| contentInput.val().trim() === '') {
