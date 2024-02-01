@@ -59,7 +59,7 @@ public class PostDAO {
         int perPage = (int)map.get("perPage");
         String postBoard = (String)map.get("postBoard");
         
-        int totalCount = session.selectOne("countPosts", postBoard);
+        int totalCount = session.selectOne("countPosts", map);
 
         PageDTO<PostPageDTO> pageDTO = new PageDTO<>();
         
