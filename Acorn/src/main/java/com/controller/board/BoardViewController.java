@@ -1,6 +1,7 @@
 package com.controller.board;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.controller.board.util.BoardController;
@@ -51,11 +52,18 @@ public class BoardViewController implements BoardController {
         
         // 페이지 정보 가져오기
         PageDTO<PostPageDTO> pageDTO = service.getPostsByPage(map);
-
+        
+		List<PostPageDTO> hotList = service.selectAll(new HashMap<String, String>() {{
+		    put("board", postBoard);
+		    put("postCount", "5");
+		}});
+        
+        
         // 모델에 페이지 정보와 게시판 이름 추가
         model.put("pDTO", pageDTO);
         model.put("postBoard", postBoard);
-
+        model.put("hotList", hotList);
+        
         // 뷰 페이지 이름 반환
         return "board/boardView";
     }

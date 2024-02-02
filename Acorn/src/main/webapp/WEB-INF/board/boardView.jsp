@@ -1,3 +1,4 @@
+<%@page import="com.controller.board.util.ContentDataFormating"%>
 <%@page import="com.controller.board.util.ViewService"%>
 <%@page import="com.dto.MemberDTO"%>
 <%@page import="com.dto.board.PostPageDTO"%>
@@ -12,8 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <%
-
-	SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	Date now = new Date();
 	String strToday = sdfDate.format(now);
@@ -28,6 +28,12 @@
     String sortIndex = request.getParameter("sortIndex");
     String selectSearchPositionText = request.getParameter("selectSearchPositionText");
     String inputSearchFreeText = request.getParameter("inputSearchFreeText");
+
+	//데이터 뽑아 오는 곳: 기준은 아직이지만 최근 상영 중에 인기순이 가장 좋지 않을까?
+	// 상위 10개 정도를 뽑아서 아래 for문 부분에 돌리기.
+	List<PostPageDTO> hotList = (List<PostPageDTO>) request.getAttribute("hotList");
+	System.out.println("list = " + hotList);
+	ContentDataFormating cdf = new ContentDataFormating();
 %>
 
 
@@ -36,6 +42,8 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+	  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
 <style>
 
 .list-group{
@@ -60,7 +68,7 @@ color:red;
 
 /* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
 .container {
-	padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
+	padding-top: 5px; /* 네비게이션바 높이에 따라 조정 */
 }
 
 /* 검색창 크기 조절 */
@@ -133,6 +141,41 @@ color:red;
         margin-top: 20px; /* 페이지네이션 상단 여백 */
     }
     
+
+    /* 검색창과 글쓰기 버튼 크기 조절 */
+    .search-form-control, .search-button, .write-button {
+        height: 38px; /* 버튼과 입력 필드 높이 동일하게 조정 */
+    }
+
+    /* 글쓰기 버튼 색상 조절 */
+    .write-button {
+        background-color: #ffffff; /* 배경색 흰색 */
+        color: #000000; /* 글자색 검은색 */
+        border: 1px solid #000000; /* 검은색 테두리 */
+    }
+
+    /* 검색 버튼 색상 조절 */
+    .search-button {
+        background-color: #ffffff; /* 배경색 흰색 */
+        color: #28a745; /* 글자색 초록색 */
+        border: 1px solid #28a745; /* 초록색 테두리 */
+    }
+
+    /* 인라인 배치 조정 */
+    .search-write-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* 검색창 너비 조절 */
+    .search-input-group {
+        margin-right: 50px; /* 검색창과 글쓰기 버튼 사이의 간격 */
+    }
+    
+    
+
+    
     /* 글씨체 적용 */
     @font-face {
     font-family: 'Pretendard-Regular';
@@ -144,6 +187,29 @@ color:red;
 	font-family: 'Pretendard-Regular';
 	}
 	
+.pagination {
+    justify-content: center; /* Flexbox를 사용하여 중앙 정렬 */
+}
+	
+	/* 페이지네이션 버튼 스타일 변경 */
+.pagination .page-link {
+    border: none; /* 테두리 제거 */
+    background-color: #28a745; /* 기본 배경색을 초록색으로 변경 */
+    color: white; /* 글자색 변경 */
+}
+/* 활성화된 페이지 번호 스타일 */
+.pagination .page-item.active .page-link {
+    background-color: #218838; /* 좀 더 진한 초록색으로 변경 */
+    background-image: linear-gradient(180deg, #218838, #28a745); /* 그라디언트 효과 */
+    border: none; /* 테두리 제거 */
+}
+
+/* 페이지 번호에 마우스를 올렸을 때 스타일 */
+.pagination .page-link:hover {
+    background-color: #1e7e34; /* 마우스 호버 시 초록색 변화 */
+    background-image: linear-gradient(180deg, #1e7e34, #218838); /* 그라디언트 효과 */
+    color: white; /* 글자색 유지 */
+}
 	
 </style>
 </head>
@@ -189,22 +255,37 @@ color:red;
 
 		<!-- 게시글 목록 -->
 		<div class="list-group">
-			<div
-				class="list-group-header d-flex justify-content-between align-items-center">
+			<div class="list-group-header d-flex justify-content-between align-items-center">
 				<h2>
 					<%
 					ViewService service = new ViewService();
-					%>
-					<%
-					String boardName = service.BoardName(postBoard);
-					%>
-					<%
-					String category = service.BoardNameCategory(postBoard);
-					%>
-					<a class="font-black no-underline" href=""><%=category%> </a> > <a
-						class="font-black no-underline" href=""><%=boardName%></a>
-				</h2>
 
+					String boardName = service.BoardName(postBoard);
+					String category = service.BoardNameCategory(postBoard);
+					String link = service.linkMainCategory(postBoard);
+					String boardType =service.linkDropDownCategory(postBoard);
+					
+					%>
+					<!-- 인라인 방식으로 요소 배치 -->
+					<div class="d-inline-flex align-items-center">
+					    <a class="font-black no-underline" href="<%= request.getContextPath() %>/<%= link %>"><%=category%> </a>
+					    <span>&nbsp;&gt;&nbsp;</span>
+					    <!-- 드롭다운 메뉴로 변경 -->
+					    <div class="dropdown">
+					        <span class="font-black no-underline dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+					            <%=boardName%>
+					        </span>
+					        <!-- 드롭다운 메뉴 항목 -->
+					        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/board/<%=boardType%>">자유 게시판</a></li>
+					            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/board/<%=boardType%>Meet">모임 게시판</a></li>
+					            <li><a class="dropdown-item" href="<%= request.getContextPath() %>/board/<%=boardType%>Info">정보 게시판</a></li>
+					        </ul>
+					    </div>
+					</div>
+
+				</h2>
+				    <div class="d-flex justify-content-end">
 				<div class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button"
 						id="dropdownMenuButton1" data-bs-toggle="dropdown"
@@ -218,10 +299,17 @@ color:red;
 							onclick="changeSort('regDate')">등록일순</a></li>
 					</ul>
 				</div>
+				&nbsp;
+				<a href="/path/to/popular-posts" class="btn btn-success">
+			        인기글 🔥
+			    </a>
+			    
+			    </div>
 			</div>
+			
 
 			<!-- 테이블 헤더 -->
-			<div class="list-group-item table-header">
+			<div class="list-group-item table-header margin-top">
 				<div class="row">
 					<div class="col-md-1 text-center-align">탭</div>
 					<div class="col-md-6 text-center-align">제목</div>
@@ -241,10 +329,61 @@ color:red;
 					<%-- <a href="/Acorn/board/<%= postBoard %>?sortIndex=likeNum"> --%>
 				</div>
 			</div>
-
-			<% for (PostPageDTO post : list) { %>
+			<!-- 인기글 출력부분 -->
+			<div id="popularPostsSection" class="collapse show">
+			<%
+			if(hotList != null){
+				for (PostPageDTO post : hotList) {
+					String displayDate = cdf.minuteHourDay(post);
+			%>
 			<a
-				href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%= postBoard %>"
+				href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
+				class="list-group-item list-group-item-action" style="background-color: #dff0d8;">
+				<div class="row">
+					<div class="col-md-1 text-center-align">일반</div>
+					<div class="col-md-6">
+						<span class="post-title" ><%= post.getPostTitle() %></span>
+						<span class="comment-count">[<%= post.getCommentCount() %>] </span>
+						<span style="color: red">&nbsp;hot🔥</span> 
+					</div>
+					<div class="col-md-5 row">
+						<div class="col-md-4 text-center-align"><%= post.getNickname() %></div>
+						<%
+		                String strPostDate = sdfDate.format(post.getPostDate());
+		                String formattedDate;
+		                if (strToday.equals(strPostDate)) {
+			                formattedDate = new SimpleDateFormat("HH:mm").format(post.getPostDate());
+			            } else {
+		                    formattedDate = new SimpleDateFormat("yyyy.MM.dd").format(post.getPostDate());
+		                }
+		                %>
+						<div class="col-md-4 text-center-align"><%= formattedDate %></div>
+						<div class="col-md-2 text-center-align"><%= post.getViewNum() %></div>
+						<div class="col-md-2 text-center-align"><%= post.getLikeNum() %></div>
+					</div>
+				</div>
+			</a>
+			<%
+			}
+				}else {
+			%>
+				인기글이 존재하지 않습니다.
+			<%
+			}
+			%>
+			</div>
+			<!-- 섹션 접기 버튼 -->
+			<div class="text-center">
+			    <button class="btn btn-link btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#popularPostsSection" aria-expanded="true" aria-controls="popularPostsSection">
+			        <span class='no-underline font-black' >▲</span>
+			    </button>
+			</div>
+
+			<%
+			for (PostPageDTO post : list) {
+			%>
+			<a
+				href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
 				class="list-group-item list-group-item-action">
 				<div class="row">
 					<div class="col-md-1 text-center-align">일반</div>
@@ -273,69 +412,99 @@ color:red;
 			<% } %>
 
 
-			<!-- 버튼 그룹에 간격을 추가하기 위한 클래스 적용 -->
-			<div class="mb-3 d-flex justify-content-end margin-top">
-				<!-- Preview and submit button group -->
-				<div>
-					<a href="/Acorn/board/write?bn=<%= postBoard %>"><button
-							type="button" class="btn btn-primary custom-btn">글쓰기</button></a>
-				</div>
+			<div class="mb-3 search-write-group margin-top">
+			    <!-- 검색창 -->
+			    <div class="search-input-group">
+			        <form id="formSearchFree" action="/Acorn/board/<%= postBoard %>" class="d-flex">
+			            <div class="col-md-4 pe-1">
+			                <select class="form-select search-form-control" name="selectSearchPositionText">
+			                    <option value="titleText">제목 + 내용</option>
+			                    <option value="postTitle">제목</option>
+			                    <option value="postText">내용</option>
+			                    <option value="userId">작성자</option>
+			                </select>
+			            </div>
+			            <div class="col-md-6 pe-1">
+			                <input type="text" class="form-control search-form-control" id="inputSearchFreeText" name="inputSearchFreeText">
+			            </div>
+			            <div class="col-md-2">
+			                <button class="btn search-button" type="submit">검색</button>
+			            </div>
+			        </form>
+			    </div>
+			
+			    <!-- 글쓰기 버튼 -->
+			    <div>
+			        <a href="/Acorn/board/write?bn=<%= postBoard %>">
+			            <button type="button" class="btn write-button custom-btn">글쓰기</button>
+			        </a>
+			    </div>
 			</div>
-		</div>
 
 
-		<!-- 페이징 로직 -->
-		<div class="page-numbers text-center">
-			<!-- text-center 클래스를 추가하여 가운데 정렬 -->
-			<%
-		    int curPage = pDTO.getCurPage();
-		    int perPage = pDTO.getPerPage();
-		    int totalCount = pDTO.getTotalCount();
-		    int totalPage = (int) Math.ceil((double) totalCount / perPage);
-		    
-		    %>
-    
-    
-			<% for (int i = 1; i <= totalPage; i++) { %>
-			    <% if (i == curPage) { %>
-			        <span class='current-page font-red'><%= i %></span>
-			    <% } else { %>
-			        <a class='no-underline font-black' 
-			        href='/Acorn/board/<%= postBoard %>?curPage=<%= i %><% if(sortIndex!=null){%>&sortIndex=<%= sortIndex %>
-			        <%}%><% if(inputSearchFreeText!=null && selectSearchPositionText!=null){
-			        	%>&selectSearchPositionText=<%= selectSearchPositionText %>&inputSearchFreeText=<%= inputSearchFreeText %>
-			        <%}%>'>
-			        <%= i %></a>
-			    <% } %>
-			    <% if (i < totalPage) {
-			    	out.print(" | ");
-			     } %>
-			<% } %>
-		</div>
 
-		<div class="row justify-content-center search-bar">
-			<div class="col-lg-4 col-md-5 col-sm-6">
-				<form id="formSearchFree" action="/Acorn/board/<%=postBoard%>"
-					class="d-flex">
-					<div class="col-md-4 pe-1">
-						<select class="form-select" name="selectSearchPositionText">
-							<option value="titleText">제목 + 내용</option>
-							<option value="postTitle">제목</option>
-							<option value="postText">내용</option>
-							<option value="userId">작성자</option>
-						</select>
-					</div>
-					<div class="col-md-6 pe-1">
-						<input type="text" class="form-control" id="inputSearchFreeText"
-							name="inputSearchFreeText">
-					</div>
-					<div class="col-md-2">
-						<button class="btn btn-outline-success" type="submit">검색</button>
-					</div>
-				</form>
-			</div>
-		</div>
 
+<!-- 페이징 로직 -->
+<%
+int curPage = pDTO.getCurPage();
+int perPage = pDTO.getPerPage();
+int totalCount = pDTO.getTotalCount();
+int totalPage = (int) Math.ceil((double) totalCount / perPage);
+int startPage = ((curPage - 1) / 10) * 10 + 1; // 시작 페이지 번호 계산
+int endPage = Math.min(startPage + 9, totalPage); // 끝 페이지 번호 계산
+
+// Calculate previous and next page numbers
+int prevPage = Math.max(startPage - 1, 1); // Ensure prevPage is never less than 1
+int nextPage = endPage + 1;
+%>
+
+<div class="page-numbers text-center">
+    <ul class="pagination">
+
+        <%-- "이전" 버튼 --%>
+        <% if (curPage > 1) { %>
+            <li class="page-item">
+                <a class="page-link" href="/Acorn/board/<%= postBoard %>?curPage=<%= prevPage %><% if (sortIndex != null) { %>&sortIndex=<%= sortIndex %><% } %><% if (inputSearchFreeText != null && selectSearchPositionText != null) { %>&selectSearchPositionText=<%= selectSearchPositionText %>&inputSearchFreeText=<%= inputSearchFreeText %><% } %>">
+                    &laquo; 이전
+                </a>
+            </li>
+        <% } else { %>
+            <li class="page-item disabled">
+                <span class="page-link">&laquo; 이전</span>
+            </li>
+        <% } %>
+
+        <%-- 페이지 번호 출력 --%>
+        <% for (int i = startPage; i <= endPage; i++) { %>
+            <li class="page-item <%= i == curPage ? "active" : "" %>">
+                <a class="page-link" href="/Acorn/board/<%= postBoard %>?curPage=<%= i %><% if (sortIndex != null) { %>&sortIndex=<%= sortIndex %><% } %><% if (inputSearchFreeText != null && selectSearchPositionText != null) { %>&selectSearchPositionText=<%= selectSearchPositionText %>&inputSearchFreeText=<%= inputSearchFreeText %><% } %>">
+                    <%= i %>
+                </a>
+            </li>
+        <% } %>
+
+        <%-- "다음" 버튼 --%>
+        <% if (nextPage <= totalPage) { %>
+            <li class="page-item">
+                <a class="page-link" href="/Acorn/board/<%= postBoard %>?curPage=<%= nextPage %><% if (sortIndex != null) { %>&sortIndex=<%= sortIndex %><% } %><% if (inputSearchFreeText != null && selectSearchPositionText != null) { %>&selectSearchPositionText=<%= selectSearchPositionText %>&inputSearchFreeText=<%= inputSearchFreeText %><% } %>">
+                    다음 &raquo;
+                </a>
+            </li>
+        <% } else { %>
+            <li class="page-item disabled">
+                <span class="page-link">다음 &raquo;</span>
+            </li>
+        <% } %>
+    </ul>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+    </div>	
 		<!-- 기타 추가 내용 -->
 	</div>
 

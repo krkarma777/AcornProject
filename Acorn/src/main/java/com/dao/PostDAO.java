@@ -45,11 +45,11 @@ public class PostDAO {
     /**
      * 주어진 게시판(board)에 속하는 모든 게시물 목록을 조회합니다.
      * 
-     * @param board   조회할 게시물 목록이 속하는 게시판
+     * @param hashMap   조회할 게시물 목록이 속하는 게시판
      * @return        조회된 게시물 목록을 담은 List<PostDTO> 객체
      */
-    public List<PostPageDTO> selectAll(SqlSession session, String board) {
-        return session.selectList("selectAllPosts", board);
+    public List<PostPageDTO> selectAll(SqlSession session, HashMap<String, String> hashMap) {
+        return session.selectList("selectAllPosts", hashMap);
     }
     
     public PageDTO<PostPageDTO> selectByPage(SqlSession session, HashMap<String, Object> map) {

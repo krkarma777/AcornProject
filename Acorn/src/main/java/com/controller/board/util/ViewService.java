@@ -29,4 +29,31 @@ public class ViewService {
 		
 		return boardName;
 	}
+	
+	public String linkMainCategory(String postBoard) {
+		String link = "";
+
+		if(postBoard.contains("movie")){
+			link += "main?cg=movie";
+		} else if (postBoard.contains("tv")) {
+			link += "main?cg=tv";
+		} else if (postBoard.contains("book")){
+			link += "main?cg=book";
+		}
+	
+		return link;
+	}
+	public String linkDropDownCategory(String postBoard) {
+		String link = "";
+		
+		if(postBoard.contains("movie")){
+			link += "movie";
+		} else if (postBoard.contains("tv")) {
+			link += "tv";
+		} else if (postBoard.contains("book")){
+			link += "book";
+		}
+		
+		return link;
+	}
 }

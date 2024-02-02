@@ -88,12 +88,12 @@ public class PostService {
     }
     
     // 모든 글 조회
-    public List<PostPageDTO> selectAll(String board) {
+    public List<PostPageDTO> selectAll(HashMap<String, String> hashMap) {
         SqlSession session = MySqlSessionFactory.getSqlSession();
         List<PostPageDTO> list = null;
         try {
             // 모든 글 조회 메서드 호출
-            list = dao.selectAll(session, board);
+            list = dao.selectAll(session, hashMap);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

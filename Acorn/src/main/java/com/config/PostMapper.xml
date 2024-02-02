@@ -37,7 +37,7 @@
 
 
 	<!-- 전체 조회 (좋아요 수, 조회수, 댓글 수 포함, 조회수 높은 순으로 정렬, 상위 5개만 선택) -->
-	<select id="selectAllPosts" resultType="PostPageDTO">
+	<select id="selectAllPosts" resultType="PostPageDTO" parameterType="map">
 		SELECT * FROM (
 		    SELECT p.*,
 		           (SELECT COUNT(*) FROM likeDB WHERE postId = p.postId AND isLike = '1') AS likeNum,
@@ -47,7 +47,7 @@
         	WHERE postBoard = #{board} AND postDate >= SYSDATE - 2
 		    ORDER BY viewNum DESC
 		)
-		WHERE ROWNUM &lt;= 5
+		WHERE ROWNUM &lt;= #{postCount}
 	</select>
 
 
