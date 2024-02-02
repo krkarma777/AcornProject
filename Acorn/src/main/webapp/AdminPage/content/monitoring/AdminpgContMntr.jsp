@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-관리자페이지 공지사항Content
-
-
+monitoring
 </body>
 </html>
