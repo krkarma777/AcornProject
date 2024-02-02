@@ -33,12 +33,13 @@ public class CommetInsertServlet extends HttpServlet {
 		String userId = request.getParameter("userId").trim();
 		String comDate = request.getParameter("comDate");
 		String comText = request.getParameter("comText").trim();
-		System.out.println(userId); //값 잘 나오는지 확인했음
+		String nickname = request.getParameter("nickname").trim();
+		System.out.println("안녕"+nickname); //값 잘 나오는지 확인했음
 		CommentService service = new CommentService();
 		HttpSession session = request.getSession();
 		
 		//1. comment DB에 내용 저장
-		CommentDTO commentDB = new CommentDTO(0, postId, userId, comDate, comText, 0);
+		CommentDTO commentDB = new CommentDTO(0, postId, userId, comDate, comText, nickname, 0);
 		//comid, postid, userid, comdate, comtext, abovecom 로 생성
 		
 		int recordCount = service.AddCommnet(commentDB); //생성된 commentDB객체로 add(insert하고 있음)
