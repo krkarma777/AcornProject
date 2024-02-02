@@ -254,9 +254,10 @@ body {
 }
 
 .new-hot-label {
-    font-size: 15px;
+    font-size: 25px;
     color: #ff6600;
     margin-top: 20px;
+    margin-right: 10px;
 }
 </style>
 </head>
@@ -372,7 +373,7 @@ $(document).ready(function () {
 	<div class="container mt-4">
 		<div class="row">
 			<!-- 최신 개봉 영화 섹션 -->
-			<div class="col-md-1">
+			<div class="col-md-2">
 			  <h2 class="text-center new-hot-label">🌄NEW🌄</h2>
 			  <div class="list-group slider-container slide1">
 			    <!-- 영화 포스터 반복 구간, 서버에서 가져온 최신 개봉 영화 데이터를 기반으로 반복 -->
@@ -390,7 +391,7 @@ $(document).ready(function () {
 			</div>
 
 
-			<div class="col-md-10">
+			<div class="col-md-8">
 				<!-- 게시글 목록 -->
 				<div class="list-group">
 					<div
@@ -663,7 +664,7 @@ $(document).ready(function () {
 				</div>
 				</div>
 				<!-- 인기 영화 섹션 -->
-			<div class="col-md-1">
+			<div class="col-md-2">
 				<h2 class="text-center new-hot-label">💥HOT💥</h2>
 				<!-- 인기 영화 목록을 여기에 -->
 				<div class="list-group slider-container slide2">
