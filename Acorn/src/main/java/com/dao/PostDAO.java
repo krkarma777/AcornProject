@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.dto.board.LikeDTO;
 import com.dto.board.PageDTO;
 import com.dto.board.PostDTO;
 import com.dto.board.PostPageDTO;
@@ -44,11 +45,11 @@ public class PostDAO {
     /**
      * 주어진 게시판(board)에 속하는 모든 게시물 목록을 조회합니다.
      * 
-     * @param board   조회할 게시물 목록이 속하는 게시판
+     * @param hashMap   조회할 게시물 목록이 속하는 게시판
      * @return        조회된 게시물 목록을 담은 List<PostDTO> 객체
      */
-    public List<PostPageDTO> selectAll(SqlSession session, String board) {
-        return session.selectList("selectAllPosts", board);
+    public List<PostPageDTO> selectAll(SqlSession session, HashMap<String, String> hashMap) {
+        return session.selectList("selectAllPosts", hashMap);
     }
     
     public PageDTO<PostPageDTO> selectByPage(SqlSession session, HashMap<String, Object> map) {
@@ -58,7 +59,7 @@ public class PostDAO {
         int perPage = (int)map.get("perPage");
         String postBoard = (String)map.get("postBoard");
         
-        int totalCount = session.selectOne("countPosts", postBoard);
+        int totalCount = session.selectOne("countPosts", map);
 
         PageDTO<PostPageDTO> pageDTO = new PageDTO<>();
         
@@ -110,5 +111,20 @@ public class PostDAO {
 
 	public PostPageDTO selectPagePost(SqlSession session, Long postId) {
 		return session.selectOne("selectPagePost",postId);
+	}
+
+	public int postLike(SqlSession session, HashMap<String, String> map) {
+		return session.insert("postLike",map);
+	}
+
+	public LikeDTO selectPostLike(SqlSession session, HashMap<String, String> map) {
+		LikeDTO lDto = session.selectOne("selectPostLike",map);
+		return lDto;
+	}
+
+	public int updatePostLike(SqlSession session, HashMap<String, String> map) {
+		 int num = session.update("updatePostLike",map);
+		 return num;
+		
 	}
 }//end class

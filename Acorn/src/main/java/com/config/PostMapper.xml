@@ -37,7 +37,7 @@
 
 
 	<!-- 전체 조회 (좋아요 수, 조회수, 댓글 수 포함, 조회수 높은 순으로 정렬, 상위 5개만 선택) -->
-	<select id="selectAllPosts" resultType="PostPageDTO">
+	<select id="selectAllPosts" resultType="PostPageDTO" parameterType="map">
 		SELECT * FROM (
 		    SELECT p.*,
 		           (SELECT COUNT(*) FROM likeDB WHERE postId = p.postId AND isLike = '1') AS likeNum,
@@ -47,7 +47,7 @@
         	WHERE postBoard = #{board} AND postDate >= SYSDATE - 2
 		    ORDER BY viewNum DESC
 		)
-		WHERE ROWNUM &lt;= 5
+		WHERE ROWNUM &lt;= #{postCount}
 	</select>
 
 
@@ -91,10 +91,21 @@
 	    ) WHERE rnum BETWEEN #{offset} + 1 AND #{offset} + #{perPage}
 	</select>
 
-    <!-- 게시물 총 개수 조회 -->
+<!-- 게시물 총 개수 조회 -->
     <select id="countPosts" resultType="int">
         SELECT COUNT(*) FROM postDB
-        WHERE postBoard = #{board}
+        <where>
+            postBoard = #{postBoard}
+            <if test="postTitle != null">
+                AND postTitle LIKE '%'|| #{postTitle}||'%'
+            </if>
+            <if test="postText != null">
+                AND postText LIKE '%'||#{postText}||'%'
+            </if>
+            <if test="userId != null">
+                AND userId LIKE '%'||#{userId}||'%'
+            </if>
+        </where>
     </select>
     
         <!-- 게시물 조회수 업데이트 -->
@@ -119,6 +130,25 @@
 		WHERE postId = #{postId} AND isLike = '1'
 	</select>
 	
+	<!-- 게시글 좋아요수 insert -->
+<update id="postLike" parameterType="hashmap">
+    MERGE INTO likeDB
+    USING (SELECT 1 FROM dual) ON (postId = #{postId} AND userId = #{userId})
+    WHEN MATCHED THEN
+        UPDATE SET isLike = 1
+    WHEN NOT MATCHED THEN
+        INSERT (postId, userId, isLike) VALUES (#{postId}, #{userId}, 1)
+</update>
 
+
+	
+	<select id="selectPostLike" parameterType="hashmap" resultType="likeDTO">
+	select * from likeDB where isLike = 1 and postId=#{postId} and userId=#{userId}
+	</select>
+	
+	<update id="updatePostLike" parameterType="hashmap">
+	update likeDB set isLike=0 
+	where postId = #{postId} and userId=#{userId}
+	</update>
 
 </mapper>

@@ -1,3 +1,5 @@
+<%@page import="com.dto.board.PostInfoDTO"%>
+<%@page import="com.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -22,6 +24,9 @@
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 	crossorigin="anonymous"></script>
 	
+
+	
+	
 	
 <!--  -->	
 <script>
@@ -37,14 +42,42 @@ function scrollToComments() {
     var comments = document.getElementById("commentHead"); // 댓글창의 ID를 가정
     comments.scrollIntoView();
 }
+
 </script>
 
-	
-	
 	
 <!-- jQuery -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+$("document").ready(function() {
+    $("#commentHead").click(function() {
+        var url = "/Acorn/board/postLike?postId=" + <%= request.getParameter("postId")%>;
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            success: function(response) {
+                if (!response.success) {
+                    /* alert(response.message); */
+                } else {
+                    $("#likeNum").text(response.likeCount);
+                }
+            },
+            error: function(error) {
+                console.error("에러:", error);
+                alert("에러 발생");
+            }
+        });
+    });
+});
+
+
+
+</script>
+
 
 <!-- 스타일 태그 시작 -->
 <style>
@@ -187,7 +220,7 @@ function scrollToComments() {
 /* 사이드바 위치 조절*/
 .sidebar {
     position: fixed; /* 고정된 위치에 표시 */
-    right: 200px; /* 오른쪽 여백 */
+    right: 100px; /* 오른쪽 여백 */
     top: 85%; /* 화면의 중간 높이 */
     transform: translateY(-80%); /* 세로 중앙 정렬 */
 }
@@ -207,6 +240,44 @@ function scrollToComments() {
     cursor: pointer; /* 마우스 오버시 커서 변경 */
     font-size: 15px; /* 글자 크기 */
 }
+
+.btn-custom {
+    border-color: white; /* 테두리 색상 */
+    background-color: white; /* 배경색 */
+    color: black; /* 버튼 내 텍스트 색상 */
+}
+
+
+.modal-header {
+            border-bottom: none; /* 모달 헤더의 하단 경계선 제거 */
+        }
+        
+.modal-footer{
+			 border-top: none; /* 모달의 상단 경계선 제거 */
+		}
+
+
+
+/* 글씨체 적용 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+body{
+	font-family: 'Pretendard-Regular';
+}
+
+/* 좋아요 버튼 여백 조정 */
+#commentHead {
+    margin-bottom: 20px; /* 버튼 아래의 여백을 늘려서 버튼을 위로 올립니다
+}
+
+
+
+
+
 
 
 
@@ -286,12 +357,34 @@ function scrollToComments() {
 			</div>
 			            <!-- 좋아요 버튼 -->
 			            <!-- id="commentHead"를 부여해서   -->
-            <div class="like-button text-center">
-                <button type="button" class="btn btn-outline-primary btn-sm" id="commentHead">좋아요 <%= request.getAttribute("likeNum") %></button>
-            </div>
-		</div>
+			 <div class="text-center" style="margin-top: 100px;" >           
+			<button type="button" class="btn btn-custom" id="commentHead" data-bs-toggle="modal" <% if(session.getAttribute("loginUser")==null){%>data-bs-target="#likeModal"<% } %>>
+				좋아요 <span class="badge text-bg-primary" id="likeNum"> <%=request.getAttribute("likeNum")%></span>
+			</button>
+			</div>
+			<hr>
+<!-- 모달 -->
+<div class="modal fade" id="likeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       로그인이 필요한 기능입니다. <br>
+	지금 회원가입 혹은 로그인하고 공통의 취향을 나눠보세요.
+      </div>
+      <div class="modal-footer">
+       
+        <button type="button" class="btn btn-primary" onclick="location.href='/Acorn/Login';">로그인</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='/Acorn/RegisterTerms';">회원가입</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-		<!--  게시글과 수정/목록 버튼의 공간 여백을 위한 새로운 클래스 적용 -->
+			<!--  게시글과 수정/목록 버튼의 공간 여백을 위한 새로운 클래스 적용 -->
 		<div id="comment" class="comment-section">
 
 			<div class="d-flex justify-content-between">
@@ -302,7 +395,46 @@ function scrollToComments() {
 
     <!-- 오른쪽에 위치할 기타 버튼들 -->
 <div>
-    <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">글쓰기</button></a>
+
+<%
+    if(session.getAttribute("loginUser")==null) {
+%>
+   <button type="button" class="btn btn-action btn-spacing" data-bs-toggle="modal" data-bs-target="#writeModal">
+  글쓰기
+</button>
+<!-- 모달 -->
+<div class="modal fade" id="writeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        당신의 소중한 순간을 함께 나누세요.<br>
+        지금 바로 회원가입 또는 로그인을 통해, 누구도 가지지 못한 당신만의 이야기를 기록해보세요.
+      </div>
+      <div class="modal-footer">
+       
+        <button type="button" class="btn btn-primary" onclick="location.href='/Acorn/Login';">로그인</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='/Acorn/RegisterTerms';">회원가입</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%
+    } else {
+%>
+    <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>">
+        <button type="button" class="btn btn-action btn-spacing">글쓰기</button>
+    </a>
+<%
+    }
+%>
+
+
+
     
     <%
     String mismatchError = (String)request.getAttribute("mismatchError");

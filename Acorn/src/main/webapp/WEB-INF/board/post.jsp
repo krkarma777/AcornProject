@@ -143,6 +143,17 @@ body {
 	z-index: 2; /* 추가: 에디터보다 위에 나타나도록 설정 */
 	top: 0; /* 수정: 브라우저 상단에 고정 */
 }
+
+/* 글씨체 적용 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+body{
+	font-family: 'Pretendard-Regular';
+}
 </style>
 <script>
   
@@ -163,6 +174,27 @@ body {
 			var titleInput = $('#postTitle');
 			var contentInput = $('textarea[name="postText"]');
 
+			 // 바이트 길이 계산 함수
+		    function getByteLength(str) {
+		        var byteLength = 0;
+		        for (var i = 0; i < str.length; i++) {
+		            var charCode = str.charCodeAt(i);
+		            if (charCode <= 0x7f) {
+		                byteLength += 1;
+		            } else {
+		                byteLength += 2; // 한글이나 다른 멀티바이트 문자
+		            }
+		        }
+		        return byteLength;
+		    }
+
+		    // 제목의 바이트 길이를 확인
+		    if (getByteLength(titleInput.val()) > 50) {
+		        alert('제목은 50바이트를 초과할 수 없습니다.');
+		        event.preventDefault(); // 폼 제출 중지
+		        return;
+		    }
+			
 			// 제목과 내용이 비어있는지 확인
 			if (titleInput.val().trim() === ''
 					|| contentInput.val().trim() === '') {

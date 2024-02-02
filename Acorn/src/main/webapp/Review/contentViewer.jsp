@@ -61,6 +61,7 @@
 	
 	#con_desc{
 		padding-bottom: 20px;
+		white-space: pre-wrap;
 	}
 	
 	#cont_myreview_container{
@@ -153,13 +154,30 @@
 	
 	
 </style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
 <%
-
-
+	
+	
 	ContentDTO content = (ContentDTO)request.getAttribute("content");
-	Long contId = content.getContId();
-	String contTitle = content.getContTitle();
-	String description = content.getDescription();
+	
+	//예외처리: DB에 contid에 해당하는 데이터가 없을 경우 -> 이전화면으로
+	Long contId = null;
+	String contTitle = null;
+	String description = null;
+	if(content==null){ // 컨텐츠정보가 null일 경우
+		%>
+		location.href = "MoveToContentsHomeServlet"; // 이전 화면으로
+		<%
+	} else{
+		contId = content.getContId();
+		contTitle = content.getContTitle();
+		description = content.getDescription();
+	}
+	
 	
 	MemberDTO login = (MemberDTO)session.getAttribute("login");
 	String userId = null;
@@ -173,7 +191,10 @@
 	
 	//avgRate 구하기, 별점범위당 갯수 구하기
 	List<RateDTO> rateList = (List<RateDTO>)request.getAttribute("rateList");
-	int rateAmount = rateList.size();
+	int rateAmount = 0;
+	if(rateList!=null){ //0이 아닐 경우
+		rateAmount = rateList.size();
+	}
 	//모든 별점 순회
 	double sum = 0;
 	double[] rateDistribution = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};	
@@ -191,9 +212,6 @@
 		avgRate = String.format("%.1f", sum/rateAmount/2);
 	}	
 %>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
 	//최대글자수
 	var max_length = 200;
 
@@ -386,22 +404,16 @@
 	
 	// 리뷰 작성 완료
 	function writeReview(){
-		// 인증 추가 필요
-		<%
+
 		//로그인 정보 확인
-		if(login==null){
-		%>
-		
-		alert("로그인이 필요한 작업입니다.");
-		
 		<%
-		} else{
+		if(login!=null){
 		%>
 		
 		var contId = $("#contId").val();
 		var postText = $("#postText").val().substr(0, max_length);
-		//내용이 있을 시만 저장작업 진행
-		if(postText.length!=0){
+		//내용이 있을 시만 저장작업 진행 && contId에 null값이 저장되지 않았을 경우에만 진행
+		if(postText.length!=0 && contId !="null"){
 			$.ajax(
 				{
 					type: "post",
@@ -507,12 +519,9 @@
 			
 			<div class="col-lg-9" id="cont_info">
 				<div class="row" id="cont_title">
-					<h2>
-					<%=contTitle %>
-					</h2>
+					<h2><%=contTitle %></h2>
 				</div>
-				<div class="row" id="con_desc">
-					<%=description %>
+				<div class="row" id="con_desc"><%=description %>
 				</div>
 				<hr>
 				<div class="row">
@@ -645,20 +654,17 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="writeReview">Save changes</button>
+	        <!-- <button type="button" class="btn btn-primary" id="writeReview">Save changes</button> -->
+	        <button type="button" class="btn btn-primary" id="writeReview" data-bs-toggle="popover" data-bs-title="알림" data-bs-content="로그인이 필요한 작업입니다">Save changes</button>
 	      </div>
 	    </div>
 	  </div>
 </div>
 	
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<!-- <script>
-	const myModal = document.getElementById('myModal')
-	const myInput = document.getElementById('myInput')
-	
-	myModal.addEventListener('shown.bs.modal', () => {
-	  myInput.focus()
-	})
-</script> -->
+<script>
+	const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+	const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
 </body>
 </html>

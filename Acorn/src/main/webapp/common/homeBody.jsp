@@ -4,13 +4,13 @@
 <div class="container-fluid " style="">
         <div class="d-flex align-content-center justify-content-center px-5" style="height: 800px;">
             <div class="align-self-center" style="background-color: transparent">
-                <a href="MoveToContentsHomeServlet"><img class="rounded-2" src="image/camera-reels.svg" width="300px" height="300px"></a>
+                <a href="main?cg=movie"><img class="rounded-2" src="image/camera-reels.svg" width="300px" height="300px"></a>
             </div><!-- <a>누르면 MoveToContentsHomeServlet로 이동 -->
             <div class="px-5 align-self-center" style="background-color: transparent">
-                <a href="ContentsHome.jsp?content=drama"><img class="rounded-2" src="image/tv.png" width="300px" height="300px"></a>
+                <a href="main?cg=tv"><img class="rounded-2" src="image/tv.png" width="300px" height="300px"></a>
             </div>
             <div class="align-self-center" style="background-color: transparent">
-                <a href="ContentsHome.jsp?content=book"><img class="rounded-2" src="image/book.svg" width="300px" height="300px"></a>
+                <a href="main?cg=book"><img class="rounded-2" src="image/book.svg" width="300px" height="300px"></a>
             </div>
         </div>
 </div>
