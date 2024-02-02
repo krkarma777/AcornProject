@@ -177,19 +177,8 @@ ContentDataFormating cdf = new ContentDataFormating();
 	margin-right: 50px; /* 검색창과 글쓰기 버튼 사이의 간격 */
 }
 
-/* 글씨체 적용 */
-@font-face {
-	font-family: 'Pretendard-Regular';
-	src:
-		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-		format('woff');
-	font-weight: 400;
-	font-style: normal;
-}
 
-body {
-	font-family: 'Pretendard-Regular';
-}
+
 
 .pagination {
 	justify-content: center; /* Flexbox를 사용하여 중앙 정렬 */
@@ -231,7 +220,7 @@ body {
 }
 .slider-container {
   overflow: hidden;
-  height: 760px; /* 각 이미지 높이(225px) * 5 */
+  height: 820px; /* 각 이미지 높이(225px) * 5 */
   cursor: grab; /* 클릭 가능함을 나타내는 커서 스타일 */
 }
 
@@ -243,22 +232,48 @@ body {
   position: relative;
 }
 
-.index-label {
-  position: absolute;
-  bottom: 5px; /* 원하는 위치로 조절하세요. */
-  left: 0; /* 원하는 위치로 조절하세요. */
-  background-color: rgba(255, 255, 255, 0.7); /* 배경색 및 투명도 설정 */
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
-}
+
 
 .new-hot-label {
-    font-size: 25px;
+    font-size: 15px;
     color: #ff6600;
     margin-top: 20px;
-    margin-right: 10px;
+    margin-right: 12px;
 }
+
+.index-label {
+  position: absolute;
+  bottom: -13px; /* 원하는 위치로 조절하세요. */
+  left: -8px; /* 원하는 위치로 조절하세요. */
+  padding: 0px 3px;
+  border-radius: 5px;
+  font-size: 60px;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+  color: white;
+  font-style: italic;
+/*   -webkit-text-stroke: 1px #fff; */
+    font-family: 'TheJamsil5Bold';
+}
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+/* 글씨체 적용 */
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+body {
+	font-family: 'Pretendard-Regular';
+}
+
 </style>
 </head>
 <script>
@@ -384,7 +399,9 @@ $(document).ready(function () {
 			    for(int i = 0; i < newMovieList.size(); i++) { %>
 			   <div class="movie-slide">
 			      <img src="<%= newMovieList.get(i) %>" alt="Movie Poster" class="img-fluid mb-2 slide-image">
-			      <span class="index-label"><%= i + 1 %></span>
+			      <span class="index-label">
+				      <%= i + 1 %>
+			      </span>
 			    </div>
 			    <% } %>
 			  </div>
