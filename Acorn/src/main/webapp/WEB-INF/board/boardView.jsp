@@ -422,12 +422,14 @@ body {
 .like-num{
 	color:blue;
 }
-  .popular-boards-container {
+.popular-boards-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     max-width: 100%;
-    margin: auto;
-  }
+    margin: 0 auto;
+}
+
   
   .popular-board-header {
     background-color: #4CAF50;
@@ -438,13 +440,14 @@ body {
     margin-bottom: 10px;
   }
   
-  .popular-board {
-    width: 48%; /* 게시판 너비 */
+.popular-board {
+    width: calc(50% - 20px); /* 20px 여백 추가 */
     background: #f1f1f1;
     margin: 10px;
     padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+}
+
   
   .popular-board-item {
     background: white;
@@ -473,12 +476,20 @@ body {
     text-align: center;
   }
   
-  .popular-board-footer {
+.popular-board-footer {
     background-color: #4CAF50;
     color: white;
     text-align: center;
     padding: 10px;
-  }
+}
+.popular-board-item .col-md-7 {
+    background-color: #f9f9f9; /* 배경색 변경 */
+    border: 1px solid #ddd; /* 테두리 스타일 추가 */
+    border-radius: 5px; /* 둥근 테두리 추가 */
+        padding: 10px;
+    text-align: center;
+}
+
 
 </style>
 </head>
