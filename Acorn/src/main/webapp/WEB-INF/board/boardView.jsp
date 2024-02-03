@@ -135,6 +135,8 @@ String boardType = service.linkDropDownCategory(postBoard);
 /* 글 제목과 댓글수 사이의 간격 조절 클래스 정의 */
 .post-title {
 	margin-right: 2px; /* 오른쪽 여백 추가 */
+	color: black;
+	text-decoration: none;
 }
 /* 검색창과 페이지네이션 간 간격 조절 */
 .search-bar {
@@ -407,7 +409,10 @@ body {
         margin: 5px 0;
     }
 }
-
+/* 드롭다운 화살표 숨기기 */
+.dropdown-toggle::after {
+    display: none;
+}
 </style>
 </head>
 <script>
@@ -578,7 +583,7 @@ $(document).keydown(function(e) {
 					<div class="list-group-header d-flex justify-content-between align-items-center">
 						
 						
-<h2 class="category-and-board-name">
+				<h2 class="category-and-board-name">
 
 					<!-- 인라인 방식으로 요소 배치 -->
 					
@@ -669,19 +674,30 @@ $(document).keydown(function(e) {
 							for (PostPageDTO post : hotList) {
 								String displayDate = cdf.minuteHourDay(post);
 						%>
-						<a
-							href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
+						<div
 							class="list-group-item list-group-item-action"
 							style="background-color: #dff0d8;">
 							<div class="row">
 								<div class="col-md-1 text-center-align">일반</div>
 								<div class="col-md-6">
-									<span class="post-title"><%=post.getPostTitle()%></span> <span
-										class="comment-count">[<%=post.getCommentCount()%>]
-									</span> <span style="color: red">hot🔥</span>
+								<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
+					               class="post-title"><%=post.getPostTitle()%></a> 
+									<span class="comment-count">[<%=post.getCommentCount()%>]</span> 
+									<span style="color: red">hot🔥</span>
 								</div>
 								<div class="col-md-5 row">
-									<div class="col-md-4 text-center-align"><%=post.getNickname()%></div>
+									<div class="col-md-4 text-center-align">
+										<div class="dropdown">
+					                        <a href="#" class="dropdown-toggle no-underline font-black" data-bs-toggle="dropdown" aria-expanded="false">
+					                            <%=post.getNickname()%>
+					                        </a>
+					                        <ul class="dropdown-menu">
+					                            <li><a class="dropdown-item" 
+					                            href="<%= request.getContextPath() %>/board/<%= postBoard %>?selectSearchPositionText=userId&inputSearchFreeText=<%=post.getUserId()%>">작성글 보기</a></li>
+					                            <li><a class="dropdown-item" href="/경로/회원정보보기?userId=<%=post.getUserId()%>">회원 정보 보기</a></li>
+					                        </ul>
+					                    </div>
+				                    </div>
 									<%
 									String strPostDate = sdfDate.format(post.getPostDate());
 									String formattedDate;
@@ -696,7 +712,7 @@ $(document).keydown(function(e) {
 									<div class="col-md-2 text-center-align"><%=post.getLikeNum()%></div>
 								</div>
 							</div>
-						</a>
+						</div>
 						<%
 						}
 						} else {
@@ -718,33 +734,42 @@ $(document).keydown(function(e) {
 					<%
 					for (PostPageDTO post : list) {
 					%>
-					<a
-						href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
-						class="list-group-item list-group-item-action">
-						<div class="row">
-							<div class="col-md-1 text-center-align">일반</div>
-							<div class="col-md-6">
-								<span class="post-title"><%=post.getPostTitle()%></span> <span
-									class="comment-count">[<%=post.getCommentCount()%>]
-								</span>
-							</div>
-							<div class="col-md-5 row">
-								<div class="col-md-4 text-center-align"><%=post.getNickname()%></div>
-								<%
-								String strPostDate = sdfDate.format(post.getPostDate());
-								String formattedDate;
-								if (strToday.equals(strPostDate)) {
-									formattedDate = new SimpleDateFormat("HH:mm").format(post.getPostDate());
-								} else {
-									formattedDate = new SimpleDateFormat("yyyy.MM.dd").format(post.getPostDate());
-								}
-								%>
-								<div class="col-md-4 text-center-align"><%=formattedDate%></div>
-								<div class="col-md-2 text-center-align"><%=post.getViewNum()%></div>
-								<div class="col-md-2 text-center-align"><%=post.getLikeNum()%></div>
-							</div>
-						</div>
-					</a>
+					<div class="list-group-item list-group-item-action">
+					    <div class="row">
+					        <div class="col-md-1 text-center-align">일반</div>
+					        <div class="col-md-6">
+					            <a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
+					               class="post-title"><%=post.getPostTitle()%></a> 
+					            <span class="comment-count">[<%=post.getCommentCount()%>]</span>
+					        </div>
+					        <div class="col-md-5 row">
+					            <div class="col-md-4 text-center-align">
+										<div class="dropdown">
+					                        <a href="#" class="dropdown-toggle no-underline font-black" data-bs-toggle="dropdown" aria-expanded="false">
+					                            <%=post.getNickname()%>
+					                        </a>
+					                        <ul class="dropdown-menu">
+					                            <li><a class="dropdown-item" 
+					                            href="<%= request.getContextPath() %>/board/<%= postBoard %>?selectSearchPositionText=userId&inputSearchFreeText=<%=post.getUserId()%>">작성글 보기</a></li>
+					                            <li><a class="dropdown-item" href="/경로/회원정보보기?userId=<%=post.getUserId()%>">회원 정보 보기</a></li>
+					                        </ul>
+					                    </div>
+				                    </div>
+					            <%
+					            String strPostDate = sdfDate.format(post.getPostDate());
+					            String formattedDate;
+					            if (strToday.equals(strPostDate)) {
+					                formattedDate = new SimpleDateFormat("HH:mm").format(post.getPostDate());
+					            } else {
+					                formattedDate = new SimpleDateFormat("yyyy.MM.dd").format(post.getPostDate());
+					            }
+					            %>
+					            <div class="col-md-4 text-center-align"><%=formattedDate%></div>
+					            <div class="col-md-2 text-center-align"><%=post.getViewNum()%></div>
+					            <div class="col-md-2 text-center-align"><%=post.getLikeNum()%></div>
+					        </div>
+					    </div>
+					</div>
 					<%
 					}
 					%>
