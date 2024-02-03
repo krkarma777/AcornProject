@@ -353,6 +353,61 @@ body {
     font-size: 30px; /* 크기 조절 */
     font-weight: bold; /* 글자 굵기 */
 }
+.site-footer {
+    background-color: #f2f2f2;
+    padding: 20px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #000;
+}
+
+.footer-content {
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-links li {
+    margin: 0 10px;
+}
+
+.footer-links a {
+    color: #000;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-contact {
+    margin-bottom: 10px;
+}
+
+.footer-contact a {
+    color: #000; 
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .footer-links {
+        flex-direction: column;
+    }
+
+    .footer-links li {
+        margin: 5px 0;
+    }
+}
+
 </style>
 </head>
 <script>
@@ -837,6 +892,20 @@ $(document).keydown(function(e) {
 							</div>
 						</div>
 		</div>
+<footer class="site-footer">
+    <div class="footer-content">
+        <ul class="footer-links">
+            <li><a href="#">소개</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보처리방침</a></li>
+            <li><a href="#">청소년 보호정책</a></li>
+            <li><a href="#">문의/신고</a></li>
+            <li><a href="#">문제보고</a></li>
+        </ul>
+        <p class="footer-contact">문의메일 : <a href="mailto:admin@moonbam.net">admin@moonbam.net</a></p>
+        <p class="copyright">©moonbam All rights reserved.</p>
+    </div>
+</footer>
 
 
 	<!-- Bootstrap Bundle with Popper -->
