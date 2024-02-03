@@ -41,9 +41,9 @@ public class BoardFrontControllerServlet extends HttpServlet {
 		controllerMap.put("/Acorn/board/movie", new BoardViewController("movie"));
 		controllerMap.put("/Acorn/board/movieMeet", new BoardViewController("movieMeet"));
 		controllerMap.put("/Acorn/board/movieInfo", new BoardViewController("movieInfo"));
-		controllerMap.put("/Acorn/board/music", new BoardViewController("tv"));
-		controllerMap.put("/Acorn/board/musicMeet", new BoardViewController("tvMeet"));
-		controllerMap.put("/Acorn/board/musicInfo", new BoardViewController("tvInfo"));
+		controllerMap.put("/Acorn/board/tv", new BoardViewController("tv"));
+		controllerMap.put("/Acorn/board/tvMeet", new BoardViewController("tvMeet"));
+		controllerMap.put("/Acorn/board/tvInfo", new BoardViewController("tvInfo"));
 		controllerMap.put("/Acorn/board/book", new BoardViewController("book"));
 		controllerMap.put("/Acorn/board/bookMeet", new BoardViewController("bookMeet"));
 		controllerMap.put("/Acorn/board/bookInfo", new BoardViewController("bookInfo"));
