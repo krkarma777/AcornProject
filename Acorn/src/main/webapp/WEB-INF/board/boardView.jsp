@@ -602,13 +602,13 @@ $(document).keydown(function(e) {
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 								<li><a class="dropdown-item"
 									href="<%=request.getContextPath()%>/board/<%=boardType%>">
-									자유 게시판</a></li>
+									🗣️자유 게시판</a></li>
 								<li><a class="dropdown-item"
 									href="<%=request.getContextPath()%>/board/<%=boardType%>Meet">
-									모임 게시판</a></li>
+									🤝모임 게시판</a></li>
 								<li><a class="dropdown-item"
 									href="<%=request.getContextPath()%>/board/<%=boardType%>Info">
-									정보 게시판</a></li>
+									📚정보 게시판</a></li>
 							</ul>
 						</div>
 					</div>
@@ -693,8 +693,8 @@ $(document).keydown(function(e) {
 					                        </a>
 					                        <ul class="dropdown-menu">
 					                            <li><a class="dropdown-item" 
-					                            href="<%= request.getContextPath() %>/board/<%= postBoard %>?selectSearchPositionText=userId&inputSearchFreeText=<%=post.getUserId()%>">작성글 보기</a></li>
-					                            <li><a class="dropdown-item" href="/경로/회원정보보기?userId=<%=post.getUserId()%>">회원 정보 보기</a></li>
+					                            href="<%= request.getContextPath() %>/board/<%= postBoard %>?selectSearchPositionText=userId&inputSearchFreeText=<%=post.getUserId()%>">📑작성글 보기</a></li>
+					                            <li><a class="dropdown-item" href="/경로/회원정보보기?userId=<%=post.getUserId()%>">🔎회원정보 보기</a></li>
 					                        </ul>
 					                    </div>
 				                    </div>
@@ -750,8 +750,8 @@ $(document).keydown(function(e) {
 					                        </a>
 					                        <ul class="dropdown-menu">
 					                            <li><a class="dropdown-item" 
-					                            href="<%= request.getContextPath() %>/board/<%= postBoard %>?selectSearchPositionText=userId&inputSearchFreeText=<%=post.getUserId()%>">작성글 보기</a></li>
-					                            <li><a class="dropdown-item" href="/경로/회원정보보기?userId=<%=post.getUserId()%>">회원 정보 보기</a></li>
+					                            href="<%= request.getContextPath() %>/board/<%= postBoard %>?selectSearchPositionText=userId&inputSearchFreeText=<%=post.getUserId()%>">📑작성글 보기</a></li>
+					                            <li><a class="dropdown-item" href="/경로/회원정보보기?userId=<%=post.getUserId()%>">🔎회원정보 보기</a></li>
 					                        </ul>
 					                    </div>
 				                    </div>
