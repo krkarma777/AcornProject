@@ -413,6 +413,14 @@ body {
 .dropdown-toggle::after {
     display: none;
 }
+.comment-count{
+	font-weight: bold; /* 글씨 굵게 */
+	font-size: 10px;
+	color:green;
+}
+.like-num{
+	color:blue;
+}
 </style>
 </head>
 <script>
@@ -682,7 +690,11 @@ $(document).keydown(function(e) {
 								<div class="col-md-6">
 								<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
 					               class="post-title"><%=post.getPostTitle()%></a> 
-									<span class="comment-count">[<%=post.getCommentCount()%>]</span> 
+					               <% if(post.getCommentCount()!=0L) {%>
+					               &nbsp;
+									<span class="comment-count"><%=post.getCommentCount()%></span> 
+									&nbsp;
+									<% } %>
 									<span style="color: red">hot🔥</span>
 								</div>
 								<div class="col-md-5 row">
@@ -709,7 +721,9 @@ $(document).keydown(function(e) {
 									%>
 									<div class="col-md-4 text-center-align"><%=formattedDate%></div>
 									<div class="col-md-2 text-center-align"><%=post.getViewNum()%></div>
-									<div class="col-md-2 text-center-align"><%=post.getLikeNum()%></div>
+									<% if(post.getLikeNum() != 0L ){ %>
+									<div class="col-md-2 text-center-align like-num"><%=post.getLikeNum()%></div>
+									<%} %>
 								</div>
 							</div>
 						</div>
@@ -740,7 +754,10 @@ $(document).keydown(function(e) {
 					        <div class="col-md-6">
 					            <a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
 					               class="post-title"><%=post.getPostTitle()%></a> 
-					            <span class="comment-count">[<%=post.getCommentCount()%>]</span>
+					               <% if(post.getCommentCount()!=0L) {%>
+					               &nbsp;
+									<span class="comment-count"><%=post.getCommentCount()%></span> 
+									<% } %>
 					        </div>
 					        <div class="col-md-5 row">
 					            <div class="col-md-4 text-center-align">
@@ -766,7 +783,9 @@ $(document).keydown(function(e) {
 					            %>
 					            <div class="col-md-4 text-center-align"><%=formattedDate%></div>
 					            <div class="col-md-2 text-center-align"><%=post.getViewNum()%></div>
-					            <div class="col-md-2 text-center-align"><%=post.getLikeNum()%></div>
+									<% if(post.getLikeNum() != 0L ){ %>
+									<div class="col-md-2 text-center-align like-num"><%=post.getLikeNum()%></div>
+									<%} %>
 					        </div>
 					    </div>
 					</div>
