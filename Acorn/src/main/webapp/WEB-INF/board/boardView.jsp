@@ -619,7 +619,75 @@ $(document).keydown(function(e) {
 							
 
 	
-	
+	<div class="container mt-4">
+	<div class="popular-boards-container">
+		<div class="popular-board">
+			<div class="popular-board-header">
+				<h1>전체 인기글</h1>
+			</div>
+			<% 
+			List<PostPageDTO> plaList = (List<PostPageDTO>)request.getAttribute("popularListAll");
+			for(int i = 0; i < plaList.size(); i++) {
+				PostPageDTO post = plaList.get(i);
+			%>
+			<div class="row">
+				<div class="col-md-1"><%= i+1 %></div><!-- 순위  -->
+				<div class="col-md-2">일반</div>
+				<div class="col-md-7">
+				<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>" class="post-title">
+				<%=post.getPostTitle()%></a>
+				<%
+						if (post.getCommentCount() != 0L) {
+						%>
+						&nbsp; <span class="comment-count"><%=post.getCommentCount()%></span>
+						<%
+						}
+						%>
+				
+					</div>
+				<div class="col-md-2 text-center-align like-num"><%=post.getLikeNum()%></div>
+			<!-- 여기에 서버로부터 가져온 전체 인기글 목록을 반복하여 출력 -->
+			</div>
+			<% } %>
+			<div class="popular-board-footer">
+				<p>페이지 네비게이션</p>
+			</div>
+		</div>
+
+		<div class="popular-board">
+			<div class="popular-board-header">
+				<h1><%= category %> 인기글</h1>
+			</div>
+			<% 
+			List<PostPageDTO> plcList = (List<PostPageDTO>)request.getAttribute("popularListCategory");
+			for(int i = 0; i < plcList.size(); i++) {
+				PostPageDTO post = plcList.get(i);
+			%>
+			<div class="row">
+				<div class="col-md-1"><%= i+1 %></div><!-- 순위  -->
+				<div class="col-md-2">일반</div>
+				<div class="col-md-7">
+				<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>" class="post-title">
+				<%=post.getPostTitle()%></a>
+				<%
+						if (post.getCommentCount() != 0L) {
+						%>
+						&nbsp; <span class="comment-count"><%=post.getCommentCount()%></span>
+						<%
+						}
+						%>
+				
+					</div>
+				<div class="col-md-2 text-center-align like-num"><%=post.getLikeNum()%></div>
+			<!-- 여기에 서버로부터 가져온 전체 인기글 목록을 반복하여 출력 -->
+			</div>
+			<% } %>
+			<div class="popular-board-footer">
+				<p>페이지 네비게이션</p>
+			</div>
+		</div>
+	</div>
+	</div>
 	<div class="container mt-4">
 		<div class="row">
 			<!-- 최신 개봉 영화 섹션 -->
@@ -994,73 +1062,7 @@ $(document).keydown(function(e) {
 								</div>
 							</div>
 						</div>
-	<div class="popular-boards-container">
-		<div class="popular-board">
-			<div class="popular-board-header">
-				<h1>전체 인기글</h1>
-			</div>
-			<% 
-			List<PostPageDTO> plaList = (List<PostPageDTO>)request.getAttribute("popularListAll");
-			for(int i = 0; i < plaList.size(); i++) {
-				PostPageDTO post = plaList.get(i);
-			%>
-			<div class="row">
-				<div class="col-md-1"><%= i+1 %></div><!-- 순위  -->
-				<div class="col-md-2">일반</div>
-				<div class="col-md-7">
-				<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>" class="post-title">
-				<%=post.getPostTitle()%></a>
-				<%
-						if (post.getCommentCount() != 0L) {
-						%>
-						&nbsp; <span class="comment-count"><%=post.getCommentCount()%></span>
-						<%
-						}
-						%>
-				
-					</div>
-				<div class="col-md-2 text-center-align like-num"><%=post.getLikeNum()%></div>
-			<!-- 여기에 서버로부터 가져온 전체 인기글 목록을 반복하여 출력 -->
-			</div>
-			<% } %>
-			<div class="popular-board-footer">
-				<p>페이지 네비게이션</p>
-			</div>
-		</div>
-
-		<div class="popular-board">
-			<div class="popular-board-header">
-				<h1><%= category %> 인기글</h1>
-			</div>
-			<% 
-			List<PostPageDTO> plcList = (List<PostPageDTO>)request.getAttribute("popularListCategory");
-			for(int i = 0; i < plcList.size(); i++) {
-				PostPageDTO post = plcList.get(i);
-			%>
-			<div class="row">
-				<div class="col-md-1"><%= i+1 %></div><!-- 순위  -->
-				<div class="col-md-2">일반</div>
-				<div class="col-md-7">
-				<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>" class="post-title">
-				<%=post.getPostTitle()%></a>
-				<%
-						if (post.getCommentCount() != 0L) {
-						%>
-						&nbsp; <span class="comment-count"><%=post.getCommentCount()%></span>
-						<%
-						}
-						%>
-				
-					</div>
-				<div class="col-md-2 text-center-align like-num"><%=post.getLikeNum()%></div>
-			<!-- 여기에 서버로부터 가져온 전체 인기글 목록을 반복하여 출력 -->
-			</div>
-			<% } %>
-			<div class="popular-board-footer">
-				<p>페이지 네비게이션</p>
-			</div>
-		</div>
-	</div>
+	
 </div>
 		
 
