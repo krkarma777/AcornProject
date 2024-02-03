@@ -361,6 +361,7 @@ body {
     font-size: 14px;
     line-height: 1.5;
     color: #000;
+    margin-top: 20px;
 }
 
 .footer-content {
@@ -421,6 +422,64 @@ body {
 .like-num{
 	color:blue;
 }
+  .popular-boards-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: auto;
+  }
+  
+  .popular-board-header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .popular-board {
+    width: 48%; /* 게시판 너비 */
+    background: #f1f1f1;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .popular-board-item {
+    background: white;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .popular-board-item:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  .popular-board-item:nth-child(even) {
+    background-color: #ffffff;
+  }
+  
+  .popular-board-item:last-child {
+    border-bottom: none;
+  }
+  
+  .popular-board-item span {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .popular-board-footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+  }
+
 </style>
 </head>
 <script>
@@ -935,7 +994,76 @@ $(document).keydown(function(e) {
 								</div>
 							</div>
 						</div>
+	<div class="popular-boards-container">
+		<div class="popular-board">
+			<div class="popular-board-header">
+				<h1>전체 인기글</h1>
+			</div>
+			<% 
+			List<PostPageDTO> plaList = (List<PostPageDTO>)request.getAttribute("popularListAll");
+			for(int i = 0; i < plaList.size(); i++) {
+				PostPageDTO post = plaList.get(i);
+			%>
+			<div class="row">
+				<div class="col-md-1"><%= i+1 %></div><!-- 순위  -->
+				<div class="col-md-2">일반</div>
+				<div class="col-md-7">
+				<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>" class="post-title">
+				<%=post.getPostTitle()%></a>
+				<%
+						if (post.getCommentCount() != 0L) {
+						%>
+						&nbsp; <span class="comment-count"><%=post.getCommentCount()%></span>
+						<%
+						}
+						%>
+				
+					</div>
+				<div class="col-md-2 text-center-align like-num"><%=post.getLikeNum()%></div>
+			<!-- 여기에 서버로부터 가져온 전체 인기글 목록을 반복하여 출력 -->
+			</div>
+			<% } %>
+			<div class="popular-board-footer">
+				<p>페이지 네비게이션</p>
+			</div>
 		</div>
+
+		<div class="popular-board">
+			<div class="popular-board-header">
+				<h1><%= category %> 인기글</h1>
+			</div>
+			<% 
+			List<PostPageDTO> plcList = (List<PostPageDTO>)request.getAttribute("popularListCategory");
+			for(int i = 0; i < plcList.size(); i++) {
+				PostPageDTO post = plcList.get(i);
+			%>
+			<div class="row">
+				<div class="col-md-1"><%= i+1 %></div><!-- 순위  -->
+				<div class="col-md-2">일반</div>
+				<div class="col-md-7">
+				<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>" class="post-title">
+				<%=post.getPostTitle()%></a>
+				<%
+						if (post.getCommentCount() != 0L) {
+						%>
+						&nbsp; <span class="comment-count"><%=post.getCommentCount()%></span>
+						<%
+						}
+						%>
+				
+					</div>
+				<div class="col-md-2 text-center-align like-num"><%=post.getLikeNum()%></div>
+			<!-- 여기에 서버로부터 가져온 전체 인기글 목록을 반복하여 출력 -->
+			</div>
+			<% } %>
+			<div class="popular-board-footer">
+				<p>페이지 네비게이션</p>
+			</div>
+		</div>
+	</div>
+</div>
+		
+
 <footer class="site-footer">
     <div class="footer-content">
         <ul class="footer-links">

@@ -57,12 +57,31 @@ public class BoardViewController implements BoardController {
 		    put("board", postBoard);
 		    put("postCount", "5");
 		}});
+		
+		List<PostPageDTO> popularListAll = service.popularPostTwoDays(new HashMap<String, String>() {{
+		    put("postCount", "10");
+		}});
+		
+		final String category = postBoard.contains("movie") ? "movie" : 
+            postBoard.contains("tv") ? "tv" : 
+            postBoard.contains("book") ? "book" : "";
+
+		
+		List<PostPageDTO> popularListCategory = service.popularPostTwoDays(new HashMap<String, String>() {{
+			put("board", category);
+			put("board2", category+"Info");
+			put("board3", category+"Meet");
+			put("postCount", "10");
+		}});
         
-        
+        System.out.println("popularListAll = "+popularListAll.size());
+        System.out.println("popularListCategory = "+popularListCategory.size());
         // 모델에 페이지 정보와 게시판 이름 추가
         model.put("pDTO", pageDTO);
         model.put("postBoard", postBoard);
         model.put("hotList", hotList);
+        model.put("popularListCategory", popularListCategory);
+        model.put("popularListAll", popularListAll);
         
         // 뷰 페이지 이름 반환
         return "board/boardView";
