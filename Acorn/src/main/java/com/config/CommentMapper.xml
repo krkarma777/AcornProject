@@ -35,13 +35,21 @@ comdate = SYSTIMESTAMP
 
 </select>
 
-<update id="updateComment"  parameterType="int">
+<update id="deleteUpdateComment"  parameterType="int">
 
 update commentDB 
 set comtext = '삭제된 댓글입니다.'
 where comid = #{comId}
 
 </update>
+
+
+<update id="updateComment" parameterType="hashmap">
+update commentDB 
+set comtext = #{comText}
+where comid = #{comId}
+</update>
+
 
 <select id="selectAllByPostId" resultType="commentDTO" parameterType="long">
 select comid,postid,userid,comdate,comtext,nickname,abovecom from commentDB where postid=#{postId} order by comid asc
