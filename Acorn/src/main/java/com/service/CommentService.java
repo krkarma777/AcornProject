@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -79,12 +80,12 @@ public class CommentService {
 
 	}
 
-	public int updateComment(int comId) {
+	public int deleteUpdateComment(int comId) {
 		int num = 0;
 		SqlSession s = MySqlSessionFactory.getSqlSession();
 
 		try {
-			num = dao.updateComment(s, comId);
+			num = dao.deleteUpdateComment(s, comId);
 			s.commit();
 		} finally {
 			if (s != null)
@@ -93,6 +94,26 @@ public class CommentService {
 		return num;
 
 	}
+	
+	
+	
+	public int updateComment(HashMap<String, String> map) {
+		int num = 0;
+		SqlSession s = MySqlSessionFactory.getSqlSession();
+
+		try {
+			num = dao.updateComment(s, map);
+			s.commit();
+		} finally {
+			if (s != null)
+				s.close();
+		}
+		return num;
+
+	}
+	
+	
+	
 
 	public List<CommentDTO> selectAllByPostId(Long postId) {
 		List<CommentDTO> commentDB = null;

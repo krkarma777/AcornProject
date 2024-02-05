@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -43,13 +44,22 @@ public class CommentDAO {
 		return num;
 	}
 	
-	public int updateComment(SqlSession s, int comId){ 
+	public int deleteUpdateComment(SqlSession s, int comId){ 
 		
-		int num = s.update("updateComment", comId);
+		int num = s.update("deleteUpdateComment", comId);
 		return num;
 	}
 
+	
 
+	
+	public int updateComment(SqlSession s, HashMap<String, String> map){ 
+			
+			int num = s.update("updateComment", map);
+			return num;
+		}
+	
+	
 
 	public List<CommentDTO> selectAllByPostId(SqlSession session, Long postId) {
 		return session.selectList("CommentMapper.selectAllByPostId", postId);
