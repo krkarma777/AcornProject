@@ -16,6 +16,7 @@
 			//이름 공백 확인
 			if ($("#userName").val().trim() === "") {
 				alert("이름를 확인해주세요");
+				event.preventDefault();
 				$("#userName").focus();
 				return false;
 			}
@@ -23,6 +24,7 @@
 			//SSN 길이 확인
 			if ($("#ssn1").val().length != 6 || $("#ssn2").val().length != 7) {
 				alert("주민등록번호를 확인해주세요");
+				event.preventDefault();
 				$("#ssn1").focus();
 				return false;
 			}
@@ -36,6 +38,8 @@
 				$("#ssn2").focus();
 			}
 		});
+		
+
 
 	});
 </script>
@@ -104,10 +108,9 @@
 	<h2>아이디 찾기</h2>
 	<form id="findIdForm" action="<%=request.getContextPath()%>/SearchID" method="post">
 		이름: 	<input type="text" class="must" id="userName" name="userName"><br>
-		SSN: 	<input type="number" class="must" id="ssn1" name="ssn1" maxlength="6"> 
-		- 		<input type="password" class="must"
-				id="ssn2" name="ssn2" maxlength="7">
-		<br> 	<input type="submit" value="확인">
+		SSN: 	<input type="text" class="must" id="ssn1" name="ssn1" maxlength="6"> 
+		- 		<input type="text" class="must" id="ssn2" name="ssn2" maxlength="7">
+    	<br> 	<input type="submit" value="확인">
 	</form>
 	<div id="sitesShortCut">
 		<a href="<%=request.getContextPath()%>/Login">로그인</a> | 
