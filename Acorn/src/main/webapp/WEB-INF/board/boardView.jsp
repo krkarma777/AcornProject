@@ -1,3 +1,5 @@
+<%@page import="java.util.regex.Matcher"%>
+<%@page import="java.util.regex.Pattern"%>
 <%@page import="com.controller.board.util.MoviePoster"%>
 <%@page import="com.controller.board.util.ContentDataFormating"%>
 <%@page import="com.controller.board.util.ViewService"%>
@@ -490,6 +492,17 @@ body {
     text-align: center;
 }
 
+.post-thumbnail-picture{
+	height:13px;
+	width:17px;
+	padding-right: 5px;
+}
+
+.post-thumbnail-video{
+	height:12px;
+	width:13px;
+}
+
 
 </style>
 </head>
@@ -679,6 +692,7 @@ $(document).keydown(function(e) {
 				<div class="col-md-2">일반</div>
 				<div class="col-md-7">
 				<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>" class="post-title">
+
 				<%=post.getPostTitle()%></a>
 				<%
 						if (post.getCommentCount() != 0L) {
@@ -827,7 +841,28 @@ $(document).keydown(function(e) {
 								<div class="col-md-1 text-center-align">일반</div>
 								<div class="col-md-6">
 								<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
-					               class="post-title"><%=post.getPostTitle()%></a> 
+					               class="post-title">
+					               
+					               				<%
+		            
+		            String postText = post.getPostText();
+					Boolean videoExist = postText.contains("<video");
+					Boolean imgExist = postText.contains("<img");
+
+		            
+		            if (imgExist&&!videoExist) {
+		                %>
+		                <img src="/Acorn/boardImage/picture.png" alt="description" class="post-thumbnail-picture">
+		                <%
+		                // 이미지 태그가 포함된 경우의 처리
+		            }
+		            if(videoExist){%>
+		            	<img src="/Acorn/boardImage/video.png" alt="description" class="post-thumbnail-video">
+		            <%	
+		            }
+		            %>
+					               
+					               <%=post.getPostTitle()%></a> 
 					               <% if(post.getCommentCount()!=0L) {%>
 					               &nbsp;
 									<span class="comment-count"><%=post.getCommentCount()%></span> 
@@ -891,7 +926,27 @@ $(document).keydown(function(e) {
 					        <div class="col-md-1 text-center-align">일반</div>
 					        <div class="col-md-6">
 					            <a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
-					               class="post-title"><%=post.getPostTitle()%></a> 
+					               class="post-title">
+					               				<%
+		            
+		            String postText = post.getPostText();
+					Boolean videoExist = postText.contains("<video");
+					Boolean imgExist = postText.contains("<img");
+
+		            
+		            if (imgExist&&!videoExist) {
+		                %>
+		                <img src="/Acorn/boardImage/picture.png" alt="description" class="post-thumbnail-picture">
+		                <%
+		                // 이미지 태그가 포함된 경우의 처리
+		            }
+		            if(videoExist){%>
+		            	<img src="/Acorn/boardImage/video.png" alt="description" class="post-thumbnail-video">
+		            <%	
+		            }
+		            %>
+					               
+					               <%=post.getPostTitle()%></a> 
 					               <% if(post.getCommentCount()!=0L) {%>
 					               &nbsp;
 									<span class="comment-count"><%=post.getCommentCount()%></span> 
