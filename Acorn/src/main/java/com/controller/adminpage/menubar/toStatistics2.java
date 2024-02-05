@@ -28,8 +28,10 @@ public class toStatistics2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dis = request.getRequestDispatcher("./AdminPage/AdminPageStatStat2.jsp");
-		dis.forward(request, response);
+		//RequestDispatcher dis = request.getRequestDispatcher("./AdminPage/AdminPageStatStat2.jsp");
+		//dis.forward(request, response);
+		
+		response.sendRedirect("./AdminPage/AdminPageStatStat2.jsp");
 	}
 
 	/**
