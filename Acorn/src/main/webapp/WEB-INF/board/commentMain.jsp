@@ -7,11 +7,19 @@
 <%@page import="java.util.HashMap" %>  
 <%@page import="com.dto.MemberDTO" %>  
 <%
-//session scoep에 저장된 userid
+
 MemberDTO dto =  (MemberDTO)session.getAttribute("loginUser");
+
+//session scoep에 저장된 userid
 String userId = null;
 if(dto != null){
 	userId = dto.getUserId();
+}
+
+//session scope에 저장된 nickname
+String nickname = null;
+if(dto != null){
+	nickname = dto.getNickname();
 }
 %>
 <script type="text/javascript">
@@ -54,10 +62,11 @@ if(dto != null){
 			url: "/Acorn/CommetInsertServlet",
 			data:{
 				postId : $("#postidComment").val(),
-				userId : $.trim($("#userid").text()),
+				userId : $.trim($("#useridComment").val()),
 				comDate : $("#comdate").text(),
-				comText : $("#comtext").val()
-			},
+				comText : $("#comtext").val(),
+				nickname : $.trim($("#nickname").text())
+				},
 			success :  function (data, status, xhr){
 				
 				CommentSelectAllServlet();
@@ -90,29 +99,27 @@ $(document).on("click",".deleteCommentBtn",function(){
 			url: "/Acorn/CommetDeleteServlet",
 			data:{
 				//댓글 삭제를 위해서 서버로 comid를 넘겨주고 있음
-				comid : $(this).attr("id")
+				comId : $(this).attr("id")
 			},
 			dataType: "text",
 			success :  function(data, status, xhr){
 				console.log(data);
 			
-				if(data == "삭제된 댓글입니다."){
-				$('#'+ comid ).html("<i>"+data+"</i>");//작성된 댓글의 textarea를 span태그로 묶고, span에 id를 comid로 줬었음. 그걸 이용해서 내용 바꾸는중
+				console.log(data);
+				
+				if(data == "댓글이 삭제되었습니다."){
+				alert(data);
 				CommentSelectAllServlet(); 
 				 
 				}else{
 					alert("댓글을 삭제할 수 없습니다.");
 				}
-				
-			},
-			error : function(xhr, status, error){
-				console.log("에러코드 add"+status);
 			}
 			
 		})//delete ajax  //만약 DB에서 삭제할 거라면 이거 활성화 */
 		
 		
-		//]★만약 DB에서 안 지우고 삭제된 내용이라고 내용만 변경할거면 이거 활성화] 
+		//[]★만약 DB에서 안 지우고 삭제된 내용이라고 내용만 변경할거면 이거 활성화] 
 		//update인데 고객입장에선 delete이고, DB엔 내용만 Update되고 레코드는 살아있음
 		$.ajax({
 			
@@ -172,12 +179,13 @@ $(document).on("click",".deleteCommentBtn",function(){
 				            var userId = data.commentDBList[i].userId;
 				            var comDate = data.commentDBList[i].comDate;
 				            var comText = data.commentDBList[i].comText;
-				            console.log(comId, " ", userId, " ", comDate);
-				            
+				            var nickname = data.commentDBList[i].nickname;
+				            console.log("commentseletall에서   ",comId, " ", userId, " ", comDate," ",nickname);
+				             
 				            // 각 댓글 항목
 				            mesg += "<li class='comment-item'>";
 				            mesg += "<div class='comment-meta'>";
-				            mesg += "<strong>" + userId + "</strong> | <span>" + comDate + "</span>";
+				            mesg += "<strong>" + nickname + "</strong> | <span>" + comDate + "</span>";
 				            mesg += "</div>";
 				            mesg += "<p class='comment-content'>" + comText + "</p>";
 				            if(userId=="<%=userId%>"){
@@ -207,6 +215,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 </script>	
 
 	 <input type="hidden" id="postidComment" name="postid" value=<%=request.getParameter("postId")%> > <!-- 굳이 고객한테 보일 필요가 없으니 hidden 태그 -->
+	 <input type="hidden" id="useridComment" name="userid" value="<%=userId%>" > <!--DB저장용 userid -->
 
 <div id="CommetList" style="margin-top: 20px;">
   	
@@ -216,11 +225,11 @@ $(document).on("click",".deleteCommentBtn",function(){
 <div class="card mt-4" >
             <div class="card-header">댓글 작성</div>
             <div class="card-body">
-                <span id="userid" name="userid">
+                <span id="nickname" name="nickname">
                     <% if (userId == null) { %>
                         로그인을 해주세요.
                     <% } else { %>
-                        <%= userId %>
+                        <%= nickname %>
                     <% } %>
                 </span>
                 <br>
