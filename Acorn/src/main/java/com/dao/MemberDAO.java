@@ -16,19 +16,19 @@ public class MemberDAO {
 		return list;
 	}
 	
-	public MemberDTO findUserId(SqlSession session, Map<String, Object> dateForFindUserId) {
-		MemberDTO dto = session.selectOne("findUserId", dateForFindUserId);
+	public MemberDTO findUserId(SqlSession session, Map<String, String> dataForFindUserId) {
+		MemberDTO dto = session.selectOne("com.config.MemberMapper.findUserId", dataForFindUserId);
 		return dto;
 	}
 
-	public MemberDTO findUserPW(SqlSession session, Map<String, Object> dataForFindUserPW) {
-		MemberDTO dto = session.selectOne("findUserPW", dataForFindUserPW);
+	public MemberDTO findUserPW(SqlSession session, Map<String, String> dataForFindUserPW) {
+		MemberDTO dto = session.selectOne("com.config.MemberMapper.findUserPW", dataForFindUserPW);
 		return dto;
 	}
 
 	public static boolean isUserIdDuplicate(SqlSession session, String userId) {
 		try {
-			int num = session.selectOne("isUserIdDuplicate", userId);
+			int num = session.selectOne("com.config.MemberMapper.isUserIdDuplicate", userId);
 			return num > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,7 +38,7 @@ public class MemberDAO {
 
 	public static boolean isUserNicknameDuplicate(SqlSession session, String nickname) {
 		try {
-			int num = session.selectOne("isUserNicknameDuplicate", nickname);
+			int num = session.selectOne("com.config.MemberMapper.isUserNicknameDuplicate", nickname);
 			return num > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,13 +47,13 @@ public class MemberDAO {
 	}
 
 	public int insertNewMember(SqlSession session, MemberDTO dto) {
-		int num = session.insert("insertNewMember", dto);
+		int num = session.insert("com.config.MemberMapper.insertNewMember", dto);
 		return num;
 	}
 
 	public static boolean isUserPNDuplicate(SqlSession session, Map<String, String> dataForFindExistPN) {
 		try {
-			int num = session.selectOne("isUserPNDuplicate", dataForFindExistPN);
+			int num = session.selectOne("com.config.MemberMapper.isUserPNDuplicate", dataForFindExistPN);
 			return num > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,7 +63,7 @@ public class MemberDAO {
 
 	public static boolean isUserEmailDuplicate(SqlSession session, Map<String, String> dataForFindExistEmail) {
 		try {
-			int num = session.selectOne("isUserEmailDuplicate", dataForFindExistEmail);
+			int num = session.selectOne("com.config.MemberMapper.isUserEmailDuplicate", dataForFindExistEmail);
 			return num > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,7 +73,7 @@ public class MemberDAO {
 
 	public static boolean loginPossible(SqlSession session, Map<String, String> dataForLogin) {
 		try {
-			int num = session.selectOne("loginPossible", dataForLogin);
+			int num = session.selectOne("com.config.MemberMapper.loginPossible", dataForLogin);
 			return num > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,13 +82,13 @@ public class MemberDAO {
 	}
 
 	public MemberDTO findMemberInfo(SqlSession session, Map<String, String> idPW) {
-		MemberDTO dto = session.selectOne("findMemberInfo", idPW);
+		MemberDTO dto = session.selectOne("com.config.MemberMapper.findMemberInfo", idPW);
 		return dto;
 	}
 
 	public static boolean findPWbyNickname(SqlSession session, HashMap<String, String> nicknameMap) {
 		try {
-			int num = session.selectOne("findPWbyNickname", nicknameMap);
+			int num = session.selectOne("com.config.MemberMapper.findPWbyNickname", nicknameMap);
 			return num > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,7 +98,7 @@ public class MemberDAO {
 
 	public static boolean findPWbyPhoneNum(SqlSession session, Map<String, String> phoneNumMap) {
 		try {
-			int num = session.selectOne("findPWbyPhoneNum", phoneNumMap);
+			int num = session.selectOne("com.config.MemberMapper.findPWbyPhoneNum", phoneNumMap);
 			return num > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -108,7 +108,7 @@ public class MemberDAO {
 
 	public static boolean findPWbyEmail(SqlSession session, HashMap<String, String> emailMap) {
 		try {
-			int num = session.selectOne("findPWbyEmail", emailMap);
+			int num = session.selectOne("com.config.MemberMapper.findPWbyEmail", emailMap);
 			return num > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -117,12 +117,12 @@ public class MemberDAO {
 	}
 
 	public MemberDTO selectMemberData(SqlSession session, String userId) {
-		MemberDTO dto = session.selectOne("selectMemberData", userId);
+		MemberDTO dto = session.selectOne("com.config.MemberMapper.selectMemberData", userId);
 		return dto;
 	}
 
 	public MemberDTO selectOne(SqlSession session, String userId) {
-		MemberDTO dto = session.selectOne("selectOne", userId);
+		MemberDTO dto = session.selectOne("com.config.MemberMapper.selectOne", userId);
 		return dto;
 	}
 	

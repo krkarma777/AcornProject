@@ -22,8 +22,8 @@ public class SearchIDServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String userName = request.getParameter("userName");
-		int ssn1 = Integer.parseInt(request.getParameter("ssn1"));
-		int ssn2 = Integer.parseInt(request.getParameter("ssn2"));
+		String ssn1 = request.getParameter("ssn1");
+		String ssn2 = request.getParameter("ssn2");
 
 		MemberService serv = new MemberService();
 		MemberDTO dto = serv.findUserId(userName, ssn1, ssn2);

@@ -78,21 +78,13 @@ public class InsertUserDataServlet extends HttpServlet {
 		}
 
 		// 이름 및 SSN 검증
-		String userName = request.getParameter("userName");
-		int ssn1 = Integer.parseInt(request.getParameter("userSSN1"));
-		int ssn2 = Integer.parseInt(request.getParameter("userSSN2"));
-		MemberDTO foundUser = serv.findUserId(userName, ssn1, ssn2);
-		int ssn2FirstNum = Integer.parseInt(String.valueOf(ssn2).substring(0, 1));
+		String userName = request.getParameter("userName").trim();
+		String userSSN1 = request.getParameter("userSSN1").trim();
+		String userSSN2 = request.getParameter("userSSN2").trim();
+		MemberDTO foundUser = serv.findUserId(userName, userSSN1, userSSN2);
+		int ssn2FirstNum = Integer.parseInt(String.valueOf(userSSN2).substring(0, 1));
 
-		if (ssn2FirstNum < 1 || ssn2FirstNum > 4) { // SSN2 첫 숫자(1~4) 확인
-			System.out.println("SSN2 숫자 오류");
-			System.out.println("회원 가입 실패");
-			failMesg = false;
-			request.setAttribute("mesg", "불가능한 주민등록번호입니다. 확인해주세요");
-			RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerFailure.jsp");
-			dis.forward(request, response);
-
-		} else if (foundUser != null) { // 이름 + SSN이 모두 일치하는 유저가 있는지 확인
+		if (foundUser != null) { // 이름 + SSN이 모두 일치하는 유저가 있는지 확인
 			System.out.println("이름, SSN 기존 회원 정보 있음");
 			System.out.println("회원 가입 실패");
 			failMesg = false;
@@ -196,8 +188,7 @@ public class InsertUserDataServlet extends HttpServlet {
 		// userType(회원 등급)은 1(일반 멤버)로 고정
 		if (failMesg) {
 
-			MemberDTO dto = new MemberDTO(userId, userPwConfirm, userName, ssn1, ssn2, nickname, userGender,
-					userPhoneNum1, userPhoneNum2, userPhoneNum3, userEmailId, userEmailDomain, userSignDate, "1");
+			MemberDTO dto = new MemberDTO(userId, userPwConfirm, userName, userSSN1, userSSN2, userGender, nickname, userPhoneNum1, userPhoneNum2, userPhoneNum3, userEmailId, userEmailDomain, userSignDate, "1");
 			System.out.println(dto);
 			int num = serv.insertNewMember(dto);
 

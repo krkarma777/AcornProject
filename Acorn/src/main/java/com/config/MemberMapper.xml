@@ -48,14 +48,14 @@
 
 	<insert id="insertNewMember" parameterType="MemberDTO">
 		INSERT INTO memberDB (
-		userId, userPw, userName, userSSN1, userSSN2, nickname,
-		userGender, userPhoneNum1, userPhoneNum2, userPhoneNum3,
-		userEmailId, userEmailDomain, userSignDate
+		userId, userPw, userName, userSSN1, userSSN2, 
+		userGender, nickname, userPhoneNum1, userPhoneNum2, userPhoneNum3,
+		userEmailId, userEmailDomain
 		)
 		VALUES (
 		#{userId}, #{userPw}, #{userName}, #{userSSN1}, #{userSSN2},
-		#{nickname}, #{userGender}, #{userPhoneNum1}, #{userPhoneNum2},
-		#{userPhoneNum3}, #{userEmailId}, #{userEmailDomain}, #{userSignDate}
+		#{userGender}, #{nickname}, #{userPhoneNum1}, #{userPhoneNum2},
+		#{userPhoneNum3}, #{userEmailId}, #{userEmailDomain}
 		)
 	</insert>
 
