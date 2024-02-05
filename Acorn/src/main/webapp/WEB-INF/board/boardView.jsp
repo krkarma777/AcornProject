@@ -602,6 +602,13 @@ $(document).keydown(function(e) {
     // 추가적인 단축키 조합을 여기에 구현
 });
 
+	//회원정보 보기 팝업창 열기 함수
+	function openMemberInfoPopup(userId){
+		var url = "<%=request.getContextPath()%>/memberInfo?userId=" + userId;
+		var options = "width=600,height=400,scrollbars=yes";
+		 window.open(url, "memberInfo", options);
+	}
+
 </script>
 <body>
 
@@ -879,7 +886,7 @@ $(document).keydown(function(e) {
 					                        <ul class="dropdown-menu">
 					                            <li><a class="dropdown-item" 
 					                            href="<%= request.getContextPath() %>/board/<%= postBoard %>?selectSearchPositionText=userId&inputSearchFreeText=<%=post.getUserId()%>">📑작성글 보기</a></li>
-					                            <li><a class="dropdown-item" href="/경로/회원정보보기?userId=<%=post.getUserId()%>">🔎회원정보 보기</a></li>
+					                            <li><a class="dropdown-item" href="#" onclick="openMemberInfoPopup('<%=post.getUserId()%>'); return false;">🔎회원정보 보기</a></li>
 					                        </ul>
 					                    </div>
 				                    </div>
@@ -961,7 +968,7 @@ $(document).keydown(function(e) {
 					                        <ul class="dropdown-menu">
 					                            <li><a class="dropdown-item" 
 					                            href="<%= request.getContextPath() %>/board/<%= postBoard %>?selectSearchPositionText=userId&inputSearchFreeText=<%=post.getUserId()%>">📑작성글 보기</a></li>
-					                            <li><a class="dropdown-item" href="/경로/회원정보보기?userId=<%=post.getUserId()%>">🔎회원정보 보기</a></li>
+					                            <li><a class="dropdown-item" href="#" onclick="openMemberInfoPopup('<%=post.getUserId()%>'); return false;">🔎회원정보 보기</a></li>
 					                        </ul>
 					                    </div>
 				                    </div>

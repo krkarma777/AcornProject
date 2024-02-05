@@ -8,7 +8,7 @@
 	    <selectKey keyProperty="postId" resultType="long" order="BEFORE">
 	        SELECT POSTIDSEQ.NEXTVAL AS postId FROM DUAL
 	    </selectKey>
-	    INSERT INTO postDB (postid, postBoard, userid, contid, postTitle, postDate, postEditDate, postText, nickName)
+	    INSERT INTO postDB (postid, postBoard, userid, contid, postTitle, postDate, postEditDate, postText, nickname)
 	    VALUES (#{postId}, #{postBoard}, #{userId}, #{contId, jdbcType=NUMERIC}, #{postTitle}, SYSTIMESTAMP, null, #{postText}, #{nickname})
 	</insert>
 	
@@ -182,5 +182,9 @@
 	update likeDB set isLike=0 
 	where postId = #{postId} and userId=#{userId}
 	</update>
+	
+	<select id="selectMember" parameterType="string" resultType="MemberDTO">
+	select * from MemberDB where userId = #{userId}
+	</select>
 
 </mapper>

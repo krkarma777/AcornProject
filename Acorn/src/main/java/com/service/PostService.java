@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.config.MySqlSessionFactory;
 import com.dao.PostDAO;
+import com.dto.MemberDTO;
 import com.dto.board.LikeDTO;
 import com.dto.board.PageDTO;
 import com.dto.board.PostDTO;
@@ -258,6 +259,18 @@ public class PostService {
 		} finally {
 			session.close();
 		}
+	}
+
+	public MemberDTO selectMember(String userId) {
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		MemberDTO member = null;
+		try {
+			member = dao.selectMember(session,userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return member;
 	}
 	
 	

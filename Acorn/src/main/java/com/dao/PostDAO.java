@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.dto.MemberDTO;
 import com.dto.board.LikeDTO;
 import com.dto.board.PageDTO;
 import com.dto.board.PostDTO;
@@ -130,5 +131,10 @@ public class PostDAO {
 		 int num = session.update("updatePostLike",map);
 		 return num;
 		
+	}
+
+	public MemberDTO selectMember(SqlSession session, String userId) {
+		MemberDTO member = session.selectOne("selectMember",userId);
+		return member;
 	}
 }//end class
