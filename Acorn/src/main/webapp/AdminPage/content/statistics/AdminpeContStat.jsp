@@ -7,13 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-관리자페이지 Content
-
-데이터 관리
-
-보관기간 지난 삭제글
-보관기간 지난 탈퇴회원 데이터
-
-약관관리
+관리자 통계확인 페이지
+<hr>
+접속자 통계
+현재 접속자 수
 </body>
 </html>

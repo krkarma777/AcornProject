@@ -26,9 +26,8 @@
 
     <!-- Include content.jsp next to menu.jsp -->
     <div style="flex-grow: 1; padding: 10px;">
-        <jsp:include page = "content/AdminPageContMain.jsp"  flush ="true"></jsp:include>
+        <jsp:include page = "content/post/AdminpgContPstRprtedPst.jsp"  flush ="true"></jsp:include>
     </div>
-
 </div>
 
 <script type = "text/javascript">
