@@ -60,7 +60,7 @@ public class CommentUpdateServlet extends HttpServlet {
 				
 				if(num==0) {
 					
-					out.print("댓글을 수정 할 수 없습니다.");
+					out.print("댓글을 수정할 수 없습니다.");
 				
 				}else {
 					out.print("댓글이 수정되었습니다.");
