@@ -100,6 +100,10 @@ public class PostDAO {
 		return n;
 
 	}
+	
+	public List<PostPageDTO> popularPostTwoDays(SqlSession session, HashMap<String, String> map) {
+		return session.selectList("popularPostTwoDays", map);
+	}
 
 	public Long likeNum(SqlSession session, Long postId) {
 		return session.selectOne("likeNum",postId);

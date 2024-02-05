@@ -577,7 +577,12 @@
 					<%
 					//System.out.println(reviewList.size());
 					int index = (i-1)*4+(j-1);
-					if(reviewList.size()-1>=index){%>
+					if(reviewList.size()-1>=index){
+						String score = reviewList.get(index).getScore();
+						if(score==null){
+							score="0";
+						}
+						%>
 
 						<div id="review_nick">
 							<%=reviewList.get(index).getNickname() %>
@@ -589,7 +594,7 @@
 							</div>
 						<!-- </a> -->
 						<div id="review_score">
-							<span>☆ <%=Double.parseDouble(reviewList.get(index).getScore())/2 %></span>
+							<span>☆ <%=Double.parseDouble(score)/2 %></span>
 							<span class="like_btn" style="color:red" data-postId="<%=reviewList.get(index).getPostId() %>">
 							<%if("1".equals(reviewList.get(index).getIsLike())){
 								//System.out.println("♥"+reviewList.get(index).getIsLike());

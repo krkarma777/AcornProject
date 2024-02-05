@@ -105,6 +105,23 @@ public class PostService {
         }
         return list;
     }
+    public List<PostPageDTO> popularPostTwoDays(HashMap<String, String> hashMap) {
+    	SqlSession session = MySqlSessionFactory.getSqlSession();
+    	List<PostPageDTO> list = null;
+    	try {
+    		// 모든 글 조회 메서드 호출
+    		list = dao.popularPostTwoDays(session, hashMap);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		try {
+    			session.close();
+    		} catch (Exception e2) {
+    			e2.printStackTrace();
+    		}
+    	}
+    	return list;
+    }
     
     // 글 수정
     public void update(Long postId, String updatedTitle, String updatedContent) {

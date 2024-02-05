@@ -81,6 +81,14 @@ button:hover {
 		    }
 		}
 		
+		// 엔터 키 누를 때 확인 버튼 클릭
+	    $("#confirmForm").keydown(function (event) {
+	        if (event.which == 13) { 		// 13: 엔터 키의 keyCode
+	            event.preventDefault(); 	// 기본 엔터 동작 방지
+	            $("#check_answer").click(); // 확인 버튼 클릭
+	        }
+	    });
+		
 		$("#confirmUserInfo").change(function () {
 			var userInfo = $(this).val();
 			var userAnswerInput = $("#userAnswer");
@@ -112,15 +120,19 @@ button:hover {
                  userAnswerInput.removeAttr("maxlength pattern");
              }
 		});
+		
+		
 	});																		
 																		
 	//질문에 따른 대답과 관련된 ajax와 method
 	function checkUserAnswer(event) {
 		
-		userId = $("#userId").val()
-																		//디버그 코드**********
-																		console.log(userId);
-																		//디버그 코드**********			
+		 userId = $("#userId").val()
+		 
+			//디버그 코드**********
+			console.log(userId);
+			//디버그 코드**********		
+			
 		 var userInfo = $("#confirmUserInfo").val();
          var answer = $("#userAnswer").val();
          var errorSpan = $("#confirmAnswerError");
@@ -128,11 +140,13 @@ button:hover {
          //핸드폰 번호를 찾는 질문일 때, 숫자 11자리가 아닌 경우, 경초창 + 이벤트 중지
          if (userInfo === "userPhoneNum" && !/^\d{11}$/.test(answer)) {
              alert("핸드폰 번호는 숫자 11자리여야 합니다.");
+             event.preventDefault();
              return false;
              
          //이메일 주소를 찾는 질문일 때, @가 포함되어 있지 않은 경우, 경초창 + 이벤트 중지
          } else if (userInfo === "userEmail" && !/@/.test(answer)) {
              alert("이메일 주소는 @를 포함해야 합니다.");
+             event.preventDefault();
              return false;
          } else {
              
@@ -146,11 +160,6 @@ button:hover {
 					userId: userId
 				},
 				
-				beforeSend: function() {
-                    // AJAX 요청 전에 수행할 작업
-                    $("#check_answer").prop("disabled", true); // 버튼 비활성화
-                },
-                
 				success : function(response) {
 					
 					//질문에 따른 해당 유저의 답변이 올바르지 않을 경우, ajax출력
@@ -165,11 +174,6 @@ button:hover {
 				error : function(error) {
 					console.error("비밀번호 출력 검사 에러:", error);
 				}, 
-				
-				complete: function() {
-                    // AJAX 요청 완료 후 수행할 작업
-                    $("#check_answer").prop("disabled", false); // 버튼 활성화
-                }
 				
 			});
 		}
@@ -187,10 +191,22 @@ button:hover {
 </head>
 
 <body>
-<% 
-	String userIdFromPartPW = (String)request.getAttribute("userId"); 
-	System.out.println(userIdFromPartPW);
+<%
+    String userIdFromPartPW = (String) request.getAttribute("userId");
+    Cookie[] cookies = request.getCookies();
+
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("findPW_userid")) {
+                userIdFromPartPW = cookie.getValue();
+                break;
+            }
+        }
+    }
+
+    System.out.println("전체 비밀번호 페이지에서 불러온 아이디: " + userIdFromPartPW);
 %>
+
 	<input type="hidden" id="userId" name="userId" value="<%=userIdFromPartPW%>">
 
 	<form id="confirmForm">

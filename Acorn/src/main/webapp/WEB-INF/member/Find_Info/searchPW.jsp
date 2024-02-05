@@ -15,6 +15,7 @@
         		//아이디 공백 여부 확인
         		if ($("#userId").val().trim() === "") {
     				alert("아이디를 확인해주세요");
+    				event.preventDefault();
     				$("#userId").focus();
     				return false;
     			}
@@ -22,6 +23,7 @@
         		//이름 공백 여부 확인
         		if ($("#userName").val().trim() === "") {
     				alert("이름를 확인해주세요");
+    				event.preventDefault();
     				$("#userName").focus();
     				return false;
     			}
@@ -29,6 +31,7 @@
         		//SSN 길이 여부 확인
     			if ($("#ssn1").val().length != 6 || $("#ssn2").val().length != 7) {
     				alert("주민등록번호를 확인해주세요");
+    				event.preventDefault();
     				$("#ssn1").focus();
     				return false;
     			}
@@ -108,9 +111,9 @@
 <body>
     <h2>비밀번호 찾기</h2>
     <form id="findPWForm" action="<%=request.getContextPath()%>/SearchPartPW" method="post">
-        아이디: <input type="text" class="must" id="userId" name="userId"><br>
+        아이디: <input type="text" class="must" id="userId" name="userId" pattern="[a-zA-Z0-9]{4,}" title="4자 이상의 영문 대소문자 또는 숫자를 입력하세요"><br>
         이름: <input type="text" class="must" id="userName" name="userName"><br>
-        SSN: <input type="number" class="must" id="ssn1" name="ssn1" maxlength="6">
+        SSN: <input type="text" class="must" id="ssn1" name="ssn1" maxlength="6">
         - <input type="password" class="must" id="ssn2" name="ssn2" maxlength="7"><br>
 
         <input type="submit" value="확인">

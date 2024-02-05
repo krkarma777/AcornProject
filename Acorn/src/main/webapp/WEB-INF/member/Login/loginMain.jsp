@@ -120,7 +120,14 @@
         	//로그인 전송을 시도할 경우, 발동
 			$("#loginForm").on("submit", function(event) {
 				event.preventDefault(); // 폼이 서버로 전송되지 않도록 기본 동작을 막음
-
+				
+	            // 아이디 저장 체크박스 상태에 따라 쿠키 생성
+	            if ($("#userIdSave").prop("checked")) {
+	                var userId = $("#userId").val();
+	                //쿠키 유효기간 1일, 경로 지정은 보류(WEB-INF/member/Login/loginMain.jsp)
+	                document.cookie = "savedUserId=" + userId + "; expires=" + getCookieExpiration(1) + "; path=/";
+	            }
+				
 	   			// 이전 Ajax 요청이 진행 중이라면 취소(4면 요청이 완료되었음을 의미)
     		    if (currentAjaxRequest && currentAjaxRequest.readyState !== 4) {
     		        //현재 진행중인 ajax요청을 중단
@@ -196,12 +203,50 @@
 				
 			});	//$("#loginForm").on("submit", function(event)
 			
-					
+			//패턴 속성에 문구 삽입
+			$("#loginButton").on("click", function(){
+				console.log("Submit button clicked");
+				var inputValue = $("#userId").val();
+				
+		        // 유효한 경우 아무 동작도 하지 않음
+			    if (/^[a-zA-Z0-9]+$/.test(inputValue)) {
+			    	$("#userId")[0].setCustomValidity(''); 
+			    } else {
+			        // 유효하지 않은 경우 오류 메시지를 직접 설정
+			    	$("#userId")[0].setCustomValidity('영문자 또는 숫자를 입력하세요.');
+			    }
+			})		
+			
             //비밀번호를 볼 수 있도록 해주는 method
             $("#showPasswd").click(function () {
                 var showPW = $("#userPw");
                 showPW.attr("type", showPW.attr("type") == "password" ? "text" : "password");
             });
+			
+			//쿠키 만료일 지정
+            function getCookieExpiration(days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                return date.toUTCString();
+            }
+            
+         	// 쿠키 불러오기
+            var savedUserId = getCookie("savedUserId");
+
+            // 쿠키를 이름으로 가져오는 함수
+            function getCookie(name) {
+                var cookies = "; " + document.cookie;
+                var parts = cookies.split("; " + name + "=");
+                if (parts.length == 2){							//쿠키에 유저 아이디가 있는 경우
+                	return parts.pop().split(";").shift();		//찾는 쿠키를 세미콜론을 기준으로 기준으로 자르기
+                }
+            }
+			
+            // 쿠키가 존재하면 아이디 입력란에 표시
+            if (savedUserId) {
+                $("#userId").val(savedUserId);
+            }
+            
         });	//$("#showPasswd").click(function ()
     </script>
 </head>
@@ -218,16 +263,24 @@
             <table>
                 <tr>
                     <td>아이디:</td>
-                    <td><input type="text" id="userId" name="userId" class="loginSet"></td>
+                    <td><input type="text" id="userId" name="userId" class="loginSet" pattern="[a-zA-Z0-9]{4,}"></td>
+					<td><input type="checkbox" id="userIdSave" name="userIdSave" class="loginSet">아이디 저장</td>
+                </tr>
+                <tr>
                 </tr>
                 <tr>
                     <td>비밀번호:</td>
-                    <td><input type="password" id="userPw" name="userPw" class="loginSet"><br>
-                    <span id="confirmUserIdPwError" style="color: red;"></span>
-                        <button type="button" id="showPasswd">비밀번호 보이기</button></td>
+                    <td><input type="password" id="userPw" name="userPw" class="loginSet"></td>
+                    <td><button type="button" id="showPasswd">비밀번호 보이기</button><br>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                <td></td>
+                	<td colspan="2">
+                		<span id="confirmUserIdPwError" style="color: red;"></span>
+                	</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
                         <input id="loginButton" type="submit" value="로그인">
                     </td>
                 </tr>

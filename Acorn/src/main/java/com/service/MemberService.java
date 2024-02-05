@@ -26,8 +26,8 @@ public class MemberService {
 		return list;
 	}
 
-	public MemberDTO findUserId(String userName, int ssn1, int ssn2) {
-		Map<String, Object> dataForFindUserId = new HashMap<>();
+	public MemberDTO findUserId(String userName, String ssn1, String ssn2) {
+		Map<String, String> dataForFindUserId = new HashMap<>();
 		dataForFindUserId.put("userName", userName);
 		dataForFindUserId.put("ssn1", ssn1);
 		dataForFindUserId.put("ssn2", ssn2);
@@ -42,8 +42,8 @@ public class MemberService {
 		return dto;
 	}
 
-	public MemberDTO findUserPW(String userId, String userName, int ssn1, int ssn2) {
-		Map<String, Object> dataForFindUserPW = new HashMap<>();
+	public MemberDTO findUserPW(String userId, String userName, String ssn1, String ssn2) {
+		Map<String, String> dataForFindUserPW = new HashMap<>();
 			dataForFindUserPW.put("userId", userId);
 			dataForFindUserPW.put("userName", userName);
 			dataForFindUserPW.put("ssn1", ssn1);

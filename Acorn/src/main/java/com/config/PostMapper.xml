@@ -49,6 +49,38 @@
 		)
 		WHERE ROWNUM &lt;= #{postCount}
 	</select>
+	
+	<select id="popularPostTwoDays" resultType="PostPageDTO" parameterType="map">
+	    SELECT * FROM (
+	        SELECT p.*,
+	               (SELECT COUNT(*) FROM likeDB WHERE postId = p.postId AND isLike = '1') AS likeNum,
+	               (SELECT viewNum FROM postInfoDB WHERE postId = p.postId) AS viewNum,
+	               (SELECT COUNT(*) FROM commentDB WHERE postId = p.postId) AS commentCount
+	        FROM postDB p
+	        WHERE postDate >= SYSDATE - 2
+	        <choose>
+	            <when test="board != null or board2 != null or board3 != null">
+	                AND (
+	                <if test="board != null">
+	                    postBoard = #{board}
+	                </if>
+	                <if test="board2 != null">
+	                    OR postBoard = #{board2}
+	                </if>
+	                <if test="board3 != null">
+	                    OR postBoard = #{board3}
+	                </if>
+	                )
+	            </when>
+	            <otherwise>
+	                AND 1=1
+	            </otherwise>
+	        </choose>
+	        ORDER BY viewNum DESC
+	    ) WHERE ROWNUM &lt;= #{postCount}
+	</select>
+
+
 
 
     <!-- 업데이트 -->

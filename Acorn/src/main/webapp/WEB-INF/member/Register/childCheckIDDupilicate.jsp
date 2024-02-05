@@ -77,7 +77,7 @@
         function checkDuplicate() {
             var userId = $("#confirmUserId").val();
             var errorSpan = $("#confirmIdError");
-
+            
 			//아이디 생성 규칙(영어/숫자로 4글자 이상)
             var regex = /^[a-zA-Z0-9]{4,}$/;
             if (!regex.test(userId)) {
@@ -119,6 +119,16 @@
                 }
             });
         }
+        
+        $(function(){
+        	// 엔터 키 누를 때 확인 버튼 클릭
+            $("#confirmUserId").keydown(function (event) {
+                if (event.which == 13) { // 13: 엔터 키의 keyCode
+                    event.preventDefault();
+                    checkDuplicate(); // 확인 버튼 클릭
+                }
+            })
+        });
     </script>
 </body>
 
