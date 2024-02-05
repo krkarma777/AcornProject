@@ -73,9 +73,7 @@ public class BoardViewController implements BoardController {
 			put("board3", category+"Meet");
 			put("postCount", "10");
 		}});
-        
-        System.out.println("popularListAll = "+popularListAll.size());
-        System.out.println("popularListCategory = "+popularListCategory.size());
+
         // 모델에 페이지 정보와 게시판 이름 추가
         model.put("pDTO", pageDTO);
         model.put("postBoard", postBoard);
