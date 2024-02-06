@@ -85,6 +85,20 @@
 	<%
 	List<MemberDTO> list = (List<MemberDTO>) session.getAttribute("memberList");
 	%>
+	
+	<div id="for_Login">
+        <form id="loginForm" action="<%=request.getContextPath()%>/memberOneServlet" method="post">
+            <table>
+                <tr>
+                    <td>아이디:</td>
+                    <td><input type="text" id="userId" name="userId" class="loginSet" autofocus></td>
+                    <td>
+                        <input id="Find_Member_One_button" type="submit" value="확인">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
 
 	<table border=1>
 			<tr>
@@ -127,21 +141,9 @@
 			%>
 	</table>
 	
-	<div id="for_Login">
-        <form id="loginForm" action="<%=request.getContextPath()%>/memberOneServlet" method="post">
-            <table>
-                <tr>
-                    <td>아이디:</td>
-                    <td><input type="text" id="userId" name="userId" class="loginSet"></td>
-                    <td>
-                        <input id="Find_Member_One_button" type="submit" value="확인">
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <div id="sitesShortCut">
-            <a href="<%=request.getContextPath()%>/Login">로그인 폼</a>
-        </div>
+    <div id="sitesShortCut">
+        <a href="<%=request.getContextPath()%>/Login">로그인 폼</a>
     </div>
+   
 </body>
 </html>
