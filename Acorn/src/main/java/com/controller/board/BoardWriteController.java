@@ -18,6 +18,8 @@ public class BoardWriteController implements BoardController {
 
         // 폼에서 전송된 데이터를 파싱
         String postTitle = paramMap.get("postTitle");
+        String userId = paramMap.get("userId");
+        model.put("userId", userId);
 
         // 처음 접속시 post.jsp로 리다이렉트
         if (postTitle == null) {
