@@ -4,9 +4,8 @@
 <html>
 <head>
 <%
-        // 글쓴 유저 id 실제 db에서 뽑아올 예정 
-        String userId = "zz";
-    
+
+		String boardName = request.getParameter("bn");
     %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -30,7 +29,7 @@
 <style>
 /* 검색창 너비 조절 */
 .searchInput {
-   width: 70vh; /* 너비를 100%로 설정하여 부모 요소의 전체 폭을 차지하도록 함 */
+	width: 70vh; /* 너비를 100%로 설정하여 부모 요소의 전체 폭을 차지하도록 함 */
 }
 
 /* 제목 입력란에 스타일을 적용하는 CSS 코드 */
@@ -68,10 +67,9 @@ body {
 	z-index: 1030; /* 다른 요소들 위에 표시되도록 z-index 설정 */
 }
 
-    
- /* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
+/* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
 .container {
- padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
+	padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
 }
 
 /* 반응형 그리드 시스템 */
@@ -146,12 +144,15 @@ body {
 
 /* 글씨체 적용 */
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'Pretendard-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
-body{
+
+body {
 	font-family: 'Pretendard-Regular';
 }
 </style>
@@ -263,9 +264,9 @@ body{
 
 </head>
 <body>
-	 <!-- 네비게이션바 -->
-	 <jsp:include page="//common/navbar.jsp"></jsp:include>
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+	<!-- 네비게이션바 -->
+	<jsp:include page="//common/navbar.jsp"></jsp:include>
+	<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
             로고
             <a class="navbar-brand" href="#">로고</a>
@@ -300,18 +301,40 @@ body{
         </div>
     </nav> -->
 
+
 	<div class="container mt-5 editor-wrapper">
 		<form method="post" action="/Acorn/board/write">
-
-			<div class="mb-3">
-				<input type="text" name="postTitle" id="postTitle" class="form-control">
+			<!-- 말머리 선택 버튼 그룹 -->
+			<div class="mb-3 btn-group" role="group">
+			<% if(boardName.equals("movie")) {%>
+				<input type="hidden" name="postCategory" id="postCategory" value="1">
+				<button type="button" class="btn btn-outline-primary category-btn"
+					onclick="setCategory('1')">일반</button>
+				<button type="button" class="btn btn-outline-secondary category-btn"
+					onclick="setCategory('2')">신작</button>
+				<button type="button" class="btn btn-outline-success category-btn"
+					onclick="setCategory('3')">후기</button>
+				<button type="button" class="btn btn-outline-danger category-btn"
+					onclick="setCategory('4')">추천</button>
+				<button type="button" class="btn btn-outline-warning category-btn"
+					onclick="setCategory('5')">토론</button>
+				<button type="button" class="btn btn-outline-info category-btn"
+					onclick="setCategory('6')">해외</button>
+			<%} %>
 			</div>
 
-			<input type="hidden" name="userId" id="userId" value="<%= userId %>">
-			<input type="hidden" name="bn" id="bn" value="<%= request.getParameter("bn") %>">
+			<div class="mb-3">
+				<input type="text" name="postTitle" id="postTitle"
+					class="form-control" placeholder="제목을 입력하세요">
+			</div>
+
+			<input type="hidden" name="userId" id="userId" value="<%= request.getAttribute("userId") %>">
+			<input type="hidden" name="bn" id="bn"
+				value="<%= request.getParameter("bn") %>">
 
 			<div class="mb-3">
-				<textarea name="postText" class="form-control"></textarea>
+				<textarea name="postText" class="form-control"
+					placeholder="내용을 입력하세요"></textarea>
 			</div>
 
 			<div class="row">
@@ -319,6 +342,44 @@ body{
 			</div>
 		</form>
 	</div>
+
+	<script>
+    // 말머리 값을 설정하는 함수
+    function setCategory(category) {
+        document.getElementById('postCategory').value = category;
+        // 선택된 말머리 버튼 스타일 변경 (옵션)
+        // 여기에 코드 추가 가능
+    }
+    
+    
+    
+   //버튼 클릭 했을 때 색깔 나타나는 함수
+    function setCategory(category) {
+        // 모든 버튼의 'active' 클래스 제거
+        var buttons = document.getElementsByClassName('category-btn');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('active');
+        }
+
+        // 클릭된 버튼에 'active' 클래스 추가
+        var activeBtn = document.querySelector('.btn[onclick="setCategory(\'' + category + '\')"]');
+        if (activeBtn) {
+            activeBtn.classList.add('active');
+        }
+
+        document.getElementById('postCategory').value = category;
+    }
+
+
+    
+    
+</script>
+
+
+
+
+
+
 
 </body>
 </html>

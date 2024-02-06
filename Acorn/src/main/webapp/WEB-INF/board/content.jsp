@@ -426,16 +426,10 @@ body{
 <%
     } else {
 %>
-    <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>">
-        <button type="button" class="btn btn-action btn-spacing">글쓰기</button>
-    </a>
+    <a href="/Acorn/board/write?postId=<%=request.getParameter("postId")%>&bn=<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing">글쓰기</button></a>
 <%
     }
-%>
-
-
-
-    
+%> 
     <%
     String mismatchError = (String)request.getAttribute("mismatchError");
     System.out.println(mismatchError);
