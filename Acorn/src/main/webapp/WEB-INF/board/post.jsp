@@ -5,7 +5,10 @@
 <head>
 <%
 
+ 	String userId = (String)request.getAttribute("userId");
+
 		String boardName = request.getParameter("bn");
+
     %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -29,7 +32,7 @@
 <style>
 /* 검색창 너비 조절 */
 .searchInput {
-	width: 70vh; /* 너비를 100%로 설정하여 부모 요소의 전체 폭을 차지하도록 함 */
+   width: 70vh; /* 너비를 100%로 설정하여 부모 요소의 전체 폭을 차지하도록 함 */
 }
 
 /* 제목 입력란에 스타일을 적용하는 CSS 코드 */
@@ -67,9 +70,11 @@ body {
 	z-index: 1030; /* 다른 요소들 위에 표시되도록 z-index 설정 */
 }
 
-/* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
+
+    
+ /* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
 .container {
-	padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
+ padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
 }
 
 /* 반응형 그리드 시스템 */
@@ -144,18 +149,17 @@ body {
 
 /* 글씨체 적용 */
 @font-face {
-	font-family: 'Pretendard-Regular';
-	src:
-		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-		format('woff');
-	font-weight: 400;
-	font-style: normal;
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
-
-body {
+body{
 	font-family: 'Pretendard-Regular';
 }
 </style>
+
+
 <script>
   
 	
@@ -167,6 +171,38 @@ body {
 			$('form').submit(function(event) {
 				validateForm(event);
 			});
+			// 임시저장 버튼 클릭 시 호출되는 함수
+			$('#save').click(function(event) {
+			    event.preventDefault(); // 기본 이벤트 동작 방지
+			    
+			    // 제목과 내용을 가져옴
+			    var title = $('#postTitle').val();
+			    var content = tinymce.activeEditor.getContent();
+			    var content2 = $('#postText').text();
+			    var userId = "<%= userId %>";
+			    console.log(content);
+			    console.log(content2);
+			    
+			    // AJAX 요청
+			    $.ajax({
+			        type: 'POST',
+			        url: '/Acorn/board/save',
+			        data: {
+			            postTitle: title,
+			            postText: content,
+			            userId: userId
+			        },
+			        success: function(response) {
+			            // 성공 시 알림
+			            alert('게시글이 임시저장되었습니다.');
+			        },
+			        error: function(xhr, status, error) {
+			            // 실패 시 오류 메시지 출력
+			            console.error(xhr.responseText);
+			        }
+			    });
+			});
+			
 		});
 
 		// form 요소에서 submit 이벤트가 발생할 때 호출되는 함수
@@ -264,42 +300,26 @@ body {
 
 </head>
 <body>
-	<!-- 네비게이션바 -->
+	 <!-- 네비게이션바 -->
 	<jsp:include page="//common/navbar.jsp"></jsp:include>
-	<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            로고
-            <a class="navbar-brand" href="#">로고</a>
 
-            토글 버튼
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+	<div class="container mt-5 editor-wrapper">
+		<form method="post" action="/Acorn/board/write">
 
-            네비게이션 항목
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    검색 바
-                    <form class="d-flex w-100" >
-                        <input class="form-control me-2 searchInput" type="search" placeholder="검색" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">검색</button>
-                    </form>
-                </ul>
-                <ul class="navbar-nav">
-                    로그인, 마이페이지, 회원가입 버튼
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">로그인</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">마이페이지</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">회원가입</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav> -->
+			<div class="mb-3">
+				<input type="text" name="postTitle" id="postTitle" class="form-control">
+			</div>
+
+			<input type="hidden" name="userId" id="userId" value="<%= request.getAttribute("userId") %>">
+			<input type="hidden" name="bn" id="bn" value="<%= request.getParameter("bn") %>">
+
+			<div class="mb-3">
+				<textarea id="postText" name="postText" class="form-control"></textarea>
+			</div>
+
+			<div class="row">
+				<button type="button" class="btn btn-primary submit-button" id="save">임시저장</button>
+				<button type="submit" class="btn btn-primary submit-button" >작성</button>
 
 
 	<div class="container mt-5 editor-wrapper">
@@ -343,6 +363,7 @@ body {
 		</form>
 	</div>
 
+
 	<script>
     // 말머리 값을 설정하는 함수
     function setCategory(category) {
@@ -350,8 +371,7 @@ body {
         // 선택된 말머리 버튼 스타일 변경 (옵션)
         // 여기에 코드 추가 가능
     }
-    
-    
+
     
    //버튼 클릭 했을 때 색깔 나타나는 함수
     function setCategory(category) {
@@ -370,16 +390,7 @@ body {
         document.getElementById('postCategory').value = category;
     }
 
-
-    
-    
 </script>
-
-
-
-
-
-
 
 </body>
 </html>

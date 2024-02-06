@@ -11,6 +11,7 @@ import com.dto.board.LikeDTO;
 import com.dto.board.PageDTO;
 import com.dto.board.PostDTO;
 import com.dto.board.PostPageDTO;
+import com.dto.board.PostSaveDTO;
 
 public class PostDAO {
     
@@ -137,4 +138,11 @@ public class PostDAO {
 		MemberDTO member = session.selectOne("selectMember",userId);
 		return member;
 	}
+	
+	public int insertPostSave(SqlSession session, PostSaveDTO dto){
+		
+		return session.insert("insertPostSave", dto);
+	}
+	
+	
 }//end class

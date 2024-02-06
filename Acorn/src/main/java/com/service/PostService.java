@@ -12,6 +12,7 @@ import com.dto.board.LikeDTO;
 import com.dto.board.PageDTO;
 import com.dto.board.PostDTO;
 import com.dto.board.PostPageDTO;
+import com.dto.board.PostSaveDTO;
 
 public class PostService {
 	
@@ -272,6 +273,25 @@ public class PostService {
 		
 		return member;
 	}
+
+	public void insertPostSave(PostSaveDTO dto) {
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		try {
+			dao.insertPostSave(session, dto);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				session.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+	
+	//임시글 insert
+
 	
 	
 	
