@@ -17,17 +17,19 @@
             margin: 0;
             padding: 0;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            flex-direction: column; /* 기존에는 가운데 정렬이었으므로, 세로 방향으로 정렬하기 위해 추가 */
+           
         }
 
-        #for_Login {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+       #for_Login {
+		    background-color: white;
+		    padding: 20px;
+		    border-radius: 5px;
+		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		    margin: 100px auto; 
+		    width: 80%; 
+		    max-width: 440px; 
+		}
 
         table {
             width: 100%;
@@ -111,6 +113,11 @@
         #debugLink a:hover {
             color: #495057;
         }
+        
+        #header {
+			display: block;
+   		}
+		
     </style>
     <script type="text/javascript">
         $(function () {
@@ -184,12 +191,14 @@
                 // ID 공백 여부 확인
                 if (userId.trim() === "") {
                     alert("아이디를 입력하세요");
+                    $("#userId").focus();
                     return false;
                 }
 
                 // PW 공백 여부 확인
                 if (userPw.trim() === "") {
                     alert("비밀번호를 입력하세요");
+                    $("#userPw").focus();
                     return false;
                 }
                 
@@ -222,7 +231,7 @@
                 var showPW = $("#userPw");
                 showPW.attr("type", showPW.attr("type") == "password" ? "text" : "password");
             });
-			
+
 			//쿠키 만료일 지정
             function getCookieExpiration(days) {
                 var date = new Date();
@@ -258,12 +267,17 @@
 %>
 
 <body>
+
+<div id="header">
+    <jsp:include page="//common/navibarForMember.jsp"></jsp:include><br>
+</div>
+
     <div id="for_Login">
         <form id="loginForm" action="<%=request.getContextPath()%>/Mypage" method="post">
             <table>
                 <tr>
                     <td>아이디:</td>
-                    <td><input type="text" id="userId" name="userId" class="loginSet" pattern="[a-zA-Z0-9]{4,}"></td>
+                    <td><input type="text" id="userId" name="userId" class="loginSet" pattern="[a-zA-Z0-9]{4,}" autofocus></td>
 					<td><input type="checkbox" id="userIdSave" name="userIdSave" class="loginSet">아이디 저장</td>
                 </tr>
                 <tr>

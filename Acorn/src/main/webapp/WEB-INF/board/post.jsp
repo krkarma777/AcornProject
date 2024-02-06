@@ -4,7 +4,11 @@
 <html>
 <head>
 <%
+
  	String userId = (String)request.getAttribute("userId");
+
+		String boardName = request.getParameter("bn");
+
     %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -65,6 +69,7 @@ body {
 	width: 100%;
 	z-index: 1030; /* 다른 요소들 위에 표시되도록 z-index 설정 */
 }
+
 
     
  /* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
@@ -154,8 +159,7 @@ body{
 }
 </style>
 
-</head>
-<body>
+
 <script>
   
 	
@@ -167,7 +171,6 @@ body{
 			$('form').submit(function(event) {
 				validateForm(event);
 			});
-			
 			// 임시저장 버튼 클릭 시 호출되는 함수
 			$('#save').click(function(event) {
 			    event.preventDefault(); // 기본 이벤트 동작 방지
@@ -204,11 +207,9 @@ body{
 
 		// form 요소에서 submit 이벤트가 발생할 때 호출되는 함수
 		function validateForm(event) {
-			event.preventDefault();
 			// 제목과 내용을 가져옴
 			var titleInput = $('#postTitle');
 			var contentInput = $('textarea[name="postText"]');
-			console.log(contentInput);
 
 			 // 바이트 길이 계산 함수
 		    function getByteLength(str) {
@@ -240,7 +241,6 @@ body{
 			}
 
 		}
-		
 
 		tinymce
 				.init({
@@ -298,43 +298,10 @@ body{
 			});
 	</script>
 
-
+</head>
+<body>
 	 <!-- 네비게이션바 -->
-	 <jsp:include page="//common/navbar.jsp"></jsp:include>
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            로고
-            <a class="navbar-brand" href="#">로고</a>
-
-            토글 버튼
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            네비게이션 항목
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    검색 바
-                    <form class="d-flex w-100" >
-                        <input class="form-control me-2 searchInput" type="search" placeholder="검색" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">검색</button>
-                    </form>
-                </ul>
-                <ul class="navbar-nav">
-                    로그인, 마이페이지, 회원가입 버튼
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">로그인</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">마이페이지</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">회원가입</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav> -->
+	<jsp:include page="//common/navbar.jsp"></jsp:include>
 
 	<div class="container mt-5 editor-wrapper">
 		<form method="post" action="/Acorn/board/write">
@@ -353,9 +320,77 @@ body{
 			<div class="row">
 				<button type="button" class="btn btn-primary submit-button" id="save">임시저장</button>
 				<button type="submit" class="btn btn-primary submit-button" >작성</button>
+
+
+	<div class="container mt-5 editor-wrapper">
+		<form method="post" action="/Acorn/board/write">
+			<!-- 말머리 선택 버튼 그룹 -->
+			<div class="mb-3 btn-group" role="group">
+			<% if(boardName.equals("movie")) {%>
+				<input type="hidden" name="postCategory" id="postCategory" value="1">
+				<button type="button" class="btn btn-outline-primary category-btn"
+					onclick="setCategory('1')">일반</button>
+				<button type="button" class="btn btn-outline-secondary category-btn"
+					onclick="setCategory('2')">신작</button>
+				<button type="button" class="btn btn-outline-success category-btn"
+					onclick="setCategory('3')">후기</button>
+				<button type="button" class="btn btn-outline-danger category-btn"
+					onclick="setCategory('4')">추천</button>
+				<button type="button" class="btn btn-outline-warning category-btn"
+					onclick="setCategory('5')">토론</button>
+				<button type="button" class="btn btn-outline-info category-btn"
+					onclick="setCategory('6')">해외</button>
+			<%} %>
+			</div>
+
+			<div class="mb-3">
+				<input type="text" name="postTitle" id="postTitle"
+					class="form-control" placeholder="제목을 입력하세요">
+			</div>
+
+			<input type="hidden" name="userId" id="userId" value="<%= request.getAttribute("userId") %>">
+			<input type="hidden" name="bn" id="bn"
+				value="<%= request.getParameter("bn") %>">
+
+			<div class="mb-3">
+				<textarea name="postText" class="form-control"
+					placeholder="내용을 입력하세요"></textarea>
+			</div>
+
+			<div class="row">
+				<button type="submit" class="btn btn-primary submit-button">작성</button>
 			</div>
 		</form>
 	</div>
+
+
+	<script>
+    // 말머리 값을 설정하는 함수
+    function setCategory(category) {
+        document.getElementById('postCategory').value = category;
+        // 선택된 말머리 버튼 스타일 변경 (옵션)
+        // 여기에 코드 추가 가능
+    }
+
+    
+   //버튼 클릭 했을 때 색깔 나타나는 함수
+    function setCategory(category) {
+        // 모든 버튼의 'active' 클래스 제거
+        var buttons = document.getElementsByClassName('category-btn');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('active');
+        }
+
+        // 클릭된 버튼에 'active' 클래스 추가
+        var activeBtn = document.querySelector('.btn[onclick="setCategory(\'' + category + '\')"]');
+        if (activeBtn) {
+            activeBtn.classList.add('active');
+        }
+
+        document.getElementById('postCategory').value = category;
+    }
+
+</script>
 
 </body>
 </html>

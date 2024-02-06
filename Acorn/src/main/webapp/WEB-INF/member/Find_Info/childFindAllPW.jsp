@@ -140,13 +140,11 @@ button:hover {
          //핸드폰 번호를 찾는 질문일 때, 숫자 11자리가 아닌 경우, 경초창 + 이벤트 중지
          if (userInfo === "userPhoneNum" && !/^\d{11}$/.test(answer)) {
              alert("핸드폰 번호는 숫자 11자리여야 합니다.");
-             event.preventDefault();
              return false;
              
          //이메일 주소를 찾는 질문일 때, @가 포함되어 있지 않은 경우, 경초창 + 이벤트 중지
          } else if (userInfo === "userEmail" && !/@/.test(answer)) {
              alert("이메일 주소는 @를 포함해야 합니다.");
-             event.preventDefault();
              return false;
          } else {
              
@@ -216,7 +214,7 @@ button:hover {
             <option value="userPhoneNum">본인의 핸드폰 번호는?(숫자만 쓰시오)</option>
             <option value="userEmail">본인의 이메일 주소는?</option>
         </select>
-        <input type="text" id="userAnswer" name="userAnswer">
+        <input type="text" id="userAnswer" name="userAnswer" autofocus>
         <button id="check_answer" type="button" onclick="checkUserAnswer(event)">확인</button><br>
         <span id="confirmAnswerError"></span>
     </form>
