@@ -64,10 +64,10 @@ button:hover {
 		<h1>회원 확인 페이지</h1>
 		<form id="confirmForm" action="<%=request.getContextPath()%>/SearchUser" method="post">
 			<label for="name">성명</label> 
-			<input type="text" id="userName" name="userName" required> 
+			<input type="text" id="userName" name="userName" required autofocus> 
 			<label for="ssn1">주민등록번호</label>
 			<div class="ssnContainer">
-				<input type="number" class="ssn" id="ssn1" name="ssn1" maxlength="6" required>
+				<input type="text" class="ssn" id="ssn1" name="ssn1" maxlength="6" required>
 				- <input type="password" class="ssn" id="ssn2" name="ssn2" maxlength="7" required><br>
 			</div>
 			<button type="submit">확인</button>
@@ -94,8 +94,7 @@ button:hover {
     			}
         		
         		//SSN2의 첫 숫자 확인(1~4) + 길이 확인
-        		var ssn2FirstNum = parseInt($("#ssn2").val().charAt(0));
-        		if (ssn2FirstNum < 1 || ssn2FirstNum > 4 || $("#ssn2").val().length != 7) {
+        		if ($("#ssn2").val().length != 7) {
         			alert("주민등록번호를 확인해주세요");
     				$("#ssn2").val('').focus();
     				return false;
@@ -108,10 +107,32 @@ button:hover {
     			var maxLength = 6;
     			if ($(this).val().length >= maxLength) {
     				$(this).val($(this).val().slice(0, maxLength));
+    				$("#ssn2").val("");
     				$("#ssn2").focus();
     			}
     		});
 		})
+		
+		//ssn1 숫자로 입력 제한
+		$("#ssn1").on("input", function () {
+				
+			if (!/^\d*$/.test($(this).val())) {
+				alert("숫자만 입력 가능합니다.");
+				$(this).val("");
+				$(this).focus();
+			}
+		});
+
+		//ssn2 숫자로 입력 제한
+		$("#ssn2").on("input", function () {
+			
+			if (!/^\d*$/.test($(this).val())) {
+				alert("숫자만 입력 가능합니다.");
+				$(this).val("");
+				$(this).focus();
+			}
+		});
+		
 		
 		
 	</script>

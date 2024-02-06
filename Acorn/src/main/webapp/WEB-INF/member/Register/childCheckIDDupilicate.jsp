@@ -67,7 +67,7 @@
 <body>
     <form id="confirmForm">
         <label for="confirmUserId">아이디 (영어 + 숫자, 최소 4글자):</label>
-        <input type="text" id="confirmUserId" name="confirmUserId" pattern="[a-zA-Z0-9]{4,}" required>
+        <input type="text" id="confirmUserId" name="confirmUserId" pattern="[a-zA-Z0-9]{4,}" required autofocus>
         <button id="check_id" type="button" onclick="checkDuplicate()">확인</button><br>
         <span id="confirmIdError"></span>
     </form>
