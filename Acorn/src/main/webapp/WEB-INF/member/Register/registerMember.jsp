@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 가입</title>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"/>
 <style>
 body {
 	font-family: 'Arial', sans-serif;
@@ -419,14 +419,12 @@ button {
 			
 			if ($(".loadingSpinner").is(":visible")) {
                 alert("잠시만 기다려주세요");
-                event.preventDefault();
                 return false;
             }
 			
 			//아이디가 공백이면 경고창 + 전송 중지 + 아이디 새창 버튼 focus
 			if($("#userId").val() == ""){
 				alert("아이디를 입력해주세요");
-				event.preventDefault();
 				$("#userIdButton").focus();
 				return false;
 			}
@@ -439,7 +437,6 @@ button {
 			if (password !== confirmPassword) {
 				$("#pwMismatch").text("입력한 비밀번호가 일치하지 않습니다.");
 				alert("비밀번호 일치 여부를 확인해주세요");
-				event.preventDefault();
 				$("#userPw").focus();
 				return false;
 			} else {
@@ -449,7 +446,6 @@ button {
 			//닉네임 중복 ajax가 출력된 경우, 경고창 + 전송 중지 + 닉네임 focus
 			if($("#confirmNicknameError").text() != ""){
 				alert("닉네임 중복 여부를 확인해주세요");
-				event.preventDefault();
 				$("#nickname").focus();
 				return false;
 			}
@@ -461,7 +457,6 @@ button {
 			if (!isNumeric(phoneNum2) || !isNumeric(phoneNum3)) {
 				$("#confirmPhoneNumError_notNumber").text("핸드폰 번호에는 숫자만 입력해주세요.");
 				alert("핸드폰 번호를 확인해주세요");
-				event.preventDefault();
 				$("#userPhoneNum2").focus();
 				return false;
 			} else {
@@ -471,7 +466,6 @@ button {
 			//핸드폰 번호 중복 ajax가 출력된 경우, 경고창 + 전송 중지 + 핸드폰 번호 focus
 			if($("#confirmPhoneNumError").text() != ""){
 				alert("핸드폰 번호 중복 여부를 확인해주세요");
-				event.preventDefault();
 				$("#userPhoneNum2").focus();
 				return false;
 			}
@@ -480,7 +474,6 @@ button {
 			//이메일 아이디에 영어나 숫자가 아닌 문자가 들어간 경우, 경고창 + 전송 중지 + 이메일 아이디 focus
 			if($("#confirmUserEmailError").text() != "" || $("#confirmUserEmailIdError").text() != ""){
 				alert("이메일을 재검토해주세요");
-				event.preventDefault();
 				$("#userEmailId").focus();
 				return false;
 			}
