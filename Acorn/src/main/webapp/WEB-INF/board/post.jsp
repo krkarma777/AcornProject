@@ -348,12 +348,7 @@ body{
 
 
 	<script>
-    // 말머리 값을 설정하는 함수
-    function setCategory(category) {
-        document.getElementById('postCategory').value = category;
-        // 선택된 말머리 버튼 스타일 변경 (옵션)
-        // 여기에 코드 추가 가능
-    }
+
 
     
    //버튼 클릭 했을 때 색깔 나타나는 함수

@@ -21,6 +21,7 @@ public class BoardWriteController implements BoardController {
         String userId = paramMap.get("userId");
         model.put("userId", userId);
 
+
         // 처음 접속시 post.jsp로 리다이렉트
         if (postTitle == null) {
             return "board/post";
@@ -28,11 +29,11 @@ public class BoardWriteController implements BoardController {
 
         // PostDTO 객체 생성 및 데이터 설정
         PostDTO post = createPostDTO(paramMap);
-
+        System.out.println("1");
         // PostService를 통해 글 작성 요청 처리
         PostService service = new PostService();
         Long postId = service.insertContent(post); // insertContent 메서드에서 자동 생성된 postId를 반환
-
+        System.out.println("2");
         // 작성된 글로 리다이렉트
         String postBoard = paramMap.get("bn"); // 게시판 이름 파라미터
         String redirectURL = String.format("/Acorn/board/content?postId=%d&bn=%s", postId, postBoard);
