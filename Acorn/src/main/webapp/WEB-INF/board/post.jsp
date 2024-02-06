@@ -303,24 +303,6 @@ body{
 	 <!-- 네비게이션바 -->
 	<jsp:include page="//common/navbar.jsp"></jsp:include>
 
-	<div class="container mt-5 editor-wrapper">
-		<form method="post" action="/Acorn/board/write">
-
-			<div class="mb-3">
-				<input type="text" name="postTitle" id="postTitle" class="form-control">
-			</div>
-
-			<input type="hidden" name="userId" id="userId" value="<%= request.getAttribute("userId") %>">
-			<input type="hidden" name="bn" id="bn" value="<%= request.getParameter("bn") %>">
-
-			<div class="mb-3">
-				<textarea id="postText" name="postText" class="form-control"></textarea>
-			</div>
-
-			<div class="row">
-				<button type="button" class="btn btn-primary submit-button" id="save">임시저장</button>
-				<button type="submit" class="btn btn-primary submit-button" >작성</button>
-
 
 	<div class="container mt-5 editor-wrapper">
 		<form method="post" action="/Acorn/board/write">
@@ -359,6 +341,7 @@ body{
 
 			<div class="row">
 				<button type="submit" class="btn btn-primary submit-button">작성</button>
+				<button type="button" class="btn btn-primary submit-button" id="save">임시저장</button>
 			</div>
 		</form>
 	</div>
