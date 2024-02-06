@@ -663,7 +663,7 @@ $(document).keydown(function(e) {
 			%>
 			<div class="row">
 				<div class="col-md-1"><%= i+1 %></div><!-- 순위  -->
-				<div class="col-md-2">일반</div>
+				<div class="col-md-2"><%= post.getCategoryName() %></div>
 				<div class="col-md-7">
 				<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>" class="post-title">
 				<%=post.getPostTitle()%></a>
@@ -693,10 +693,11 @@ $(document).keydown(function(e) {
 			List<PostPageDTO> plcList = (List<PostPageDTO>)request.getAttribute("popularListCategory");
 			for(int i = 0; i < plcList.size(); i++) {
 				PostPageDTO post = plcList.get(i);
+				String postCategory = post.getCategoryName();
 			%>
 			<div class="row">
 				<div class="col-md-1"><%= i+1 %></div><!-- 순위  -->
-				<div class="col-md-2">일반</div>
+				<div class="col-md-2"><%= postCategory %></div>
 				<div class="col-md-7">
 				<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>" class="post-title">
 
@@ -800,13 +801,23 @@ $(document).keydown(function(e) {
 						</div>
 					</div>
 
+
 					<div class="btn-group" role="group" aria-label="Category Tabs">
-					     <a href="/Acorn/board/<%=postBoard%>?category=Free" class="btn">일반</a>
-					     <a href="/Acorn/board/<%=postBoard%>?category=NewReleases" class="btn">신작</a>
-					     <a href="/Acorn/board/<%=postBoard%>?category=Reviews" class="btn">후기</a>
-					     <a href="/Acorn/board/<%=postBoard%>?category=Recommendations" class="btn">추천</a>
-					     <a href="/Acorn/board/<%=postBoard%>?category=Discussions" class="btn">토론</a>
-					     <a href="/Acorn/board/<%=postBoard%>?category=Overseas" class="btn">해외</a>
+					     <a href="/Acorn/board/<%=postBoard%>?pc=1<% 
+					if(request.getParameter("selectSearchPositionText") != null && request.getParameter("inputSearchFreeText") != null)
+							{
+						String sp = request.getParameter("selectSearchPositionText");
+						String it = request.getParameter("inputSearchFreeText");
+					
+					%>&inputSearchFreeText=<%= it %>&selectSearchPositionText=<%= sp %>
+					     <%
+					     }; %>
+					     " class="btn">일반</a>
+					     <a href="/Acorn/board/<%=postBoard%>?pc=2" class="btn">신작</a>
+					     <a href="/Acorn/board/<%=postBoard%>?pc=3" class="btn">후기</a>
+					     <a href="/Acorn/board/<%=postBoard%>?pc=4" class="btn">추천</a>
+					     <a href="/Acorn/board/<%=postBoard%>?pc=5" class="btn">토론</a>
+					     <a href="/Acorn/board/<%=postBoard%>?pc=6" class="btn">해외</a>
 					</div>
 					
 					
@@ -845,7 +856,7 @@ $(document).keydown(function(e) {
 							class="list-group-item list-group-item-action"
 							style="background-color: #dff0d8;">
 							<div class="row">
-								<div class="col-md-1 text-center-align">일반</div>
+								<div class="col-md-1 text-center-align"><%= post.getCategoryName() %></div>
 								<div class="col-md-6">
 								<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
 					               class="post-title">
@@ -930,7 +941,7 @@ $(document).keydown(function(e) {
 					%>
 					<div class="list-group-item list-group-item-action">
 					    <div class="row">
-					        <div class="col-md-1 text-center-align">일반</div>
+					        <div class="col-md-1 text-center-align"><%= post.getCategoryName() %></div>
 					        <div class="col-md-6">
 					            <a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
 					               class="post-title">

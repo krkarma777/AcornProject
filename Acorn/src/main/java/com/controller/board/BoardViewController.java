@@ -30,6 +30,8 @@ public class BoardViewController implements BoardController {
             curPage = Integer.parseInt(curPageStr);
         }
 
+        String postCategoryId = paramMap.get("pc");
+        
         // 페이지당 게시글 수 설정
         int perPage = 20;
         int offset = (curPage - 1) * perPage;
@@ -43,6 +45,7 @@ public class BoardViewController implements BoardController {
         map.put("offset", offset);
         map.put("perPage", perPage);
         map.put("curPage", curPage);
+        map.put("postCategoryId", postCategoryId);
 
         // 검색 조건 추가
         searchBoard(paramMap, map);

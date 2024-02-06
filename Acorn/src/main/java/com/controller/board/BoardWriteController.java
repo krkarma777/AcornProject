@@ -44,6 +44,7 @@ public class BoardWriteController implements BoardController {
         post.setPostTitle(paramMap.get("postTitle"));
         post.setPostText(paramMap.get("postText"));
         post.setPostBoard(paramMap.get("bn"));
+        post.setCategoryId(Long.parseLong(paramMap.get("postCategory")));
         return post;
     }
 }
