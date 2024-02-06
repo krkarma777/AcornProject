@@ -186,5 +186,11 @@
 	<select id="selectMember" parameterType="string" resultType="MemberDTO">
 	select * from MemberDB where userId = #{userId}
 	</select>
-
+	
+	<!-- 게시글 임시저장 insert -->
+	<insert id="insertPostSave">
+		INSERT INTO postSaveDB (postSaveId, userId, postSaveTitle, postSaveText, postSaveDate ) 
+		VALUES (postSaveIdseq.NEXTVAL, #{userId}, #{postSaveTitle}, #{postSaveText}, SYSDATE )
+	</insert>
+	
 </mapper>

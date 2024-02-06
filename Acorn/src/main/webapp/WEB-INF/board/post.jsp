@@ -4,9 +4,7 @@
 <html>
 <head>
 <%
-        // 글쓴 유저 id 실제 db에서 뽑아올 예정 
-        String userId = "zz";
-    
+ 	String userId = (String)request.getAttribute("userId");
     %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -155,6 +153,9 @@ body{
 	font-family: 'Pretendard-Regular';
 }
 </style>
+
+</head>
+<body>
 <script>
   
 	
@@ -166,13 +167,48 @@ body{
 			$('form').submit(function(event) {
 				validateForm(event);
 			});
+			
+			// 임시저장 버튼 클릭 시 호출되는 함수
+			$('#save').click(function(event) {
+			    event.preventDefault(); // 기본 이벤트 동작 방지
+			    
+			    // 제목과 내용을 가져옴
+			    var title = $('#postTitle').val();
+			    var content = tinymce.activeEditor.getContent();
+			    var content2 = $('#postText').text();
+			    var userId = "<%= userId %>";
+			    console.log(content);
+			    console.log(content2);
+			    
+			    // AJAX 요청
+			    $.ajax({
+			        type: 'POST',
+			        url: '/Acorn/board/save',
+			        data: {
+			            postTitle: title,
+			            postText: content,
+			            userId: userId
+			        },
+			        success: function(response) {
+			            // 성공 시 알림
+			            alert('게시글이 임시저장되었습니다.');
+			        },
+			        error: function(xhr, status, error) {
+			            // 실패 시 오류 메시지 출력
+			            console.error(xhr.responseText);
+			        }
+			    });
+			});
+			
 		});
 
 		// form 요소에서 submit 이벤트가 발생할 때 호출되는 함수
 		function validateForm(event) {
+			event.preventDefault();
 			// 제목과 내용을 가져옴
 			var titleInput = $('#postTitle');
 			var contentInput = $('textarea[name="postText"]');
+			console.log(contentInput);
 
 			 // 바이트 길이 계산 함수
 		    function getByteLength(str) {
@@ -204,6 +240,7 @@ body{
 			}
 
 		}
+		
 
 		tinymce
 				.init({
@@ -261,8 +298,7 @@ body{
 			});
 	</script>
 
-</head>
-<body>
+
 	 <!-- 네비게이션바 -->
 	 <jsp:include page="//common/navbar.jsp"></jsp:include>
     <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -307,15 +343,16 @@ body{
 				<input type="text" name="postTitle" id="postTitle" class="form-control">
 			</div>
 
-			<input type="hidden" name="userId" id="userId" value="<%= userId %>">
+			<input type="hidden" name="userId" id="userId" value="<%= request.getAttribute("userId") %>">
 			<input type="hidden" name="bn" id="bn" value="<%= request.getParameter("bn") %>">
 
 			<div class="mb-3">
-				<textarea name="postText" class="form-control"></textarea>
+				<textarea id="postText" name="postText" class="form-control"></textarea>
 			</div>
 
 			<div class="row">
-				<button type="submit" class="btn btn-primary submit-button">작성</button>
+				<button type="button" class="btn btn-primary submit-button" id="save">임시저장</button>
+				<button type="submit" class="btn btn-primary submit-button" >작성</button>
 			</div>
 		</form>
 	</div>
