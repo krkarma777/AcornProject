@@ -17,29 +17,26 @@ public class BoardEditController implements BoardController {
 	@Override
 	public String process(Map<String, String> paramMap, Map<String, Object> model) {
 		// 이 메소드는 게시물 수정 요청을 처리합니다.
-
 		// 로그인 여부 확인
 		if (!AuthUtils.isUserLoggedIn(paramMap)) {
 			return "redirect:/Acorn/Login";
 		}
 		// 사용자가 로그인했는지 확인하고, 로그인하지 않았으면 로그인 페이지로 리다이렉트합니다.
-
 		try {
 			// postId 파싱 및 검증
 			Long postId = parseAndValidatePostId(paramMap.get("postId"));
 			// 사용자가 전달한 'postId' 매개변수를 분석하고 유효한지 확인합니다.
-
 			// 게시글 정보 조회
 			PostDTO post = fetchPost(postId, model);
 			if (post == null)
 				return ERROR_PAGE;
 			// 해당 ID의 게시글을 데이터베이스에서 조회합니다. 게시글이 없으면 에러 페이지로 이동합니다.
-
 			// 사용자 권한 검증
 			if (!AuthUtils.isUserAuthorized(post, paramMap))
 				return ERROR_PAGE;
 			// 게시글을 수정할 수 있는 사용자인지 확인합니다. 권한이 없으면 에러 페이지로 이동합니다.
-
+			model.put("userId", paramMap.get("userId"));
+			
 			// 게시글 수정 또는 수정 페이지 로드 처리
 			return processEditOrRedirect(postId, paramMap, model, post);
 			// 게시글을 수정하거나 수정 페이지로 리다이렉트하는 로직을 처리합니다.
@@ -75,7 +72,8 @@ public class BoardEditController implements BoardController {
 			model.put("post", post);
 			return "board/edit";
 		} else {
-			new PostService().update(postId, postTitle, postText);
+			Long postCategory = Long.parseLong(paramMap.get("postCategory"));
+			new PostService().update(postId, postTitle, postText, postCategory);
 			return String.format("redirect:/Acorn/board/content?postId=%d&bn=%s", postId, postBoard);
 		}
 	}

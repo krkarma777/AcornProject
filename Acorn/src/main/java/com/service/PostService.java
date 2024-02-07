@@ -126,11 +126,11 @@ public class PostService {
     }
     
     // 글 수정
-    public void update(Long postId, String updatedTitle, String updatedContent) {
+    public void update(Long postId, String updatedTitle, String updatedContent, Long postCategory) {
         SqlSession session = MySqlSessionFactory.getSqlSession();
         try {
             // 글 수정 메서드 호출
-            dao.updateContent(session, postId, updatedTitle, updatedContent);
+            dao.updateContent(session, postId, updatedTitle, updatedContent, postCategory);
             session.commit();
         } catch (Exception e) {
             e.printStackTrace();

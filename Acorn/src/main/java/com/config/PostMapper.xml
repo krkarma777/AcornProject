@@ -94,6 +94,7 @@
         UPDATE postdb
         SET postTitle = #{updatedTitle},
             postText = #{updatedContent},
+            CATEGORYID = #{postCategory},
             postEditDate = SYSTIMESTAMP
         WHERE postId = #{postId}
     </update>

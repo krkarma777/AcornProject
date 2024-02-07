@@ -80,11 +80,12 @@ public class PostDAO {
      * @param updatedTitle   업데이트할 게시물 제목
      * @param updatedContent 업데이트할 게시물 내용
      */
-    public void updateContent(SqlSession session, Long postId, String updatedTitle, String updatedContent) {
+    public void updateContent(SqlSession session, Long postId, String updatedTitle, String updatedContent, Long postCategory) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("postId", postId);
         paramMap.put("updatedTitle", updatedTitle);
         paramMap.put("updatedContent", updatedContent);
+        paramMap.put("postCategory", postCategory);
 
         session.update("updateContent", paramMap);
     }

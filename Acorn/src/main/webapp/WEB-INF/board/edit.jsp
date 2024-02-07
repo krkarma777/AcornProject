@@ -5,8 +5,11 @@
 <html>
 <head>
 <%
-// 글쓴 유저 id 실제 db에서 뽑아올 예정 
-String userId = "zz";
+
+ 	String userId = (String)request.getAttribute("userId");
+
+		String boardName = request.getParameter("bn");
+		System.out.println(boardName);
 
 // 수정할 글의 정보를 받아옵니다.
 PostDTO post = (PostDTO) request.getAttribute("post");
@@ -145,8 +148,47 @@ body{
 }
 </style>
 <script>
-  
+//jQuery를 사용한 입력란 이벤트 처리
+$(document).ready(function() {
+
+	// 폼 제출 시 validateForm 함수 호출
+	$('form').submit(function(event) {
+		validateForm(event);
+	});
+	// 임시저장 버튼 클릭 시 호출되는 함수
+	$('#save').click(function(event) {
+	    event.preventDefault(); // 기본 이벤트 동작 방지
+	    
+	    // 제목과 내용을 가져옴
+	    var title = $('#postTitle').val();
+	    var content = tinymce.activeEditor.getContent();
+	    var content2 = $('#postText').text();
+	    var userId = "<%= userId %>";
+	    console.log(content);
+	    console.log(content2);
+	    
+	    // AJAX 요청
+	    $.ajax({
+	        type: 'POST',
+	        url: '/Acorn/board/save',
+	        data: {
+	            postTitle: title,
+	            postText: content,
+	            userId: userId
+	        },
+	        success: function(response) {
+	            // 성공 시 알림
+	            alert('게시글이 임시저장되었습니다.');
+	        },
+	        error: function(xhr, status, error) {
+	            // 실패 시 오류 메시지 출력
+	            console.error(xhr.responseText);
+	        }
+	    });
+	});
 	
+});
+
     
 	 // jQuery를 사용한 입력란 이벤트 처리
 		$(document).ready(function() {
@@ -291,6 +333,24 @@ body{
 
 	<div class="container mt-5 editor-wrapper">
 		<form method="post" action="/Acorn/board/edit" onsubmit="return validateForm();">
+					<!-- 말머리 선택 버튼 그룹 -->
+			<div class="mb-3 btn-group" role="group">
+			<% if(boardName.equals("movie")) {%>
+				<input type="hidden" name="postCategory" id="postCategory" value="<%= post.getCategoryId()%>">
+				<button type="button" class="btn btn-outline-primary category-btn"
+					onclick="setCategory('1')">일반</button>
+				<button type="button" class="btn btn-outline-secondary category-btn"
+					onclick="setCategory('2')">신작</button>
+				<button type="button" class="btn btn-outline-success category-btn"
+					onclick="setCategory('3')">후기</button>
+				<button type="button" class="btn btn-outline-danger category-btn"
+					onclick="setCategory('4')">추천</button>
+				<button type="button" class="btn btn-outline-warning category-btn"
+					onclick="setCategory('5')">토론</button>
+				<button type="button" class="btn btn-outline-info category-btn"
+					onclick="setCategory('6')">해외</button>
+			<%} %>
+			</div>
 			<div class="mb-3">
 				<input type="text" name="postTitle" id="postTitle" class="form-control" value="<%= post.getPostTitle() %>">
 			</div>
@@ -305,9 +365,54 @@ body{
 
 			<div class="row">
 				<button type="submit" class="btn btn-primary submit-button">수정 완료</button>
+				<button type="button" class="btn btn-primary submit-button" id="save">임시저장</button>
 			</div>
 		</form>
 	</div>
+<script>
+$(document).ready(function() {
+    // 해당 카테고리 버튼에 'active' 클래스 추가
+    setActiveCategory();
 
+    function setActiveCategory() {
+        var categoryId = "<%= post.getCategoryId() %>"; // JSP에서 카테고리 ID 가져오기
+        setCategory(categoryId); // 카테고리 설정 함수 호출
+    }
+
+
+    //버튼 클릭 했을 때 색깔 나타나는 함수
+     function setCategory(category) {
+         // 모든 버튼의 'active' 클래스 제거
+         var buttons = document.getElementsByClassName('category-btn');
+         for (var i = 0; i < buttons.length; i++) {
+             buttons[i].classList.remove('active');
+         }
+
+         // 클릭된 버튼에 'active' 클래스 추가
+         var activeBtn = document.querySelector('.btn[onclick="setCategory(\'' + category + '\')"]');
+         if (activeBtn) {
+             activeBtn.classList.add('active');
+         }
+
+         document.getElementById('postCategory').value = category;
+     }
+});
+
+function setCategory(category) {
+    // 모든 버튼의 'active' 클래스 제거
+    var buttons = document.getElementsByClassName('category-btn');
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+    }
+
+    // 클릭된 버튼에 'active' 클래스 추가
+    var activeBtn = document.querySelector('.btn[onclick="setCategory(\'' + category + '\')"]');
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+    }
+
+    document.getElementById('postCategory').value = category;
+}
+</script>
 </body>
 </html>
