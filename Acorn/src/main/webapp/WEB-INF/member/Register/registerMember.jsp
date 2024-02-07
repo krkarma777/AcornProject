@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 가입</title>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"/>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <style>
 body {
 	font-family: 'Arial', sans-serif;
