@@ -28,10 +28,7 @@ public class AdminMainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//RequestDispatcher dis = request.getRequestDispatcher("AdminPage/AdminPageMain.jsp");
-		//dis.forward(request, response);
-		//String ContentPage = "../AdminBoardServlet";
-		//request.setAttribute("ContentPage", ContentPage);
+
 		response.sendRedirect("AdminPage/AdminPageMain.jsp");
 	}
 
