@@ -13,9 +13,9 @@
 </script>
 </head>
 <body>
-관리자페이지 신고된 회원관리 Content
+관리자페이지 회원등급관리Content
 <hr>
-<form action = "#">
+<form action = "../AdminMemberServlet">
 	<select name = "SearchCondition">
 		<option value = "userid" class = "SearchStandard">회원ID</option>
 		<option value = "nickName" class = "SearchStandard">회원닉네임</option>
@@ -27,35 +27,26 @@
 	<hr>
 	<table border = "1">
 		<tr>
-			<th rowspan = "2">신고번호</th>
-			<th rowspan = "2">신고대상</th>
-			<th rowspan = "2">신고자</th>
-			<th colspan = "5">신고사유</th>
-			<th rowspan = "2">신고내용</th>
-		</tr>
-		<tr>
-			<th>음란물</th>
-			<th>언어</th>
-			<th>도배</th>
-			<th>규정위반</th>
-			<th>기타</th>
+			<th>회원ID</th>
+			<th>회원닉네임</th>
+			<th>등급</th>
+			<th>조치</th>
 		</tr>
 		<%
 		if (list ==null){
 		%>
 		<tr>
-		<td colspan = "9">검색조건을 입력하십시오</td>
+		<td colspan = "5">검색조건을 입력하십시오</td>
 		</tr>
 		<%
 		}else{
 			for(AdminMemberDTO dto : list){
 		%>
 				<tr>
-					<td><a href = "#"></a></td>
-					<td><%=dto.getNickname() %></td>
 					<td></td>
 					<td></td>
-					<td><input type = "button" value = "정지"><input type = "button" value = "강퇴"></td>
+					<td></td>
+					<td></td>
 				</tr>
 			<%} %>
 		<%} %>
