@@ -1,6 +1,8 @@
 package com.dto;
 
-public class MemberDTO {
+import java.io.Serializable;
+
+public class MemberDTO implements Serializable{
 	private String userId;
 	private String userPw;
 	private String userName;

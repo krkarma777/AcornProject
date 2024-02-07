@@ -189,7 +189,7 @@ button {
 
 		
 		//닉네임 중복 확인
-		$("#nickname").on("input", function() {
+		$("#nickname").on("focusout", function() {
 			var nickname = $("#nickname").val();
 		    var errorSpan = $("#confirmNicknameError");
 			
@@ -247,7 +247,7 @@ button {
 		
 		
 		//핸드폰 번호 중복 확인
-		$(".phoneNum").on("input", function() {
+		$(".phoneNum").on("focusout", function() {
 		    var userPhoneNum1 = $("#userPhoneNum1").val();
 		    var userPhoneNum2 = $("#userPhoneNum2").val();
 		    var userPhoneNum3 = $("#userPhoneNum3").val();
@@ -326,7 +326,7 @@ button {
 		
 	    
 		//이메일 중복 확인(아이디/도메인을 입력할 경우)
-		$(".userEmail").on("input", function() {
+		$(".userEmail").on("focusout", function() {
 		    var userEmailId = $("#userEmailId").val();
 		    var userEmailDomain = $("#userEmailDomain").val();
 		    var errorSpan = $("#confirmUserEmailError");

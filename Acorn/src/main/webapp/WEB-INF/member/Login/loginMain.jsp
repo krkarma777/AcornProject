@@ -11,6 +11,12 @@
     <title>Login Page</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
+    	.warning-icon {
+            font-size: 20px;
+            margin-right: 8px;
+            color: #856404;
+        }
+    
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -254,6 +260,7 @@
             // 쿠키가 존재하면 아이디 입력란에 표시
             if (savedUserId) {
                 $("#userId").val(savedUserId);
+                $("#userIdSave").prop("checked", true);
             }
             
         });	//$("#showPasswd").click(function ()
@@ -278,7 +285,9 @@
                 <tr>
                     <td>아이디:</td>
                     <td><input type="text" id="userId" name="userId" class="loginSet" pattern="[a-zA-Z0-9]{4,}" autofocus></td>
-					<td><input type="checkbox" id="userIdSave" name="userIdSave" class="loginSet">아이디 저장</td>
+					<td><input type="checkbox" id="userIdSave" name="userIdSave" class="loginSet">아이디 저장<br>
+						<input type="checkbox" id="autoLogin" name="autoLogin">자동로그인<br>
+						<span class="warning-icon">&#9888;</span>공사중<span class="warning-icon">&#9888;</span></td>
                 </tr>
                 <tr>
                 </tr>
