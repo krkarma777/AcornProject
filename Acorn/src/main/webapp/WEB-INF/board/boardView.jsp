@@ -851,12 +851,38 @@ $(document).keydown(function(e) {
 						if (hotList != null) {
 							for (PostPageDTO post : hotList) {
 								String displayDate = cdf.minuteHourDay(post);
+								String categoryName=post.getCategoryName();
+								
+								
+								String poscCategoryId = null;
+								
+								 switch(categoryName) {
+						            case "일반":
+						            	poscCategoryId="1";
+						                break;
+						            case "신작":
+						            	poscCategoryId="2";
+						                break;
+						            case "후기":
+						            	poscCategoryId="3";
+						                break;
+						            case "추천":
+						            	poscCategoryId="4";
+						            	break;
+						            case "토론":
+						            	poscCategoryId="5";
+						            	break;
+						            case "해외":
+						            	poscCategoryId="6";
+						            	break;	
+						            
+						        }
 						%>
 						<div
 							class="list-group-item list-group-item-action"
 							style="background-color: #dff0d8;">
 							<div class="row">
-								<div class="col-md-1 text-center-align"><%= post.getCategoryName() %></div>
+								<div class="col-md-1 text-center-align"><a href="/Acorn/board/<%=postBoard%>?pc=<%=poscCategoryId %>" class="font-black no-underline"><%= categoryName %></a></div>
 								<div class="col-md-6">
 								<a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
 					               class="post-title">
@@ -935,13 +961,43 @@ $(document).keydown(function(e) {
 							<span class='no-underline font-black'>▲</span>
 						</button>
 					</div>
+					
+					
+					
+
+
 
 					<%
 					for (PostPageDTO post : list) {
+						String categoryName=post.getCategoryName();
+						String poscCategoryId = null;
+						
+						 switch(categoryName) {
+				            case "일반":
+				            	poscCategoryId="1";
+				                break;
+				            case "신작":
+				            	poscCategoryId="2";
+				                break;
+				            case "후기":
+				            	poscCategoryId="3";
+				                break;
+				            case "추천":
+				            	poscCategoryId="4";
+				            	break;
+				            case "토론":
+				            	poscCategoryId="5";
+				            	break;
+				            case "해외":
+				            	poscCategoryId="6";
+				            	break;	
+				            
+				        }
+						
 					%>
 					<div class="list-group-item list-group-item-action">
 					    <div class="row">
-					        <div class="col-md-1 text-center-align"><%= post.getCategoryName() %></div>
+					        <div class="col-md-1 text-center-align"><a href="/Acorn/board/<%=postBoard%>?pc=<%=poscCategoryId %>" class="font-black no-underline"><%= categoryName %></a></div>
 					        <div class="col-md-6">
 					            <a href="/Acorn/board/content?postId=<%=post.getPostId()%>&bn=<%=postBoard%>"
 					               class="post-title">
