@@ -5,6 +5,9 @@
 
 <!-- 아이디 찾기 페이지의 jsp -->
 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member/ID.css">
+
+
 <head>
 <meta charset="UTF-8">
 <title>Find ID</title>
@@ -61,64 +64,6 @@
 
 	});
 </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        form {
-            text-align: center;
-        }
-
-        input {
-            margin-bottom: 10px;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        input[type="submit"] {
-            background-color: #007BFF;
-            color: white;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        #sitesShortCut {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        #sitesShortCut a {
-            text-decoration: none;
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        #sitesShortCut a:hover {
-            background-color: #0056b3;
-        }
-    </style>
 
 </head>
 

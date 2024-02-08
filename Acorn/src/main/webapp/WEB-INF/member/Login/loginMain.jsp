@@ -6,125 +6,13 @@
 
 <!--로그인 메인 페이지의 html-->
 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member/Main.css">
+
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <style>
-    	.warning-icon {
-            font-size: 20px;
-            margin-right: 8px;
-            color: #856404;
-        }
     
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column; /* 기존에는 가운데 정렬이었으므로, 세로 방향으로 정렬하기 위해 추가 */
-           
-        }
-
-       #for_Login {
-		    background-color: white;
-		    padding: 20px;
-		    border-radius: 5px;
-		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		    margin: 100px auto; 
-		    width: 80%; 
-		    max-width: 480px; 
-		}
-
-        table {
-            width: 100%;
-        }
-
-        table tr {
-            margin-bottom: 10px;
-        }
-
-        table td {
-            padding: 10px;
-        }
-
-        #showPasswd {
-            background-color: #007BFF;
-            color: white;
-            padding: 8px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        #showPasswd:hover {
-            background-color: #0056b3;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: #28a745;
-            color: white;
-            padding: 15px 20px; /* 크기 조절 */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-
-        }
-
-        input[type="submit"]:hover {
-			width: 100%;
-            background-color: #218838;
-        }
-
-        #sitesShortCut {
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        #sitesShortCut a {
-            text-decoration: none;
-            background-color: #007BFF;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-weight: bold;
-            margin: 0 5px;
-        }
-
-        #sitesShortCut a:hover {
-            background-color: #0056b3;
-        }
-
-        #debugLink {
-            display: block;
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        #debugLink a {
-            text-decoration: none;
-            color: #6c757d;
-            font-size: 14px;
-        }
-
-        #debugLink a:hover {
-            color: #495057;
-        }
-        
-        #header {
-			display: block;
-   		}
-		
-    </style>
     <script type="text/javascript">
         $(function () {
 			
@@ -305,7 +193,7 @@
             <table>
                 <tr>
                     <td>아이디:</td>
-                    <td><input type="text" id="userId" name="userId" class="loginSet" pattern="[a-zA-Z0-9]{4,}" autofocus></td>
+                    <td><input type="text" id="userId" name="userId" class="loginSet" pattern="[a-zA-Z0-9]{4,}" autofocus autofocus autocomplete="off"></td>
 					<td><input type="checkbox" id="userIdSave" name="userIdSave" class="loginSet">아이디 저장<br>
 						<input type="checkbox" id="autoLogin" name="autoLogin">자동로그인<br>
 						<span class="warning-icon">&#9888;</span>작동 확인 중<span class="warning-icon">&#9888;</span></td>
@@ -314,7 +202,7 @@
                 </tr>
                 <tr>
                     <td>비밀번호:</td>
-                    <td><input type="password" id="userPw" name="userPw" class="loginSet"></td>
+                    <td><input type="password" id="userPw" name="userPw" class="loginSet" autocomplete="off"></td>
                     <td><button type="button" id="showPasswd">비밀번호 보이기</button><br>
                 </tr>
                 <tr>
