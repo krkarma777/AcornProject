@@ -84,4 +84,9 @@ public class ReviewDAO {
 		List<RateDTO> rateList = session.selectList("selectRates", contId);
 		return rateList;
 	}
+
+	public ReviewDTO selectReview(SqlSession session, HashMap<String, String> map) {
+		ReviewDTO review = session.selectOne("selectReviewMore", map);
+		return review;
+	}
 }
