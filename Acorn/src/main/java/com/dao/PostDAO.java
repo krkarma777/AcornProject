@@ -144,6 +144,11 @@ public class PostDAO {
 		
 		return session.insert("insertPostSave", dto);
 	}
+
+	public List<PostSaveDTO> postSaveSelect(SqlSession session, String userId) {
+		
+		return session.selectList("postSaveSelect", userId);
+	}
 	
 	
 }//end class

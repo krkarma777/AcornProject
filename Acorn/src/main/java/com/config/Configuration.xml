@@ -13,6 +13,7 @@
     <typeAlias type="com.dto.board.PageDTO" alias="PageDTO"/>
     <typeAlias type="com.dto.board.PostPageDTO" alias="PostPageDTO"/>
     <typeAlias type="com.dto.board.PostInfoDTO" alias="PostInfoDTO"/>
+    <typeAlias type="com.dto.board.PostSaveDTO" alias="PostSaveDTO"/>
     <typeAlias type="com.dto.board.LikeDTO" alias="LikeDTO"/>
     <typeAlias type="com.dto.CommentDTO" alias="CommentDTO"/>
 	<!--  -->

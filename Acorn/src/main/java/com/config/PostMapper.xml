@@ -206,4 +206,16 @@
 		VALUES (postSaveIdseq.NEXTVAL, #{userId}, #{postSaveTitle}, #{postSaveText}, SYSDATE )
 	</insert>
 	
+	<!-- 임시글 select -->
+ 	<select id="postSaveSelect" parameterType="String" resultType="postSaveDTO">
+		select * from postSaveDB 
+		where userId = #{userId}
+	</select>
+	
+	<!-- 임시글 갯수 count -->
+	<select id="postSaveCount" resultType="int">
+		SELECT COUNT(*) AS record_count FROM postSaveDB
+		WHERE USERID = #{userID}
+	</select>
+	
 </mapper>

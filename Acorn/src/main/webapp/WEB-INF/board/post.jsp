@@ -1,3 +1,6 @@
+<%@page import="java.sql.Date"%>
+<%@page import="com.dto.board.PostSaveDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,10 +9,10 @@
 <%
 
  	String userId = (String)request.getAttribute("userId");
+	String boardName = request.getParameter("bn");
+ 	String savecount = request.getParameter("savecount");
 
-		String boardName = request.getParameter("bn");
-
-    %>
+%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -29,6 +32,8 @@
 	src="https://cdn.tiny.cloud/1/ok3w2lvptkyfth3qjjks4fv0f99459nvfx76ire0ttwxcrij/tinymce/6/tinymce.min.js"
 	referrerpolicy="origin"></script>
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-v3ECLvqXuS3kJb7hxVPd4+vHtlzIxAIvj8YhzPyaR2o19lCbm21GDO+I84owuE+XkkKzGcVwbLpboDvKNt0udQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 /* 검색창 너비 조절 */
 .searchInput {
@@ -157,6 +162,44 @@ body {
 body{
 	font-family: 'Pretendard-Regular';
 }
+
+
+/* 임시저장글 모달창 스타일 */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1050;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0,0,0,0.4);
+	}
+
+        /* 모달 내용 스타일 */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* 닫기 버튼 스타일 */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+
 </style>
 
 
@@ -201,9 +244,33 @@ body{
 			            console.error(xhr.responseText);
 			        }
 			    });
-			});
+			});//end 임시저장버튼
 			
-		});
+			//===============임시저장 모달창 설정 시작
+			//저장갯수 버튼 클릭 시 모달창 나타내기
+			$('#saveModal').click(function(){
+    // 모달 창을 보이도록 설정
+    $('#myModal').css('display', 'block');
+});
+
+// 모달 닫기 버튼 클릭 시 모달창 숨기기
+$('.close').click(function() {
+    // 모달 창을 감추도록 설정
+    $('#myModal').css('display', 'none');
+});
+
+// 모달 영역 외부를 클릭 시 모달창 숨기기
+window.onclick = function(event) {
+    var modal = document.getElementById('myModal');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};		
+			
+			//===============임시저장 모달창 설정 끝
+			
+			
+		});//end doc
 
 		// form 요소에서 submit 이벤트가 발생할 때 호출되는 함수
 		function validateForm(event) {
@@ -342,10 +409,51 @@ body{
 			<div class="row">
 				<button type="submit" class="btn btn-primary submit-button">작성</button>
 				<button type="button" class="btn btn-primary submit-button" id="save">임시저장</button>
+				<button type="button" class="btn btn-primary submit-button" id="saveModal">임시저장목록</button>
 			</div>
 		</form>
 	</div>
-
+	
+	<!-- 임시저장 모달 창 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <table class="table table-bordered">
+                <tr>
+                	<th>순번</th>
+            		<th>제목</th>
+            		<th>임시저장 날짜</th>
+            		<th>삭제</th>
+            	</tr>
+            
+            <% List<PostSaveDTO> postSaveList = (List<PostSaveDTO>)request.getAttribute("postSaveList");
+            	if(postSaveList!=null){
+				int n = 1;
+            	for(int i=0; i < postSaveList.size(); i++){    		
+            		PostSaveDTO postSave = postSaveList.get(i);
+            		Long postSaveId = postSave.getPostSaveId();
+            		String postSaveTitle = postSave.getPostSaveTitle();
+            		Date postSaveDate = postSave.getPostSaveDate();               
+            		%>
+				<tr>
+					<td><%=n %></td>
+					<td><%= postSaveTitle %></td>
+					<td><%=postSaveDate %></td>				
+    				<td>
+    					<button class="delete-btn" onclick="deletePost(<%= i %>)">
+    					<i class="fa fa-trash"></i>
+    					</button>
+					</td>
+				</tr>         		
+            		
+            <%
+            	n++;
+            	}//end for
+            		}//end if
+            %>
+            </table>
+        </div>
+    </div>
 
 	<script>
 
