@@ -179,7 +179,7 @@
 	}
 	
 	
-	MemberDTO login = (MemberDTO)session.getAttribute("login");
+	MemberDTO login = (MemberDTO)session.getAttribute("loginUser");
 	String userId = null;
 	String nickname = null;
 	if(login!=null){
@@ -588,11 +588,11 @@
 							<%=reviewList.get(index).getNickname() %>
 						</div>
 						<hr>
-						<%-- <a id="remove_deco" href="ShowReviewServlet?postId='<%=reviewList.get(index).getPostId()%>'"> --%>
+						<a id="remove_deco" href="ShowReviewServlet?postId=<%=reviewList.get(index).getPostId()%>">
 							<div id="review_body">
 								<%=reviewList.get(index).getPostText() %>
 							</div>
-						<!-- </a> -->
+						</a>
 						<div id="review_score">
 							<span>☆ <%=Double.parseDouble(score)/2 %></span>
 							<span class="like_btn" style="color:red" data-postId="<%=reviewList.get(index).getPostId() %>">
