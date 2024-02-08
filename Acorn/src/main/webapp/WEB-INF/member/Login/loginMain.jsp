@@ -34,7 +34,7 @@
 		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 		    margin: 100px auto; 
 		    width: 80%; 
-		    max-width: 440px; 
+		    max-width: 480px; 
 		}
 
         table {
@@ -134,11 +134,23 @@
 			$("#loginForm").on("submit", function(event) {
 				event.preventDefault(); // 폼이 서버로 전송되지 않도록 기본 동작을 막음
 				
+				document.cookie = "savedUserId=; expires=0; path=/";
+				document.cookie = "savedUserPw=; expires=0; path=/";
+				
 	            // 아이디 저장 체크박스 상태에 따라 쿠키 생성
 	            if ($("#userIdSave").prop("checked")) {
 	                var userId = $("#userId").val();
 	                //쿠키 유효기간 1일, 경로 지정은 보류(WEB-INF/member/Login/loginMain.jsp)
 	                document.cookie = "savedUserId=" + userId + "; expires=" + getCookieExpiration(1) + "; path=/";
+	            }
+	            
+	         	// 자동로그인 체크박스 상태에 따라 쿠키 생성
+	            if ($("#autoLogin").prop("checked")) {
+	            	var userId = $("#userId").val();
+	            	var userPw = $("#userPw").val();
+	                //쿠키 유효기간 1일, 경로 지정은 보류(WEB-INF/member/Login/loginMain.jsp)
+	            	document.cookie = "savedUserId=" + userId + "; expires=" + getCookieExpiration(1) + "; path=/";
+	            	document.cookie = "savedUserPw=" + userPw + "; expires=" + getCookieExpiration(1) + "; path=/";
 	            }
 				
 	   			// 이전 Ajax 요청이 진행 중이라면 취소(4면 요청이 완료되었음을 의미)
@@ -247,6 +259,7 @@
             
          	// 쿠키 불러오기
             var savedUserId = getCookie("savedUserId");
+            var savedUserPw = getCookie("savedUserPw");
 
             // 쿠키를 이름으로 가져오는 함수
             function getCookie(name) {
@@ -262,6 +275,14 @@
                 $("#userId").val(savedUserId);
                 $("#userIdSave").prop("checked", true);
             }
+            
+            // 자동로그인으로 비밀번호 쿠기가 존재하면 비밀번호 입력칸에 표시
+            if (savedUserPw) {
+                $("#userPw").val(savedUserPw);
+                $("#autoLogin").prop("checked", true);
+            }
+            
+            
             
         });	//$("#showPasswd").click(function ()
     </script>
@@ -287,7 +308,7 @@
                     <td><input type="text" id="userId" name="userId" class="loginSet" pattern="[a-zA-Z0-9]{4,}" autofocus></td>
 					<td><input type="checkbox" id="userIdSave" name="userIdSave" class="loginSet">아이디 저장<br>
 						<input type="checkbox" id="autoLogin" name="autoLogin">자동로그인<br>
-						<span class="warning-icon">&#9888;</span>공사중<span class="warning-icon">&#9888;</span></td>
+						<span class="warning-icon">&#9888;</span>작동 확인 중<span class="warning-icon">&#9888;</span></td>
                 </tr>
                 <tr>
                 </tr>
