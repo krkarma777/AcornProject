@@ -294,7 +294,7 @@ body {
 	border: 1px solid #ddd; /* 경계선을 더 세밀하고 부드럽게 */
 	background-color: #f9f9f9; /* 배경색을 더욱 깔끔하게 */
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 추가 */
-	width: 600px;
+	width: 700px;
 	height: 45px;
 	margin: auto;
 	overflow-y: hidden; /* 스크롤바를 숨깁니다 */
@@ -592,11 +592,11 @@ $(document).keydown(function(e) {
         window.location.href = "<%=request.getContextPath()%>/main";
     } else if (e.key === "w") { // w를 누르면 인기글 페이지로 이동
         window.location.href = "<%=request.getContextPath()%>/board/<%=postBoard%>";
-    } else if (e.key === "1") { // 1을 누르면 영화 카테고리로 이동
+    } else if (e.altKey && e.key === "1") { // 1을 누르면 영화 카테고리로 이동
         window.location.href = "<%=request.getContextPath()%>/main?cg=movie";
-    } else if (e.key === "2") { // 2를 누르면 TV 카테고리로 이동
+    } else if (e.altKey && e.key === "2") { // 2를 누르면 TV 카테고리로 이동
         window.location.href = "<%=request.getContextPath()%>/main?cg=tv";
-    } else if (e.key === "3") { // 3을 누르면 책 카테고리로 이동
+    } else if (e.altKey && e.key === "3") { // 3을 누르면 책 카테고리로 이동
         window.location.href = "<%=request.getContextPath()%>/main?cg=book";
     }
     // 추가적인 단축키 조합을 여기에 구현
@@ -608,7 +608,20 @@ $(document).keydown(function(e) {
 		var options = "width=600,height=400,scrollbars=yes";
 		 window.open(url, "memberInfo", options);
 	}
+	
+	
+	function submitForm(event) {
+		event.preventDefault(); // 폼 제출 기본 동작 막기
 
+		var curPage = document.querySelector('input[name="curPage"]').value;
+		
+		if (curPage.trim() !== "" && parseInt(curPage) >0) {
+			// 숫자가 입력되었을 때만 페이지 이동
+			var newUrl = window.location.pathname + '?curPage=' + curPage;
+			window.location.href = newUrl;
+		}
+	}
+	
 </script>
 <body>
 
@@ -1085,11 +1098,12 @@ $(document).keydown(function(e) {
 								</div>
 							</form>
 						</div>
-
+						
+					
 						<!-- 글쓰기 버튼 -->
 						<div>
 							<a href="/Acorn/board/write?bn=<%=postBoard%>">
-								<button type="button" class="btn write-button custom-btn">글쓰기</button>
+								<button type="button" class="btn write-button custom-btn" >글쓰기</button>
 							</a>
 						</div>
 					</div>
@@ -1159,6 +1173,10 @@ $(document).keydown(function(e) {
 							}
 							%>
 						</ul>
+												<!-- 페이지 숫자 검색창 -->
+						<form action="" method="get" onsubmit="submitForm(event)">
+						<input type="number" name="curPage" style="width: 50px">
+						</form>
 					</div>
 				</div>
 				</div>
@@ -1196,9 +1214,9 @@ $(document).keydown(function(e) {
 								    <span class="shortcut-key2">f</span><span class="shortcut-description">다음</span> -->
 								    <span class="shortcut-key2">q</span><span class="shortcut-description">메인</span>
 								    <span class="shortcut-key2">w</span><span class="shortcut-description">인기글</span>
-								    <span class="shortcut-key2">1</span><span class="shortcut-description">영화</span>
-								    <span class="shortcut-key2">2</span><span class="shortcut-description">tv</span>
-								    <span class="shortcut-key2">3</span><span class="shortcut-description">책</span>
+								    <span class="shortcut-key">alt+1</span><span class="shortcut-description">영화</span>
+								    <span class="shortcut-key">alt+2</span><span class="shortcut-description">tv</span>
+								    <span class="shortcut-key">alt+3</span><span class="shortcut-description">책</span>
 								</div>
 							</div>
 						</div>
