@@ -19,6 +19,11 @@ public class RegisterCheckExistUserServlet extends HttpServlet {
 		//약관 동의 여부를 DB에 저장할 지 여부는 현재 미정	
 		//DB에 저장할 것을 대비해서 
 		
+		String userName = request.getParameter("userName");
+		String ssn1 = request.getParameter("ssn1");
+		String ssn2 = request.getParameter("ssn2");
+		System.out.println("서블릿 "+userName);
+		
 		String checked_Agreement = request.getParameter("checked_Agreement");
 		String checked_Info = request.getParameter("checked_Info");
 		String checked_Withdraw = request.getParameter("checked_Withdraw");
@@ -30,12 +35,14 @@ public class RegisterCheckExistUserServlet extends HttpServlet {
 																													"checked_Withdraw : " + checked_Withdraw);
 																										//디버그 코드***************************************************		
 		
-		HttpSession session = request.getSession();
-		//session.setAttribute("checked_Agreement", checked_Agreement);
-		//session.setAttribute("checked_Info", checked_Info);
-		//session.setAttribute("checked_Withdraw", checked_Withdraw);
-		
-		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerCheckExistUserdata.jsp");
+			request.setAttribute("userName", userName);
+			request.setAttribute("ssn1", ssn1);
+			request.setAttribute("ssn2", ssn2);
+			//session.setAttribute("checked_Agreement", checked_Agreement);
+			//session.setAttribute("checked_Info", checked_Info);
+			//session.setAttribute("checked_Withdraw", checked_Withdraw);
+			
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Register/registerMember.jsp");
 		dis.forward(request, response);
 		
 	}

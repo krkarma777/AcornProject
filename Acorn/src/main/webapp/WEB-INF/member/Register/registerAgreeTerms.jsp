@@ -1,3 +1,4 @@
+<%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,51 +6,34 @@
 
 <!-- 회원가입을 위한 약관에 동의하는 페이지.jsp -->
 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member/register_term.css">
+
 <head>
     <meta charset="UTF-8">
     <title>약관 동의 페이지</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        textarea {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .checkboxes {
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
+
+	<%
+		String userName = (String)request.getAttribute("userName"); 
+		String ssn1 = (String)request.getAttribute("ssn1"); 
+		String ssn2 = (String)request.getAttribute("ssn2"); 
+		System.out.println("jsp:"+ userName);
+
+	%>
+	
+	
 
     <div class="container">
         <h1>약관 동의 페이지</h1>
 
         <form id="agreementForm" action="<%=request.getContextPath()%>/CheckExistUser" method="post">
+		
+			<input type="hidden" name="userName" value="<%=userName%>">
+			<input type="hidden" name="ssn1" value="<%=ssn1%>">>
+			<input type="hidden" name="ssn2" value="<%=ssn2%>">
 
             <div>
                 <textarea readonly="readonly">

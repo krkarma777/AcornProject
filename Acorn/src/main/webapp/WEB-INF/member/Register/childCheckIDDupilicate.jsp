@@ -4,63 +4,12 @@
 <html lang="ko">
 
 <!-- 회원가입 3단계의 자식창으로 아이디 중복 확인하는 페이지의 html -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member/child.css">
 
 <head>
     <meta charset="UTF-8">
     <title>아이디 확인</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    
-        <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        form {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        button {
-            padding: 8px 16px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #confirmIdError {
-            color: red;
-        }
-    </style>
-    
     
 </head>
 
