@@ -1,6 +1,7 @@
 package com.dto.board;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class PostSaveDTO {
 
@@ -8,8 +9,7 @@ public class PostSaveDTO {
 	private String userId;
 	private String postSaveTitle;
 	private String postSaveText;
-	private Date postSaveDate;
-	
+	private String postSaveDate;
 	
 	//기본생성자
 	public PostSaveDTO() {
@@ -18,7 +18,7 @@ public class PostSaveDTO {
 	}
 
 	//사용자 지정 생성자
-	public PostSaveDTO(Long postSaveId, String userId, String postSaveTitle, String postSaveText, Date postSaveDate) {
+	public PostSaveDTO(Long postSaveId, String userId, String postSaveTitle, String postSaveText, String postSaveDate) {
 		super();
 		this.postSaveId = postSaveId;
 		this.userId = userId;
@@ -60,12 +60,13 @@ public class PostSaveDTO {
 		this.postSaveText = postSaveText;
 	}
 
-	public Date getPostSaveDate() {
+	public String getPostSaveDate() {
 		return postSaveDate;
 	}
 
-	public void setPostSaveDate(Date postSaveDate) {
+	public void setPostSaveDate(String postSaveDate) {
 		this.postSaveDate = postSaveDate;
+		
 	}
 
 	@Override

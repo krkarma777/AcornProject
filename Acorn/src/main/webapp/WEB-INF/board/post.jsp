@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.sql.Date"%>
 <%@page import="com.dto.board.PostSaveDTO"%>
 <%@page import="java.util.List"%>
@@ -7,11 +8,9 @@
 <html>
 <head>
 <%
-
- 	String userId = (String)request.getAttribute("userId");
-	String boardName = request.getParameter("bn");
- 	String savecount = request.getParameter("savecount");
-
+String userId = (String) request.getAttribute("userId");
+String boardName = request.getParameter("bn");
+String savecount = request.getParameter("savecount");
 %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -33,11 +32,17 @@
 	referrerpolicy="origin"></script>
 
 <!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-v3ECLvqXuS3kJb7hxVPd4+vHtlzIxAIvj8YhzPyaR2o19lCbm21GDO+I84owuE+XkkKzGcVwbLpboDvKNt0udQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+
+
+
 <style>
 /* 검색창 너비 조절 */
 .searchInput {
-   width: 70vh; /* 너비를 100%로 설정하여 부모 요소의 전체 폭을 차지하도록 함 */
+	width: 70vh; /* 너비를 100%로 설정하여 부모 요소의 전체 폭을 차지하도록 함 */
 }
 
 /* 제목 입력란에 스타일을 적용하는 CSS 코드 */
@@ -75,11 +80,9 @@ body {
 	z-index: 1030; /* 다른 요소들 위에 표시되도록 z-index 설정 */
 }
 
-
-    
- /* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
+/* 컨테이너에 상단 패딩 추가 네비게이션바 글 간격 조정 */
 .container {
- padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
+	padding-top: 100px; /* 네비게이션바 높이에 따라 조정 */
 }
 
 /* 반응형 그리드 시스템 */
@@ -154,15 +157,17 @@ body {
 
 /* 글씨체 적용 */
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
-body{
 	font-family: 'Pretendard-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+		format('woff');
+	font-weight: 400;
+	font-style: normal;
 }
 
+body {
+	font-family: 'Pretendard-Regular';
+}
 
 /* 임시저장글 모달창 스타일 */
 .modal {
@@ -174,31 +179,43 @@ body{
 	width: 100%;
 	height: 100%;
 	overflow: auto;
-	background-color: rgba(0,0,0,0.4);
-	}
+	background-color: rgba(0, 0, 0, 0.4);
+}
 
-        /* 모달 내용 스타일 */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
+/* 모달 내용 스타일 */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
 
-        /* 닫기 버튼 스타일 */
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+/* 닫기 버튼 스타일 */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 임시저장 삭제 버튼 스타일 */
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btn i {
+    font-size: 90spx;
+    vertical-align: middle;
+}
 
 </style>
 
@@ -214,63 +231,115 @@ body{
 			$('form').submit(function(event) {
 				validateForm(event);
 			});
+			
+			
 			// 임시저장 버튼 클릭 시 호출되는 함수
-			$('#save').click(function(event) {
-			    event.preventDefault(); // 기본 이벤트 동작 방지
-			    
-			    // 제목과 내용을 가져옴
-			    var title = $('#postTitle').val();
-			    var content = tinymce.activeEditor.getContent();
-			    var content2 = $('#postText').text();
-			    var userId = "<%= userId %>";
-			    console.log(content);
-			    console.log(content2);
-			    
-			    // AJAX 요청
-			    $.ajax({
-			        type: 'POST',
-			        url: '/Acorn/board/save',
-			        data: {
-			            postTitle: title,
-			            postText: content,
-			            userId: userId
-			        },
-			        success: function(response) {
-			            // 성공 시 알림
-			            alert('게시글이 임시저장되었습니다.');
-			        },
-			        error: function(xhr, status, error) {
-			            // 실패 시 오류 메시지 출력
-			            console.error(xhr.responseText);
-			        }
-			    });
-			});//end 임시저장버튼
+			$('#save').click(save);
+			
+			
 			
 			//===============임시저장 모달창 설정 시작
 			//저장갯수 버튼 클릭 시 모달창 나타내기
 			$('#saveModal').click(function(){
-    // 모달 창을 보이도록 설정
-    $('#myModal').css('display', 'block');
-});
-
-// 모달 닫기 버튼 클릭 시 모달창 숨기기
-$('.close').click(function() {
-    // 모달 창을 감추도록 설정
-    $('#myModal').css('display', 'none');
-});
-
-// 모달 영역 외부를 클릭 시 모달창 숨기기
-window.onclick = function(event) {
-    var modal = document.getElementById('myModal');
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-};		
+			    // 모달 창을 보이도록 설정
+			    $('#myModal').css('display', 'block');
+			});
 			
+			// 모달 닫기 버튼 클릭 시 모달창 숨기기
+			$('.close').click(function() {
+			    // 모달 창을 감추도록 설정
+			    $('#myModal').css('display', 'none');
+			});
+								
 			//===============임시저장 모달창 설정 끝
 			
+
+		
+
+				
 			
-		});//end doc
+});//end doc
+		
+	// 임시저장 삭제 함수
+		function deleteSave(postSaveId){
+	    // 삭제 전에 사용자에게 확인을 받는다.
+	    if (confirm('정말로 삭제하시겠습니까?')) {
+	        // 확인 시 AJAX 요청
+	        $.ajax({
+	            type: 'POST',
+	            url: '/Acorn/board/saveDelete',
+	            data: {
+	                postSaveId: postSaveId
+	            },
+	            success: function(response) {
+	                // 성공 시 페이지 새로고침
+	                location.reload();
+	                alert('임시저장글이 삭제되었습니다.');
+	            },
+	            error: function(xhr, status, error) {
+	                console.error(xhr.responseText);
+	            }
+	        }); //end ajax
+	    }
+		
+		
+		
+	};//end 임시저장 삭제 함수
+		
+		//임시저장 버튼 클릭 시 호출되는 함수
+		function save() {
+		    // 제목과 내용을 가져옴
+		    var title = $('#postTitle').val();
+		    var content = tinymce.activeEditor.getContent();
+		    var userId = "<%=userId%>";
+		
+		    // 바이트 길이 계산 함수
+		    function getByteLength(str) {
+		        var byteLength = 0;
+		        for (var i = 0; i < str.length; i++) {
+		            var charCode = str.charCodeAt(i);
+		            if (charCode <= 0x7f) {
+		                byteLength += 1;
+		            } else {
+		                byteLength += 2; // 한글이나 다른 멀티바이트 문자
+		            }
+		        }
+		        return byteLength;
+		    }
+		    // 제목의 바이트 길이를 확인
+		    if (getByteLength(title) > 50) {
+		        alert('제목은 50바이트를 초과할 수 없습니다.');
+		        event.preventDefault();
+		        return;
+		    }
+		
+		    // 제목과 내용이 비어있는지 확인
+		    if (title.trim() === '' || content.trim() === '') {
+		        alert('제목과 내용을 모두 입력하세요.');
+		        event.preventDefault();
+		        return;
+		    }
+		
+		    // AJAX 요청
+		    $.ajax({
+		        type: 'POST',
+		        url: '/Acorn/board/save',
+		        data: {
+		            postTitle: title,
+		            postText: content,
+		            userId: userId
+		        },
+		        success: function(response) {
+		            // 성공 시 알림
+		            alert('게시글이 임시저장되었습니다.');
+		        },
+		        error: function(xhr, status, error) {
+		            // 실패 시 오류 메시지 출력
+		            console.error(xhr.responseText);
+		        }
+		    }); //end ajax
+		}//end 임시저장
+		
 
 		// form 요소에서 submit 이벤트가 발생할 때 호출되는 함수
 		function validateForm(event) {
@@ -367,7 +436,7 @@ window.onclick = function(event) {
 
 </head>
 <body>
-	 <!-- 네비게이션바 -->
+	<!-- 네비게이션바 -->
 	<jsp:include page="//common/navbar.jsp"></jsp:include>
 
 
@@ -375,7 +444,9 @@ window.onclick = function(event) {
 		<form method="post" action="/Acorn/board/write">
 			<!-- 말머리 선택 버튼 그룹 -->
 			<div class="mb-3 btn-group" role="group">
-			<% if(boardName.equals("movie")) {%>
+				<%
+				if (boardName.equals("movie")) {
+				%>
 				<input type="hidden" name="postCategory" id="postCategory" value="1">
 				<button type="button" class="btn btn-outline-primary category-btn"
 					onclick="setCategory('1')">일반</button>
@@ -389,7 +460,9 @@ window.onclick = function(event) {
 					onclick="setCategory('5')">토론</button>
 				<button type="button" class="btn btn-outline-info category-btn"
 					onclick="setCategory('6')">해외</button>
-			<%} %>
+				<%
+				}
+				%>
 			</div>
 
 			<div class="mb-3">
@@ -397,9 +470,10 @@ window.onclick = function(event) {
 					class="form-control" placeholder="제목을 입력하세요">
 			</div>
 
-			<input type="hidden" name="userId" id="userId" value="<%= request.getAttribute("userId") %>">
-			<input type="hidden" name="bn" id="bn"
-				value="<%= request.getParameter("bn") %>">
+			<input type="hidden" name="userId" id="userId"
+				value="<%=request.getAttribute("userId")%>"> <input
+				type="hidden" name="bn" id="bn"
+				value="<%=request.getParameter("bn")%>">
 
 			<div class="mb-3">
 				<textarea name="postText" class="form-control"
@@ -413,47 +487,64 @@ window.onclick = function(event) {
 			</div>
 		</form>
 	</div>
-	
+
 	<!-- 임시저장 모달 창 -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <table class="table table-bordered">
-                <tr>
-                	<th>순번</th>
-            		<th>제목</th>
-            		<th>임시저장 날짜</th>
-            		<th>삭제</th>
-            	</tr>
-            
-            <% List<PostSaveDTO> postSaveList = (List<PostSaveDTO>)request.getAttribute("postSaveList");
-            	if(postSaveList!=null){
-				int n = 1;
-            	for(int i=0; i < postSaveList.size(); i++){    		
-            		PostSaveDTO postSave = postSaveList.get(i);
-            		Long postSaveId = postSave.getPostSaveId();
-            		String postSaveTitle = postSave.getPostSaveTitle();
-            		Date postSaveDate = postSave.getPostSaveDate();               
-            		%>
+	<div id="myModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<table class="table table-bordered"
+				style="table-layout: fixed; width: 100%;">
+				<colgroup>
+					<col style="width: 15%;">
+					<col style="width: 45%;">
+					<col style="width: 25%;">
+					<col style="width: 15%;">
+				</colgroup>
+
 				<tr>
-					<td><%=n %></td>
-					<td><%= postSaveTitle %></td>
-					<td><%=postSaveDate %></td>				
-    				<td>
-    					<button class="delete-btn" onclick="deletePost(<%= i %>)">
-    					<i class="fa fa-trash"></i>
-    					</button>
+					<th style="text-align: center;">순번</th>
+					<th style="text-align: center;">제목</th>
+					<th style="text-align: center;">저장일</th>
+					<th style="text-align: center;">삭제</th>
+				</tr>
+
+				<%
+				List<PostSaveDTO> postSaveList = (List<PostSaveDTO>) request.getAttribute("postSaveList");
+				if (postSaveList != null && !postSaveList.isEmpty()) {
+					int n = 1;
+					for (int i = 0; i < postSaveList.size(); i++) {
+						PostSaveDTO postSave = postSaveList.get(i);
+						Long postSaveId = postSave.getPostSaveId();
+						String postSaveTitle = postSave.getPostSaveTitle();
+						String postSaveDate = postSave.getPostSaveDate();
+						System.out.println(postSaveDate);
+				%>
+				<tr>
+					<td style="text-align: center;"><%=n%></td>
+					<td><%=postSaveTitle%></td>
+					<td style="text-align: center;"><%=postSaveDate%></td>
+					<td style="text-align: center;">
+						<button class="delete-btn" onclick="deleteSave(<%=postSaveId%>)">
+							<i class="fa-regular fa-trash-can"></i>
+						</button>
 					</td>
-				</tr>         		
-            		
-            <%
-            	n++;
-            	}//end for
-            		}//end if
-            %>
-            </table>
-        </div>
-    </div>
+				</tr>
+
+				<%
+				n++;
+				} //end for
+				} else {
+				%>
+				<tr>
+					<td colspan="4" style="text-align: center;">임시 저장된 글이 없습니다.</td>
+				</tr>
+				<%
+				}
+				%>
+
+			</table>
+		</div>
+	</div>
 
 	<script>
 
