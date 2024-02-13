@@ -208,8 +208,10 @@
 	
 	<!-- 임시글 select -->
  	<select id="postSaveSelect" parameterType="String" resultType="postSaveDTO">
-		select * from postSaveDB 
+ 		select postSaveId, userId, postSaveTitle, postSaveText, TO_CHAR(postSaveDate, 'YYYY-MM-DD HH24:MI:SS') as postSaveDate
+		from postSaveDB 
 		where userId = #{userId}
+		ORDER BY postSaveDate DESC
 	</select>
 	
 	<!-- 임시글 갯수 count -->
@@ -217,5 +219,11 @@
 		SELECT COUNT(*) AS record_count FROM postSaveDB
 		WHERE USERID = #{userID}
 	</select>
+	
+	<!-- 임시글 삭제 -->
+	<delete id="deletePostSave" parameterType="long">
+		DELETE FROM postSaveDB WHERE postSaveId = ${postSaveId}
+	</delete>
+	
 	
 </mapper>

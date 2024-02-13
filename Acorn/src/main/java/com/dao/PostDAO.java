@@ -149,6 +149,10 @@ public class PostDAO {
 		
 		return session.selectList("postSaveSelect", userId);
 	}
+
+	public void deletePostSave(SqlSession session, String postSaveId) {
+		session.delete("deletePostSave", postSaveId);
+	}
 	
 	
 }//end class

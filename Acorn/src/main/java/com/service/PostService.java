@@ -306,5 +306,23 @@ public class PostService {
 		}
 		return list;
 	}//
+	
+	//임시저장글 delete
+	public void deletePostSave(String postSaveId) {
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		try {
+			dao.deletePostSave(session, postSaveId);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				session.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+	}//
 
 }
