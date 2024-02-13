@@ -4,59 +4,15 @@
 <html>
 
 <!-- 회원가입 2단계에서 기존 회원인지 이름/SSN을 통해 확인하는 jsp -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member/SSN.css">
+
 
 <head>
 <meta charset="UTF-8">
 <title>회원 확인 페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<style>
-body {
-	font-family: 'Arial', sans-serif;
-	margin: 20px;
-}
 
-.container {
-	max-width: 600px;
-	margin: 0 auto;
-}
-
-label {
-	display: block;
-	margin-bottom: 10px;
-}
-
-.ssnContainer {
-            display: flex;
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 10px;
-        }
-
-.ssn {
-	width: 45%;
-	padding: 10px;
-	margin-bottom: 10px;
-}
-
-#userName {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 10px;
-}
-
-button {
-	padding: 10px;
-	background-color: #007bff;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-}
-
-button:hover {
-	background-color: #0056b3;
-}
-</style>
 </head>
 
 <body>

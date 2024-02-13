@@ -11,6 +11,7 @@
 
 <nav class="navbar navbar-expand" style="background-color:transparent;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="<%= request.getContextPath()%>/main">문밤</a>
+            <a class="navbar-brand" href="<%= request.getContextPath()%>/main">메인</a>
+            <a class="navbar-brand" href="<%=request.getContextPath()%>/memberListServlet">회원리스트(디버그)</a>
         </div>
 </nav>

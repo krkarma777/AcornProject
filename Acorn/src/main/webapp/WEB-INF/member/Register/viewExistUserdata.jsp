@@ -7,50 +7,11 @@
 <html>
 
 <!-- 회원가입 2단계에서 기존 유저임이 확인되면 나오는 페이지 -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member/ID.css">
 
 <head>
 <meta charset="UTF-8">
 <title>Found ID</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        a {
-            text-decoration: none;
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 16px;
-            margin-top: 20px;
-            display: inline-block;
-        }
-
-        a:hover {
-            background-color: #0056b3;
-        }
-    </style>
 
 </head>
 
