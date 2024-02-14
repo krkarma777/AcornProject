@@ -91,38 +91,16 @@ if(dto != null){
 $(document).on("click",".deleteCommentBtn",function(){
 		
 	 var comId = $(this).attr("id");
- 		console.log("deleteCommentBtn 이벤트의",comId);
- 	 
- 	 
- 	/*  만약 DB에서도 삭제할 거라면 이거 활성화
-	 $.ajax({
-			
-			type: "post",
-			url: "/Acorn/CommetDeleteServlet",
-			data:{
-				//댓글 삭제를 위해서 서버로 comid를 넘겨주고 있음
-				comId : $(this).attr("id")
-			},
-			dataType: "text",
-			success :  function(data, status, xhr){
-				console.log(data);
-			
-				console.log(data);
-				
-				if(data == "댓글이 삭제되었습니다."){
-				alert(data);
-				CommentSelectAllServlet(); 
-				 
-				}else{
-					alert("댓글을 삭제할 수 없습니다.");
-				}
-			}
-			
-		})//delete ajax  //만약 DB에서 삭제할 거라면 이거 활성화 */
-		
-		
-		//[]★만약 DB에서 안 지우고 삭제된 내용이라고 내용만 변경할거면 이거 활성화] 
-		//update인데 고객입장에선 delete이고, DB엔 내용만 Update되고 레코드는 살아있음
+	 console.log('아아',comId);
+	 var aboveComId = $(this).attr("data-xxx");
+	
+	 var replyJson2 = ReplyCommentSearch(comId);
+	 var length2 = replyJson2.replyCommentDBList.length;
+	
+if(length2!=0) {//자식댓글이 있다는 뜻  update 치면 됨	 
+	
+	//내 comId랑 동일한 avobeComId를 가지고 있는 레코드가 있으면?????? ----> "삭제된 댓글입니다." 로 UPDATE
+
 		$.ajax({
 			
 			type: "post",
@@ -151,7 +129,41 @@ $(document).on("click",".deleteCommentBtn",function(){
 				console.log("에러코드 add"+status);
 			}
 			
-		})//update(고객입장에선 delete, DB에선 안 지워짐) ajax
+		})//update ajax
+		
+	
+}else{
+	
+	//내 comId랑 동일한 avobeComId를 가지고 있는 레코드가 없으면????? -----> 그냥 DELETE
+
+		$.ajax({
+				
+				type: "post",
+				url: "/Acorn/CommetDeleteServlet",
+				data:{
+					//댓글 삭제를 위해서 서버로 comid를 넘겨주고 있음
+					comId : comId
+				},
+				dataType: "text",
+				success :  function(data, status, xhr){
+					console.log(data);
+				
+					if(data == "댓글이 삭제되었습니다."){
+					alert(data);
+					CommentSelectAllServlet(); 
+					 
+					}else{
+						alert("댓글을 삭제할 수 없습니다.");
+					}
+					
+				},
+				error : function(xhr, status, error){
+					console.log("에러코드 add"+status);
+				}
+				
+			})//delete ajax 
+		
+}//else end
 		
 		
 	});//deleteCommentBtn doc end
@@ -162,7 +174,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 		//수정 버튼 눌러서 내용 수정할 수 있게 화면이 바뀌는 기능
 		
 		 var comId = $(this).attr("data-xxx");
-	 	console.log("updateCommentBtn 이벤트의",comId);
+	 	//console.log("updateCommentBtn 이벤트의",comId);
 	 		
 	 	$("#comText"+comId).removeAttr("style");
 	 	$("#comText"+comId).removeAttr("readonly");
@@ -197,7 +209,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 		},
 		dataType: "text",
 		success :  function(data, status, xhr){
-			console.log(data);
+			//console.log(data);
 		
 			if(data == "댓글이 수정되었습니다."){
 			alert(data);
@@ -255,7 +267,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 				            var nickname = data.commentDBList[i].nickname;
 				            var aboveComId = data.commentDBList[i].aboveComId; //부모댓글번호 
 				            
-				            console.log("commentseletall에서   ",comId, " ", userId, " ", comDate," ",nickname," ",aboveComId);
+				            //console.log("commentseletall에서   ",comId, " ", userId, " ", comDate," ",nickname," ",aboveComId);
 				            ///////////
 				            
 				            ///답글 작성용 변수///
@@ -269,6 +281,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 				            mesg += "<li class='comment-item'>";
 				            mesg += "<div class='comment-meta'>";
 				            mesg += "<input type='hidden' id='commIdAfterSelAll"+comId+"' value='"+comId+"'>"
+				            mesg += "<input type='hidden' id='aboveComIdAfterSelAll"+comId+"' value='"+aboveComId+"'>"
 				            mesg += "<strong>" + nickname + "</strong> | <span>" + comDate + "</span>";
 				            mesg += "</div>";
 				            mesg += "<input type='text' class='comment-content' style='border:none;outline:none' id='comText"+comId+"' readonly value='"+comText+"'>";
@@ -282,7 +295,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 					         	
 					         	if(comText!="삭제된 댓글입니다."){
 					         		mesg += "<div class='comment-actions'>";
-							        	mesg += "<button id='" + comId + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + i + "'>삭제</button>";
+							        	mesg += "<button id='" + comId + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + aboveComId + "'>삭제</button>";
 							        	mesg += "<button id='update" + comId + "' class='btn btn-info btn-sm btn-spacing updateCommentBtn' data-xxx='" + comId + "'>수정</button>";
 							        	mesg += "<span id='span" + comId + "'></span>"; //수정버튼 눌렀을 때 이 자리에 [확인] 버튼이 오게 될 것임
 							        	mesg += "</div>";
@@ -332,6 +345,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 									            mesg += "<li class='comment-item'>";
 									            mesg += "<div class='comment-meta'>";
 									            mesg += "&nbsp;&nbsp;&nbsp;<input type='hidden' id='commIdAfterSelAll"+comId+"' value='"+comId+"'>"
+									            mesg += "&nbsp;&nbsp;&nbsp;<input type='hidden' id='aboveComIdAfterSelAll"+comId+"' value='"+aboveComId+"'>"
 									            mesg += "&nbsp;&nbsp;&nbsp;<strong>" + nickname + "</strong> | <span>" + comDate + "</span>";
 									            mesg += "</div>";
 									            mesg += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' class='comment-content' style='border:none;outline:none' id='comText"+comId+"' readonly value='"+comText+"'>";
@@ -340,7 +354,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 										         	
 										         	if(comText!="삭제된 댓글입니다."){
 										         		mesg += "<div class='comment-actions'>";
-												        	mesg += "<button id='" + comId + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + j + "'>삭제</button>";
+												        	mesg += "<button id='" + comId + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + aboveComId + "'>삭제</button>";
 												        	mesg += "<button id='update" + comId + "' class='btn btn-info btn-sm btn-spacing updateCommentBtn' data-xxx='" + comId + "'>수정</button>";
 												        	mesg += "<span id='span" + comId + "'></span>"; //수정버튼 눌렀을 때 이 자리에 [확인] 버튼이 오게 될 것임
 												        	mesg += "</div>";
@@ -377,11 +391,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 	}//CommentSelectAllServlet end
 	
 	function replyComment(comId) { //답글 버튼 눌렀을 때 실행되는 onclick ReplyComment 함수
-		console.log("ReplyComment 확인용 ",comId);
-		/*1. 답글창이 아래에 뜨게 하고 v
-		2. 답글을 입력하고 확인을 누르면 v
-		3. db에 저장되서  v
-		4. 목록과 함께 뿌려지기*/
+		//console.log("ReplyComment 확인용 ",comId);
 		
 		$("#replyCommentDIV"+comId).attr("style","display:hidden"); 
 		//답글 입력하는 창(코드)이 다시 보이게 display속성 바꿔줬음.
@@ -410,7 +420,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 				},
 			success :  function (data, status, xhr){
 				
-				console.log("성공");
+				//console.log("성공");
 				CommentSelectAllServlet();
 			},
 			error : function(xhr, status, error){
@@ -442,7 +452,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 			success :  function (data, status, xhr){
 			
 				replyJson =  data;
-			
+				
 			},//success end,
 			error : function(xhr, status, error){
 					

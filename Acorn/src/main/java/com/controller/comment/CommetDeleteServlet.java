@@ -41,13 +41,12 @@ public class CommetDeleteServlet extends HttpServlet {
 		System.out.println("딜리트서블릿에서의 comId"+comId);
 		
 		int num =service.deleteComment(comId);
+		System.out.println(num);
 		//삭제 기능
 		if(num==0) {
-		
-				out.print("댓글을 삭제할 수 없습니다.");
-			
+			out.print("댓글을 삭제할 수 없습니다.");
 		}else {
-			out.print("삭제된 댓글입니다.");
+			out.print("댓글이 삭제되었습니다.");
 		} //댓글이 삭제되었으면 num이 0보다 클테니, 그럴경우 else의 text를 / 반대의 경우 if의 text를 ajax로 응답하고 있음
 		
 	}
