@@ -25,7 +25,6 @@ if(dto != null){
 <script type="text/javascript">
 
 	window.onload = init;
-	var flag = false;
 
 	function init(){
 		function clock() { //작성시간을 실시간으로 보여주기 위한 함수
@@ -40,11 +39,12 @@ if(dto != null){
 		    var seconds = time.getSeconds();
 		
 		    $("#comdate").text((year-100)+"년 "+(month+1)+"월 "+date+"일 "+(hours<10?"0"+hours : hours)+":"+(minutes<10?"0"+minutes : minutes)+":"+(seconds<10?"0"+seconds : seconds));
-		        
+		    
 		}
 		clock();
 		setInterval(clock, 1000); // 1초마다 실행
-	
+		
+		
 	}//init
 	
 	
@@ -66,7 +66,8 @@ if(dto != null){
 				userId : $.trim($("#useridComment").val()),
 				comDate : $("#comdate").text(),
 				comText : $("#comtext").val(),
-				nickname : $.trim($("#nickname").text())
+				nickname : $.trim($("#nickname").text()),
+				aboveComId : $("#abovecomidComment").val()
 				},
 			success :  function (data, status, xhr){
 				
@@ -165,9 +166,12 @@ $(document).on("click",".deleteCommentBtn",function(){
 	 		
 	 	$("#comText"+comId).removeAttr("style");
 	 	$("#comText"+comId).removeAttr("readonly");
-	 	//input태그 그냥 text처럼 보이게 하기 위해 줬던 속성 수거하는 중 (수정하려는 val값 수정할 수 있게\)
+	 	//input태그 그냥 text처럼 보이게 하기 위해 줬던 속성 수거하는 중 (수정하려는 val값 수정할 수 있게)
 	 	
-	 	$("#span"+comId).html("<button class='updateCommentBtn2' data-xxx='" + comId + "'>확인</button>");
+	 	$("#update"+comId).attr("style","display: none");
+	 	//수정버튼이 눌리면 수정버튼은 잠깐 안 보이게 하기 위함 (레이아웃에서까지 없애야해서 display 속성을 사용)
+	 	
+	 	$("#span"+comId).html("<button class='btn btn-primary btn-sm btn-spacing updateCommentBtn2' data-xxx='" + comId + "'>확인</button>");
 	 	//실제로 update기능이 실행될 [확인] 버튼을 span태그 안에 넣어주는중
 	 	
 	})//updateCommentBtn doc end
@@ -198,6 +202,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 			if(data == "댓글이 수정되었습니다."){
 			alert(data);
 			$("#span"+comId).html(""); //[확인]버튼 다시 없애버리는중
+			$("#update"+comId).removeAttr("style"); //[수정]버튼 숨겨놨던 속성 지워버리기
 			CommentSelectAllServlet(); 
 			 
 			}else{
@@ -214,6 +219,7 @@ $(document).on("click",".deleteCommentBtn",function(){
 	})//updateCommentBtn2 END
 
 
+		
 	
 	
 	function CommentSelectAllServlet() {
@@ -232,40 +238,133 @@ $(document).on("click",".deleteCommentBtn",function(){
 				success :  function(data, status, xhr){
 					var mesg ="";
 					var length = data.commentDBList.length;
+					 var comId = 0;
 					// 댓글이 없는 경우
 				    if(length == 0) {
 				        mesg = "<div class='text-center'>댓글이 없습니다.</div>";
 				    } else {
 				        mesg = "<ul class='comment-list'>"; // 댓글 리스트 시작
-				        for(var i = 0; i < length; i++){
-				            var comId = data.commentDBList[i].comId;
+				        
+				        for(var i = 0; i < length; i++){ //부모댓글 for문 (바깥for문)
+				        	
+				        	///부모댓글 목록 뿌리기 용///
+				        	var comId = data.commentDBList[i].comId;
 				            var userId = data.commentDBList[i].userId;
 				            var comDate = data.commentDBList[i].comDate;
 				            var comText = data.commentDBList[i].comText;
 				            var nickname = data.commentDBList[i].nickname;
-				            console.log("commentseletall에서   ",comId, " ", userId, " ", comDate," ",nickname);
-				             
-				            // 각 댓글 항목
+				            var aboveComId = data.commentDBList[i].aboveComId; //부모댓글번호 
+				            
+				            console.log("commentseletall에서   ",comId, " ", userId, " ", comDate," ",nickname," ",aboveComId);
+				            ///////////
+				            
+				            ///답글 작성용 변수///
+				            var nickname2 = $.trim($("#nickname").text());
+				            var userId2 = $.trim($("#useridComment").val());
+				            ///답글 작성용 변수///
+				            
+		if(aboveComId==null){ //aboveComId == 부모댓글ID 이게 NULL이면 부모 댓글이라는 뜻 (자식 댓글이 아님)
+		    				
+				            // 각 댓글 항목 (부모)//
 				            mesg += "<li class='comment-item'>";
 				            mesg += "<div class='comment-meta'>";
+				            mesg += "<input type='hidden' id='commIdAfterSelAll"+comId+"' value='"+comId+"'>"
 				            mesg += "<strong>" + nickname + "</strong> | <span>" + comDate + "</span>";
 				            mesg += "</div>";
 				            mesg += "<input type='text' class='comment-content' style='border:none;outline:none' id='comText"+comId+"' readonly value='"+comText+"'>";
-				            if(userId=="<%=userId%>"){
-				            	mesg += "<div class='comment-actions'>";
-					        	mesg += "<button id='" + comId + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + i + "'>삭제</button>";
-					        	mesg += "<button id='update" + comId + "' class='updateCommentBtn' data-xxx='" + comId + "'>수정</button>";
-					        	mesg += "<span id='span" + comId + "'></span>" //수정버튼 눌렀을 때 이 자리에 [확인] 버튼이 오게 될 것임
-					        	mesg += "</div>";
-				            }
-
+							
+				            if(comText!="삭제된 댓글입니다."){ //삭제된 댓글이라 뜨는 댓글엔 답글 못 달게 했음
+				            	mesg += "<br><a href='#'  onclick='replyComment("+comId+");return false;'>답글</a>";
+				            }//if(comText!="삭제된 댓글입니다.") end
+				            
+				         
+				     	  if(userId=="<%=userId%>"){ 
+					         	
+					         	if(comText!="삭제된 댓글입니다."){
+					         		mesg += "<div class='comment-actions'>";
+							        	mesg += "<button id='" + comId + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + i + "'>삭제</button>";
+							        	mesg += "<button id='update" + comId + "' class='btn btn-info btn-sm btn-spacing updateCommentBtn' data-xxx='" + comId + "'>수정</button>";
+							        	mesg += "<span id='span" + comId + "'></span>"; //수정버튼 눌렀을 때 이 자리에 [확인] 버튼이 오게 될 것임
+							        	mesg += "</div>";
+							        	
+					         	}//안쪽if end
+					         }//바깥if end
+					         
+					         //답글 적는 란 start *평소엔 숨겨져있다가 [답글]버튼 누르면 활성화 되고, [답글 작성] 버튼 누르면 다시 사라짐
+					            mesg += "<div style='display:none' id='replyCommentDIV"+comId+"'>";
+					            mesg += "&nbsp;&nbsp;&nbsp;<input type='hidden' id='replyCommentId"+comId+"' name='replyuserId' value="+userId2+">"
+					            mesg += "&nbsp;&nbsp;&nbsp;<strong id='strong"+comId+"'>" + nickname2 + "</strong>"; 
+					            mesg += "<br>"
+					            mesg += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id='replyCommentComtext"+comId+"' name='replyCommentComtext'></textarea>"; //답글 다는 창
+					            mesg += "&nbsp;&nbsp;&nbsp;<input type='button' id='replyButton' value='등록' onclick='replyCommentInsert("+comId+")' class='btn btn-secondary btn-sm btn-spacing' style='margin-top: 10px;'>"
+					            mesg += "</div>";
+					            //////////////
+					         
+					         
+					         ////부모 댓글 목록 뿌리기 END/////
+					         
+		}//if(aboveComId==null) end //부모댓글 종료	
+							
 				            mesg += "</li>";
-				        }
-				        mesg += "</ul>"; // 댓글 리스트 종료
-				    }
+				            
+				            
+				     ////자식 댓글 뿌리기 시작////    
+						 var replyJson = ReplyCommentSearch(comId); //자식댓글 있는지 확인
+				          
+						 if(replyJson==null){ //자식댓글이 없다면!!
+								  
+							console.log("답글 없어.");
+							
+						 }else{
+							
+							var length2 = replyJson.replyCommentDBList.length;
+								
+									 for(var j = 0; j < length2; j++){
+									        	///자식 댓글 목록 뿌리기 용///
+									        	
+									        	comId = replyJson.replyCommentDBList[j].comId;
+									            userId  = replyJson.replyCommentDBList[j].userId;
+									            comDate  = replyJson.replyCommentDBList[j].comDate;
+									            comText  = replyJson.replyCommentDBList[j].comText;
+									            nickname  = replyJson.replyCommentDBList[j].nickname;
+									            aboveComId  = replyJson.replyCommentDBList[j].aboveComId; //부모댓글번호 
+									            
+									            mesg += "<li class='comment-item'>";
+									            mesg += "<div class='comment-meta'>";
+									            mesg += "&nbsp;&nbsp;&nbsp;<input type='hidden' id='commIdAfterSelAll"+comId+"' value='"+comId+"'>"
+									            mesg += "&nbsp;&nbsp;&nbsp;<strong>" + nickname + "</strong> | <span>" + comDate + "</span>";
+									            mesg += "</div>";
+									            mesg += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='text' class='comment-content' style='border:none;outline:none' id='comText"+comId+"' readonly value='"+comText+"'>";
+												
+									            if(userId=="<%=userId%>"){ 
+										         	
+										         	if(comText!="삭제된 댓글입니다."){
+										         		mesg += "<div class='comment-actions'>";
+												        	mesg += "<button id='" + comId + "' class='btn btn-danger btn-sm btn-spacing deleteCommentBtn' data-xxx='" + j + "'>삭제</button>";
+												        	mesg += "<button id='update" + comId + "' class='btn btn-info btn-sm btn-spacing updateCommentBtn' data-xxx='" + comId + "'>수정</button>";
+												        	mesg += "<span id='span" + comId + "'></span>"; //수정버튼 눌렀을 때 이 자리에 [확인] 버튼이 오게 될 것임
+												        	mesg += "</div>";
+												        	
+										         	}//안쪽if end
+										         }//바깥if end
+									            
+									            mesg += "</li>";
+									            
+									    }//답글 for end
+				
+						 }// if(replyJson.replyCommentDBList.length == 0) 자식댓글이 있으면!! 의 else end				            
+				            
+				            
+				 }//부모 댓글 for end
+				        
+				        mesg += "</ul>"; // 부모 댓글 리스트 종료
+				        
+				    }//else end
+				   
 					$("#CommetList").html(mesg); //아래 출력하기
 					
-				},
+				},//success end
+				
 				error : function(xhr, status, error){
 					console.log("에러코드 selectAll"+status);
 				}
@@ -275,12 +374,96 @@ $(document).on("click",".deleteCommentBtn",function(){
 			//댓글 입력 후 텍스트 칸 비워주는 코드
 			$("#comtext").val("");
 		
-	}
+	}//CommentSelectAllServlet end
+	
+	function replyComment(comId) { //답글 버튼 눌렀을 때 실행되는 onclick ReplyComment 함수
+		console.log("ReplyComment 확인용 ",comId);
+		/*1. 답글창이 아래에 뜨게 하고 v
+		2. 답글을 입력하고 확인을 누르면 v
+		3. db에 저장되서  v
+		4. 목록과 함께 뿌려지기*/
+		
+		$("#replyCommentDIV"+comId).attr("style","display:hidden"); 
+		//답글 입력하는 창(코드)이 다시 보이게 display속성 바꿔줬음.
+		
+	}//replyComment end
+	
+	function replyCommentInsert(comId) {
+		
+		var aboveComId = comId;
+		var nickname2 =  $("#strong"+comId).text();
+		var userId2 = $("#replyCommentId"+comId).val();
+		var postId = <%= request.getParameter("postId")%>
+		console.log("replyCommentInsert에서" + nickname2,userId2,postId);
+		
+			$.ajax({
+			
+			type: "post",
+			url: "/Acorn/ReplyCommentInsertServlet",
+			data:{
+				aboveComId : aboveComId, //부모댓글id
+				postId : postId, //게시글
+				userId : userId2, //내 아이디, 부모댓글의 id가 아님
+				comText : $("#replyCommentComtext"+comId).val(),
+				nickname : nickname2
+				//comdate는 어차피 날짜스탬프로 sql날릴 거라 안 넘어감
+				},
+			success :  function (data, status, xhr){
+				
+				console.log("성공");
+				CommentSelectAllServlet();
+			},
+			error : function(xhr, status, error){
+					
+				$("#CommetList").text(error);
+				$("#CommetList").text(status);
+				
+			}//error end
+			
+		})//ajax
+		
+		
+	}//replyCommentSend end
+
+	
+	
+	function ReplyCommentSearch(comId) {
+		var replyJson = {}; 
+		
+		$.ajax({
+			
+			type: "post",
+			async: false, 
+			url: "/Acorn/ReplyCommentSelectListServlet",
+			data:{
+				comId : comId
+				},
+			dataType: "json",	
+			success :  function (data, status, xhr){
+			
+				replyJson =  data;
+			
+			},//success end,
+			error : function(xhr, status, error){
+					
+				$("#CommetList").text(error);
+				$("#CommetList").text(status);
+				
+			}//error end
+			
+		})//ajax
+		
+	return replyJson; //select결과 return
+		
+	}//ReplyCommentSearch end
+	
+	
 
 </script>	
 
 	 <input type="hidden" id="postidComment" name="postid" value=<%=request.getParameter("postId")%> > <!-- 굳이 고객한테 보일 필요가 없으니 hidden 태그 -->
 	 <input type="hidden" id="useridComment" name="userid" value="<%=userId%>" > <!--DB저장용 userid -->
+	 <input type="hidden" id="abovecomidComment" name="abovecomid" value="" > 
 
 <div id="CommetList" style="margin-top: 20px;">
   	

@@ -9,6 +9,7 @@ public class CommentDTO {
 	private String comText;
 	private String nickname;
 	private int aboveCom;
+	private String aboveComId;
 	
 	
 
@@ -18,16 +19,8 @@ public class CommentDTO {
 
 
 
-	@Override
-	public String toString() {
-		return "CommentDTO [comId=" + comId + ", postId=" + postId + ", userId=" + userId + ", comDate=" + comDate
-				+ ", comText=" + comText + ", nickname=" + nickname + ", aboveCom=" + aboveCom + "]";
-	}
-
-
-
 	public CommentDTO(int comId, Long postId, String userId, String comDate, String comText, String nickname,
-			int aboveCom) {
+			int aboveCom, String aboveComId) {
 		super();
 		this.comId = comId;
 		this.postId = postId;
@@ -36,6 +29,7 @@ public class CommentDTO {
 		this.comText = comText;
 		this.nickname = nickname;
 		this.aboveCom = aboveCom;
+		this.aboveComId = aboveComId;
 	}
 
 
@@ -121,6 +115,31 @@ public class CommentDTO {
 	public void setAboveCom(int aboveCom) {
 		this.aboveCom = aboveCom;
 	}
+
+
+
+	public String getAboveComId() {
+		return aboveComId;
+	}
+
+
+
+	public void setAboveComId(String aboveComId) {
+		this.aboveComId = aboveComId;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "CommentDTO [comId=" + comId + ", postId=" + postId + ", userId=" + userId + ", comDate=" + comDate
+				+ ", comText=" + comText + ", nickname=" + nickname + ", aboveCom=" + aboveCom + ", aboveComId="
+				+ aboveComId + "]";
+	}
+
+
+
+	
 
 
 	

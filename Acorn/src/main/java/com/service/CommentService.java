@@ -20,9 +20,11 @@ public class CommentService {
 	public int AddCommnet(CommentDTO commentDB) {
 
 		int recordCount = 0;
+		
 		SqlSession s = MySqlSessionFactory.getSqlSession();
 
 		try {
+			String aboveComId = commentDB.getAboveComId();
 			recordCount = dao.AddCommnet(commentDB, s);
 			s.commit();
 		} finally {
@@ -129,5 +131,24 @@ public class CommentService {
 
 		return commentDB;
 	}
+	
+	
+	
+	
+	public List<CommentDTO> replyComSelectAllBycomId(String comId){
+		List<CommentDTO> replyCommentDB  = null;
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		try {
+			replyCommentDB = dao.replyComSelectAllBycomId(session, comId);
+			session.commit();
+		} finally {
+			if (session != null)
+				session.close();
+		}
+
+		return replyCommentDB;
+	}
+	
+	
 
 }

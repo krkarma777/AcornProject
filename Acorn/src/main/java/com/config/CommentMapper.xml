@@ -5,17 +5,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="CommentMapper">
 <!-- //최초 생성시에는 sql이 꼭 지워져있어야함. 여기가 비어있기 !! -->
 
+
 <insert id="CommentMapper" parameterType="commentDTO">
 
-insert into commentDB (comid,postid,userid,comdate,comtext,nickname,abovecom)
-values (comIdSeq.nextval, #{postId}, #{userId}, SYSTIMESTAMP, #{comText}, #{nickname}, #{aboveCom})
+insert into commentDB (comid,postid,userid,comdate,comtext,nickname,abovecom,abovecomid)
+values (comIdSeq.nextval, #{postId}, #{userId}, SYSTIMESTAMP, #{comText}, #{nickname}, #{aboveCom}, #{aboveComId})
 
 </insert>
 
 
 
 <select id="SelectAll" resultType="commentDTO">
-select comid,postid,userid,comdate,comtext,abovecom from commentDB order by comid asc
+select comid,postid,userid,comdate,comtext,abovecom,abovecomid from commentDB order by comid asc
 </select>
 
 
@@ -52,9 +53,12 @@ where comid = #{comId}
 
 
 <select id="selectAllByPostId" resultType="commentDTO" parameterType="long">
-select comid,postid,userid,comdate,comtext,nickname,abovecom from commentDB where postid=#{postId} order by comid asc
+select comid,postid,userid,comdate,comtext,nickname,abovecom,abovecomid from commentDB where postid=#{postId} order by comid asc
 </select>
 
+<select id="replyComSelectAllBycomId" resultType="commentDTO" parameterType="String">
+select comid,postid,userid,comdate,comtext,nickname,abovecom,abovecomid from commentDB where abovecomid=#{comId} order by comid asc
+</select>
 
 
 </mapper>
