@@ -23,8 +23,7 @@ public class CommentDAO {
 		return recordCount;
 		
 	}
-	
-	
+
 	public List<CommentDTO> selectAll(SqlSession s){
 		
 		List<CommentDTO> commentDB = s.selectList("SelectAll");
@@ -63,5 +62,11 @@ public class CommentDAO {
 
 	public List<CommentDTO> selectAllByPostId(SqlSession session, Long postId) {
 		return session.selectList("CommentMapper.selectAllByPostId", postId);
+	}
+
+
+
+	public List<CommentDTO> replyComSelectAllBycomId(SqlSession session, String comId) {
+		return session.selectList("replyComSelectAllBycomId",comId);
 	}
 }
