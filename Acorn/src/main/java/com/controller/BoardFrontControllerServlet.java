@@ -17,6 +17,7 @@ import com.controller.board.BoardEditController;
 import com.controller.board.BoardLikeController;
 import com.controller.board.BoardViewController;
 import com.controller.board.BoardWriteController;
+import com.controller.board.MessageController;
 import com.controller.board.util.AuthUtils;
 import com.controller.board.util.BoardController;
 import com.controller.board.util.BoardView;
@@ -47,6 +48,8 @@ public class BoardFrontControllerServlet extends HttpServlet {
 		controllerMap.put("/Acorn/board/book", new BoardViewController("book"));
 		controllerMap.put("/Acorn/board/bookMeet", new BoardViewController("bookMeet"));
 		controllerMap.put("/Acorn/board/bookInfo", new BoardViewController("bookInfo"));
+		
+		controllerMap.put("/Acorn/board/note", new MessageController());
 		
 	}
 	
