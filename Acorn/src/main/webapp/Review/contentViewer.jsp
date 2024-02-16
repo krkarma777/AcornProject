@@ -168,6 +168,7 @@
 	Long contId = null;
 	String contTitle = null;
 	String description = null;
+	String contImg = null;
 	if(content==null){ // 컨텐츠정보가 null일 경우
 		%>
 		location.href = "MoveToContentsHomeServlet"; // 이전 화면으로
@@ -176,6 +177,7 @@
 		contId = content.getContId();
 		contTitle = content.getContTitle();
 		description = content.getDescription();
+		contImg = content.getContImg();
 	}
 	
 	
@@ -493,7 +495,7 @@
 		
 			<div class="col-lg-3" id="cont_img">
 				<div class="card" style="width: 18rem;">
-				  <img src="https://an2-img.amz.wtchn.net/image/v2/T7qP_idp-A7AdHCV6-wZBA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFMk56VTJOVE16TlRNNE9EVTVNVEEyTURVaWZRLmZxSThtNU1jQl9HSDFxQ0plZGlUYUxPa1R4WTVwSC1kZGhNWVhISy16anM" class="card-img-top" alt="...">
+				  <img src="<%=contImg %>" class="card-img-top" alt="...">
 				  <div class="card-body">
 				    <h5 class="card-title">대중의 평가</h5>
 				    <h5 class="card-text" id="avgRate">☆<%=avgRate %> (<%=rateAmount %>)</h5><br>

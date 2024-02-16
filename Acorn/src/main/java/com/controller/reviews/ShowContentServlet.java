@@ -29,7 +29,6 @@ public class ShowContentServlet extends HttpServlet {
     // 컨텐츠 클릭시 자세히보기로 이동해주는 서블릿	
     // 해당 컨텐츠 데이터 // 해당 컨텐츠에 해당하는 리뷰들 // 자신의 리뷰(이건 비동기처리함)
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
 		ReviewService service = new ReviewService();
 		
 		
@@ -48,7 +47,9 @@ public class ShowContentServlet extends HttpServlet {
 		String contId = request.getParameter("contId"); 
 		
 		//임시 컨텐츠 데이터 생성 (나중에 삭제)
-		contId = "1";
+		if(contId==null) {
+			contId = "1";
+		}
 		
 		// 오류 처리 (컨텐츠아이디 정보 부재)
 		// contId가 없다면 예외처리
