@@ -72,7 +72,41 @@ $("document").ready(function() {
             }
         });
     });
+    <%
+    MemberDTO dto = (MemberDTO)session.getAttribute("loginUser");
+    String userId="";
+    if(dto!=null){
+    	userId = dto.getUserId();
+    }
+    %>
+    $("#scrap").on("click",function(){
+        $.ajax({
+            url:"/Acorn/scrap",
+            type:"post",
+            dataType:"json", // 서버로부터 JSON 응답을 기대함
+            data : {
+                postId:<%=request.getParameter("postId")%>,
+                userId:"<%=userId%>"
+            },
+            success : function(response){
+                if(response.success) {
+                    alert(response.message);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error : function(xhr, status, error){
+                console.log("에러 발생", status, error);
+                alert("에러 발생: " + error);
+            }
+        }); // end ajax call
+    });
+
+    
+    
 });
+
+
 
 
 
@@ -389,6 +423,8 @@ body{
 
 			<div class="d-flex justify-content-between">
     <!-- 왼쪽에 위치할 목록 버튼 -->
+    
+    <button type="button" class="btn btn-action btn-spacing" id="scrap">스크랩</button>
     <div>
         <a href="/Acorn/board/<%=request.getParameter("bn")%>"><button type="button" class="btn btn-action btn-spacing" >목록</button></a>
     </div>
