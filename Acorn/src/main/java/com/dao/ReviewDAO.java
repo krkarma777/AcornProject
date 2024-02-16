@@ -10,6 +10,7 @@ import com.dto.CommentDTO;
 import com.dto.ContentDTO;
 import com.dto.ReviewDTO;
 import com.dto.RateDTO;
+import com.dto.ReportDTO;
 
 public class ReviewDAO {
 
@@ -88,5 +89,9 @@ public class ReviewDAO {
 	public ReviewDTO selectReview(SqlSession session, HashMap<String, String> map) {
 		ReviewDTO review = session.selectOne("selectReviewMore", map);
 		return review;
+	}
+
+	public void reportReview(SqlSession session, ReportDTO report) {
+		int num = session.update("reportReview", report);
 	}
 }
