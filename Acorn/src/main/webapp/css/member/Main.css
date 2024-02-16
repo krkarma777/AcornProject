@@ -1,115 +1,270 @@
-@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-.warning-icon {
-    font-size: 20px;
-    margin-right: 8px;
-    color: #856404;
+* {
+  box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;								/*FlexBox 형식*/
-    flex-direction: column;						/*주 방향을 세로*/
+#contentBody {
+  background: #f6f5f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  height: 100vh;
+  width: 100%; 
+  margin: -20px 0 50px;
 }
 
-#for_Login {
-	align-items: center; 						/*세로 방향의 가운데 정렬*/
-    background-color: white;
-    padding: 20px;								/*내부 여백*/
-    border-radius: 5px;							/*꼭지점을 둥글게 하는 반경*/
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: 100px auto;							/*페이지 위쪽 여백 100px, 좌우 여백 자동*/
-    width: 100%;									/*요소의 너비를 부모의 너비의 90%*/
-    max-width: 600px;							/*요소의 최대 너비*/
+h1 {
+  font-weight: bold;
+  margin: 0;
 }
 
-table {
-    width: 100%;
+h2 {
+  text-align: center;
 }
 
-table tr {
-    margin-bottom: 10px;						/*각 행 여백*/
+p {
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
 }
 
-table td {
-    padding: 10px;
-    vertical-align: middle; /* 세로 방향 가운데 정렬 */
+span {
+  font-size: 12px;
 }
 
-#showPasswd {
-    background-color: #007BFF;
-    color: white;
-    padding: 8px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
 }
 
-#showPasswd:hover {
-    background-color: #0056b3;
+button {
+  border-radius: 20px;
+  border: 1px solid #FF4B2B;
+  background-color: #FF4B2B;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  transition: transform 80ms ease-in;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    margin-bottom: 10px; /* 간격 추가 */
-    padding-right: 50px}
-
-input[type="submit"] {
-    background-color: #28a745;
-    color: white;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 80%;
+button:active {
+  transform: scale(0.95);
 }
 
-input[type="submit"]:hover {
-    background-color: #218838;
+button:focus {
+  outline: none;
 }
 
-#sitesShortCut {
-    margin-top: 10px;
-    text-align: center;
+button.ghost {
+  background-color: transparent;
+  border-color: #FFFFFF;
 }
 
-#sitesShortCut a {
-    text-decoration: none;
-    background-color: #007BFF;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 5px;
-    font-weight: bold;
-    margin: 0 5px;
+form {
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
 }
 
-#sitesShortCut a:hover {
-    background-color: #0056b3;
+input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
 }
 
-#debugLink {
-    display: block;
-    margin-top: 10px;
-    text-align: center;
+.container {
+  background-color: #fff;
+  border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+      0 10px 10px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
 }
 
-#debugLink a {
-    text-decoration: none;
-    color: #6c757d;
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.container.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+}
+
+.sign-up-container {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.container.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: show 0.6s;
+}
+
+@keyframes show {
+  0%, 49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  
+  50%, 100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.container.right-panel-active .overlay-container{
+  transform: translateX(-100%);
+}
+
+.overlay {
+  background: #FF416C;
+  background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+  background: linear-gradient(to right, #FF4B2B, #FF416C);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #FFFFFF;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+    transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+  transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}
+
+.social-container {
+  margin: 20px 0;
+}
+
+.social-container a {
+  border: 1px solid #DDDDDD;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  height: 40px;
+  width: 40px;
+}
+
+footer {
+    background-color: #222;
+    color: #fff;
     font-size: 14px;
+    bottom: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 999;
 }
 
-#debugLink a:hover {
-    color: #495057;
+footer p {
+    margin: 10px 0;
 }
 
-#header {
-	padding: 10px;
-    display: block;
+footer i {
+    color: red;
+}
+
+footer a {
+    color: #3c97bf;
+    text-decoration: none;
+}
+
+.loginButtons {
+        width: 150px; 						/* 원하는 너비로 조절 */
+        padding: 5px; 						/* 버튼 내부 여백 조절 */
+        margin-bottom: 10px; 				/* 버튼 간격 조절 */
+        background-color: #FF4B2B; 		/* 배경 색상 */
+        color: #FFFFFF; 					/* 텍스트 색상 */
+        font-size: 12px; 					/* 폰트 크기 */
+        font-weight: bold; 					/* 폰트 굵기 */
+        transition: transform 80ms ease-in;
+}
+
+.loginButtons:active {
+    transform: scale(0.95);
+}
+
+.col-4.save-label, .col-4.auto-login-label {
+  font-size: 15px;
 }

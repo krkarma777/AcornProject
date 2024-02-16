@@ -7,7 +7,7 @@
     <title>로그인</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member/Main2.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/member/Main.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 </head>
 <body>
@@ -23,10 +23,7 @@
 </div>
 
 <div id="contentBody">
-
-	
 	<div class="container" id="container">
-	
 	<!-- 회원가입 컨테이너 -->
 	  <div class="form-container sign-up-container">
 	    <form action="<%=request.getContextPath()%>/RegisterTerms">
@@ -66,8 +63,7 @@
               <div class="col-4 auto-login-label">자동 로그인</div>
 		  </div>	 
 	      <div class="row">
-              <div class="col-6"><a href="<%=request.getContextPath()%>/FindID">아이디 찾기</a></div>
-              <div class="col-6"><a href="<%=request.getContextPath()%>/FindPW">비밀번호 찾기</a></div>
+              <div class="col"><a href="<%=request.getContextPath()%>/FindInfo">회원정보 찾기</a></div>
 		  </div>	 
 	   </form>
 	  </div>
@@ -86,9 +82,9 @@
 	        <button class="ghost" id="signUp">회원가입 화면으로</button>
 	      </div>
 	    </div>
-	  </div>
-	</div>
-</div>
+	  </div><!-- overlay-container -->
+	</div><!-- container -->
+</div><!-- contentBody -->
 
 
 	<script type="text/javascript">
@@ -101,13 +97,17 @@
 	        $('#userPw').val('');
 	        $('#userName').focus();
 	    });
-
-	    $('#signIn').on('click', function () {
-	        $('#container').removeClass("right-panel-active");
+	    
+	    function changeTab(){
+	    	$('#container').removeClass("right-panel-active");
 	        $('#userName').val('');
 	        $('#ssn1').val('');
 	        $('#ssn2').val('');
 	        $('#userId').focus();
+	    }
+
+	    $('#signIn').on('click', function () {
+	    	changeTab()
 	    });
 	    //*************************************************************
 

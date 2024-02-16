@@ -24,7 +24,7 @@
     </div>
 
     <div id="sitesShortCut">
-        <a href="<%=request.getContextPath()%>/Login">로그인</a> | <a href="<%=request.getContextPath()%>/RegisterTerms">회원가입</a>
+        <a href="<%=request.getContextPath()%>/Login">로그인</a>
     </div>
 </body>
 </html>

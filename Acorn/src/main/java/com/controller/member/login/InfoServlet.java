@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 //아이디 찾기 기능 연결
-@WebServlet("/FindID")
-public class IDServlet extends HttpServlet {
+@WebServlet("/FindInfo")
+public class InfoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/searchID.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("WEB-INF/member/Find_Info/searchMemberData.jsp");
 		dis.forward(request, response);
 		
 	}
