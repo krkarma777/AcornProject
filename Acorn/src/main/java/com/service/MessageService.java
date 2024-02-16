@@ -15,10 +15,10 @@ public class MessageService {
 
 	public void insert(HashMap<String, String> map) {
 		SqlSession session = MySqlSessionFactory.getSqlSession();
-		MessageDTO dto = null;
+		
 		try {
 			MessageDAO dao = new MessageDAO();
-			dto=dao.insert(session,map);
+			dao.insert(session,map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

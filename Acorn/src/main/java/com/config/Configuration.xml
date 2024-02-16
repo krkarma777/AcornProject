@@ -25,6 +25,7 @@
 	<typeAlias type="com.dto.RateDTO" alias="RateDTO"/>
 	<typeAlias type="com.dto.ContentDTO" alias="ContentDTO"/>
 	<typeAlias type="com.dto.board.MessageDTO" alias="MessageDTO"/>
+	<typeAlias type="com.dto.board.ScrapDTO" alias="ScrapDTO"/>
   </typeAliases>
 
   <environments default="development">
@@ -49,5 +50,6 @@
     <mapper resource="com/config/AdminMemberMapper.xml"/>
     <mapper resource="com/config/MyPageMapper.xml"/>
     <mapper resource="com/config/MessageMapper.xml"/>
+    <mapper resource="com/config/ScrapMapper.xml"/>
   </mappers>
 </configuration>
