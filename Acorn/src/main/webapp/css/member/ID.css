@@ -1,82 +1,88 @@
 @charset "UTF-8";
 
+/* ID 찾기 페이지 스타일 */
 body {
-	font-family: Arial, sans-serif;
-	background-color: #f4f4f4;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	height: 100vh;
-}
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f6f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
 
-h2 {
-	color: #333;
-	margin-bottom: 20px;
-}
+        h2 {
+            text-align: center;
+        }
 
-form {
-	text-align: center;
-}
+        .row {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
 
-input {
-	margin-bottom: 10px;
-	padding: 8px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	font-size: 16px;
-}
+        .col {
+            width: 45%;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
 
-input[type="submit"] {
-	background-color: #007BFF;
-	color: white;
-	cursor: pointer;
-}
+        form {
+            background-color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+            height: 300px;
+            box-sizing: border-box;
+        }
 
-input[type="submit"]:hover {
-	background-color: #0056b3;
-}
+        .must {
+            margin-bottom: 10px;
+        }
 
-#sitesShortCut {
-	text-align: center;
-}
+        input[type="text"],
+        input[type="password"] {
+            background-color: #eee;
+            border: none;
+            padding: 12px 15px;
+            margin: 8px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-#sitesShortCut a {
-	text-decoration: none;
-	background-color: #007BFF;
-	color: white;
-	padding: 10px 20px;
-	border-radius: 5px;
-	font-weight: bold;
-}
+        input[type="submit"] {
+            border-radius: 20px;
+            border: 1px solid #FF4B2B;
+            background-color: #FF4B2B;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 12px 45px;
+            letter-spacing: 1px;
+            transition: transform 80ms ease-in;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
 
-#sitesShortCut a:hover {
-	background-color: #0056b3;
-}
+        input[type="submit"]:active {
+            transform: scale(0.95);
+        }
 
-a {
-	text-decoration: none;
-	background-color: #007BFF;
-	color: white;
-	padding: 10px 20px;
-	border-radius: 5px;
-	font-weight: bold;
-	font-size: 16px;
-	margin-top: 20px;
-	display: inline-block;
-}
+        #sitesShortCut {
+            text-align: center;
+        }
 
-a:hover {
-	background-color: #0056b3;
-}
-
-p {
-	font-size: 16px;
-	margin-bottom: 10px;
-}
-
-
-
-
+        #sitesShortCut a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 10px;
+        }

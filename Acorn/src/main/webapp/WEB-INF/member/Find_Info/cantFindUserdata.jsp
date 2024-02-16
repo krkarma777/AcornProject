@@ -50,9 +50,7 @@
         <p class="mesg">회원 정보가 없습니다. 입력하신 정보를 다시 한번 확인해주세요.</p>
         <div id="sitesShortCut">
             <a href="<%=request.getContextPath()%>/Login" class="links">로그인</a>
-            <a href="<%=request.getContextPath()%>/FindID" class="links">아이디 찾기</a>
-            <a href="<%=request.getContextPath()%>/FindPW" class="links">비밀번호 찾기</a>
-            <a href="<%=request.getContextPath()%>/RegisterTerms" class="links">회원가입</a>
+            <a href="<%=request.getContextPath()%>/FindInfo" class="links">회원정보 찾기</a>
         </div>
     </div>
 </body>
