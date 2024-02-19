@@ -45,10 +45,11 @@ public class ReportServlet extends HttpServlet {
 			
 			ReviewService service = new ReviewService();
 			service.reportReview(report);
+			request.setAttribute("mesg", "해당 리뷰를 신고하였습니다.");
 		}
 		
 		// forward
-		RequestDispatcher dis = request.getRequestDispatcher("Review/reviewViewer.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("ShowReviewServlet");
 		dis.forward(request, response);
 	}
 

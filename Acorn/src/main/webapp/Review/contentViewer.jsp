@@ -91,6 +91,7 @@
 		border-radius: 16px;
 		padding: 20px;
 		max-width: 25%;
+		min-width: 250px;
 	}
 	#review_title{
 		margin-top: 50px;
@@ -392,6 +393,7 @@
 	
 	// 내 리뷰란 업데이트 함수
 	function updateMyReview(review){
+		$("#myreview_link").attr("href", "ShowReviewServlet?postId="+review.postId);
 		$("#myreview_user").text("<%=nickname %>");
 		if(review.postText.length>150){
 			$("#myreview_text").text(review.postText.substr(0, 145)+" ...");
@@ -447,8 +449,8 @@
 </head>
 <body>
 	<!--네비게이션바  -->
-	<%-- <jsp:include page="//common/navbar.jsp"></jsp:include> --%>
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+	<jsp:include page="//common/navbar.jsp"></jsp:include>
+	<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" href="#">Navbar</a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -483,7 +485,7 @@
 	      </form>
 	    </div>
 	  </div>
-	</nav>
+	</nav> -->
 	
 	<!--헤더  -->
 	<div class="row" id="header"></div>
@@ -569,7 +571,7 @@
 		<!--감상평들 표시  -->
 		<!--감상평 리스트 데이터 전달받아야함 (reviewList) -->
 		<div class="row pad_side" id="review_title">
-			<a href="" id="reviews_title"><h2>Reviews ></h2></a>
+			<a href="MoveToAllReview" id="reviews_title"><h2>Reviews ></h2></a>
 		</div>
 		<div class="row pad_side" id="review_row">
 			<%for(int i=1; i<=2;i++){%>

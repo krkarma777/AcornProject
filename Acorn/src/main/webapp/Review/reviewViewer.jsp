@@ -52,13 +52,13 @@
 	#show_more_wrapper{
 		text-align: right;
 	}
-	
-	.dropdown-item{
-		text-decoration: none;
-		color: black;
-	}
+
 	.dropdown-item:focus{
 		/* background: gray; */
+	}
+	.noEffect{
+		text-decoration: none;
+		color: black;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -73,15 +73,22 @@
 	String score = review.getScore();
 	String isLike = review.getIsLike();
 	String likeNum = review.getLikeNum();
+	Long contId = review.getContId();
 	
 	ContentDTO content = (ContentDTO)request.getAttribute("content");
 	String contTitle = content.getContTitle();
 	String contImg = content.getContImg();
 
+	String mesg = (String)request.getAttribute("mesg");
 	%>
+	console.log("<%=mesg%>");
+	if("<%=mesg%>"!="null"){
+		alert("<%=mesg%>");
+	}
 	$(document).ready(function(){
 		$("#like_wrapper").on("click", likeToggle)
 	});
+	
 	
 	// 공감버튼 토글
 	function likeToggle(){
@@ -132,12 +139,12 @@
 	<jsp:include page="//common/navbar.jsp"></jsp:include>
 	<div class="row" id="body">
 		<div class="row" id="top">
-			<div class="col-lg-9">
+			<div class="col-9">
 				<div class="row"><%=userId %> <span id="postDate"><%=postDate %></span></div>
-				<div class="row"><%=contTitle %><span id="score">☆ <%=Double.parseDouble(score)/2 %></span></div>
+				<div class="row"><a href="ShowContentServlet?contId=<%=contId%>" class="noEffect"><%=contTitle %></a><span id="score">☆ <%=Double.parseDouble(score)/2 %></span></div>
 			</div>
 
-			<div class="col-lg-3" id="contImg"><img src="<%=contImg %>" width="100" height="100"></div>
+			<div class="col-3" id="contImg"><a href="ShowContentServlet?contId=<%=contId%>"><img src="<%=contImg %>" width="100" height="100"></a></div>
 			<hr>
 		</div>
 		<div class="row" id="middle">
@@ -167,9 +174,9 @@
 					    ...
 					  </button>
 					  <ul class="dropdown-menu">
-					    <li><a href="ReportServlet?postId=<%=postId %>" class="dropdown-item">공유</a></li>
-					    <li><a href="" class="dropdown-item">리뷰신고</a></li>
-					    <li><a href="" class="dropdown-item">AI</a></li>
+					    <li><a href="#" class="dropdown-item noEffect">공유</a></li>
+					    <li><a href="ReportServlet?postId=<%=postId %>&reason=부적절한리뷰" class="dropdown-item noEffect">리뷰신고</a></li>
+					    <li><a href="#" class="dropdown-item noEffect">AI</a></li>
 					  </ul>
 					</div>
 				</div>
