@@ -20,7 +20,7 @@ import com.service.ReviewService;
 public class ReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public ReportServlet() {
+    public ReportServlet(){
         super();
     }
 
