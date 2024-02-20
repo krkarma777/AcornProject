@@ -20,8 +20,10 @@
    	<typeAlias type="com.dto.MemberDTO" alias="MemberDTO"/>
    	<typeAlias type="com.dto.ReviewDTO" alias="ReviewDTO"/>
    	<typeAlias type="com.dto.ReviewDTO" alias="ReviewDTO"/>
-   	<typeAlias type="com.dto.AdminBoardDTO" alias="AdminBoardDTO"/>
+   	<!-- 관리자 관련 DTO -->
+   	<typeAlias type="com.dto.AdminRprtdDTO" alias="AdminRprtdDTO"/>
    	<typeAlias type="com.dto.AdminMemberDTO" alias="AdminMemberDTO"/>
+   	<!-- 관리자 관련 DTO끝 -->
 	<typeAlias type="com.dto.RateDTO" alias="RateDTO"/>
 	<typeAlias type="com.dto.ContentDTO" alias="ContentDTO"/>
 	<typeAlias type="com.dto.board.MessageDTO" alias="MessageDTO"/>
@@ -46,8 +48,10 @@
     <mapper resource="com/config/MemberMapper.xml"/>
     <mapper resource="com/config/CommentMapper.xml"/>
     <mapper resource="com/config/ReviewMapper.xml"/>
-    <mapper resource="com/config/AdminBoardMapper.xml"/>
+    <!-- 관리자 관련 Mapper -->
+    <mapper resource="com/config/AdminReportMapper.xml"/>
     <mapper resource="com/config/AdminMemberMapper.xml"/>
+    <!-- 관리자 관련 Mapper끝 -->
     <mapper resource="com/config/MyPageMapper.xml"/>
     <mapper resource="com/config/MessageMapper.xml"/>
     <mapper resource="com/config/ScrapMapper.xml"/>
