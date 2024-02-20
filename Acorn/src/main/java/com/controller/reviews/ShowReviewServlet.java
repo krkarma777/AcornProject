@@ -53,12 +53,13 @@ public class ShowReviewServlet extends HttpServlet {
 		ReviewDTO review = service.selectReview(map);
 		
 		if(review==null) {
-			response.sendRedirect("MoveToContentsHomeServlet");
+			response.sendRedirect("main?cg=movie");
 		}else {
 			String contId = Long.toString(review.getContId());
 			ContentDTO content = service.selectContent(contId);
 			request.setAttribute("content", content);
 			request.setAttribute("review", review);
+			request.setAttribute("mesg", (String)request.getAttribute("mesg"));
 			RequestDispatcher dis = request.getRequestDispatcher("Review/reviewViewer.jsp");
 			dis.forward(request, response);
 		}

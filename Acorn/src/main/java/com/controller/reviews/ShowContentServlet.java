@@ -55,7 +55,7 @@ public class ShowContentServlet extends HttpServlet {
 		// contId가 없다면 예외처리
 		if(contId==null) {
 			// 클릭한 이전 페이지로 이동
-			response.sendRedirect("MoveToContentsHomeServlet");
+			response.sendRedirect("main?cg=movie");
 			
 		} else { //컨텐츠id 있을시
 			// DB에서 컨텐츠정보 가져오기

@@ -12,6 +12,7 @@ import com.dto.CommentDTO;
 import com.dto.ContentDTO;
 import com.dto.ReviewDTO;
 import com.dto.RateDTO;
+import com.dto.ReportDTO;
 
 public class ReviewService {
 	
@@ -136,6 +137,16 @@ public class ReviewService {
 		}
 		
 		return review;
+	}
+
+	public void reportReview(ReportDTO report) {
+		SqlSession session = MySqlSessionFactory.getSqlSession();
+		try {
+			dao.reportReview(session, report);
+			session.commit();
+		} finally {
+			session.close();
+		}
 	}
 
 }

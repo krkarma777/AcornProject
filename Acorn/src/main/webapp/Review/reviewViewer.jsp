@@ -1,3 +1,4 @@
+<%@page import="com.dto.MemberDTO"%>
 <%@page import="com.dto.ContentDTO"%>
 <%@page import="com.dto.ReviewDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -26,6 +27,39 @@
 		-ms-user-select:none;
 		user-select:none
 	}
+	#btns{
+		
+		margin-top: 10px;
+		margin-bottom: 5px;
+	}
+	#like_wrapper2{
+
+	}
+	#like_wrapper{
+		width: 100px;
+		border: none;
+		border-radius: 8px;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	#show_more{
+		border: none;
+		border-radius: 8px;
+		font-size: 20px;
+		background-color: inherit;
+	}
+	
+	#show_more_wrapper{
+		text-align: right;
+	}
+
+	.dropdown-item:focus{
+		/* background: gray; */
+	}
+	.noEffect{
+		text-decoration: none;
+		color: black;
+	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
@@ -39,30 +73,36 @@
 	String score = review.getScore();
 	String isLike = review.getIsLike();
 	String likeNum = review.getLikeNum();
+	Long contId = review.getContId();
 	
 	ContentDTO content = (ContentDTO)request.getAttribute("content");
 	String contTitle = content.getContTitle();
 	String contImg = content.getContImg();
 
-	
+	String mesg = (String)request.getAttribute("mesg");
 	%>
+	console.log("<%=mesg%>");
+	if("<%=mesg%>"!="null"){
+		alert("<%=mesg%>");
+	}
 	$(document).ready(function(){
-		$(".like_btn").on("click", likeToggle)
+		$("#like_wrapper").on("click", likeToggle)
 	});
+	
 	
 	// 공감버튼 토글
 	function likeToggle(){
 
 		//버튼에 적혀있는 하트 공백제거해서 가져오기
-		var statement = $(this).text().trim();
+		var statement = $(".like_btn").text().trim();
 		var isLike = 0;
 		
 		// 공백하트인지 꽉찬 하트인지 검사해서 반대로 바꾸기
 		if(statement == "♥"){
-			$(this).text("♡");
+			$(".like_btn").text("♡");
 			isLike = 0;
 		} else if(statement == "♡"){
-			$(this).text("♥");
+			$(".like_btn").text("♥");
 			isLike = 1;
 		}
 		
@@ -99,24 +139,49 @@
 	<jsp:include page="//common/navbar.jsp"></jsp:include>
 	<div class="row" id="body">
 		<div class="row" id="top">
-			<div class="col-lg-9">
+			<div class="col-9">
 				<div class="row"><%=userId %> <span id="postDate"><%=postDate %></span></div>
-				<div class="row"><%=contTitle %><span id="score">☆ <%=Double.parseDouble(score)/2 %></span></div>
+				<div class="row"><a href="ShowContentServlet?contId=<%=contId%>" class="noEffect"><%=contTitle %></a><span id="score">☆ <%=Double.parseDouble(score)/2 %></span></div>
 			</div>
 
-			<div class="col-lg-3" id="contImg"><img src="<%=contImg %>" width="100" height="100"></div>
+			<div class="col-3" id="contImg"><a href="ShowContentServlet?contId=<%=contId%>"><img src="<%=contImg %>" width="100" height="100"></a></div>
 			<hr>
 		</div>
 		<div class="row" id="middle">
+			<!-- 리뷰 내용  -->
 			<%=postText %>
-			<span>
-				<span class="like_btn" style="color:red">
-				<%if("1".equals(isLike)){%>♥ 
-				<%}else{ %>♡<%} %>
-				</span>
-				
-				<span id="likeNum"><%=(likeNum!=null)?(likeNum):("") %></span>
-			</span>
+			
+			<!-- 버튼 그룹 -->
+			<div id="btns" class="row">
+				<!-- 좋아요 버튼 -->
+				<div class="col" id="like_wrapper2">
+					<button id="like_wrapper">
+						<span class="like_btn" style="color:red">
+						<%if("1".equals(isLike)){%>♥ 
+						<%}else{ %>♡<%} %>
+						</span>
+						
+						<span id="likeNum"><%=(likeNum!=null)?(likeNum):("") %></span>
+					</button>
+				</div>
+				<!-- 더보기 버튼  -->
+				<div class="col" id="show_more_wrapper">
+					<!-- <button id="show_more">
+						...
+					</button> -->
+					<div class="btn-group dropup">
+					  <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					    ...
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a href="#" class="dropdown-item noEffect">공유</a></li>
+					    <li><a href="ReportServlet?postId=<%=postId %>&reason=부적절한리뷰" class="dropdown-item noEffect">리뷰신고</a></li>
+					    <li><a href="#" class="dropdown-item noEffect">AI</a></li>
+					  </ul>
+					</div>
+				</div>
+			</div>
+			
 			
 			
 			<hr>
@@ -124,9 +189,9 @@
 		<div class="row" id="bottom"></div>
 		
 		
-		<br>좋아요, 댓글, 신고버튼
+		<jsp:include page="../WEB-INF/board/commentMain.jsp"></jsp:include>
 	</div>
 	
-	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -154,4 +154,16 @@
 	    
 	    where postId = #{postId}
     </select>
+    
+    <update id="reportReview">
+
+    MERGE INTO reportDB USING dual
+    ON (postId = #{postId} AND userId = #{userId})
+    WHEN MATCHED THEN
+        UPDATE SET reason = #{reason}, reportDate = sysdate
+    WHEN NOT MATCHED THEN
+        INSERT (postId, reason, userId, reportDate)
+        VALUES (#{postId}, #{reason}, #{userId}, sysdate)
+
+    </update>
 </mapper>
