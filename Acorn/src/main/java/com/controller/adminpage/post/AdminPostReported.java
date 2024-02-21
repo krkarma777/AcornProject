@@ -1,30 +1,30 @@
-package com.controller.adminpage.board;
+package com.controller.adminpage.post;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.dto.AdminBoardDTO;
-import com.service.adminpage.AdminBoardService;
+import com.dto.AdminRprtdDTO;
+import com.service.adminpage.AdminReportService;
 
 /**
  * Servlet implementation class AdminBoardServlet
  */
-@WebServlet("/AdminBoardServlet")
-public class AdminBoardServlet extends HttpServlet {
+@WebServlet("/AdminPostReported")
+public class AdminPostReported extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminBoardServlet() {
+    public AdminPostReported() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,34 +33,41 @@ public class AdminBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("adminboard");
+		System.out.println("in AdminPostReported Servlet");
 		
 		//parsing
 		String SearchValue = request.getParameter("SearchValue");
-		String SearchCondition = request.getParameter("SearchCondition");
+		System.out.println(SearchValue);
 		
-		HttpSession session = request.getSession();
+		String criteria = request.getParameter("criteria");
+		System.out.println(criteria);
 		
-		if(SearchValue!=null) {
-		AdminBoardService service = new AdminBoardService();
+		
+		
+			
 		HashMap<String, String> map = new HashMap<>();
 		
-		map.put("SearchCondition", SearchCondition);
+		map.put("criteria", criteria);
 		map.put("SearchValue", SearchValue);
 		
 		System.out.println(map);
 		
-		List<AdminBoardDTO> list = null;
-		list = service.SearchPost(map);
+		AdminReportService service = new AdminReportService();
+		
+		List<AdminRprtdDTO>list = service.SearchReport(map);
+		
+		System.out.println("in AdminPostReported");
 		System.out.println(list);
-	
-		session.setAttribute("list", list);
-		}
 		
-		//RequestDispatcher dis = request.getRequestDispatcher("./AdminPage/AdminPageBoard.jsp");
-		//dis.forward(request, response);
+		request.setAttribute("list", list);
 		
-		response.sendRedirect("./AdminPage/AdminPageBoard.jsp");
+		
+		String url = request.getContextPath();
+		System.out.println(url);
+		String nextPage = "AdminPage/AdminPagePostRprtedPost.jsp";
+		System.out.println(nextPage);
+		RequestDispatcher dis = request.getRequestDispatcher(nextPage);
+		dis.forward(request, response);
 		
 		
 	}

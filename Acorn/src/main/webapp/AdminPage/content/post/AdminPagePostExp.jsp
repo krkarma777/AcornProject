@@ -1,5 +1,5 @@
 <%@ page import = "java.util.*" %>
-<%@ page import = "com.dto.AdminBoardDTO" %>
+<%@ page import = "com.dto.AdminRprtdDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,7 +11,9 @@
 	
 </script>
 <%
-List<AdminBoardDTO> list = (List<AdminBoardDTO>)session.getAttribute("list");
+
+
+List<AdminRprtdDTO> list = (List<AdminRprtdDTO>)session.getAttribute("list");
 //System.out.println("in AdminBoard.jsp:" + list);
 %>
 </head>
@@ -41,14 +43,18 @@ List<AdminBoardDTO> list = (List<AdminBoardDTO>)session.getAttribute("list");
 			<th >삭제예정일</th>
 		</tr>
 		<%
-		if (list == null){
+		
+
+				if (list == null){
 		%>
 			<tr>
 				<td colspan = "6" align = "center">검색조건을 입력하세요.</td>
 			</tr>
 		<%
-		}else{
-				for(AdminBoardDTO dto : list){
+		
+
+				}else{
+				for(AdminRprtdDTO dto : list){
 		%>
 					<tr>
 						<td></td>

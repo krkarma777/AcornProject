@@ -4,8 +4,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AdminMemberMapper">
  
-     <select id="SearchMember" resultType="AdminMemberDTO" parameterType="string">
-         select userid, username, nickname, usertype, usersigndate from memberDB where userid like #{SearchValue}
+     <select id="SearchMember" resultType="AdminMemberDTO" parameterType="Hashmap">
+         select * from memberdb
+         <choose>
+	<when test = "criteria == 'userid'" >
+		where userid like '%'||#{SearchValue}||'%'
+	</when>
+	
+	<when test = "criteria == 'nickName'" >
+		where nickname like '%'||#{SearchValue}||'%'
+	</when>
+	
+	<when test = "criteria == 'signDate'" >
+		where signdate like '%'||#{SearchValue}||'%'
+	</when>
+</choose>
+
+order by userid asc
     </select>
 	
 </mapper>
