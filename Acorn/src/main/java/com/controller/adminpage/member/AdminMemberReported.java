@@ -1,29 +1,30 @@
 package com.controller.adminpage.member;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.dto.AdminMemberDTO;
-import com.service.adminpage.AdminMemberService;
+import com.dto.AdminRprtdDTO;
+import com.service.adminpage.AdminReportService;
 
 /**
- * Servlet implementation class AdminMemberServlet
+ * Servlet implementation class AdminMemberReported
  */
-@WebServlet("/AdminMemberServlet")
-public class AdminMemberServlet extends HttpServlet {
+@WebServlet("/AdminMemberReported")
+public class AdminMemberReported extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMemberServlet() {
+    public AdminMemberReported() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +33,24 @@ public class AdminMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("memberservlet");
-		HttpSession session = request.getSession();
-		String SearchValue = request.getParameter("SearchValue");
+		//1.확인 
+		System.out.println("in AdminMemberReported");
 		
-		if(SearchValue!=null) {
-			AdminMemberService service = new AdminMemberService();
-			
-			List<AdminMemberDTO> list = service.SearchMember(SearchValue);
-			session.setAttribute("list", list);
-
-			}
-		//RequestDispatcher dis = request.getRequestDispatcher("AdminPage/AdminPageMember.jsp");
-		//dis.forward(request, response);
 		
-		response.sendRedirect("./AdminPage/AdminPageMember.jsp");
+		//2.검색기준, 검색값 파싱 후 매핑
+		HashMap<String, String> map = new HashMap<>();
+		map.put("Criteria", request.getParameter("criteria"));
+		map.put("SearchValue", request.getParameter("SearchValue"));
+		
+		//3.데이터베이스 접근 후 리스트 반환
+		List<AdminRprtdDTO> list = null;
+		AdminReportService service  = new AdminReportService();
+		list = service.ReportedMemList(map);
+		request.setAttribute("list", list);
+		
+		//4.포워딩
+		RequestDispatcher dis = request.getRequestDispatcher("AdminPage/AdminPageMemRprtedMem.jsp");
+		dis.forward(request, response);
 	}
 
 	/**

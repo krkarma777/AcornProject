@@ -1,5 +1,6 @@
 package com.service.adminpage;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,11 +13,11 @@ public class AdminMemberService {
 	
 	AdminMemberDAO dao = new AdminMemberDAO();
 
-	public List<AdminMemberDTO> SearchMember(String SearchValue) {
+	public List<AdminMemberDTO> SearchMember(HashMap<String, String> map) {
 		SqlSession session = MySqlSessionFactory.getSqlSession();
 		List<AdminMemberDTO> list = null;
 		try {
-			list = dao.SearchMember(session, SearchValue);
+			list = dao.SearchMember(session, map);
 		}finally {
 			session.close();
 		}
